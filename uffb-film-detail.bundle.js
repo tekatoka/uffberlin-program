@@ -251,79 +251,77 @@ function buildSynopsisBlock(film){
 
   // Minimal, flexible CSS hooks (style these in your stylesheet)
   const baseCSS = `
-    .uffb-film{display:grid;gap:24px}
-    .uffb-film-header{display:grid;gap:16px}
-    .uffb-title{font-size:clamp(28px,4vw,44px);line-height:1.1;margin:0}
-    .uffb-hero{margin:0}
-    .uffb-hero img{width:100%;height:auto;display:block;border-radius:12px}
-    .uffb-meta{display:grid;gap:10px}
-    .uffb-meta-row{display:grid;grid-template-columns:180px 1fr;gap:10px}
-    .uffb-meta-label{font-weight:600;opacity:.85}
-    .uffb-synopsis h2,.uffb-screenings-block h2{margin:8px 0 6px 0}
-    .uffb-synopsis-text{white-space:pre-wrap}
-    .uffb-screenings{list-style:none;padding:0;margin:0;display:grid;gap:12px}
-    .uffb-screening{display:grid;gap:4px}
-    .uffb-when{font-weight:700}
-    .uffb-venue{display:block;opacity:.9}
-    .uffb-tickets{font-weight:600;text-decoration:underline}
-    .uffb-actions{display:flex;gap:12px;align-items:center}
-    /* headline bar above hero */
-    .uffb-topline{
+  .uffb-film{display:grid;gap:24px}
+  .uffb-film-header{display:grid;gap:16px}
+  .uffb-title{font-size:clamp(28px,4vw,44px);line-height:1.1;margin:0}
+  .uffb-hero{margin:0}
+  .uffb-hero img{width:100%;height:auto;display:block;border-radius:12px}
+
+  .uffb-screenings{list-style:none;padding:0;margin:0;display:grid;gap:12px}
+  .uffb-screening{display:grid;gap:4px}
+  .uffb-when{font-weight:700}
+  .uffb-venue{display:block;opacity:.9}
+  .uffb-tickets{font-weight:600;text-decoration:underline}
+  .uffb-actions{display:flex;gap:12px;align-items:center}
+
+  /* headline bar above hero */
+  .uffb-topline{
     display:flex; gap:20px; align-items:flex-end; justify-content:space-between;
-    padding:22px 16px; background:#000; color:#fff; border-radius:12px; 
-    }
-    .uffb-topline-left{display:grid; gap:4px}
-    .uffb-cat{font-size:14px; letter-spacing:.06em; opacity:.85; text-transform:uppercase}
-    .uffb-top-title{font-size:clamp(22px,4.5vw,42px); font-weight:800; line-height:1; text-transform:uppercase}
-    .uffb-topline-right{display:flex; align-items:center}
-    .uffb-top-cta{
+    padding:22px 16px; background:#000; color:#fff; border-radius:12px;
+  }
+  .uffb-topline-left{display:grid; gap:4px}
+  .uffb-cat{font-size:14px; letter-spacing:.06em; opacity:.85; text-transform:uppercase}
+  .uffb-top-title{font-size:clamp(22px,4.5vw,42px); font-weight:800; line-height:1; text-transform:uppercase}
+  .uffb-topline-right{display:flex; align-items:center}
+  .uffb-top-cta{
     display:inline-block; padding:10px 18px; border:1.5px solid currentColor; border-radius:6px;
     font-weight:800; text-decoration:none; letter-spacing:.06em; text-transform:uppercase;
-    }
-    @media (max-width:640px){
+  }
+  @media (max-width:640px){
     .uffb-topline{flex-direction:column; align-items:flex-start}
     .uffb-topline-right{margin-top:8px}
-    }
+  }
 
-    /* a11y utility if you don’t already have it */
-    .visually-hidden{
+  /* a11y utility */
+  .visually-hidden{
     position:absolute!important; width:1px!important; height:1px!important; padding:0!important; margin:-1px!important;
     overflow:hidden!important; clip:rect(0 0 0 0)!important; white-space:nowrap!important; border:0!important;
-    }
+  }
 
-    /* panels + headings */
-    .uffb-panel{padding:0}
-    .uffb-panel + .uffb-panel{margin-top:22px}
-    .uffb-panel-title{
+  /* panels + headings */
+  .uffb-panel{padding:0}
+  .uffb-panel + .uffb-panel{margin-top:22px}
+  .uffb-panel-title{
     font-size:12px; letter-spacing:.08em; text-transform:uppercase;
-    opacity:.6; margin:0 0 10px 0;
-    }
+    opacity:.6; margin:6px 0 10px 0;
+  }
 
-    /* left column: info / credits table style */
-    .uffb-info, .uffb-credits{display:grid; gap:8px}
-    .uffb-info-row{display:grid; grid-template-columns:180px 1fr; gap:10px}
-    .uffb-info-label{
-    font-weight:700; text-transform:uppercase; letter-spacing:.04em; opacity:.85; font-size:13px;
-    }
-    .uffb-info-value{font-size:15px; line-height:1.45}
+  /* left column: info / credits table style */
+  .uffb-info, .uffb-credits{display:grid; gap:6px}
+  .uffb-info-row{display:grid; grid-template-columns:minmax(110px,150px) 1fr; gap:8px}
+  .uffb-info-label{
+    font-weight:700; text-transform:uppercase; letter-spacing:.04em; opacity:.85; font-size:12.5px;
+  }
+  .uffb-info-value{font-size:15px; line-height:1.45}
 
-    /* right column: synopsis */
-    .uffb-synopsis2 .uffb-lead{margin:0 0 10px 0; font-size:18px; line-height:1.45}
-    .uffb-synopsis2 .uffb-bodytext{white-space:pre-wrap; line-height:1.6}
+  /* right column: synopsis */
+  .uffb-synopsis2 .uffb-lead{margin:0 0 10px 0; font-size:18px; line-height:1.45}
+  .uffb-synopsis2 .uffb-bodytext{white-space:pre-wrap; line-height:1.6}
 
-    /* two-column responsive grid */
-    .uffb-two-col{display:grid; gap:28px}
-    @media (min-width: 960px){
-    .uffb-two-col{grid-template-columns:1fr 1fr; align-items:start}
-    }
+  /* two-column responsive grid */
+  .uffb-two-col{display:grid; gap:28px; margin-top:32px}
+  @media (min-width: 960px){
+    .uffb-two-col{grid-template-columns:1fr 2fr; align-items:start} /* ≈ 33% / 67% */
+  }
 
-    /* optional: separator like in your reference */
-    .uffb-col-left, .uffb-col-right{position:relative}
-    @media (min-width: 960px){
-    .uffb-col-left{padding-right:24px; border-right:1px solid rgba(0,0,0,.08)}
-    .uffb-col-right{padding-left:24px}
-    }
-  `;
+  /* vertical separator on large screens */
+  .uffb-col-left, .uffb-col-right{position:relative}
+  @media (min-width: 960px){
+    .uffb-col-left{padding-right:20px; border-right:1px solid rgba(0,0,0,.08)}
+    .uffb-col-right{padding-left:20px}
+  }
+`;
+
   const style = document.createElement("style");
   style.textContent = baseCSS;
   document.head.appendChild(style);
