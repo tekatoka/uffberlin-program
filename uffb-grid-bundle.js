@@ -46,7 +46,11 @@
   
   .uffb-when { font-weight: 700; }
   .uffb-venue { margin-top: 2px; }
-  .uffb-address a { font-size: .92rem; text-decoration: underline; color: #444; }`;
+  .uffb-address a { font-size: .92rem; text-decoration: underline; color: #444; }
+  .uffb-tickets a {color: var(--paragraphLinkColor);
+    font-size: 1.1rem;
+    font-weight: 600;
+    padding: 10px;}`;
   
   function injectCSS(){ if(document.getElementById('uffb-grid-style')) return;
     const s=document.createElement('style'); s.id='uffb-grid-style'; s.textContent=CSS; document.head.appendChild(s);
@@ -102,14 +106,14 @@
     const title = it.title?.de || it.title?.en || 'Untitled';
     const desc  = it.description?.de || it.description?.en || '';
     const img   = it.image || '';
-    const teaser= it.teaser;
+    const trailer= it.trailer;
     const screenings = (it.screenings||[]).map(screeningLine).join('');
     return `<article class="uffb-card">
       <a class="uffb-media" href="${href}" aria-label="${title}"><img src="${img}" alt="${title}"></a>
       <div class="uffb-body">
         <h3 class="uffb-title"><a href="${href}">${title}</a></h3>
         <div class="uffb-desc">${escapeHtml(desc)}</div>
-        <div class="uffb-actions">${teaser?`<button class="uffb-btn" data-teaser="${encodeURIComponent(teaser)}">Watch teaser</button>`:''}</div>
+        <div class="uffb-actions">${trailer?`<button class="uffb-btn" data-trailer="${encodeURIComponent(trailer)}">Watch trailer</button>`:''}</div>
         <ul class="uffb-screenings">${screenings}</ul>
       </div>
     </article>`;
@@ -145,9 +149,9 @@
         items.sort((a,b)=> (a.title?.de||a.title?.en||'').localeCompare(b.title?.de||b.title?.en||'','de-DE'));
         grid.innerHTML = items.map(card).join('');
         const modal = mountModal();
-        grid.querySelectorAll('[data-teaser]').forEach(btn=>{
+        grid.querySelectorAll('[data-trailer]').forEach(btn=>{
           btn.addEventListener('click',e=>{
-            const u=decodeURIComponent(e.currentTarget.getAttribute('data-teaser')); modal.open(u);
+            const u=decodeURIComponent(e.currentTarget.getAttribute('data-trailer')); modal.open(u);
           });
         });
       })
