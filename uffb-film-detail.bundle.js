@@ -16,7 +16,7 @@
 
     function buildBreadcrumb(film){
     const title = localized(film.title) || film.original_title || "";
-    const progLabel = lang === "de" ? "Festival Programm 2025" : "Program 2025";
+    const progLabel = lang === "de" ? "UFFB Programm 2025" : "UFFB Program 2025";
     const homeHref  = lang === "de" ? "/de/" : "/";
     const progHref  = lang === "de" ? "/de/uffb2025" : "/uffb2025";
 
