@@ -54,7 +54,7 @@
     const d = new Date(dt);
     const when = `${fmt.format(d)}${s.time?`, ${s.time}`:''}`;
     const venue = s.venue?.de || s.venue?.en || '';
-    const tix = s.tickets ? `<span class="uffb-tickets"><a class="uffb-btn" href="${s.tickets}" target="_blank" rel="noopener">Tickets</a></span>` : '';
+    const tix = s.tickets ? `<span class="uffb-tickets"><a class="uffb-btn sqs-button-element--primary" href="${s.tickets}" target="_blank" rel="noopener">Tickets</a></span>` : '';
     return `<li class="uffb-screening"><span class="uffb-whenwhere">${when}${venue?` — ${venue}`:''}</span>${tix}</li>`;
   }
 
