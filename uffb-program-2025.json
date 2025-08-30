@@ -5,6 +5,11 @@
       "en": "Songs of Slow Burning Earth",
       "de": "Wenn Krieg Alltag wird"
     },
+    "category": {
+      "key": "main", 
+      "en": "Main program",
+      "de": "Hauptprogramm"
+    },
     "description": {
       "en": "A story of love and resistance.",
       "de": "Eine Geschichte von Liebe und Widerstand."
@@ -33,6 +38,11 @@
       "en": "Timestamp",
       "de": "Timestamp"
     },
+    "category": {
+      "key": "main", 
+      "en": "Main program",
+      "de": "Hauptprogramm"
+    },
     "description": {
       "en": "The film is a mosaic of the everyday lives of teachers and students from different corners of Ukraine.",
       "de": "Der Film zeigt, wie sich der Ukrainekrieg auf den Schulalltag auswirkt. "
@@ -60,6 +70,11 @@
     "title": {
       "en": "2000 Meters to Andriivka",
       "de": "2000 Meters to Andriivka"
+    },
+    "category": {
+      "key": "main", 
+      "en": "Main program",
+      "de": "Hauptprogramm"
     },
     "description": {
       "en": "A story of love and resistance.",

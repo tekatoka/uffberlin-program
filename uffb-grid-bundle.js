@@ -42,6 +42,16 @@
     align-items: start;
     gap: 6px 12px;
   }
+  .uffb-category {
+    font-size: 0.75rem;       /* small */
+    letter-spacing: .02em;
+    text-transform: uppercase;
+    opacity: .7;
+    margin-bottom: .4rem;
+  }
+
+  .uffb-controls { display:flex; gap:.5rem; margin: 0 0 1rem 0; }
+  .uffb-icon-btn { border:1px solid #ddd; padding:.4rem .6rem; border-radius:.6rem; background:#fff; cursor:pointer; }
   
   .uffb-when { font-weight: 700; }
   .uffb-venue { margin-top: 2px; }
@@ -103,11 +113,13 @@
   function card(it){
     const href = `https://www.uffberlin.de/uffb2025/${encodeURIComponent(it.id)}`; // absolute so links leave iframe if ever used
     const title = it.title?.de || it.title?.en || 'Untitled';
+    const category = it.category?.de || it.category?.en || 'Untitled';
     const desc  = it.description?.de || it.description?.en || '';
     const img   = it.image || '';
     const trailer= it.trailer;
     const screenings = (it.screenings||[]).map(screeningLine).join('');
     return `<article class="uffb-card">
+      <div class="uffb-category">${category}</div>
       <a class="uffb-media" href="${href}" aria-label="${title}"><img src="${img}" alt="${title}"></a>
       <div class="uffb-body">
         <h3 class="uffb-title"><a href="${href}">${title}</a></h3>
