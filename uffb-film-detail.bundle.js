@@ -342,7 +342,23 @@
         if (trailerIndex >= 0) go(trailerIndex);
       }
     });
-  }
+    }
+    
+    // Make the TICKETS anchor always scroll, even if the hash is already #screenings
+function enableTicketsJump(){
+  document.addEventListener('click', (e)=>{
+    const a = e.target.closest('a[href="#screenings"]');
+    if (!a) return;
+    const target = document.getElementById('screenings');
+    if (!target) return;
+    e.preventDefault();
+    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+    // keep the URL tidy (no duplicate history entries needed)
+    history.replaceState(null, '', location.pathname + location.search + '#screenings');
+  });
+}
+
 
   /* ---------- main ---------- */
   async function main(){
@@ -384,6 +400,8 @@
         <section class="uffb-actions"></section>
       </article>
     `;
+      
+    enableTicketsJump();
 
     // topline trailer button -> lightbox
     const trailerBtn = $mount.querySelector(".uffb-trailer-btn");
@@ -557,6 +575,8 @@
       border:none; cursor:pointer; background:rgba(255,255,255,.9); font-size:22px; line-height:1;
     }
     .uffb-lb-viewport, #uffb-lb-iframe{ width:100%; height:100%; border:0; display:block; }
+
+    .uffb-screenings-block{ scroll-margin-top: 80px; } /* adjust to your header height */
   `;
 
   const style = document.createElement("style");
