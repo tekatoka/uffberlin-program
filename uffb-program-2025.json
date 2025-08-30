@@ -10,7 +10,7 @@
       "de": "Eine Geschichte von Liebe und Widerstand."
     },
     "teaser": "https://www.youtube.com/watch?v=xxxxx",
-    "image": "https://yourcdn.com/images/fragments.jpg",
+    "image": "https://www.filmfest-muenchen.de/Pictures/Filme/118/7728/Fragments_of_Ice-online1_neu.jpg",
     "screenings": [
       {
         "date": "2025-10-23",
@@ -20,6 +20,39 @@
           "de": "Kino Arsenal"
         },
         "tickets": "https://tickets.yourfestival.com/fragments"
+      }
+    ]
+  },
+  {
+    "id": "u-are-universe",
+    "title": {
+      "en": "U ARE THE UNIVERSE",
+      "de": "DU BIST KOSMOS"
+    },
+    "description": {
+      "en": "A story of love and resistance.",
+      "de": "Eine Geschichte von Liebe und Widerstand."
+    },
+    "teaser": "https://www.youtube.com/watch?v=xxxxx",
+    "image": "https://www.film-rezensionen.de/wp-content/uploads/2024/09/U-Are-the-Universe-Frontpage-scaled.jpg",
+    "screenings": [
+      {
+        "date": "2025-10-24",
+        "time": "19:00",
+        "venue": {
+          "en": "Kino Arsenal",
+          "de": "Kino Arsenal"
+        },
+        "tickets": "https://www.eventim-light.com/de/a/630258da01bcd227acaad56c/e/6894ef794451ed23a93229c3"
+      },
+      {
+        "date": "2025-10-24",
+        "time": "19:00",
+        "venue": {
+          "en": "Kino in der Kulturbrauerei",
+          "de": "Kino in der Kulturbrauerei"
+        },
+        "tickets": "https://www.eventim-light.com/de/a/630258da01bcd227acaad56c/e/6894ef794451ed23a93229c3"
       }
     ]
   }
