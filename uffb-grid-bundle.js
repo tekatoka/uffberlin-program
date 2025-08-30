@@ -27,8 +27,8 @@
     line-height: normal;
     padding: 1.2rem 2.004rem;
   }
-  .uffb-screenings{margin:8px 0 2px;padding:0;list-style:none;display:grid;gap:8px}
-  .uffb-screening{display:flex;justify-content:space-between;align-items:start;gap:10px;font-size:.95rem}
+  .uffb-screenings{color:#333;margin:8px 0 2px;padding:0;list-style:none;display:grid;gap:8px}
+  .uffb-screening{display:flex;justify-content:space-between;align-items:start;gap:25px;font-size:.95rem}
   .uffb-whenwhere{color:#222}
   /* modal */
   .uffb-modal{position:fixed;inset:0;display:none;z-index:99999;align-items:center;justify-content:center;background:rgba(0,0,0,.65);padding:20px}
@@ -62,31 +62,29 @@
   const fmt = new Intl.DateTimeFormat('de-DE',{weekday:'short',day:'2-digit',month:'short',year:'numeric'});
 
   function screeningLine(s) {
-    // date/time
-    const dtISO = `${s.date}T${(s.time || '00:00')}:00${offsetStr()}`;
+    const dtISO = `${s.date}T${(s.time || '00:00')}:00${offsetFor()}`;
     const d = new Date(dtISO);
     const when = `${fmt.format(d)}${s.time ? `, ${s.time}` : ''}`;
-  
-    // i18n helpers
-    const venueName = (s.venue && (s.venue.de || s.venue.en)) || s.venue || '';
-    const addressTxt = (s.address && (s.address.de || s.address.en)) || s.address || '';
-  
-    // build Google Maps link (prefer explicit URL, else generate from venue+address)
+
+    const venueName = (s.venue?.de || s.venue?.en || s.venue) || '';
+    const addressTxt = typeof s.address === 'string'
+      ? s.address
+      : (s.address?.de || s.address?.en || '');
+
     let mapsUrl = s.maps?.google || '';
     if (!mapsUrl && (venueName || addressTxt)) {
       const q = [venueName, addressTxt].filter(Boolean).join(', ');
       mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(q)}`;
     }
-  
-    const venueLine = venueName ? `<div class="uffb-venue">${escapeHtml(venueName)}</div>` : '';
-    const addressLine = addressTxt
-      ? `<div class="uffb-address"><a href="${mapsUrl}" target="_blank" rel="noopener">${escapeHtml(addressTxt)}</a></div>`
-      : '';
-  
+
+    const venueLine   = venueName  ? `<div class="uffb-venue">${escapeHtml(venueName)}</div>` : '';
+    const addressLine = addressTxt ? `<div class="uffb-address"><a href="${mapsUrl}" target="_blank" rel="noopener">${escapeHtml(addressTxt)}</a></div>` : '';
+
+    // NOTE: plain <a> (no .uffb-btn) so it inherits your site link style
     const ticketHtml = s.tickets
-      ? `<span class="uffb-tickets"><a class="uffb-btn" href="${s.tickets}" target="_blank" rel="noopener">Tickets</a></span>`
+      ? `<span class="uffb-tickets"><a href="${s.tickets}" target="_blank" rel="noopener">Tickets</a></span>`
       : '';
-  
+
     return `
       <li class="uffb-screening">
         <div class="uffb-left">
