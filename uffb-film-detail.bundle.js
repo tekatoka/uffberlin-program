@@ -437,7 +437,7 @@ function enableTicketsJump(){
     .uffb-breadcrumb a{ text-decoration:underline; }
 
     /* MEDIA / CAROUSEL */
-    .uffb-media{position:relative; overflow:hidden; border-radius:12px; background:#000; aspect-ratio:16/9}
+    .uffb-media{position:relative; overflow:hidden; border-radius:6px; background:#000; aspect-ratio:16/9}
     .uffb-slides{display:flex; transition:transform .35s ease; width:100%}
     .uffb-slide{min-width:100%; position:relative}
     .uffb-slide img, .uffb-slide iframe{width:100%; height:100%; display:block; object-fit:cover}
@@ -469,7 +469,7 @@ function enableTicketsJump(){
     /* headline bar above hero */
     .uffb-topline{
       display:flex; gap:20px; align-items:flex-end; justify-content:space-between;
-      background:#000; color:#fff; border-radius:12px;
+      background:#000; color:#fff; border-radius:6px;
     }
     .uffb-topline-left{display:grid; gap:4px}
     .uffb-cat{font-size:14px; letter-spacing:.06em; opacity:.85; text-transform:uppercase}
@@ -544,7 +544,7 @@ function enableTicketsJump(){
     /* Card */
     .uffb-screening-card{
       display:grid; gap:8px; padding:16px; border:1px solid rgba(0,0,0,.12);
-      border-radius:12px; background:#fff;
+      border-radius:6px; background:#fff;
     }
     .uffb-screening-card .uffb-whenline,
     .uffb-screening-card .uffb-venue-title{ color:#333; }
@@ -565,7 +565,7 @@ function enableTicketsJump(){
     .uffb-lb-backdrop{ position:absolute; inset:0; background:rgba(0,0,0,.7); }
     .uffb-lb-dialog{
       position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
-      width:min(92vw,960px); aspect-ratio:16/9; background:#000; border-radius:12px; overflow:hidden;
+      width:min(92vw,960px); aspect-ratio:16/9; background:#000; border-radius:6px; overflow:hidden;
       box-shadow:0 20px 60px rgba(0,0,0,.35);
     }
     .uffb-lb-close{

@@ -89,7 +89,7 @@
     grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
     padding:.8rem;
     border:1px solid rgba(255,255,255,.5);
-    border-radius:.8rem;
+    border-radius:6px;
     margin:.5rem 0 1rem 0;
     background:rgba(255,255,255,.06);
     backdrop-filter:saturate(120%) blur(4px)
@@ -119,7 +119,7 @@
     aspect-ratio:16/9;
     max-height:80vh;
     background:#000;
-    border-radius:12px;
+    border-radius:6px;
     overflow:hidden;
     position:relative
   }
@@ -206,7 +206,7 @@
     const trailer= it.trailer;
     const screenings = (it.screenings||[]).map(screeningLine).join('');
     return `<article class="uffb-card" data-id="${it.id}">
-      <div class="uffb-category">${escapeHtml(category)}</div>
+      <div class="uffb-category">#${escapeHtml(category)}</div>
       <a class="uffb-media" href="${href}" aria-label="${escapeHtml(title)}"><img src="${img}" alt="${escapeHtml(title)}"></a>
       <div class="uffb-body">
         <h3 class="uffb-title"><a href="${href}">${escapeHtml(title)}</a></h3>
