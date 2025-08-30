@@ -494,7 +494,7 @@ function enableTicketsJump(){
     .uffb-panel{padding:0}
     .uffb-panel + .uffb-panel{margin-top:22px}
     .uffb-panel-title{
-      font-size:12px; letter-spacing:.08em; text-transform:uppercase;
+      font-size:1.25rem; letter-spacing:.08em; text-transform:uppercase;
       opacity:.6; margin:6px 0 10px 0;
     }
 
@@ -502,13 +502,13 @@ function enableTicketsJump(){
     .uffb-info, .uffb-credits{display:grid; gap:6px}
     .uffb-info-row{display:grid; grid-template-columns:minmax(110px,150px) 1fr; gap:8px}
     .uffb-info-label{
-      font-weight:700; text-transform:uppercase; letter-spacing:.04em; opacity:.85; font-size:12.5px;
+      font-weight:700; text-transform:uppercase; letter-spacing:.04em; opacity:.85; font-size:.85rem;
     }
-    .uffb-info-value{font-size:15px;}
+    .uffb-info-value{font-size:1.15px;}
 
     /* right column: synopsis */
     .uffb-synopsis2 .uffb-lead{margin:0 0 10px 0; font-size:18px;}
-    .uffb-synopsis2 .uffb-bodytext{white-space:pre-wrap;}
+    .uffb-synopsis2 .uffb-bodytext{white-space:pre-wrap;font-size:1rem}
 
     /* two-column responsive grid */
     .uffb-two-col{display:grid; gap:28px; margin-top:32px}
