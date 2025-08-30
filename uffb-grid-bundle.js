@@ -10,7 +10,7 @@
   .uffb-media img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .35s ease}
   .uffb-card:hover .uffb-media img{transform:scale(1.03)}
   .uffb-body{display:flex;flex-direction:column;gap:10px;padding:16px 16px 12px}
-  .uffb-title{margin:0;font-size:1.15rem;line-height:1.25}
+  .uffb-title{margin:0;font-size:1.5rem;line-height:1.25}
   .uffb-title a{color:inherit;text-decoration:none}
   .uffb-desc{color:#333;opacity:.9;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;min-height:3.6em}
   .uffb-actions{display:flex;gap:10px;margin-top:4px;flex-wrap:wrap}
@@ -35,7 +35,19 @@
   .uffb-modal.is-open{display:flex}
   .uffb-modal-box{width:min(100%,960px);aspect-ratio:16/9;background:#000;border-radius:12px;overflow:hidden;position:relative}
   .uffb-modal-close{position:absolute;top:8px;right:8px;background:#fff;border:none;border-radius:999px;width:36px;height:36px;cursor:pointer}
-  .uffb-modal iframe{width:100%;height:100%;border:0;display:block}`;
+  .uffb-modal iframe{width:100%;height:100%;border:0;display:block}
+  .uffb-screenings { margin: 8px 0 2px; padding: 0; list-style: none; display: grid; gap: 10px; }
+  .uffb-screening {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: start;
+    gap: 6px 12px;
+  }
+  
+  .uffb-when { font-weight: 700; }
+  .uffb-venue { margin-top: 2px; }
+  .uffb-address a { font-size: .92rem; text-decoration: underline; color: #444; }`;
+  
   function injectCSS(){ if(document.getElementById('uffb-grid-style')) return;
     const s=document.createElement('style'); s.id='uffb-grid-style'; s.textContent=CSS; document.head.appendChild(s);
   }
@@ -49,13 +61,42 @@
     const hh=String(Math.floor(abs/60)).padStart(2,'0'), mm=String(abs%60).padStart(2,'0'); return `${sign}${hh}:${mm}`;}
   const fmt = new Intl.DateTimeFormat('de-DE',{weekday:'short',day:'2-digit',month:'short',year:'numeric'});
 
-  function screeningLi(s){
-    const dt = `${s.date}T${(s.time||'00:00')}:00${offsetStr()}`;
-    const d = new Date(dt);
-    const when = `${fmt.format(d)}${s.time?`, ${s.time}`:''}`;
-    const venue = s.venue?.de || s.venue?.en || '';
-    const tix = s.tickets ? `<span class="uffb-tickets"><a class="uffb-btn sqs-button-element--primary" href="${s.tickets}" target="_blank" rel="noopener">Tickets</a></span>` : '';
-    return `<li class="uffb-screening"><span class="uffb-whenwhere">${when}${venue?` — ${venue}`:''}</span>${tix}</li>`;
+  function screeningLine(s) {
+    // date/time
+    const dtISO = `${s.date}T${(s.time || '00:00')}:00${offsetFor()}`;
+    const d = new Date(dtISO);
+    const when = `${fmt.format(d)}${s.time ? `, ${s.time}` : ''}`;
+  
+    // i18n helpers
+    const venueName = (s.venue && (s.venue.de || s.venue.en)) || s.venue || '';
+    const addressTxt = (s.address && (s.address.de || s.address.en)) || s.address || '';
+  
+    // build Google Maps link (prefer explicit URL, else generate from venue+address)
+    let mapsUrl = s.maps?.google || '';
+    if (!mapsUrl && (venueName || addressTxt)) {
+      const q = [venueName, addressTxt].filter(Boolean).join(', ');
+      mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(q)}`;
+    }
+  
+    const venueLine = venueName ? `<div class="uffb-venue">${escapeHtml(venueName)}</div>` : '';
+    const addressLine = addressTxt
+      ? `<div class="uffb-address"><a href="${mapsUrl}" target="_blank" rel="noopener">${escapeHtml(addressTxt)}</a></div>`
+      : '';
+  
+    const ticketHtml = s.tickets
+      ? `<span class="uffb-tickets"><a class="uffb-btn" href="${s.tickets}" target="_blank" rel="noopener">Tickets</a></span>`
+      : '';
+  
+    return `
+      <li class="uffb-screening">
+        <div class="uffb-left">
+          <div class="uffb-when"><strong>${when}</strong></div>
+          ${venueLine}
+          ${addressLine}
+        </div>
+        ${ticketHtml}
+      </li>
+    `;
   }
 
   function card(it){
@@ -64,7 +105,7 @@
     const desc  = it.description?.de || it.description?.en || '';
     const img   = it.image || '';
     const teaser= it.teaser;
-    const screenings = (it.screenings||[]).map(screeningLi).join('');
+    const screenings = (it.screenings||[]).map(screeningLine).join('');
     return `<article class="uffb-card">
       <a class="uffb-media" href="${href}" aria-label="${title}"><img src="${img}" alt="${title}"></a>
       <div class="uffb-body">
