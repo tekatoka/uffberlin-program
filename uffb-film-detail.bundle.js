@@ -483,7 +483,7 @@
       font-size:clamp(22px,4.5vw,42px);
       font-weight:800;
       line-height:1.05;
-      margin:14px 0 10px 0;
+      margin:25px 0;
       text-transform:none;
     }
 
