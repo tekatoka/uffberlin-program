@@ -1,6 +1,50 @@
-/* uffb-grid.bundle.js */
+/* uffb-grid.bundle.js (multilingual) */
 (function(){
   const MOUNT = '.uffb-program';
+
+  // --- Language & i18n helpers ---
+  const urlPath = location.pathname || '';
+  const htmlLang = (document.documentElement.lang||'').toLowerCase();
+  const lang = urlPath.startsWith('/de/') || htmlLang.startsWith('de') ? 'de' : 'en';
+  const basePath = lang === 'de' ? '/de/uffb2025' : '/uffb2025';
+  const locale = lang === 'de' ? 'de-DE' : 'en-GB';
+
+  const I18N = {
+    en: {
+      filterBtn: 'Filter',
+      searchBtn: 'Search',
+      category: 'Category',
+      venue: 'Venue',
+      date: 'Date',
+      all: 'All',
+      clearFilters: 'Clear filters',
+      searchPh: 'Search title, description, venue…',
+      watchTrailer: 'Watch trailer',
+      tickets: 'Tickets',
+      loadError: 'Program could not be loaded.',
+      // date labels
+      weekdayDayMonthYear: { weekday:'short', day:'2-digit', month:'short', year:'numeric' },
+      isoDateLabel: (iso) => { const [y,m,d]=iso.split('-'); return `${d}.${m}.${y}`; } // “DD.MM.YYYY” for dropdown
+    },
+    de: {
+      filterBtn: 'Filter',
+      searchBtn: 'Suche',
+      category: 'Kategorie',
+      venue: 'Spielort',
+      date: 'Datum',
+      all: 'Alle',
+      clearFilters: 'Filter zurücksetzen',
+      searchPh: 'Suche in Titel, Beschreibung, Ort…',
+      watchTrailer: 'Trailer ansehen',
+      tickets: 'Tickets',
+      loadError: 'Programm konnte nicht geladen werden.',
+      weekdayDayMonthYear: { weekday:'short', day:'2-digit', month:'short', year:'numeric' },
+      isoDateLabel: (iso) => { const [y,m,d]=iso.split('-'); return `${d}.${m}.${y}`; }
+    }
+  };
+  const t = (key) => I18N[lang][key];
+
+  // --- Existing CSS (unchanged) ---
   const CSS = `
   .uffb-grid{display:grid;grid-template-columns:1fr;gap:20px}
   @media(min-width:700px){.uffb-grid{grid-template-columns:repeat(2,1fr)}}
@@ -45,7 +89,7 @@
   .uffb-filters label{display:flex;flex-direction:column;gap:.35rem;min-width:0}
   .uffb-filter-actions{display:flex;gap:.5rem}
 
-  /* fields – readable and Squarespace-ish */
+  /* fields */
   .uffb-field{
     width:100%;
     font:inherit;
@@ -58,7 +102,7 @@
   .uffb-field:focus{outline:2px solid #bbb;outline-offset:1px}
   .uffb-field::placeholder{color:#666}
 
-  /* modal (stronger rules to avoid theme collisions) */
+  /* modal */
   .uffb-modal{position:fixed !important;inset:0;display:none;z-index:999999;align-items:center;justify-content:center;background:rgba(0,0,0,.65);padding:20px}
   .uffb-modal.is-open{display:flex !important}
   .uffb-modal-box{
@@ -85,17 +129,39 @@
   }
   function offsetFor(){ const m=new Date().getTimezoneOffset(), sign=m<=0?'+':'-', abs=Math.abs(m);
     const hh=String(Math.floor(abs/60)).padStart(2,'0'), mm=String(abs%60).padStart(2,'0'); return `${sign}${hh}:${mm}`;}
-  const fmt = new Intl.DateTimeFormat('de-DE',{weekday:'short',day:'2-digit',month:'short',year:'numeric'});
+
+  const fmt = new Intl.DateTimeFormat(locale, I18N[lang].weekdayDayMonthYear);
+
+  // --- UI labels / icons ---
+  const ICONS = {
+    filter: `
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M4 6h16M7 12h10M10 18h4"/><circle cx="9" cy="6" r="2"/><circle cx="14" cy="12" r="2"/><circle cx="12" cy="18" r="2"/>
+      </svg>`,
+    search: `
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <circle cx="11" cy="11" r="7"/><path d="M20 20l-4.35-4.35"/>
+      </svg>`
+  };
+
+  // --- Rendering pieces (localized) ---
+  const safeTxt = (x)=> (x||'').toString().toLowerCase();
+  const earliestDate = (film) => {
+    const ds = (film.screenings||[]).map(s=>s.date).filter(Boolean).sort();
+    return ds[0] || '9999-12-31';
+  };
+  const getVenueName = (s) => (s.venue?.[lang] || s.venue?.de || s.venue?.en || s.venue || '').toString();
+  const isoToLabel = (iso) => I18N[lang].isoDateLabel(iso);
 
   function screeningLine(s) {
     const dtISO = `${s.date}T${(s.time || '00:00')}:00${offsetFor()}`;
     const d = new Date(dtISO);
     const when = `${fmt.format(d)}${s.time ? `, ${s.time}` : ''}`;
 
-    const venueName = (s.venue?.de || s.venue?.en || s.venue) || '';
+    const venueName = getVenueName(s);
     const addressTxt = typeof s.address === 'string'
       ? s.address
-      : (s.address?.de || s.address?.en || '');
+      : (s.address?.[lang] || s.address?.de || s.address?.en || '');
 
     let mapsUrl = s.maps?.google || '';
     if (!mapsUrl && (venueName || addressTxt)) {
@@ -107,7 +173,7 @@
     const addressLine = addressTxt ? `<div class="uffb-address"><a href="${mapsUrl}" target="_blank" rel="noopener">${escapeHtml(addressTxt)}</a></div>` : '';
 
     const ticketHtml = s.tickets
-      ? `<span class="uffb-tickets"><a href="${s.tickets}" target="_blank" rel="noopener">Tickets</a></span>`
+      ? `<span class="uffb-tickets"><a href="${s.tickets}" target="_blank" rel="noopener">${t('tickets')}</a></span>`
       : '';
 
     return `
@@ -123,20 +189,20 @@
   }
 
   function card(it){
-    const href = `https://www.uffberlin.de/uffb2025/${encodeURIComponent(it.id)}`; // absolute
-    const title = it.title?.de || it.title?.en || 'Untitled';
-    const category = it.category?.de || it.category?.en || 'Untitled';
-    const desc  = it.description?.de || it.description?.en || '';
+    const href = `${basePath}/${encodeURIComponent(it.id)}`; // localized film page
+    const title = it.title?.[lang] || it.title?.de || it.title?.en || 'Untitled';
+    const category = it.category?.[lang] || it.category?.de || it.category?.en || '—';
+    const desc  = it.description?.[lang] || it.description?.de || it.description?.en || '';
     const img   = it.image || '';
     const trailer= it.trailer;
     const screenings = (it.screenings||[]).map(screeningLine).join('');
     return `<article class="uffb-card" data-id="${it.id}">
-      <div class="uffb-category">${category}</div>
-      <a class="uffb-media" href="${href}" aria-label="${title}"><img src="${img}" alt="${title}"></a>
+      <div class="uffb-category">${escapeHtml(category)}</div>
+      <a class="uffb-media" href="${href}" aria-label="${escapeHtml(title)}"><img src="${img}" alt="${escapeHtml(title)}"></a>
       <div class="uffb-body">
-        <h3 class="uffb-title"><a href="${href}">${title}</a></h3>
+        <h3 class="uffb-title"><a href="${href}">${escapeHtml(title)}</a></h3>
         <div class="uffb-desc">${escapeHtml(desc)}</div>
-        <div class="uffb-actions">${trailer?`<button class="uffb-btn" data-trailer="${encodeURIComponent(trailer)}">Watch trailer</button>`:''}</div>
+        <div class="uffb-actions">${trailer?`<button class="uffb-btn" data-trailer="${encodeURIComponent(trailer)}">${t('watchTrailer')}</button>`:''}</div>
         <ul class="uffb-screenings">${screenings}</ul>
       </div>
     </article>`;
@@ -163,41 +229,16 @@
     return {open:(url)=>{ m.classList.add('is-open'); iframe.src=ytEmbed(url);} };
   }
 
-  // helpers for sorting/filtering
-  const lang = (document.documentElement.lang||'en').startsWith('de') ? 'de' : 'en';
-  const safeTxt = (x)=> (x||'').toString().toLowerCase();
-  const earliestDate = (film) => {
-    const ds = (film.screenings||[]).map(s=>s.date).filter(Boolean).sort();
-    return ds[0] || '9999-12-31';
-  };
-  const getVenueName = (s) => (s.venue?.[lang] || s.venue?.de || s.venue?.en || s.venue || '').toString();
-
-  const isoToLabel = (iso) => {
-    const [y, m, d] = iso.split('-');
-    return `${d}.${m}.${y}`; // DD.MM.YYYY
-  };
-  
-  // inline SVG icons (white)
-  const ICONS = {
-    filter: `
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <path d="M4 6h16M7 12h10M10 18h4"/><circle cx="9" cy="6" r="2"/><circle cx="14" cy="12" r="2"/><circle cx="12" cy="18" r="2"/>
-      </svg>`,
-    search: `
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <circle cx="11" cy="11" r="7"/><path d="M20 20l-4.35-4.35"/>
-      </svg>`
-  };
-
+  // --- Build controls (localized labels) ---
   function buildControls(container){
     const controls = document.createElement('div');
     controls.className = 'uffb-controls';
     controls.innerHTML = `
-      <button class="uffb-icon-btn" id="filterToggle" aria-expanded="false" aria-controls="filters" title="Filter">
-        ${ICONS.filter}<span class="lbl">FILTER</span>
+      <button class="uffb-icon-btn" id="filterToggle" aria-expanded="false" aria-controls="filters" title="${t('filterBtn')}">
+        ${ICONS.filter}<span class="lbl">${t('filterBtn').toUpperCase()}</span>
       </button>
-      <button class="uffb-icon-btn" id="searchToggle" aria-expanded="false" aria-controls="searchbar" title="Search">
-        ${ICONS.search}
+      <button class="uffb-icon-btn" id="searchToggle" aria-expanded="false" aria-controls="searchbar" title="${t('searchBtn')}">
+        ${ICONS.search}<span class="lbl">${t('searchBtn').toUpperCase()}</span>
       </button>
     `;
     container.appendChild(controls);
@@ -207,17 +248,17 @@
     filters.className = 'uffb-filters';
     filters.setAttribute('hidden','');
     filters.innerHTML = `
-      <label><span>Category</span>
-        <select id="filterCategory" class="uffb-field"><option value="">All</option></select>
+      <label><span>${t('category')}</span>
+        <select id="filterCategory" class="uffb-field"><option value="">${t('all')}</option></select>
       </label>
-      <label><span>Venue</span>
-        <select id="filterVenue" class="uffb-field"><option value="">All</option></select>
+      <label><span>${t('venue')}</span>
+        <select id="filterVenue" class="uffb-field"><option value="">${t('all')}</option></select>
       </label>
-      <label><span>Date</span>
-        <select id="filterDate" class="uffb-field"><option value="">All</option></select>
+      <label><span>${t('date')}</span>
+        <select id="filterDate" class="uffb-field"><option value="">${t('all')}</option></select>
       </label>
       <div class="uffb-filter-actions">
-        <button type="button" id="clearFilters" class="uffb-icon-btn">Clear filters</button>
+        <button type="button" id="clearFilters" class="uffb-icon-btn">${t('clearFilters')}</button>
       </div>
     `;
     container.appendChild(filters);
@@ -227,7 +268,7 @@
     search.className = 'uffb-search';
     search.setAttribute('hidden','');
     search.innerHTML = `
-      <input type="search" id="searchInput" class="uffb-field" placeholder="Search title, description, venue…" />
+      <input type="search" id="searchInput" class="uffb-field" placeholder="${t('searchPh')}" />
     `;
     container.appendChild(search);
 
@@ -250,14 +291,13 @@
     };
   }
 
+  // --- Main render ---
   function render(el){
     injectCSS();
 
-    // container that will hold controls + grid
     const wrap = document.createElement('div');
     el.appendChild(wrap);
 
-    // build UI
     const ui = buildControls(wrap);
 
     const grid = document.createElement('div');
@@ -266,7 +306,6 @@
 
     const jsonUrl = el.dataset.json;
 
-    // local state
     let items = [];
     let filtered = [];
     const state = { category:'', venue:'', date:'', q:'' };
@@ -310,7 +349,6 @@
         return true;
       });
 
-      // sort by earliest screening date
       filtered.sort((a,b)=> earliestDate(a).localeCompare(earliestDate(b)));
       renderGrid(filtered);
     }
@@ -350,7 +388,7 @@
       Array.from(dateSet).sort().forEach(d => {
         const opt = document.createElement('option');
         opt.value = d;                 // keep ISO for filtering
-        opt.textContent = isoToLabel(d); // show as DD.MM.YYYY
+        opt.textContent = isoToLabel(d); // localized label
         ui.filters.date.appendChild(opt);
       });
     }
@@ -371,14 +409,8 @@
 
     // instant search (debounced) + native clear
     let searchTimer = null;
-    const doSearch = ()=>{
-      state.q = ui.search.input.value.trim();
-      applyAll();
-    };
-    ui.search.input.addEventListener('input', ()=>{
-      clearTimeout(searchTimer);
-      searchTimer = setTimeout(doSearch, 250);
-    });
+    const doSearch = ()=>{ state.q = ui.search.input.value.trim(); applyAll(); };
+    ui.search.input.addEventListener('input', ()=>{ clearTimeout(searchTimer); searchTimer = setTimeout(doSearch, 250); });
     ui.search.input.addEventListener('search', doSearch);
 
     // fetch + initial render
@@ -390,7 +422,7 @@
         applyAll();
       })
       .catch(err=>{
-        grid.innerHTML = '<p>Programm konnte nicht geladen werden.</p>';
+        grid.innerHTML = `<p>${t('loadError')}</p>`;
         console.error('[UFFB] JSON fetch error', err);
       });
   }
