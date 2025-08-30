@@ -508,7 +508,7 @@ function enableTicketsJump(){
 
     /* right column: synopsis */
     .uffb-synopsis2 .uffb-lead{margin:0 0 10px 0; font-size:18px;}
-    .uffb-synopsis2 .uffb-bodytext{white-space:pre-wrap;font-size:1rem}
+    .uffb-synopsis2 .uffb-bodytext{white-space:pre-wrap;font-size:1.15rem}
 
     /* two-column responsive grid */
     .uffb-two-col{display:grid; gap:28px; margin-top:32px}
