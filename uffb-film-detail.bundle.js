@@ -31,7 +31,23 @@
     if (!mins || isNaN(mins)) return null;
     return `PT${Math.round(mins)}M`;
     // If you ever pass hours+mins, extend to PT#H#M
-  }
+}
+
+    function buildTopLine(film){
+  const title = localized(film.title) || film.original_title || "";
+  const cat = film.category ? (film.category[lang] || film.category.en || film.category.de || "") : "";
+  return `
+    <div class="uffb-topline">
+      <div class="uffb-topline-left">
+        <div class="uffb-cat">FILM — ${cat}</div>
+        <div class="uffb-top-title">${title}</div>
+      </div>
+      <div class="uffb-topline-right">
+        <a class="uffb-top-cta" href="#screenings">TICKETS</a>
+      </div>
+    </div>
+  `;
+}
 
   function sectionRow(label, valueHtml){
     if (!valueHtml) return "";
@@ -130,24 +146,29 @@
     ` : "";
 
     $mount.innerHTML = `
-      <article class="uffb-film">
+    <article class="uffb-film">
         <header class="uffb-film-header">
-          <h1 class="uffb-title">${title}</h1>
-          ${film.image ? `<figure class="uffb-hero"><img src="${film.image}" alt="${title}"></figure>` : ""}
+        ${buildTopLine(film)}
+        <h1 class="uffb-title visually-hidden">${title}</h1>
+        ${film.image ? `<figure class="uffb-hero"><img src="${film.image}" alt="${title}"></figure>` : ""}
         </header>
 
         <section class="uffb-meta">
-          ${metaHTML}
+        ${metaHTML}
         </section>
 
         ${synopsisHTML}
 
-        ${screeningsBlock}
+        ${screeningsHTML ? `
+        <div class="uffb-screenings-block" id="screenings">
+            <h2>${lang==="de"?"Vorstellungen":"Screenings"}</h2>
+            ${screeningsHTML}
+        </div>` : ""}
 
         <section class="uffb-actions">
-          ${teaserBtn}
+        ${teaserBtn}
         </section>
-      </article>
+    </article>
     `;
 
     // JSON-LD
@@ -159,22 +180,45 @@
 
   // Minimal, flexible CSS hooks (style these in your stylesheet)
   const baseCSS = `
-  .uffb-film{display:grid;gap:24px}
-  .uffb-film-header{display:grid;gap:16px}
-  .uffb-title{font-size:clamp(28px,4vw,44px);line-height:1.1;margin:0}
-  .uffb-hero{margin:0}
-  .uffb-hero img{width:100%;height:auto;display:block;border-radius:12px}
-  .uffb-meta{display:grid;gap:10px}
-  .uffb-meta-row{display:grid;grid-template-columns:180px 1fr;gap:10px}
-  .uffb-meta-label{font-weight:600;opacity:.85}
-  .uffb-synopsis h2,.uffb-screenings-block h2{margin:8px 0 6px 0}
-  .uffb-synopsis-text{white-space:pre-wrap}
-  .uffb-screenings{list-style:none;padding:0;margin:0;display:grid;gap:12px}
-  .uffb-screening{display:grid;gap:4px}
-  .uffb-when{font-weight:700}
-  .uffb-venue{display:block;opacity:.9}
-  .uffb-tickets{font-weight:600;text-decoration:underline}
-  .uffb-actions{display:flex;gap:12px;align-items:center}
+    .uffb-film{display:grid;gap:24px}
+    .uffb-film-header{display:grid;gap:16px}
+    .uffb-title{font-size:clamp(28px,4vw,44px);line-height:1.1;margin:0}
+    .uffb-hero{margin:0}
+    .uffb-hero img{width:100%;height:auto;display:block;border-radius:12px}
+    .uffb-meta{display:grid;gap:10px}
+    .uffb-meta-row{display:grid;grid-template-columns:180px 1fr;gap:10px}
+    .uffb-meta-label{font-weight:600;opacity:.85}
+    .uffb-synopsis h2,.uffb-screenings-block h2{margin:8px 0 6px 0}
+    .uffb-synopsis-text{white-space:pre-wrap}
+    .uffb-screenings{list-style:none;padding:0;margin:0;display:grid;gap:12px}
+    .uffb-screening{display:grid;gap:4px}
+    .uffb-when{font-weight:700}
+    .uffb-venue{display:block;opacity:.9}
+    .uffb-tickets{font-weight:600;text-decoration:underline}
+    .uffb-actions{display:flex;gap:12px;align-items:center}
+    /* headline bar above hero */
+    .uffb-topline{
+    display:flex; gap:20px; align-items:flex-end; justify-content:space-between;
+    padding:22px 16px; background:#000; color:#fff; border-radius:12px; 
+    }
+    .uffb-topline-left{display:grid; gap:4px}
+    .uffb-cat{font-size:14px; letter-spacing:.06em; opacity:.85; text-transform:uppercase}
+    .uffb-top-title{font-size:clamp(22px,4.5vw,42px); font-weight:800; line-height:1; text-transform:uppercase}
+    .uffb-topline-right{display:flex; align-items:center}
+    .uffb-top-cta{
+    display:inline-block; padding:10px 18px; border:1.5px solid currentColor; border-radius:6px;
+    font-weight:800; text-decoration:none; letter-spacing:.06em; text-transform:uppercase;
+    }
+    @media (max-width:640px){
+    .uffb-topline{flex-direction:column; align-items:flex-start}
+    .uffb-topline-right{margin-top:8px}
+    }
+
+    /* a11y utility if you don’t already have it */
+    .visually-hidden{
+    position:absolute!important; width:1px!important; height:1px!important; padding:0!important; margin:-1px!important;
+    overflow:hidden!important; clip:rect(0 0 0 0)!important; white-space:nowrap!important; border:0!important;
+    }
   `;
   const style = document.createElement("style");
   style.textContent = baseCSS;

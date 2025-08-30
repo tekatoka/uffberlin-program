@@ -1,5 +1,6 @@
 # local test page
 index.html
+film.html
 
 # common stuff you probably don't want
 node_modules/
