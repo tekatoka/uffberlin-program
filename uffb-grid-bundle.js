@@ -14,7 +14,19 @@
   .uffb-title a{color:inherit;text-decoration:none}
   .uffb-desc{color:#333;opacity:.9;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;min-height:3.6em}
   .uffb-actions{display:flex;gap:10px;margin-top:4px;flex-wrap:wrap}
-  .uffb-btn{border:1px solid #ddd;background:#fafafa;padding:8px 12px;border-radius:999px;text-decoration:none;display:inline-block;cursor:pointer}
+  .uffb-btn{
+    display: inline-block;
+    width: auto;
+    height: auto;
+    text-align: center;
+    cursor: pointer;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    -webkit-font-smoothing: antialiased;
+    line-height: normal;
+    padding: 1.2rem 2.004rem;
+  }
   .uffb-screenings{margin:8px 0 2px;padding:0;list-style:none;display:grid;gap:8px}
   .uffb-screening{display:flex;justify-content:space-between;align-items:start;gap:10px;font-size:.95rem}
   .uffb-whenwhere{color:#222}
