@@ -487,6 +487,10 @@
       text-transform:none;
     }
 
+    .uffb-screenings-block{
+        margin-top:25px;
+    }
+
     /* Grid of cards */
     .uffb-screenings-grid{ display:grid; gap:16px; }
     @media (min-width:720px){ .uffb-screenings-grid{ grid-template-columns:1fr 1fr; } }
