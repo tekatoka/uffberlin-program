@@ -14,6 +14,24 @@
   function fmtDuration(mins){ if (!mins || isNaN(mins)) return ""; return `${mins} min`; }
   function iso8601Duration(mins){ if (!mins || isNaN(mins)) return null; return `PT${Math.round(mins)}M`; }
 
+    function buildBreadcrumb(film){
+    const title = localized(film.title) || film.original_title || "";
+    const progLabel = lang === "de" ? "Festival Programm 2025" : "Program 2025";
+    const homeHref  = lang === "de" ? "/de/" : "/";
+    const progHref  = lang === "de" ? "/de/uffb2025" : "/uffb2025";
+
+    return `
+        <nav class="uffb-breadcrumb" aria-label="Breadcrumb">
+        <ol>
+            <li><a href="${homeHref}">Home</a></li>
+            <li><a href="${progHref}">${progLabel}</a></li>
+            <li aria-current="page">${title}</li>
+        </ol>
+        </nav>
+    `;
+    }
+
+    
   /* --- trailer helpers --- */
   function toEmbedUrl(url){
   if (!url) return null;
@@ -344,6 +362,7 @@
 
     $mount.innerHTML = `
       <article class="uffb-film">
+      ${buildBreadcrumb(film)}
         <header class="uffb-film-header">
           ${buildTopLine(film)}
           <h1 class="uffb-title visually-hidden">${title}</h1>
@@ -386,10 +405,20 @@
   }
 
   /* ---------- CSS ---------- */
-  const baseCSS = `
+    const baseCSS = `
+  
     .uffb-film{display:grid;gap:24px}
     .uffb-film-header{display:grid;gap:16px}
     .uffb-title{font-size:clamp(28px,4vw,44px);line-height:1.1;margin:0}
+
+    /* Breadcrumb */
+    .uffb-breadcrumb{ margin-bottom:6px; font-size:13px; }
+    .uffb-breadcrumb ol{ list-style:none; padding:0; margin:0; display:flex; flex-wrap:wrap; align-items:center; }
+    .uffb-breadcrumb li{ display:flex; align-items:center; }
+    .uffb-breadcrumb li+li::before{
+    content:"›"; margin:0 8px; opacity:.6;
+    }
+    .uffb-breadcrumb a{ text-decoration:underline; }
 
     /* MEDIA / CAROUSEL */
     .uffb-media{position:relative; overflow:hidden; border-radius:12px; background:#000; aspect-ratio:16/9}
