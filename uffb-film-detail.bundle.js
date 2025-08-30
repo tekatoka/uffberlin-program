@@ -16,27 +16,28 @@
 
   /* --- trailer helpers --- */
   function toEmbedUrl(url){
-    if (!url) return null;
-    try {
-      const u = new URL(url);
-      // YouTube
-      if (u.hostname.includes("youtube.com")) {
-        const id = u.searchParams.get("v");
-        if (id) return `https://www.youtube.com/embed/${id}?autoplay=1&rel=0`;
-      }
-      if (u.hostname === "youtu.be") {
-        const id = u.pathname.slice(1);
-        if (id) return `https://www.youtube.com/embed/${id}?autoplay=1&rel=0`;
-      }
-      // Vimeo
-      if (u.hostname.includes("vimeo.com")) {
-        const id = u.pathname.split("/").filter(Boolean)[0];
-        if (id) return `https://player.vimeo.com/video/${id}?autoplay=1`;
-      }
-      // fallback: just use the URL in an iframe
-      return url;
-    } catch { return null; }
-  }
+  if (!url) return null;
+  try {
+    const u = new URL(url);
+    // YouTube
+    if (u.hostname.includes("youtube.com")) {
+      const id = u.searchParams.get("v");
+      if (id) return `https://www.youtube.com/embed/${id}?rel=0`;
+    }
+    if (u.hostname === "youtu.be") {
+      const id = u.pathname.slice(1);
+      if (id) return `https://www.youtube.com/embed/${id}?rel=0`;
+    }
+    // Vimeo
+    if (u.hostname.includes("vimeo.com")) {
+      const parts = u.pathname.split("/").filter(Boolean);
+      const id = parts.pop();
+      if (id) return `https://player.vimeo.com/video/${id}`; // no autoplay
+    }
+    // fallback
+    return url;
+  } catch { return null; }
+}
 
   /* ---------- UI pieces ---------- */
   function buildTopLine(film){
@@ -54,16 +55,6 @@
           ${hasTrailer ? `<a class="uffb-top-cta uffb-trailer-btn" href="#" data-trailer="${film.trailer}">${trailerLabel}</a>` : ""}
           <a class="uffb-top-cta" href="#screenings">${lang==="de"?"TICKETS":"TICKETS"}</a>
         </div>
-      </div>
-    `;
-  }
-
-  function sectionRow(label, valueHtml){
-    if (!valueHtml) return "";
-    return `
-      <div class="uffb-meta-row">
-        <div class="uffb-meta-label">${label}</div>
-        <div class="uffb-meta-value">${valueHtml}</div>
       </div>
     `;
   }
@@ -195,23 +186,26 @@
     `;
   }
 
-  /* --- hero carousel with trailer as second slide --- */
+  /* --- hero carousel with inline trailer as second slide --- */
   function buildMediaCarousel(film){
-    const hasTrailer = Boolean(film.trailer);
     const title = localized(film.title) || film.original_title || "";
-    // slides: always image; trailer slide if present
+    const embed = film.trailer ? toEmbedUrl(film.trailer) : null;
+
     const slides = [
       `<div class="uffb-slide is-image"><img src="${film.image}" alt="${title}"></div>`
     ];
-    if (hasTrailer){
+    if (embed){
       slides.push(`
-        <div class="uffb-slide is-trailer" data-trailer="${film.trailer}">
-          <img src="${film.image}" alt="${title}">
-          <button class="uffb-play-badge" aria-label="${lang==='de'?'Trailer ansehen':'Watch trailer'}">▶</button>
-          <div class="uffb-slide-tag">${lang==='de'?'Trailer':'Trailer'}</div>
+        <div class="uffb-slide is-trailer" data-embed="${embed}">
+          <div class="uffb-video-ph">
+            <img src="${film.image}" alt="${title}">
+            <button class="uffb-play-badge" aria-label="${lang==='de'?'Trailer ansehen':'Watch trailer'}">▶</button>
+            <div class="uffb-slide-tag">${lang==='de'?'Trailer':'Trailer'}</div>
+          </div>
         </div>
       `);
     }
+
     return `
       <div class="uffb-media">
         <div class="uffb-slides" data-index="0" style="transform:translateX(0%)">
@@ -269,12 +263,44 @@
     if (!$media) return;
 
     const $slides = $media.querySelector(".uffb-slides");
+    const slides = Array.from($media.querySelectorAll(".uffb-slide"));
     let index = 0;
-    const count = $media.querySelectorAll(".uffb-slide").length;
-    const update = ()=>{ $slides.style.transform = `translateX(${-index*100}%)`; $slides.dataset.index = index; };
+    const count = slides.length;
 
-    const prev = ()=>{ index = (index-1+count)%count; update(); };
-    const next = ()=>{ index = (index+1)%count; update(); };
+    function injectIfVideo(i){
+      const s = slides[i];
+      const embed = s && s.getAttribute("data-embed");
+      if (embed && !s.querySelector("iframe")){
+        s.innerHTML = `<iframe src="${embed}" allow="autoplay; fullscreen" allowfullscreen loading="lazy"></iframe>`;
+      }
+    }
+    function cleanupIfLeaving(i){
+      const s = slides[i];
+      if (!s) return;
+      const iframe = s.querySelector("iframe");
+      if (iframe) iframe.remove(); // stop playback when leaving video slide
+    }
+
+    function update(){
+      $slides.style.transform = `translateX(${-index*100}%)`;
+      $slides.dataset.index = index;
+    }
+
+    function go(to){
+    const prevIndex = index;
+    index = (to % count + count) % count;   // wrap (-1 → last, count → 0)
+
+    // stop any playing video on the slide we're leaving
+    cleanupIfLeaving(prevIndex);
+
+    // lazy-inject iframe if arriving on the trailer slide
+    injectIfVideo(index);
+
+    update();
+    }
+
+    const prev = ()=> go(index-1);
+    const next = ()=> go(index+1);
 
     const $prev = $media.querySelector(".uffb-prev");
     const $next = $media.querySelector(".uffb-next");
@@ -290,10 +316,13 @@
       startX=null; dx=0;
     });
 
-    // trailer slide click -> lightbox
+    // play badge → jump to trailer slide
     $media.addEventListener("click", (e)=>{
-      const slide = e.target.closest(".is-trailer");
-      if (slide && slide.dataset.trailer){ openLightbox(slide.dataset.trailer); }
+      const btn = e.target.closest(".uffb-play-badge");
+      if (btn){
+        const trailerIndex = slides.findIndex(s => s.classList.contains("is-trailer"));
+        if (trailerIndex >= 0) go(trailerIndex);
+      }
     });
   }
 
@@ -363,14 +392,23 @@
     .uffb-title{font-size:clamp(28px,4vw,44px);line-height:1.1;margin:0}
 
     /* MEDIA / CAROUSEL */
-    .uffb-media{position:relative; overflow:hidden; border-radius:12px; background:#000}
+    .uffb-media{position:relative; overflow:hidden; border-radius:12px; background:#000; aspect-ratio:16/9}
     .uffb-slides{display:flex; transition:transform .35s ease; width:100%}
     .uffb-slide{min-width:100%; position:relative}
-    .uffb-slide img{width:100%; height:auto; display:block}
+    .uffb-slide img, .uffb-slide iframe{width:100%; height:100%; display:block; object-fit:cover}
+    .uffb-video-ph{position:relative; width:100%; height:100%}
     .uffb-nav{
       position:absolute; top:50%; transform:translateY(-50%);
       border:none; background:rgba(0,0,0,.45); color:#fff; width:40px; height:40px; border-radius:999px;
       font-size:22px; line-height:40px; text-align:center; cursor:pointer;
+      display: flex;
+        align-items: center;
+        justify-content: center;
+        line-height: 1;
+        padding: 0;
+        width: 44px;
+        height: 44px;
+        font-size: 22px;
     }
     .uffb-prev{left:10px} .uffb-next{right:10px}
     .uffb-play-badge{
@@ -450,60 +488,50 @@
     }
 
     /* Grid of cards */
-    .uffb-screenings-grid{
-    display:grid;
-    gap:16px;
-    }
-    @media (min-width:720px){
-    .uffb-screenings-grid{ grid-template-columns:1fr 1fr; }
-    }
-    @media (min-width:1100px){
-    .uffb-screenings-grid{ grid-template-columns:1fr 1fr 1fr; }
-    }
+    .uffb-screenings-grid{ display:grid; gap:16px; }
+    @media (min-width:720px){ .uffb-screenings-grid{ grid-template-columns:1fr 1fr; } }
+    @media (min-width:1100px){ .uffb-screenings-grid{ grid-template-columns:1fr 1fr 1fr; } }
 
     /* Card */
     .uffb-screening-card{
-    display:grid;
-    gap:8px;
-    padding:16px;
-    border:1px solid rgba(0,0,0,.12);
-    border-radius:12px;
-    background:#fff;
+      display:grid; gap:8px; padding:16px; border:1px solid rgba(0,0,0,.12);
+      border-radius:12px; background:#fff;
     }
     .uffb-screening-card .uffb-whenline,
-    .uffb-screening-card .uffb-venue-title{
-    color:#333;
-    }
-
-    .uffb-whenline{
-    font-weight:700;
-    }
-    .uffb-venue-title{
-    font-size:17px;
-    font-weight:700;
-    }
-    .uffb-addr{
-    text-decoration:underline;
-    opacity:.9;
-    color: var(--paragraphLinkColor);
-    }
-
-    /* Button: same style as topline CTA */
+    .uffb-screening-card .uffb-venue-title{ color:#333; }
+    .uffb-whenline{ font-weight:700; }
+    .uffb-venue-title{ font-size:17px; font-weight:700; }
+    .uffb-addr{ text-decoration:underline; opacity:1; color:inherit; }
     .uffb-top-cta, .uffb-book-btn{
-    display:inline-block; padding:10px 18px; border:1.5px solid currentColor; border-radius:6px;
-    font-weight:800; text-decoration:none; letter-spacing:.06em; text-transform:uppercase;
+      display:inline-block; padding:10px 18px; border:1.5px solid currentColor; border-radius:6px;
+      font-weight:800; text-decoration:none; letter-spacing:.06em; text-transform:uppercase;
     }
-
-    .uffb-book-btn{
-        color:#333;
-        border-color:#333;
-    }
+    .uffb-book-btn{ color:#333; border-color:#333; }
     .uffb-card-actions{ margin-top:6px; }
-`;
+
+    /* LIGHTBOX */
+    .uffb-noscroll{ overflow:hidden; }
+    #uffb-lightbox{ position:fixed; inset:0; display:none; z-index:9999; }
+    #uffb-lightbox.open{ display:block; }
+    .uffb-lb-backdrop{ position:absolute; inset:0; background:rgba(0,0,0,.7); }
+    .uffb-lb-dialog{
+      position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
+      width:min(92vw,960px); aspect-ratio:16/9; background:#000; border-radius:12px; overflow:hidden;
+      box-shadow:0 20px 60px rgba(0,0,0,.35);
+    }
+    .uffb-lb-close{
+      position:absolute; top:8px; right:10px; z-index:2; width:36px; height:36px; border-radius:50%;
+      border:none; cursor:pointer; background:rgba(255,255,255,.9); font-size:22px; line-height:1;
+    }
+    .uffb-lb-viewport, #uffb-lb-iframe{ width:100%; height:100%; border:0; display:block; }
+  `;
 
   const style = document.createElement("style");
   style.textContent = baseCSS;
   document.head.appendChild(style);
+
+  // ensure lightbox root exists on first use
+  ensureLightbox();
 
   main();
 })();
