@@ -28,13 +28,50 @@
   .uffb-icon-btn{display:inline-flex;gap:.5rem;align-items:center;border:none;background:transparent;color:#fff;cursor:pointer;padding:.25rem .5rem}
   .uffb-icon-btn svg{width:26px;height:26px;stroke:currentColor;fill:none;stroke-width:2}
   .uffb-icon-btn .lbl{font-size:.9rem;letter-spacing:.08em}
-  .uffb-filters,.uffb-search{display:grid;gap:.6rem;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));padding:.8rem;border:1px solid rgba(255,255,255,.18);border-radius:.8rem;margin:.5rem 0 1rem 0;background:rgba(255,255,255,.06);backdrop-filter:saturate(120%) blur(4px)}
+
+  /* panels */
+  .uffb-filters,.uffb-search{
+    display:grid;
+    gap:.8rem;
+    grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
+    padding:.8rem;
+    border:1px solid rgba(255,255,255,.18);
+    border-radius:.8rem;
+    margin:.5rem 0 1rem 0;
+    background:rgba(255,255,255,.06);
+    backdrop-filter:saturate(120%) blur(4px)
+  }
   .uffb-filters[hidden],.uffb-search[hidden]{display:none}
+  .uffb-filters label{display:flex;flex-direction:column;gap:.35rem;min-width:0}
   .uffb-filter-actions{display:flex;gap:.5rem}
-  /* form fields – inherit Squarespace look as much as possible */
-  .uffb-field{font:inherit;color:inherit;background:transparent;padding:.55rem .65rem;border:1px solid rgba(255,255,255,.35);border-radius:.5rem}
-  .uffb-field:focus{outline:2px solid rgba(255,255,255,.55);outline-offset:1px}
-  .uffb-field::placeholder{color:rgba(255,255,255,.7)}
+
+  /* fields – readable and Squarespace-ish */
+  .uffb-field{
+    width:100%;
+    font:inherit;
+    color:#333;
+    background:#fff;
+    padding:.55rem .65rem;
+    border:1px solid #d7d7d7;
+    border-radius:.5rem
+  }
+  .uffb-field:focus{outline:2px solid #bbb;outline-offset:1px}
+  .uffb-field::placeholder{color:#666}
+
+  /* modal (stronger rules to avoid theme collisions) */
+  .uffb-modal{position:fixed !important;inset:0;display:none;z-index:999999;align-items:center;justify-content:center;background:rgba(0,0,0,.65);padding:20px}
+  .uffb-modal.is-open{display:flex !important}
+  .uffb-modal-box{
+    width:min(92vw,960px);
+    aspect-ratio:16/9;
+    max-height:80vh;
+    background:#000;
+    border-radius:12px;
+    overflow:hidden;
+    position:relative
+  }
+  .uffb-modal iframe{width:100% !important;height:100% !important;border:0;display:block}
+  .uffb-modal-close{position:absolute;top:8px;right:8px;background:#fff;border:none;border-radius:999px;width:36px;height:36px;cursor:pointer}
   `;
 
   function injectCSS(){ if(document.getElementById('uffb-grid-style')) return;
@@ -86,7 +123,7 @@
   }
 
   function card(it){
-    const href = `https://www.uffberlin.de/uffb2025/${encodeURIComponent(it.id)}`;
+    const href = `https://www.uffberlin.de/uffb2025/${encodeURIComponent(it.id)}`; // absolute
     const title = it.title?.de || it.title?.en || 'Untitled';
     const category = it.category?.de || it.category?.en || 'Untitled';
     const desc  = it.description?.de || it.description?.en || '';
@@ -106,7 +143,11 @@
   }
 
   function mountModal(){
-    if(document.getElementById('uffb-modal')) return;
+    if(document.getElementById('uffb-modal')) return { open:(url)=> {
+      const iframe=document.querySelector('#uffb-modal iframe');
+      document.getElementById('uffb-modal').classList.add('is-open');
+      iframe.src=ytEmbed(url);
+    }};
     const m = document.createElement('div');
     m.className='uffb-modal'; m.id='uffb-modal';
     m.innerHTML = `<div class="uffb-modal-box">
@@ -131,7 +172,7 @@
   };
   const getVenueName = (s) => (s.venue?.[lang] || s.venue?.de || s.venue?.en || s.venue || '').toString();
 
-  // inline SVG icons (white, stroke currentColor)
+  // inline SVG icons (white)
   const ICONS = {
     filter: `
       <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -168,7 +209,7 @@
         <select id="filterVenue" class="uffb-field"><option value="">All</option></select>
       </label>
       <label><span>Date</span>
-        <input type="date" id="filterDate" class="uffb-field"/>
+        <select id="filterDate" class="uffb-field"><option value="">All</option></select>
       </label>
       <div class="uffb-filter-actions">
         <button type="button" id="clearFilters" class="uffb-icon-btn">Clear filters</button>
@@ -287,8 +328,8 @@
         const opt=document.createElement('option'); opt.value=key; opt.textContent=label; ui.filters.cat.appendChild(opt);
       });
 
-      // venues (by visible name, normalized for matching)
-      const venueMap = new Map(); // norm -> pretty
+      // venues (norm -> pretty)
+      const venueMap = new Map();
       data.forEach(f=> (f.screenings||[]).forEach(s=>{
         const pretty = getVenueName(s).trim();
         const norm = safeTxt(pretty);
@@ -296,6 +337,15 @@
       }));
       Array.from(venueMap.entries()).sort((a,b)=> a[1].localeCompare(b[1])).forEach(([norm,pretty])=>{
         const opt=document.createElement('option'); opt.value=norm; opt.textContent=pretty; ui.filters.venue.appendChild(opt);
+      });
+
+      // dates
+      const dateSet = new Set();
+      data.forEach(f => (f.screenings||[]).forEach(s => { if(s.date) dateSet.add(s.date); }));
+      Array.from(dateSet).sort().forEach(d => {
+        const opt = document.createElement('option');
+        opt.value = d; opt.textContent = d; // ISO format keeps it clear + filters exact
+        ui.filters.date.appendChild(opt);
       });
     }
 
@@ -313,7 +363,7 @@
       applyAll();
     });
 
-    // instant search (with small debounce) + native clear (fires 'search' event)
+    // instant search (debounced) + native clear
     let searchTimer = null;
     const doSearch = ()=>{
       state.q = ui.search.input.value.trim();
@@ -323,7 +373,7 @@
       clearTimeout(searchTimer);
       searchTimer = setTimeout(doSearch, 250);
     });
-    ui.search.input.addEventListener('search', doSearch); // fires when user clicks the × clear
+    ui.search.input.addEventListener('search', doSearch);
 
     // fetch + initial render
     fetch(jsonUrl, {cache:'no-cache'})
@@ -339,7 +389,7 @@
       });
   }
 
-  // robust init for Squarespace
+  // robust init for Squarespace (DOM + injected content)
   let started=false;
   const tryStart=()=>{ if(started) return;
     const nodes=document.querySelectorAll(MOUNT); if(!nodes.length) return;
