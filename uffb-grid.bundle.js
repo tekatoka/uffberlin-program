@@ -53,12 +53,20 @@
   .uffb-media{position:relative;aspect-ratio:16/9;background:#f2f2f2;overflow:hidden}
   .uffb-media img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .35s ease}
   .uffb-card:hover .uffb-media img{transform:scale(1.03)}
-  .uffb-body{display:flex;flex-direction:column;gap:10px;padding:16px 16px 12px}
+  .uffb-body{display:flex;flex-direction:column;gap:10px;padding:25px}
   .uffb-title{margin:0;font-size:1.5rem;line-height:1.25}
   .uffb-title a{color:inherit;text-decoration:none}
   .uffb-desc{color:#333;opacity:.9;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;min-height:3.6em}
   .uffb-actions{display:flex;gap:10px;margin-top:4px;flex-wrap:wrap}
-  .uffb-btn{display:inline-block;width:auto;height:auto;text-align:center;cursor:pointer;-webkit-appearance:none;-moz-appearance:none;appearance:none;-webkit-font-smoothing:antialiased;line-height:normal;padding:1.2rem 2.004rem;}
+  .uffb-btn{display: inline-block;
+    padding: 18px;
+    border: 1.5px solid currentColor;
+    border-radius: 6px;
+    font-weight: 800;
+    text-decoration: none;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    background: white;}
   .uffb-screenings{color:#333;margin:8px 0 2px;padding:0;list-style:none;display:grid;gap:25px;row-gap:25px}
   .uffb-screening{display:grid;grid-template-columns:1fr auto;align-items:start;gap:6px 12px;font-size:.95rem}
   .uffb-category{font-size:.9rem;color:#333;padding:10px 15px 0;letter-spacing:.02em;text-transform:uppercase;opacity:.7;margin-bottom:.4rem}
