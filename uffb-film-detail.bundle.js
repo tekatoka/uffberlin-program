@@ -404,6 +404,7 @@ function buildCreditsBlock(film){
     .uffb-addr{
     text-decoration:underline;
     opacity:.9;
+    color: var(--paragraphLinkColor);
     }
 
     /* Button: same style as topline CTA */
