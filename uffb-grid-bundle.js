@@ -172,6 +172,11 @@
   };
   const getVenueName = (s) => (s.venue?.[lang] || s.venue?.de || s.venue?.en || s.venue || '').toString();
 
+  const isoToLabel = (iso) => {
+    const [y, m, d] = iso.split('-');
+    return `${d}.${m}.${y}`; // DD.MM.YYYY
+  };
+  
   // inline SVG icons (white)
   const ICONS = {
     filter: `
@@ -344,7 +349,8 @@
       data.forEach(f => (f.screenings||[]).forEach(s => { if(s.date) dateSet.add(s.date); }));
       Array.from(dateSet).sort().forEach(d => {
         const opt = document.createElement('option');
-        opt.value = d; opt.textContent = d; // ISO format keeps it clear + filters exact
+        opt.value = d;                 // keep ISO for filtering
+        opt.textContent = isoToLabel(d); // show as DD.MM.YYYY
         ui.filters.date.appendChild(opt);
       });
     }

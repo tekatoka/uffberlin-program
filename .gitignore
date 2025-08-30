@@ -1,0 +1,9 @@
+# local test page
+index.html
+
+# common stuff you probably don't want
+node_modules/
+.DS_Store
+*.log
+dist/
+build/
