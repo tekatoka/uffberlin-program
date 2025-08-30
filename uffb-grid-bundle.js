@@ -35,7 +35,7 @@
     gap:.8rem;
     grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
     padding:.8rem;
-    border:1px solid rgba(255,255,255,.18);
+    border:1px solid rgba(255,255,255,.5);
     border-radius:.8rem;
     margin:.5rem 0 1rem 0;
     background:rgba(255,255,255,.06);
