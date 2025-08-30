@@ -33,13 +33,13 @@
     // If you ever pass hours+mins, extend to PT#H#M
 }
 
-    function buildTopLine(film){
+ function buildTopLine(film){
   const title = localized(film.title) || film.original_title || "";
   const cat = film.category ? (film.category[lang] || film.category.en || film.category.de || "") : "";
   return `
     <div class="uffb-topline">
       <div class="uffb-topline-left">
-        <div class="uffb-cat">FILM — ${cat}</div>
+        <div class="uffb-cat">#${cat}</div>
         <div class="uffb-top-title">${title}</div>
       </div>
       <div class="uffb-topline-right">
@@ -100,7 +100,72 @@
     // Clean undefined keys
     Object.keys(ld).forEach(k => (ld[k] === undefined) && delete ld[k]);
     return ld;
-  }
+    }
+    
+function infoRow(label, valueHtml){
+  if (!valueHtml) return "";
+  return `
+    <div class="uffb-info-row">
+      <div class="uffb-info-label">${label}</div>
+      <div class="uffb-info-value">${valueHtml}</div>
+    </div>
+  `;
+}
+
+function buildInfoBlock(film){
+  const cat = film.category ? (film.category[lang] || film.category.en || film.category.de || "") : "";
+  const original = film.original_title || "";
+  const countries = film.countries ? (film.countries[lang] || film.countries.en || film.countries.de || []) : [];
+  const countriesTxt = Array.isArray(countries) ? countries.join(", ") : countries;
+
+  // Optional: languages field (if you later add film.languages = {en:[..], de:[..]})
+  const langs = film.languages ? (film.languages[lang] || film.languages.en || film.languages.de || []) : [];
+  const langsTxt = Array.isArray(langs) ? langs.join(", ") : langs;
+
+  return `
+    <section class="uffb-panel">
+      <h3 class="uffb-panel-title">${lang==="de"?"Info":"Info"}</h3>
+      <div class="uffb-info">
+        ${infoRow(lang==="de"?"Reihe":"Category", cat)}
+        ${infoRow(lang==="de"?"ET":"Original title", original)}
+        ${infoRow(lang==="de"?"Länder":"Countries", countriesTxt)}
+        ${langsTxt ? infoRow(lang==="de"?"Sprache(n)":"Language(s)", langsTxt) : ""}
+      </div>
+    </section>
+  `;
+}
+
+function buildCreditsBlock(film){
+  const director = film.director || "";
+  const cast = Array.isArray(film.actors) ? film.actors.join(", ") : (film.actors || "");
+
+  return `
+    <section class="uffb-panel">
+      <h3 class="uffb-panel-title">${lang==="de"?"Credits":"Credits"}</h3>
+      <div class="uffb-credits">
+        ${infoRow(lang==="de"?"Regie":"Director", director)}
+        ${cast ? infoRow("Cast", cast) : ""}
+      </div>
+    </section>
+  `;
+}
+
+function buildSynopsisBlock(film){
+  const shortDesc = (film.description && localized(film.description)) || "";
+  const longDesc  = (film.detailed_description && localized(film.detailed_description)) || "";
+  if (!shortDesc && !longDesc) return "";
+
+  return `
+    <section class="uffb-panel">
+      <h3 class="uffb-panel-title">${lang==="de"?"Über den Film":"Synopsis"}</h3>
+      <div class="uffb-synopsis2">
+        ${shortDesc ? `<p class="uffb-lead"><strong>${shortDesc}</strong></p>` : ""}
+        ${longDesc ? `<div class="uffb-bodytext">${longDesc}</div>` : ""}
+      </div>
+    </section>
+  `;
+}
+
 
   async function main(){
     const filmId = getFilmId();
@@ -146,30 +211,36 @@
     ` : "";
 
     $mount.innerHTML = `
-    <article class="uffb-film">
-        <header class="uffb-film-header">
-        ${buildTopLine(film)}
-        <h1 class="uffb-title visually-hidden">${title}</h1>
-        ${film.image ? `<figure class="uffb-hero"><img src="${film.image}" alt="${title}"></figure>` : ""}
-        </header>
+        <article class="uffb-film">
+            <header class="uffb-film-header">
+            ${buildTopLine(film)}
+            <h1 class="uffb-title visually-hidden">${title}</h1>
+            ${film.image ? `<figure class="uffb-hero"><img src="${film.image}" alt="${title}"></figure>` : ""}
+            </header>
 
-        <section class="uffb-meta">
-        ${metaHTML}
-        </section>
+            <!-- 2-column responsive layout -->
+            <section class="uffb-two-col">
+            <div class="uffb-col-left">
+                ${buildInfoBlock(film)}
+                ${buildCreditsBlock(film)}
+            </div>
+            <div class="uffb-col-right">
+                ${buildSynopsisBlock(film)}
+            </div>
+            </section>
 
-        ${synopsisHTML}
+            ${screeningsHTML ? `
+            <div class="uffb-screenings-block" id="screenings">
+                <h2>${lang==="de"?"Vorstellungen":"Screenings"}</h2>
+                ${screeningsHTML}
+            </div>` : ""}
 
-        ${screeningsHTML ? `
-        <div class="uffb-screenings-block" id="screenings">
-            <h2>${lang==="de"?"Vorstellungen":"Screenings"}</h2>
-            ${screeningsHTML}
-        </div>` : ""}
-
-        <section class="uffb-actions">
-        ${teaserBtn}
-        </section>
-    </article>
+            <section class="uffb-actions">
+            ${teaserBtn}
+            </section>
+        </article>
     `;
+
 
     // JSON-LD
     const ld = document.createElement("script");
@@ -218,6 +289,39 @@
     .visually-hidden{
     position:absolute!important; width:1px!important; height:1px!important; padding:0!important; margin:-1px!important;
     overflow:hidden!important; clip:rect(0 0 0 0)!important; white-space:nowrap!important; border:0!important;
+    }
+
+    /* panels + headings */
+    .uffb-panel{padding:0}
+    .uffb-panel + .uffb-panel{margin-top:22px}
+    .uffb-panel-title{
+    font-size:12px; letter-spacing:.08em; text-transform:uppercase;
+    opacity:.6; margin:0 0 10px 0;
+    }
+
+    /* left column: info / credits table style */
+    .uffb-info, .uffb-credits{display:grid; gap:8px}
+    .uffb-info-row{display:grid; grid-template-columns:180px 1fr; gap:10px}
+    .uffb-info-label{
+    font-weight:700; text-transform:uppercase; letter-spacing:.04em; opacity:.85; font-size:13px;
+    }
+    .uffb-info-value{font-size:15px; line-height:1.45}
+
+    /* right column: synopsis */
+    .uffb-synopsis2 .uffb-lead{margin:0 0 10px 0; font-size:18px; line-height:1.45}
+    .uffb-synopsis2 .uffb-bodytext{white-space:pre-wrap; line-height:1.6}
+
+    /* two-column responsive grid */
+    .uffb-two-col{display:grid; gap:28px}
+    @media (min-width: 960px){
+    .uffb-two-col{grid-template-columns:1fr 1fr; align-items:start}
+    }
+
+    /* optional: separator like in your reference */
+    .uffb-col-left, .uffb-col-right{position:relative}
+    @media (min-width: 960px){
+    .uffb-col-left{padding-right:24px; border-right:1px solid rgba(0,0,0,.08)}
+    .uffb-col-right{padding-left:24px}
     }
   `;
   const style = document.createElement("style");
