@@ -1,0 +1,26 @@
+[
+  {
+    "id": "fragments-of-ice",
+    "title": {
+      "en": "Fragments of Ice",
+      "de": "Eisfragmente"
+    },
+    "description": {
+      "en": "A story of love and resistance.",
+      "de": "Eine Geschichte von Liebe und Widerstand."
+    },
+    "teaser": "https://www.youtube.com/watch?v=xxxxx",
+    "image": "https://yourcdn.com/images/fragments.jpg",
+    "screenings": [
+      {
+        "date": "2025-10-23",
+        "time": "19:00",
+        "venue": {
+          "en": "Kino Arsenal",
+          "de": "Kino Arsenal"
+        },
+        "tickets": "https://tickets.yourfestival.com/fragments"
+      }
+    ]
+  }
+]
