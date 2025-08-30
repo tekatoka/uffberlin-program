@@ -424,7 +424,7 @@
     /* headline bar above hero */
     .uffb-topline{
       display:flex; gap:20px; align-items:flex-end; justify-content:space-between;
-      background:#000; color:#fff; border-radius:12px; padding:22px 16px;
+      background:#000; color:#fff; border-radius:12px;
     }
     .uffb-topline-left{display:grid; gap:4px}
     .uffb-cat{font-size:14px; letter-spacing:.06em; opacity:.85; text-transform:uppercase}
