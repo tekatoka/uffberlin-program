@@ -501,7 +501,7 @@
     .uffb-screening-card .uffb-venue-title{ color:#333; }
     .uffb-whenline{ font-weight:700; }
     .uffb-venue-title{ font-size:17px; font-weight:700; }
-    .uffb-addr{ text-decoration:underline; opacity:1; color:inherit; }
+    .uffb-addr{ text-decoration:underline; opacity:1; color:var(--paragraphLinkColor); }
     .uffb-top-cta, .uffb-book-btn{
       display:inline-block; padding:10px 18px; border:1.5px solid currentColor; border-radius:6px;
       font-weight:800; text-decoration:none; letter-spacing:.06em; text-transform:uppercase;
