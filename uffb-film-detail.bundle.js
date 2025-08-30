@@ -172,6 +172,29 @@ function buildCreditsBlock(film){
         return `${dd}.${mm}.${yyyy}`;
     }
 
+    function fmtWhen(isoDate, timeHHMM){
+    const d = new Date(isoDate + "T00:00:00"); // safe parse as local midnight
+    const WDAY = {
+        en: ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"],
+        de: ["So","Mo","Di","Mi","Do","Fr","Sa"]
+    }[lang] || ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+
+    const MON = {
+        en: ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],
+        de: ["Jan","Feb","Mär","Apr","Mai","Jun","Jul","Aug","Sep","Okt","Nov","Dez"]
+    }[lang] || ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+
+    const w = WDAY[d.getDay()];
+    const dd = String(d.getDate()).padStart(2,"0");
+    const m  = MON[d.getMonth()];
+    const yyyy = d.getFullYear();
+
+    // English-style format per your spec. If you want strict German punctuation
+    // (e.g., "Mi, 22. Okt 2025 · 21:00"), change the template below when lang==="de".
+    return `${w}, ${dd} ${m} ${yyyy} · ${timeHHMM}`;
+    }
+
+
     function buildScreeningsSection(film){
         const list = Array.isArray(film.screenings) ? film.screenings : [];
         if (!list.length) return "";
@@ -180,7 +203,7 @@ function buildCreditsBlock(film){
         const btnText   = lang==="de" ? "Tickets kaufen" : "Book tickets";
 
         const cards = list.map(s => {
-            const when = `${fmtDate(s.date)} · ${s.time}`;
+            const when = `${fmtWhen(s.date, s.time)}`;
             const venueName = localized(s.venue) || "";
             const addr = s.address || "";
             const mapsUrl = s.maps?.google || null;
