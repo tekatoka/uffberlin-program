@@ -57,7 +57,7 @@
     if(u.hostname.includes('youtu.be')) return `https://www.youtube-nocookie.com/embed/${u.pathname.slice(1)}?rel=0&autoplay=1`;
     return url; }catch{return url;}
   }
-  function offsetStr(){ const m=new Date().getTimezoneOffset(), sign=m<=0?'+':'-', abs=Math.abs(m);
+  function offsetFor(){ const m=new Date().getTimezoneOffset(), sign=m<=0?'+':'-', abs=Math.abs(m);
     const hh=String(Math.floor(abs/60)).padStart(2,'0'), mm=String(abs%60).padStart(2,'0'); return `${sign}${hh}:${mm}`;}
   const fmt = new Intl.DateTimeFormat('de-DE',{weekday:'short',day:'2-digit',month:'short',year:'numeric'});
 
