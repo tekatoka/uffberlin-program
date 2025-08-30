@@ -16,15 +16,7 @@
   .uffb-actions{display:flex;gap:10px;margin-top:4px;flex-wrap:wrap}
   .uffb-btn{display:inline-block;width:auto;height:auto;text-align:center;cursor:pointer;-webkit-appearance:none;-moz-appearance:none;appearance:none;-webkit-font-smoothing:antialiased;line-height:normal;padding:1.2rem 2.004rem;}
   .uffb-screenings{color:#333;margin:8px 0 2px;padding:0;list-style:none;display:grid;gap:25px;row-gap:25px}
-  .uffb-screening{display:flex;justify-content:space-between;align-items:start;gap:25px;font-size:.95rem}
-  .uffb-whenwhere{color:#222}
-  /* modal */
-  .uffb-modal{position:fixed;inset:0;display:none;z-index:99999;align-items:center;justify-content:center;background:rgba(0,0,0,.65);padding:20px}
-  .uffb-modal.is-open{display:flex}
-  .uffb-modal-box{width:min(100%,960px);aspect-ratio:16/9;background:#000;border-radius:12px;overflow:hidden;position:relative}
-  .uffb-modal-close{position:absolute;top:8px;right:8px;background:#fff;border:none;border-radius:999px;width:36px;height:36px;cursor:pointer}
-  .uffb-modal iframe{width:100%;height:100%;border:0;display:block}
-  .uffb-screening{display:grid;grid-template-columns:1fr auto;align-items:start;gap:6px 12px}
+  .uffb-screening{display:grid;grid-template-columns:1fr auto;align-items:start;gap:6px 12px;font-size:.95rem}
   .uffb-category{font-size:.9rem;color:#333;padding:10px 15px 0;letter-spacing:.02em;text-transform:uppercase;opacity:.7;margin-bottom:.4rem}
   .uffb-when{font-weight:700}
   .uffb-venue{margin-top:2px}
@@ -32,11 +24,17 @@
   .uffb-tickets a{color:var(--paragraphLinkColor);font-size:1.1rem;font-weight:600;padding:10px}
 
   /* controls */
-  .uffb-controls{display:flex;gap:.5rem;margin:0 0 1rem 0;flex-wrap:wrap}
-  .uffb-icon-btn{border:1px solid #ddd;padding:.4rem .6rem;border-radius:.6rem;background:#fff;cursor:pointer}
-  .uffb-filters,.uffb-search{display:grid;gap:.6rem;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));padding:.8rem;border:1px solid #eee;border-radius:.8rem;margin:.5rem 0 1rem 0;background:#fafafa}
+  .uffb-controls{display:flex;gap:1rem;margin:0 0 1rem 0;align-items:center}
+  .uffb-icon-btn{display:inline-flex;gap:.5rem;align-items:center;border:none;background:transparent;color:#fff;cursor:pointer;padding:.25rem .5rem}
+  .uffb-icon-btn svg{width:26px;height:26px;stroke:currentColor;fill:none;stroke-width:2}
+  .uffb-icon-btn .lbl{font-size:.9rem;letter-spacing:.08em}
+  .uffb-filters,.uffb-search{display:grid;gap:.6rem;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));padding:.8rem;border:1px solid rgba(255,255,255,.18);border-radius:.8rem;margin:.5rem 0 1rem 0;background:rgba(255,255,255,.06);backdrop-filter:saturate(120%) blur(4px)}
   .uffb-filters[hidden],.uffb-search[hidden]{display:none}
   .uffb-filter-actions{display:flex;gap:.5rem}
+  /* form fields – inherit Squarespace look as much as possible */
+  .uffb-field{font:inherit;color:inherit;background:transparent;padding:.55rem .65rem;border:1px solid rgba(255,255,255,.35);border-radius:.5rem}
+  .uffb-field:focus{outline:2px solid rgba(255,255,255,.55);outline-offset:1px}
+  .uffb-field::placeholder{color:rgba(255,255,255,.7)}
   `;
 
   function injectCSS(){ if(document.getElementById('uffb-grid-style')) return;
@@ -88,7 +86,7 @@
   }
 
   function card(it){
-    const href = `https://www.uffberlin.de/uffb2025/${encodeURIComponent(it.id)}`; // absolute
+    const href = `https://www.uffberlin.de/uffb2025/${encodeURIComponent(it.id)}`;
     const title = it.title?.de || it.title?.en || 'Untitled';
     const category = it.category?.de || it.category?.en || 'Untitled';
     const desc  = it.description?.de || it.description?.en || '';
@@ -133,49 +131,57 @@
   };
   const getVenueName = (s) => (s.venue?.[lang] || s.venue?.de || s.venue?.en || s.venue || '').toString();
 
+  // inline SVG icons (white, stroke currentColor)
+  const ICONS = {
+    filter: `
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M4 6h16M7 12h10M10 18h4"/><circle cx="9" cy="6" r="2"/><circle cx="14" cy="12" r="2"/><circle cx="12" cy="18" r="2"/>
+      </svg>`,
+    search: `
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <circle cx="11" cy="11" r="7"/><path d="M20 20l-4.35-4.35"/>
+      </svg>`
+  };
+
   function buildControls(container){
-    // top controls
     const controls = document.createElement('div');
     controls.className = 'uffb-controls';
     controls.innerHTML = `
-      <button class="uffb-icon-btn" id="filterToggle" aria-expanded="false" aria-controls="filters">🔎 Filter</button>
-      <button class="uffb-icon-btn" id="searchToggle" aria-expanded="false" aria-controls="searchbar">⌕ Search</button>
+      <button class="uffb-icon-btn" id="filterToggle" aria-expanded="false" aria-controls="filters" title="Filter">
+        ${ICONS.filter}<span class="lbl">FILTER</span>
+      </button>
+      <button class="uffb-icon-btn" id="searchToggle" aria-expanded="false" aria-controls="searchbar" title="Search">
+        ${ICONS.search}
+      </button>
     `;
     container.appendChild(controls);
 
-    // filters panel
     const filters = document.createElement('form');
     filters.id = 'filters';
     filters.className = 'uffb-filters';
     filters.setAttribute('hidden','');
     filters.innerHTML = `
       <label><span>Category</span>
-        <select id="filterCategory"><option value="">All</option></select>
+        <select id="filterCategory" class="uffb-field"><option value="">All</option></select>
       </label>
       <label><span>Venue</span>
-        <select id="filterVenue"><option value="">All</option></select>
+        <select id="filterVenue" class="uffb-field"><option value="">All</option></select>
       </label>
       <label><span>Date</span>
-        <input type="date" id="filterDate"/>
+        <input type="date" id="filterDate" class="uffb-field"/>
       </label>
       <div class="uffb-filter-actions">
-        <button type="button" id="applyFilters" class="uffb-icon-btn">Apply filters</button>
-        <button type="button" id="clearFilters" class="uffb-icon-btn">Clear</button>
+        <button type="button" id="clearFilters" class="uffb-icon-btn">Clear filters</button>
       </div>
     `;
     container.appendChild(filters);
 
-    // search panel
     const search = document.createElement('form');
     search.id = 'searchbar';
     search.className = 'uffb-search';
     search.setAttribute('hidden','');
     search.innerHTML = `
-      <input type="search" id="searchInput" placeholder="Search title, description, venue…" />
-      <div class="uffb-filter-actions">
-        <button type="button" id="applySearch" class="uffb-icon-btn">Search</button>
-        <button type="button" id="clearSearch" class="uffb-icon-btn">Clear</button>
-      </div>
+      <input type="search" id="searchInput" class="uffb-field" placeholder="Search title, description, venue…" />
     `;
     container.appendChild(search);
 
@@ -185,14 +191,11 @@
         cat: filters.querySelector('#filterCategory'),
         venue: filters.querySelector('#filterVenue'),
         date: filters.querySelector('#filterDate'),
-        apply: filters.querySelector('#applyFilters'),
         clear: filters.querySelector('#clearFilters'),
       },
       search: {
         root: search,
         input: search.querySelector('#searchInput'),
-        apply: search.querySelector('#applySearch'),
-        clear: search.querySelector('#clearSearch'),
       },
       toggles: {
         filterBtn: controls.querySelector('#filterToggle'),
@@ -233,7 +236,6 @@
     }
 
     function applyAll(){
-      // filter
       filtered = items.filter(f=>{
         if(state.category){
           const key = (f.category && (f.category.key || f.category.en || f.category.de)) || '';
@@ -264,7 +266,6 @@
 
       // sort by earliest screening date
       filtered.sort((a,b)=> earliestDate(a).localeCompare(earliestDate(b)));
-
       renderGrid(filtered);
     }
 
@@ -275,7 +276,7 @@
     }
 
     function initFilterOptions(data){
-      // categories (from data)
+      // categories
       const catSet = new Map(); // key -> label (current lang)
       data.forEach(f=>{
         const key = (f.category && f.category.key) || null;
@@ -286,52 +287,51 @@
         const opt=document.createElement('option'); opt.value=key; opt.textContent=label; ui.filters.cat.appendChild(opt);
       });
 
-      // venues (normalize by visible name)
-      const venueSet = new Set();
+      // venues (by visible name, normalized for matching)
+      const venueMap = new Map(); // norm -> pretty
       data.forEach(f=> (f.screenings||[]).forEach(s=>{
-        const vName = safeTxt(getVenueName(s));
-        if(vName) venueSet.add(vName);
+        const pretty = getVenueName(s).trim();
+        const norm = safeTxt(pretty);
+        if(pretty && !venueMap.has(norm)) venueMap.set(norm, pretty);
       }));
-      Array.from(venueSet).sort().forEach(v=>{
-        const opt=document.createElement('option'); opt.value=v; opt.textContent=v.replace(/\b\w/g,c=>c.toUpperCase()); ui.filters.venue.appendChild(opt);
+      Array.from(venueMap.entries()).sort((a,b)=> a[1].localeCompare(b[1])).forEach(([norm,pretty])=>{
+        const opt=document.createElement('option'); opt.value=norm; opt.textContent=pretty; ui.filters.venue.appendChild(opt);
       });
-
-      // nothing to preload for dates (free input)
     }
 
-    // wire up controls
+    // toggles
     ui.toggles.filterBtn.addEventListener('click', ()=> toggle(ui.filters.root, ui.toggles.filterBtn));
     ui.toggles.searchBtn.addEventListener('click', ()=> toggle(ui.search.root, ui.toggles.searchBtn));
 
-    ui.filters.apply.addEventListener('click', ()=>{
-      state.category = ui.filters.cat.value;
-      state.venue    = ui.filters.venue.value;
-      state.date     = ui.filters.date.value;
-      applyAll();
-    });
+    // instant filtering
+    ui.filters.cat.addEventListener('change', ()=>{ state.category = ui.filters.cat.value; applyAll(); });
+    ui.filters.venue.addEventListener('change', ()=>{ state.venue = ui.filters.venue.value; applyAll(); });
+    ui.filters.date.addEventListener('change', ()=>{ state.date = ui.filters.date.value; applyAll(); });
     ui.filters.clear.addEventListener('click', ()=>{
       ui.filters.cat.value=''; ui.filters.venue.value=''; ui.filters.date.value='';
       state.category=''; state.venue=''; state.date='';
       applyAll();
     });
 
-    ui.search.apply.addEventListener('click', ()=>{
+    // instant search (with small debounce) + native clear (fires 'search' event)
+    let searchTimer = null;
+    const doSearch = ()=>{
       state.q = ui.search.input.value.trim();
       applyAll();
+    };
+    ui.search.input.addEventListener('input', ()=>{
+      clearTimeout(searchTimer);
+      searchTimer = setTimeout(doSearch, 250);
     });
-    ui.search.clear.addEventListener('click', ()=>{
-      ui.search.input.value=''; state.q='';
-      applyAll();
-    });
+    ui.search.input.addEventListener('search', doSearch); // fires when user clicks the × clear
 
     // fetch + initial render
     fetch(jsonUrl, {cache:'no-cache'})
       .then(r=>{ if(!r.ok) throw new Error('load fail'); return r.json(); })
       .then(data=>{
-        // initial sort by earliest screening date
         items = data.slice().sort((a,b)=> earliestDate(a).localeCompare(earliestDate(b)));
         initFilterOptions(items);
-        applyAll(); // renders
+        applyAll();
       })
       .catch(err=>{
         grid.innerHTML = '<p>Programm konnte nicht geladen werden.</p>';
@@ -339,7 +339,7 @@
       });
   }
 
-  // robust init for Squarespace (DOM + injected content)
+  // robust init for Squarespace
   let started=false;
   const tryStart=()=>{ if(started) return;
     const nodes=document.querySelectorAll(MOUNT); if(!nodes.length) return;
