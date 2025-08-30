@@ -472,7 +472,7 @@ function enableTicketsJump(){
       background:#000; color:#fff; border-radius:6px;
     }
     .uffb-topline-left{display:grid; gap:4px}
-    .uffb-cat{font-size:14px; letter-spacing:.06em; opacity:.85; text-transform:uppercase}
+    .uffb-cat{font-size:1rem; letter-spacing:.06em; opacity:.85; text-transform:uppercase}
     .uffb-top-title{font-size:clamp(22px,4.5vw,42px); font-weight:800; line-height:1; text-transform:uppercase}
     .uffb-topline-right{display:flex; align-items:center; gap:10px}
     .uffb-top-cta{
