@@ -388,8 +388,12 @@ function buildCreditsBlock(film){
     border:1px solid rgba(0,0,0,.12);
     border-radius:12px;
     background:#fff;
-    color:#333:
     }
+    .uffb-screening-card .uffb-whenline,
+    .uffb-screening-card .uffb-venue-title{
+    color:#333;
+    }
+
     .uffb-whenline{
     font-weight:700;
     }
@@ -406,6 +410,11 @@ function buildCreditsBlock(film){
     .uffb-top-cta, .uffb-book-btn{
     display:inline-block; padding:10px 18px; border:1.5px solid currentColor; border-radius:6px;
     font-weight:800; text-decoration:none; letter-spacing:.06em; text-transform:uppercase;
+    }
+
+    .uffb-book-btn{
+        color:#333;
+        border-color:#333;
     }
     .uffb-card-actions{ margin-top:6px; }
 `;
