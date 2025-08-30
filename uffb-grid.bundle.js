@@ -106,7 +106,7 @@
     background:#fff;
     padding:.55rem .65rem;
     border:1px solid #d7d7d7;
-    border-radius:.5rem
+    border-radius:6px
   }
   .uffb-field:focus{outline:2px solid #bbb;outline-offset:1px}
   .uffb-field::placeholder{color:#666}
