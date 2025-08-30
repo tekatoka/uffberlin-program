@@ -43,7 +43,9 @@
     gap: 6px 12px;
   }
   .uffb-category {
-    font-size: 0.75rem;       /* small */
+    font-size: 0.8rem;
+    color: #333;
+    padding: 10px 15px 0;
     letter-spacing: .02em;
     text-transform: uppercase;
     opacity: .7;
@@ -56,7 +58,8 @@
   .uffb-when { font-weight: 700; }
   .uffb-venue { margin-top: 2px; }
   .uffb-address a { font-size: .92rem; text-decoration: underline; color: #444; }
-  .uffb-tickets a {color: var(--paragraphLinkColor);
+  .uffb-tickets a {
+    color: var(--paragraphLinkColor);
     font-size: 1.1rem;
     font-weight: 600;
     padding: 10px;}`;
