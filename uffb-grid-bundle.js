@@ -63,7 +63,7 @@
 
   function screeningLine(s) {
     // date/time
-    const dtISO = `${s.date}T${(s.time || '00:00')}:00${offsetFor()}`;
+    const dtISO = `${s.date}T${(s.time || '00:00')}:00${offsetStr()}`;
     const d = new Date(dtISO);
     const when = `${fmt.format(d)}${s.time ? `, ${s.time}` : ''}`;
   
