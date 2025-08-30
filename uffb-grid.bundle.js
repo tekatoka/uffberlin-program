@@ -49,7 +49,7 @@
   .uffb-grid{display:grid;grid-template-columns:1fr;gap:20px}
   @media(min-width:700px){.uffb-grid{grid-template-columns:repeat(2,1fr)}}
   @media(min-width:1024px){.uffb-grid{grid-template-columns:repeat(3,1fr)}}
-  .uffb-card{display:flex;flex-direction:column;background:#fff;border-radius:14px;box-shadow:0 6px 16px rgba(0,0,0,.08);overflow:hidden;height:100%}
+  .uffb-card{display:flex;flex-direction:column;background:#fff;border-radius:6px;box-shadow:0 6px 16px rgba(0,0,0,.08);overflow:hidden;height:100%}
   .uffb-media{position:relative;aspect-ratio:16/9;background:#f2f2f2;overflow:hidden}
   .uffb-media img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .35s ease}
   .uffb-card:hover .uffb-media img{transform:scale(1.03)}
