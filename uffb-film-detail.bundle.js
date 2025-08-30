@@ -504,7 +504,7 @@ function enableTicketsJump(){
     .uffb-info-label{
       font-weight:700; text-transform:uppercase; letter-spacing:.04em; opacity:.85; font-size:.85rem;
     }
-    .uffb-info-value{font-size:1.15px;}
+    .uffb-info-value{font-size:1.15rem;}
 
     /* right column: synopsis */
     .uffb-synopsis2 .uffb-lead{margin:0 0 10px 0; font-size:18px;}
