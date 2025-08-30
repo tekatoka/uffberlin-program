@@ -56,7 +56,7 @@
   .uffb-body{display:flex;flex-direction:column;gap:10px;padding:25px}
   .uffb-title{margin:0;font-size:1.5rem;line-height:1.25}
   .uffb-title a{color:inherit;text-decoration:none}
-  .uffb-desc{color:#333;opacity:.9;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;min-height:3.6em}
+  .uffb-desc{color:#333;opacity:.9;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;min-height:3.6em;font-size:1.25rem}
   .uffb-actions{display:flex;gap:10px;margin-top:4px;flex-wrap:wrap}
   .uffb-btn{display: inline-block;
     padding: 18px;
@@ -68,12 +68,13 @@
     text-transform: uppercase;
     background: white;}
   .uffb-screenings{color:#333;margin:8px 0 2px;padding:0;list-style:none;display:grid;gap:25px;row-gap:25px}
-  .uffb-screening{display:grid;grid-template-columns:1fr auto;align-items:start;gap:6px 12px;font-size:.95rem}
+  .uffb-screening{display:grid;grid-template-columns:1fr auto;align-items:start;gap:6px 12px;font-size:1.25rem}
   .uffb-category{font-size:.9rem;color:#333;padding:10px 15px 0;letter-spacing:.02em;text-transform:uppercase;opacity:.7;margin-bottom:.4rem}
   .uffb-when{font-weight:700}
   .uffb-venue{margin-top:2px}
-  .uffb-address a{font-size:.92rem;text-decoration:underline;color:#444}
-  .uffb-tickets a{color:var(--paragraphLinkColor);font-size:1.1rem;font-weight:600;padding:10px}
+  .uffb-address a{font-size:.92rem;text-decoration:underline;color:#444;font-size:1rem}
+  .uffb-tickets a{color:var(--paragraphLinkColor);font-size:1.1rem;font-weight:600;padding:10px;border: 1.5px solid;
+    border-radius: 5px;}
 
   /* controls */
   .uffb-controls{display:flex;gap:1rem;margin:0 0 1rem 0;align-items:center}
