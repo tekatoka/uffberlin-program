@@ -400,8 +400,6 @@ function enableTicketsJump(){
         <section class="uffb-actions"></section>
       </article>
     `;
-      
-    enableTicketsJump();
 
     // topline trailer button -> lightbox
     const trailerBtn = $mount.querySelector(".uffb-trailer-btn");
@@ -584,7 +582,10 @@ function enableTicketsJump(){
   document.head.appendChild(style);
 
   // ensure lightbox root exists on first use
-  ensureLightbox();
+    ensureLightbox();
+    
+    //enable jumping to "Screenings" section
+    enableTicketsJump();
 
   main();
 })();
