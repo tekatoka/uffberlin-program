@@ -27,7 +27,7 @@
     line-height: normal;
     padding: 1.2rem 2.004rem;
   }
-  .uffb-screenings{color:#333;margin:8px 0 2px;padding:0;list-style:none;display:grid;gap:8px}
+  .uffb-screenings{color:#333;margin:8px 0 2px;padding:0;list-style:none;display:grid;gap:25px;row-gap:25px}
   .uffb-screening{display:flex;justify-content:space-between;align-items:start;gap:25px;font-size:.95rem}
   .uffb-whenwhere{color:#222}
   /* modal */
@@ -36,7 +36,6 @@
   .uffb-modal-box{width:min(100%,960px);aspect-ratio:16/9;background:#000;border-radius:12px;overflow:hidden;position:relative}
   .uffb-modal-close{position:absolute;top:8px;right:8px;background:#fff;border:none;border-radius:999px;width:36px;height:36px;cursor:pointer}
   .uffb-modal iframe{width:100%;height:100%;border:0;display:block}
-  .uffb-screenings { margin: 8px 0 2px; padding: 0; list-style: none; display: grid; gap: 10px; }
   .uffb-screening {
     display: grid;
     grid-template-columns: 1fr auto;
