@@ -118,18 +118,16 @@ function buildInfoBlock(film){
   const countries = film.countries ? (film.countries[lang] || film.countries.en || film.countries.de || []) : [];
   const countriesTxt = Array.isArray(countries) ? countries.join(", ") : countries;
 
-  // Optional: languages field (if you later add film.languages = {en:[..], de:[..]})
-  const langs = film.languages ? (film.languages[lang] || film.languages.en || film.languages.de || []) : [];
-  const langsTxt = Array.isArray(langs) ? langs.join(", ") : langs;
+  const languageTxt = film.language ? (film.language[lang] || film.language.en || film.language.de || "") : "";
 
   return `
     <section class="uffb-panel">
       <h3 class="uffb-panel-title">${lang==="de"?"Info":"Info"}</h3>
       <div class="uffb-info">
-        ${infoRow(lang==="de"?"Reihe":"Category", cat)}
-        ${infoRow(lang==="de"?"ET":"Original title", original)}
+        ${infoRow(lang==="de"?"Kategorie":"Category", cat)}
+        ${infoRow(lang==="de"?"Originaltitel":"Original title", original)}
         ${infoRow(lang==="de"?"Länder":"Countries", countriesTxt)}
-        ${langsTxt ? infoRow(lang==="de"?"Sprache(n)":"Language(s)", langsTxt) : ""}
+         ${languageTxt ? infoRow(lang==="de"?"Sprache":"Language", languageTxt) : ""}
       </div>
     </section>
   `;
@@ -302,11 +300,11 @@ function buildSynopsisBlock(film){
   .uffb-info-label{
     font-weight:700; text-transform:uppercase; letter-spacing:.04em; opacity:.85; font-size:12.5px;
   }
-  .uffb-info-value{font-size:15px; line-height:1.45}
+  .uffb-info-value{font-size:15px; }
 
   /* right column: synopsis */
-  .uffb-synopsis2 .uffb-lead{margin:0 0 10px 0; font-size:18px; line-height:1.45}
-  .uffb-synopsis2 .uffb-bodytext{white-space:pre-wrap; line-height:1.6}
+  .uffb-synopsis2 .uffb-lead{margin:0 0 10px 0; font-size:18px;}
+  .uffb-synopsis2 .uffb-bodytext{white-space:pre-wrap; line-height:1.45}
 
   /* two-column responsive grid */
   .uffb-two-col{display:grid; gap:28px; margin-top:32px}
