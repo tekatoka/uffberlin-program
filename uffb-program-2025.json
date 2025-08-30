@@ -1,56 +1,56 @@
 [
   {
-    "id": "fragments-of-ice",
+    "id": "songs-of-slow-burning-earth",
     "title": {
-      "en": "Fragments of Ice",
-      "de": "Eisfragmente"
+      "en": "Songs of Slow Burning Earth",
+      "de": "Wenn Krieg Alltag wird"
     },
     "description": {
       "en": "A story of love and resistance.",
       "de": "Eine Geschichte von Liebe und Widerstand."
     },
-    "teaser": "https://www.youtube.com/watch?v=xxxxx",
-    "image": "https://www.filmfest-muenchen.de/Pictures/Filme/118/7728/Fragments_of_Ice-online1_neu.jpg",
+    "teaser": "https://www.youtube.com/watch?v=Rd1XdUyB_JU",
+    "image": "https://www.lab111.nl/wp-content/uploads/2025/05/Slow.jpg",
     "screenings": [
       {
-        "date": "2025-10-23",
-        "time": "19:00",
+        "date": "2025-10-22",
+        "time": "19:30",
         "venue": {
-          "en": "Kino Arsenal",
-          "de": "Kino Arsenal"
+          "en": "silent green Kulturquartier",
+          "de": "silent green Kulturquartier"
         },
-        "tickets": "https://tickets.yourfestival.com/fragments"
+        "tickets": "https://uffb2025-opening.eventbrite.de/"
       }
     ]
   },
   {
-    "id": "u-are-universe",
+    "id": "2000-meters-to-andriivka",
     "title": {
-      "en": "U ARE THE UNIVERSE",
-      "de": "DU BIST KOSMOS"
+      "en": "2000 Meters to Andriivka",
+      "de": "2000 Meters to Andriivka"
     },
     "description": {
       "en": "A story of love and resistance.",
       "de": "Eine Geschichte von Liebe und Widerstand."
     },
-    "teaser": "https://www.youtube.com/watch?v=xxxxx",
-    "image": "https://www.film-rezensionen.de/wp-content/uploads/2024/09/U-Are-the-Universe-Frontpage-scaled.jpg",
+    "teaser": "https://www.youtube.com/watch?v=xRSPxuptLd8",
+    "image": "https://novynarnia.com/wp-content/uploads/2024/12/film-mstyslava-chernova-2000-metriv-do-andriyivky-pokazhut-v-programi-kinofestyvalyu-sandens.jpeg",
     "screenings": [
       {
-        "date": "2025-10-24",
-        "time": "19:00",
-        "venue": {
-          "en": "Kino Arsenal",
-          "de": "Kino Arsenal"
-        },
-        "tickets": "https://www.eventim-light.com/de/a/630258da01bcd227acaad56c/e/6894ef794451ed23a93229c3"
-      },
-      {
-        "date": "2025-10-24",
+        "date": "2025-10-25",
         "time": "19:00",
         "venue": {
           "en": "Kino in der Kulturbrauerei",
           "de": "Kino in der Kulturbrauerei"
+        },
+        "tickets": "https://www.eventim-light.com/de/a/630258da01bcd227acaad56c/e/6894ef794451ed23a93229c3"
+      },
+      {
+        "date": "2025-10-26",
+        "time": "19:00",
+        "venue": {
+          "en": "silent green Kulturquartier",
+          "de": "silent green Kulturquartier"
         },
         "tickets": "https://www.eventim-light.com/de/a/630258da01bcd227acaad56c/e/6894ef794451ed23a93229c3"
       }
