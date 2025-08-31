@@ -220,6 +220,11 @@
       color: #444;
       font-size: 1rem;
     }
+
+    .uffb-tickets {
+      margin-top: 15px;
+    }
+
     .uffb-tickets a {
       color: var(--paragraphLinkColor);
       font-size: 1.1rem;
@@ -424,6 +429,113 @@
       width: 36px;
       height: 36px;
       cursor: pointer;
+    }
+
+    /* --- LIST LAYOUT (row cards) --- */
+    .uffb-list {
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+
+    .uffb-row {
+      display: grid;
+      grid-template-columns: min(38vw, 420px) 1fr;
+      gap: 24px;
+      background: transparent;
+      border-radius: 6px;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+      overflow: hidden;
+    }
+    @media (max-width: 900px) {
+      .uffb-row {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .uffb-row .uffb-media {
+      aspect-ratio: 16/9;
+      background: #f2f2f2;
+    }
+    .uffb-row .uffb-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.35s ease;
+    }
+    .uffb-row:hover .uffb-media img {
+      transform: scale(1.03);
+    }
+
+    .uffb-row .uffb-category {
+      padding: 0 24px;
+      opacity: 0.65;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+    }
+    .uffb-row .uffb-body {
+      padding: 12px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .uffb-row .uffb-title {
+      font-size: 2rem;
+      line-height: 1.2;
+      margin: 2px 0 0;
+    }
+    .uffb-row .uffb-desc {
+      opacity: 0.9;
+      -webkit-line-clamp: 5;
+      min-height: auto;
+      font-size: 1.1rem;
+    }
+    .uffb-row .uffb-actions {
+      margin-top: 6px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .uffb-row .uffb-screenings {
+      margin-top: 4px;
+    }
+
+    .uffb-row div {
+      color: #fff !important;
+    }
+    .uffb-row a {
+      color: inherit !important;
+    }
+
+    /* LIST VIEW: stack screenings, tweak spacing */
+    .uffb-list .uffb-screenings {
+      display: flex; /* no grid here */
+      flex-direction: column; /* one under another */
+      gap: 36px; /* MORE space between screenings */
+    }
+
+    .uffb-list .uffb-screening {
+      display: flex; /* stack left + tickets vertically */
+      flex-direction: column;
+      gap: 4px; /* LESS space between venue/address and Tickets */
+    }
+
+    /* optional: make the Tickets button sit tight under the address */
+    .uffb-list .uffb-screening .uffb-tickets {
+      margin-top: 2px;
+    }
+    .uffb-list .uffb-screening .uffb-tickets a {
+      display: inline-block;
+      padding: 10px 14px; /* a bit tighter button in this compact list */
+    }
+
+    /* keep inner text spacing tidy (doesn't affect grid view) */
+    .uffb-list .uffb-venue {
+      margin-top: 2px;
+    }
+    .uffb-list .uffb-address a {
+      margin-top: 0;
     }
   `;
 
@@ -636,7 +748,7 @@
     const onlyDate = opts.onlyDate || null;
 
     const screeningsList = (it.screenings || []).filter(
-      (s) => !onlyDate || s.date === onlyDate
+      (s) => !opts?.onlyDate || s.date === opts.onlyDate
     );
     const screenings = screeningsList.map(screeningLine).join('');
 
@@ -691,6 +803,93 @@
           </ul>
         </div>
       </article>`;
+  }
+
+  function filmCard(it, opts = {}) {
+    const variant = opts.variant || 'grid'; // 'grid' | 'row'
+    const onlyDate = opts.onlyDate || null;
+
+    const href = `${basePath}/${encodeURIComponent(it.id)}`;
+    const title =
+      it.title?.[lang] ||
+      it.title?.de ||
+      it.title?.en ||
+      it.title?.uk ||
+      'Untitled';
+    const category =
+      it.category?.[lang] ||
+      it.category?.de ||
+      it.category?.en ||
+      it.category?.uk ||
+      '—';
+    const desc =
+      it.description?.[lang] ||
+      it.description?.de ||
+      it.description?.en ||
+      it.description?.uk ||
+      '';
+    const img = it.image || '';
+    const trailer = it.trailer;
+
+    // meta (same as your card)
+    const genreTxt = joinVals(it.genre);
+    const countriesTxt = joinVals(it.countries);
+    const yearTxt = it.year ? String(it.year) : '';
+    const directorTxt = joinVals(it.director);
+    let durationTxt = it.duration != null ? it.duration : '';
+    if (typeof durationTxt === 'number') durationTxt = `${durationTxt}'`;
+    else durationTxt = pickLangVal(durationTxt);
+
+    const metaBlock = `
+    <div class="uffb-meta">
+      ${genreTxt ? `<div class="uffb-meta1"><em>${escapeHtml(genreTxt)}</em></div>` : ''}
+      ${
+        [countriesTxt, yearTxt].filter(Boolean).length
+          ? `<div class="uffb-meta1"><em>${escapeHtml([countriesTxt, yearTxt].filter(Boolean).join(' | '))}</em></div>`
+          : ''
+      }
+      ${directorTxt ? `<div class="uffb-meta2" style="margin-top:10px">${t('director')}: ${escapeHtml(directorTxt)}</div>` : ''}
+      ${durationTxt ? `<div class="uffb-meta3">${escapeHtml(durationTxt)}</div>` : ''}
+    </div>`;
+
+    const screeningsList = (it.screenings || []).filter(
+      (s) => !onlyDate || s.date === onlyDate
+    );
+    const screenings = screeningsList.map(screeningLine).join('');
+
+    if (variant === 'row') {
+      return html`
+      <article class="uffb-row" data-id="${it.id}">
+          <a
+            class="uffb-media"
+            href="${href}"
+            aria-label="${escapeHtml(title)}"
+          >
+            <img src="${img}" alt="${escapeHtml(title)}" />
+          </a>
+          <div>
+            <div class="uffb-category">#${escapeHtml(category)}</div>
+            <div class="uffb-body">
+              <h3 class="uffb-title">
+                <a href="${href}">${escapeHtml(title)}</a>
+              </h3>
+              ${metaBlock}
+              <div class="uffb-desc">${escapeHtml(desc)}</div>
+              <div class="uffb-actions">
+                ${trailer
+                  ? `<button class="uffb-btn" data-trailer="${encodeURIComponent(trailer)}">${t('watchTrailer')}</button>`
+                  : ''}
+              </div>
+              <ul class="uffb-screenings">
+                ${screenings}
+              </ul>
+            </div>
+          </div>
+        </article>`;
+    }
+
+    // fallback: original grid card
+    return card(it, { onlyDate });
   }
 
   function mountModal() {
@@ -860,35 +1059,49 @@
     outlet.className = 'uffb-outlet';
     wrap.appendChild(outlet);
 
+    // READ PAGE OPTIONS
+    const layoutVariant =
+      (el.dataset.layout || el.dataset.view || '').toLowerCase() === 'row'
+        ? 'row'
+        : 'grid';
+    const defaultGroup = el.dataset.defaultGroup || ''; // '', 'category', 'date'
+
     const jsonUrl = el.dataset.json;
 
     let items = [];
     let filtered = [];
-    const state = { category: '', venue: '', date: '', q: '', groupBy: '' }; // '', 'category', 'date'
+    const state = {
+      category: '',
+      venue: '',
+      date: '',
+      q: '',
+      groupBy: defaultGroup,
+    };
 
-    // --- group-by radios
     ui.group.radios.forEach((r) => {
-      r.addEventListener('change', () => {
-        if (r.checked) {
-          state.groupBy = r.value; // '', 'category', 'date'
-          applyAll();
-        }
-      });
+      r.checked = r.value === state.groupBy;
     });
-
-    // visual chip state
     const syncChips = () => {
       ui.group.root.querySelectorAll('.uffb-chip').forEach((chip) => {
         const input = chip.querySelector('input[type="radio"]');
         chip.dataset.checked = input.checked ? 'true' : 'false';
       });
     };
-    ui.group.radios.forEach((r) => r.addEventListener('change', syncChips));
-    syncChips(); // initial
+    ui.group.radios.forEach((r) =>
+      r.addEventListener('change', () => {
+        if (r.checked) state.groupBy = r.value;
+        applyAll();
+        syncChips();
+      })
+    );
+    syncChips();
 
-    // --- renderers ---
-    function renderGrid(list) {
-      outlet.innerHTML = `<div class="uffb-grid">${list.map(card).join('')}</div>`;
+    function renderUngrouped(list, variant) {
+      if (variant === 'row') {
+        outlet.innerHTML = `<div class="uffb-list">${list.map((f) => filmCard(f, { variant })).join('')}</div>`;
+      } else {
+        outlet.innerHTML = `<div class="uffb-grid">${list.map((f) => filmCard(f, { variant })).join('')}</div>`;
+      }
       const modal = mountModal();
       outlet.querySelectorAll('[data-trailer]').forEach((btn) => {
         btn.addEventListener('click', (e) => {
@@ -900,7 +1113,7 @@
       });
     }
 
-    function renderGroupedByCategory(list) {
+    function renderGroupedByCategory(list, variant) {
       // category key -> {label, films[]}
       const catMap = new Map();
       list.forEach((f) => {
@@ -911,7 +1124,6 @@
         catMap.get(k).films.push(f);
       });
 
-      // Sort categories by label, then films by earliest date
       const groups = Array.from(catMap.entries())
         .map(([k, v]) => ({
           key: k,
@@ -925,17 +1137,18 @@
       let htmlStr = `<div class="uffb-groups">`;
       groups.forEach((g) => {
         htmlStr += `
-        <section class="uffb-group" data-group="${escapeHtml(g.key)}">
-          <h4 class="uffb-group-title">#${escapeHtml(g.label)}</h4>
-          <div class="uffb-grid">
-            ${g.films.map((f) => card(f)).join('')}
-          </div>
-        </section>`;
+      <section class="uffb-group" data-group="${escapeHtml(g.key)}">
+        <h4 class="uffb-group-title">#${escapeHtml(g.label)}</h4>
+        ${
+          variant === 'row'
+            ? `<div class="uffb-list">${g.films.map((f) => filmCard(f, { variant })).join('')}</div>`
+            : `<div class="uffb-grid">${g.films.map((f) => filmCard(f, { variant })).join('')}</div>`
+        }
+      </section>`;
       });
       htmlStr += `</div>`;
       outlet.innerHTML = htmlStr;
 
-      // re-bind trailer buttons
       const modal = mountModal();
       outlet.querySelectorAll('[data-trailer]').forEach((btn) => {
         btn.addEventListener('click', (e) => {
@@ -947,28 +1160,27 @@
       });
     }
 
-    function renderGroupedByDate(list) {
-      // date -> [{film, date}]
+    function renderGroupedByDate(list, variant) {
       const dateMap = explodeByDate(list);
-      const dates = Array.from(dateMap.keys()).sort(); // ISO sorts chronologically
+      const dates = Array.from(dateMap.keys()).sort();
 
       let htmlStr = `<div class="uffb-groups">`;
       dates.forEach((d) => {
         const nice = isoToLabel(d);
         const entries = dateMap.get(d) || [];
-        // The same film can appear multiple times; card shows only that date's screenings
         htmlStr += `
-        <section class="uffb-group" data-date="${escapeHtml(d)}">
-          <h4 class="uffb-group-title">${escapeHtml(nice)}</h4>
-          <div class="uffb-grid">
-            ${entries.map(({ film, date }) => card(film, { onlyDate: date })).join('')}
-          </div>
-        </section>`;
+      <section class="uffb-group" data-date="${escapeHtml(d)}">
+        <h4 class="uffb-group-title">${escapeHtml(nice)}</h4>
+        ${
+          variant === 'row'
+            ? `<div class="uffb-list">${entries.map(({ film, date }) => filmCard(film, { variant, onlyDate: date })).join('')}</div>`
+            : `<div class="uffb-grid">${entries.map(({ film, date }) => filmCard(film, { variant, onlyDate: date })).join('')}</div>`
+        }
+      </section>`;
       });
       htmlStr += `</div>`;
       outlet.innerHTML = htmlStr;
 
-      // re-bind trailer buttons
       const modal = mountModal();
       outlet.querySelectorAll('[data-trailer]').forEach((btn) => {
         btn.addEventListener('click', (e) => {
@@ -1041,12 +1253,14 @@
 
       filtered.sort((a, b) => earliestDate(a).localeCompare(earliestDate(b)));
 
+      filtered.sort((a, b) => earliestDate(a).localeCompare(earliestDate(b)));
+
       if (state.groupBy === 'category') {
-        renderGroupedByCategory(filtered);
+        renderGroupedByCategory(filtered, layoutVariant);
       } else if (state.groupBy === 'date') {
-        renderGroupedByDate(filtered);
+        renderGroupedByDate(filtered, layoutVariant);
       } else {
-        renderGrid(filtered);
+        renderUngrouped(filtered, layoutVariant);
       }
     }
 
