@@ -67,27 +67,28 @@
       },
     },
     uk: {
-    filterBtn: 'Фільтр',
-    searchBtn: 'Пошук',
-    category: 'Категорія',
-    director: 'Режисер',
-    venue: 'Майданчик',
-    date: 'Дата',
-    all: 'Усі',
-    clearFilters: 'Скинути фільтри',
-    searchPh: 'Пошук назви, опису, майданчика…',
-    watchTrailer: 'Дивитися трейлер',
-    tickets: 'Квитки',
-    loadError: 'Не вдалося завантажити програму фестивалю.',
-    weekdayDayMonthYear: {
-      weekday: 'short',
-      day: '2-digit',
-      month: 'short',
-      year: 'numeric',
-    },
-    isoDateLabel: (iso) => {
-      const [y, m, d] = iso.split('-');
-      return `${d}.${m}.${y}`;
+      filterBtn: 'Фільтр',
+      searchBtn: 'Пошук',
+      category: 'Категорія',
+      director: 'Режисер',
+      venue: 'Майданчик',
+      date: 'Дата',
+      all: 'Усі',
+      clearFilters: 'Скинути фільтри',
+      searchPh: 'Пошук назви, опису, майданчика…',
+      watchTrailer: 'Дивитися трейлер',
+      tickets: 'Квитки',
+      loadError: 'Не вдалося завантажити програму фестивалю.',
+      weekdayDayMonthYear: {
+        weekday: 'short',
+        day: '2-digit',
+        month: 'short',
+        year: 'numeric',
+      },
+      isoDateLabel: (iso) => {
+        const [y, m, d] = iso.split('-');
+        return `${d}.${m}.${y}`;
+      },
     },
   };
   const t = (key) => I18N[lang][key];
