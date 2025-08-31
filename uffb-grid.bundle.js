@@ -296,7 +296,7 @@
       gap: 0.4rem;
       background: rgba(255, 255, 255, 0.08);
       border: 1px solid rgba(255, 255, 255, 0.5);
-      border-radius: 999px;
+      border-radius: 6px;
       padding: 0.35rem 0.7rem;
       cursor: pointer;
       user-select: none;
@@ -505,7 +505,7 @@
       color: #fff !important;
     }
     .uffb-row a {
-      color: inherit !important;
+      color: var(--paragraphLinkColor);
     }
 
     /* LIST VIEW: stack screenings, tweak spacing */
