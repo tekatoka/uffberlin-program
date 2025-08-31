@@ -19,7 +19,7 @@
       "en": ["Ukraine", "Denmark", "Sweden", "France"],
       "de": ["Ukraine", "Dänemark", "Schweden", "Frankreich"]
     },
-    "actors": "",
+    "cast": "",
     "duration": 95,
     "year": 2024,
     "description": {
@@ -73,7 +73,7 @@
       "en": ["Ukraine", "France", "Luxembourg", "Netherlands"],
       "de": ["Ukraine", "Frankreich", "Luxemburg", "Niederlande"]
     },
-    "actors": "Olha Bryhynets, Borys Khovriak, Mykola Kolomiiets, Valeriia Hukova, Mykola Shpak",
+    "cast": "Olha Bryhynets, Borys Khovriak, Mykola Kolomiiets, Valeriia Hukova, Mykola Shpak",
     "duration": 125,
     "year": 2024,
     "description": {
@@ -111,14 +111,19 @@
     "id": "2000-meters-to-andriivka",
     "title": {
       "en": "2000 Meters to Andriivka",
-      "de": "2000 Meters to Andriivka"
+      "de": "2000 Meters to Andriivka",
+      "uk": "2000 метрів до Андоіівки"
     },
     "language": {
       "de": "Ukrainisch mit englischen Untertiteln (OmeU)",
       "en": "Ukrainian with English subtitles"
     },
     "original_title": "2000 метрів до Андріївки",
-    "director": "Mstyslav Chernov",
+    "director": {
+      "en": ["Mstyslav Chernov"],
+      "de": ["Mstyslav Chernov"],
+      "uk": ["Мстислав Чернов"]
+    },
     "genre": {
       "en": ["Documentary"],
       "de": ["Dokumentarfilm"]
@@ -127,7 +132,11 @@
       "en": ["Ukraine", "United States"],
       "de": ["Ukraine", "Vereinigte Staaten"]
     },
-    "actors": "Mstyslav Chernov, Alex Babenko",
+    "cast": {
+      "en": ["Mstyslav Chernov, Alex Babenko"],
+      "de": ["Mstyslav Chernov, Alex Babenko"],
+      "uk": ["Мстислав Чернов, Алекс Бабенко"]
+    },
     "duration": 107,
     "year": 2024,
     "description": {

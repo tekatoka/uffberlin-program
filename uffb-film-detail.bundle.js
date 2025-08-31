@@ -226,10 +226,10 @@
       director: film.director
         ? [{ '@type': 'Person', name: film.director }]
         : undefined,
-      actor: film.actors
-        ? Array.isArray(film.actors)
-          ? film.actors.map((a) => ({ '@type': 'Person', name: a }))
-          : String(film.actors)
+      actor: film.cast
+        ? Array.isArray(film.cast)
+          ? film.cast.map((a) => ({ '@type': 'Person', name: a }))
+          : String(film.cast)
               .split(',')
               .map((a) => ({ '@type': 'Person', name: a.trim() }))
         : undefined,
@@ -300,10 +300,10 @@
   }
 
   function buildCreditsBlock(film) {
-    const director = film.director || '';
-    const cast = Array.isArray(film.actors)
-      ? film.actors.join(', ')
-      : film.actors || '';
+    const director = localized(film.director) || '';
+    const cast = Array.isArray(localized(film.cast))
+      ? localized(film.cast).join(', ')
+      : localized(film.cast) || '';
     return html`
     <section class="uffb-panel">
         <h3 class="uffb-panel-title">${t('credits')}</h3>

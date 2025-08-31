@@ -415,14 +415,21 @@
     return ds[0] || '9999-12-31';
   };
   const getVenueName = (s) =>
-    (s.venue?.[lang] || s.venue?.de || s.venue?.en || s.venue || '').toString();
+    (
+      s.venue?.[lang] ||
+      s.venue?.de ||
+      s.venue?.en ||
+      s.venue?.uk ||
+      s.venue ||
+      ''
+    ).toString();
   const isoToLabel = (iso) => I18N[lang].isoDateLabel(iso);
 
   function pickLangVal(v) {
     if (v == null) return '';
     if (typeof v === 'string' || typeof v === 'number') return String(v);
     // object with languages
-    return v[lang] || v.de || v.en || '';
+    return v[lang] || v.de || v.en || v.uk || '';
   }
 
   function joinVals(v) {
@@ -482,11 +489,23 @@
   function card(it) {
     const href = `${basePath}/${encodeURIComponent(it.id)}`; // localized film page
     const title =
-      it.title?.[lang] || it.title?.de || it.title?.en || 'Untitled';
+      it.title?.[lang] ||
+      it.title?.de ||
+      it.title?.en ||
+      it.title?.uk ||
+      'Untitled';
     const category =
-      it.category?.[lang] || it.category?.de || it.category?.en || '—';
+      it.category?.[lang] ||
+      it.category?.de ||
+      it.category?.en ||
+      it.category?.uk ||
+      '—';
     const desc =
-      it.description?.[lang] || it.description?.de || it.description?.en || '';
+      it.description?.[lang] ||
+      it.description?.de ||
+      it.description?.en ||
+      it.description?.uk ||
+      '';
     const img = it.image || '';
     const trailer = it.trailer;
 
@@ -699,7 +718,10 @@
         if (state.category) {
           const key =
             (f.category &&
-              (f.category.key || f.category.en || f.category.de)) ||
+              (f.category.key ||
+                f.category.en ||
+                f.category.de ||
+                f.category.uk)) ||
             '';
           const keyNorm =
             f.category && f.category.key ? f.category.key : safeTxt(key);
@@ -723,10 +745,19 @@
           const text = [
             f.title?.de,
             f.title?.en,
+            f.title?.uk,
             f.description?.de,
             f.description?.en,
+            f.description?.uk,
             f.category?.de,
             f.category?.en,
+            f.category?.uk,
+            f.director?.de,
+            f.director?.en,
+            f.director?.uk,
+            f.original_title,
+            f.cast?.de,
+            f.cast?.en,
           ]
             .filter(Boolean)
             .join(' ')
@@ -762,7 +793,10 @@
         const key = (f.category && f.category.key) || null;
         const label =
           (f.category &&
-            (f.category[lang] || f.category.de || f.category.en)) ||
+            (f.category[lang] ||
+              f.category.de ||
+              f.category.en ||
+              f.category.uk)) ||
           null;
         if (key && label && !catSet.has(key)) catSet.set(key, label);
       });
