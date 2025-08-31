@@ -257,7 +257,7 @@
     .uffb-search {
       display: grid;
       gap: 0.8rem;
-      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
       padding: 0.8rem;
       border: 1px solid rgba(255, 255, 255, 0.5);
       border-radius: 6px;
