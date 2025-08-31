@@ -278,10 +278,6 @@
       display: block;
     }
 
-    .uffb-groupby .uffb-group-title {
-      margin: 25px 0;
-    }
-
     .uffb-groupby .chips {
       display: flex;
       gap: 0.5rem;
@@ -323,6 +319,10 @@
         margin-left: 0;
         width: 100%;
       }
+    }
+
+    .uffb-group-title {
+      margin: 25px 0;
     }
 
     /* panels */
