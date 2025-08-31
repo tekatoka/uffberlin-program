@@ -304,7 +304,8 @@
       font-size: 1.25rem;
     }
     .uffb-meta1 em {
-      font-style: italic;
+      font-style: normal;
+      font-weight: 600;
     }
     .uffb-meta2,
     .uffb-meta3 {
