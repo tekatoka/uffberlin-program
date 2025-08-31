@@ -8,10 +8,13 @@
   // --- Language & i18n helpers ---
   const urlPath = location.pathname || '';
   const htmlLang = (document.documentElement.lang || '').toLowerCase();
-  const lang =
-    urlPath.startsWith('/de/') || htmlLang.startsWith('de') ? 'de' : 'en';
+  const lang = location.pathname.startsWith('/de/')
+    ? 'de'
+    : location.pathname.startsWith('/uk/')
+      ? 'uk'
+      : 'en';
   const basePath = lang === 'de' ? '/de/uffb2025' : '/uffb2025';
-  const locale = lang === 'de' ? 'de-DE' : 'en-GB';
+  const locale = lang === 'de' ? 'de-DE' : lang === 'uk' ? 'uk-UA' : 'en-GB';
 
   const I18N = {
     en: {
@@ -62,6 +65,29 @@
         const [y, m, d] = iso.split('-');
         return `${d}.${m}.${y}`;
       },
+    },
+    uk: {
+    filterBtn: 'Фільтр',
+    searchBtn: 'Пошук',
+    category: 'Категорія',
+    director: 'Режисер',
+    venue: 'Майданчик',
+    date: 'Дата',
+    all: 'Усі',
+    clearFilters: 'Скинути фільтри',
+    searchPh: 'Пошук назви, опису, майданчика…',
+    watchTrailer: 'Дивитися трейлер',
+    tickets: 'Квитки',
+    loadError: 'Не вдалося завантажити програму фестивалю.',
+    weekdayDayMonthYear: {
+      weekday: 'short',
+      day: '2-digit',
+      month: 'short',
+      year: 'numeric',
+    },
+    isoDateLabel: (iso) => {
+      const [y, m, d] = iso.split('-');
+      return `${d}.${m}.${y}`;
     },
   };
   const t = (key) => I18N[lang][key];
