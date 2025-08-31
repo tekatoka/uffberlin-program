@@ -322,7 +322,7 @@
     }
 
     .uffb-group-title {
-      margin: 25px 0;
+      margin: 25px 0 !important;
     }
 
     /* panels */
