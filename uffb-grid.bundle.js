@@ -537,6 +537,71 @@
     .uffb-list .uffb-address a {
       margin-top: 0;
     }
+
+    /* ---------- Universal interaction polish for buttons/links ---------- */
+
+    /* what counts as a "button" in your UI */
+    .uffb-btn,
+    .uffb-tickets a,
+    .uffb-icon-btn,
+    .uffb-chip {
+      transition:
+        background-color 0.18s ease,
+        color 0.18s ease,
+        border-color 0.18s ease,
+        box-shadow 0.18s ease,
+        transform 0.06s ease;
+    }
+
+    /* invert on hover: fill with current text color, switch text to white */
+    .uffb-btn:hover,
+    .uffb-tickets a:hover {
+      background: currentColor;
+      color: #fff; /* ensure contrast on dark fill */
+      border-color: currentColor;
+      text-decoration: none; /* keep it looking like a button */
+    }
+
+    /* subtle press feedback */
+    .uffb-btn:active,
+    .uffb-tickets a:active,
+    .uffb-icon-btn:active,
+    .uffb-chip:active {
+      transform: translateY(1px);
+    }
+
+    /* icon buttons: light hover background so they feel clickable */
+    .uffb-icon-btn:hover {
+      background: rgba(255, 255, 255, 0.12);
+      border-radius: 6px;
+    }
+
+    /* chips: brighten border on hover; checked chips already invert */
+    .uffb-chip:hover {
+      border-color: #fff;
+      background: rgba(255, 255, 255, 0.14);
+    }
+    .uffb-chip[data-checked='true']:hover {
+      background: #f4f4f4;
+      color: #000;
+    }
+
+    /* strong keyboard focus (a11y) */
+    .uffb-btn:focus-visible,
+    .uffb-tickets a:focus-visible,
+    .uffb-icon-btn:focus-visible,
+    .uffb-chip:has(input:focus-visible) {
+      outline: 2px solid currentColor;
+      outline-offset: 2px;
+      box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.35);
+    }
+
+    /* optional: make Tickets link adopt brand color as its "currentColor" */
+    .uffb-tickets a {
+      color: var(--paragraphLinkColor);
+      border-color: currentColor;
+      background: transparent;
+    }
   `;
 
   function injectCSS() {
