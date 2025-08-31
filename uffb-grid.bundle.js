@@ -25,6 +25,8 @@
       venue: 'Venue',
       date: 'Date',
       all: 'All',
+      groupBy: 'Group by',
+      none: 'None',
       clearFilters: 'Clear filters',
       searchPh: 'Search title, description, venue…',
       watchTrailer: 'Watch trailer',
@@ -50,6 +52,8 @@
       venue: 'Spielort',
       date: 'Datum',
       all: 'Alle',
+      groupBy: 'Gruppierung',
+      none: 'Keine',
       clearFilters: 'Filter zurücksetzen',
       searchPh: 'Suche in Titel, Beschreibung, Ort…',
       watchTrailer: 'Trailer ansehen',
@@ -74,6 +78,8 @@
       venue: 'Майданчик',
       date: 'Дата',
       all: 'Усі',
+      groupBy: 'Групувати',
+      none: 'Усі разом',
       clearFilters: 'Скинути фільтри',
       searchPh: 'Пошук назви, опису, майданчика…',
       watchTrailer: 'Дивитися трейлер',
@@ -223,33 +229,96 @@
       border-radius: 5px;
     }
 
-    /* controls */
-    .uffb-controls {
-      display: flex;
-      gap: 1rem;
-      margin: 0 0 1rem 0;
-      align-items: center;
-    }
+    /* Icon buttons */
     .uffb-icon-btn {
       display: inline-flex;
-      gap: 0.5rem;
       align-items: center;
+      gap: 0.5rem;
       border: none;
       background: transparent;
       color: #fff;
       cursor: pointer;
       padding: 0.25rem 0.5rem;
+      line-height: 1; /* prevent tall line box */
     }
     .uffb-icon-btn svg {
       width: 26px;
       height: 26px;
-      stroke: currentColor;
-      fill: none;
-      stroke-width: 2;
+      display: block; /* kill baseline gap */
     }
-    .uffb-icon-btn .lbl {
+
+    .uffb-controls {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+      flex-wrap: wrap;
+      margin: 15px 0;
+    }
+
+    /* Group-by block on the right */
+    .uffb-groupby {
+      margin-left: auto; /* push to the right */
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      color: #fff;
+    }
+    .uffb-groupby .uffb-groupby-head {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
       font-size: 0.9rem;
-      letter-spacing: 0.08em;
+      opacity: 0.95;
+    }
+    .uffb-groupby .uffb-groupby-head svg {
+      width: 26px;
+      height: 26px;
+      display: block;
+    }
+
+    .uffb-groupby .chips {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    /* Chip radios */
+    .uffb-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      border-radius: 999px;
+      padding: 0.35rem 0.7rem;
+      cursor: pointer;
+      user-select: none;
+    }
+    .uffb-chip input {
+      appearance: none;
+      width: 0;
+      height: 0;
+      position: absolute;
+      pointer-events: none;
+    }
+    .uffb-chip[data-checked='true'] {
+      background: #fff;
+      color: #000;
+      border-color: #fff;
+    }
+    .uffb-chip:has(input:focus-visible) {
+      outline: 2px solid #fff;
+      outline-offset: 2px;
+    }
+
+    /* On small screens: wrap under, left-aligned */
+    @media (max-width: 699px) {
+      .uffb-groupby {
+        margin-left: 0;
+        width: 100%;
+      }
     }
 
     /* panels */
@@ -397,13 +466,18 @@
   // --- UI labels / icons ---
   const ICONS = {
     filter: `
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <path d="M4 6h16M7 12h10M10 18h4"/><circle cx="9" cy="6" r="2"/><circle cx="14" cy="12" r="2"/><circle cx="12" cy="18" r="2"/>
-      </svg>`,
+    <svg viewBox="0 0 24 24" aria-hidden="true" stroke="currentColor" fill="none" stroke-width="2">
+      <path d="M4 6h16M7 12h10M10 18h4" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="9" cy="6" r="2"/><circle cx="14" cy="12" r="2"/><circle cx="12" cy="18" r="2"/>
+    </svg>`,
     search: `
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <circle cx="11" cy="11" r="7"/><path d="M20 20l-4.35-4.35"/>
-      </svg>`,
+    <svg viewBox="0 0 24 24" aria-hidden="true" stroke="currentColor" fill="none" stroke-width="2">
+      <circle cx="11" cy="11" r="7"/><path d="M20 20l-4.35-4.35" stroke-linecap="round"/>
+    </svg>`,
+    group: `
+    <svg viewBox="0 0 24 24" aria-hidden="true" stroke="currentColor" fill="none" stroke-width="2">
+      <path d="M4 5h16M4 12h10M4 19h6" stroke-linecap="round"/>
+    </svg>`,
   };
 
   // --- Rendering pieces (localized) ---
@@ -439,6 +513,51 @@
       return val.map(pickLangVal).filter(Boolean).join(', ');
     }
     return val;
+  }
+
+  function getCategoryKeyAndLabel(film) {
+    const key =
+      (film.category &&
+        (film.category.key ||
+          safeTxt(
+            film.category[lang] ||
+              film.category.de ||
+              film.category.en ||
+              film.category.uk ||
+              ''
+          ))) ||
+      '';
+    const label =
+      (film.category &&
+        (film.category[lang] ||
+          film.category.de ||
+          film.category.en ||
+          film.category.uk)) ||
+      '';
+    return { key, label };
+  }
+
+  // Build a map: ISO date -> array of { film, date }
+  function explodeByDate(list) {
+    const map = new Map();
+    list.forEach((f) => {
+      (f.screenings || []).forEach((s) => {
+        if (!s.date) return;
+        if (!map.has(s.date)) map.set(s.date, []);
+        map.get(s.date).push({ film: f, date: s.date });
+      });
+    });
+    // sort each list by earliest film date, then title
+    map.forEach((arr) =>
+      arr.sort((a, b) => {
+        const d = earliestDate(a.film).localeCompare(earliestDate(b.film));
+        if (d !== 0) return d;
+        const at = pickLangVal(a.film.title) || '';
+        const bt = pickLangVal(b.film.title) || '';
+        return at.localeCompare(bt);
+      })
+    );
+    return map;
   }
 
   function screeningLine(s) {
@@ -487,7 +606,7 @@
     `;
   }
 
-  function card(it) {
+  function card(it, opts = {}) {
     const href = `${basePath}/${encodeURIComponent(it.id)}`; // localized film page
     const title =
       it.title?.[lang] ||
@@ -509,6 +628,13 @@
       '';
     const img = it.image || '';
     const trailer = it.trailer;
+
+    const onlyDate = opts.onlyDate || null;
+
+    const screeningsList = (it.screenings || []).filter(
+      (s) => !onlyDate || s.date === onlyDate
+    );
+    const screenings = screeningsList.map(screeningLine).join('');
 
     // --- NEW: meta values ---
     const genreTxt = joinVals(it.genre); // supports "Drama" or {en:"Drama",de:"Drama"} or ["Drama","War"]
@@ -539,8 +665,6 @@
           : ''}
       </div>
   `;
-
-    const screenings = (it.screenings || []).map(screeningLine).join('');
 
     return html`<article class="uffb-card" data-id="${it.id}">
         <div class="uffb-category">#${escapeHtml(category)}</div>
@@ -655,12 +779,44 @@
     search.id = 'searchbar';
     search.className = 'uffb-search';
     search.setAttribute('hidden', '');
-    search.innerHTML = `
-      <input type="search" id="searchInput" class="uffb-field" placeholder="${t(
-        'searchPh'
-      )}" />
+    search.innerHTML = html`
+      <input
+        type="search"
+        id="searchInput"
+        class="uffb-field"
+        placeholder="${t('searchPh')}"
+      />
     `;
     container.appendChild(search);
+
+    // --- GROUP BY (right side) ---
+    const groupWrap = document.createElement('div');
+    groupWrap.className = 'uffb-groupby';
+    groupWrap.innerHTML = html`
+    <div class="uffb-groupby-head">
+        ${ICONS.group}
+        <span>${I18N[lang].groupBy || 'Group by'}</span>
+      </div>
+      <div
+        class="chips"
+        role="radiogroup"
+        aria-label="${I18N[lang].groupBy || 'Group by'}"
+      >
+        <label class="uffb-chip" data-value="">
+          <input type="radio" name="groupby" value="" checked />
+          <span>${I18N[lang].groupNone || 'None'}</span>
+        </label>
+        <label class="uffb-chip" data-value="category">
+          <input type="radio" name="groupby" value="category" />
+          <span>${t('category')}</span>
+        </label>
+        <label class="uffb-chip" data-value="date">
+          <input type="radio" name="groupby" value="date" />
+          <span>${t('date')}</span>
+        </label>
+      </div>
+  `;
+    controls.appendChild(groupWrap);
 
     return {
       controls,
@@ -679,6 +835,10 @@
         filterBtn: controls.querySelector('#filterToggle'),
         searchBtn: controls.querySelector('#searchToggle'),
       },
+      group: {
+        root: groupWrap,
+        radios: groupWrap.querySelectorAll('input[name="groupby"]'),
+      },
     };
   }
 
@@ -691,20 +851,42 @@
 
     const ui = buildControls(wrap);
 
-    const grid = document.createElement('div');
-    grid.className = 'uffb-grid';
-    wrap.appendChild(grid);
+    // Neutral outlet: NO grid class here
+    const outlet = document.createElement('div');
+    outlet.className = 'uffb-outlet';
+    wrap.appendChild(outlet);
 
     const jsonUrl = el.dataset.json;
 
     let items = [];
     let filtered = [];
-    const state = { category: '', venue: '', date: '', q: '' };
+    const state = { category: '', venue: '', date: '', q: '', groupBy: '' }; // '', 'category', 'date'
 
+    // --- group-by radios
+    ui.group.radios.forEach((r) => {
+      r.addEventListener('change', () => {
+        if (r.checked) {
+          state.groupBy = r.value; // '', 'category', 'date'
+          applyAll();
+        }
+      });
+    });
+
+    // visual chip state
+    const syncChips = () => {
+      ui.group.root.querySelectorAll('.uffb-chip').forEach((chip) => {
+        const input = chip.querySelector('input[type="radio"]');
+        chip.dataset.checked = input.checked ? 'true' : 'false';
+      });
+    };
+    ui.group.radios.forEach((r) => r.addEventListener('change', syncChips));
+    syncChips(); // initial
+
+    // --- renderers ---
     function renderGrid(list) {
-      grid.innerHTML = list.map(card).join('');
+      outlet.innerHTML = `<div class="uffb-grid">${list.map(card).join('')}</div>`;
       const modal = mountModal();
-      grid.querySelectorAll('[data-trailer]').forEach((btn) => {
+      outlet.querySelectorAll('[data-trailer]').forEach((btn) => {
         btn.addEventListener('click', (e) => {
           const u = decodeURIComponent(
             e.currentTarget.getAttribute('data-trailer')
@@ -714,6 +896,87 @@
       });
     }
 
+    function renderGroupedByCategory(list) {
+      // category key -> {label, films[]}
+      const catMap = new Map();
+      list.forEach((f) => {
+        const { key, label } = getCategoryKeyAndLabel(f);
+        const k = key || '_uncat';
+        const lbl = label || t('category');
+        if (!catMap.has(k)) catMap.set(k, { label: lbl, films: [] });
+        catMap.get(k).films.push(f);
+      });
+
+      // Sort categories by label, then films by earliest date
+      const groups = Array.from(catMap.entries())
+        .map(([k, v]) => ({
+          key: k,
+          label: v.label,
+          films: v.films.sort((a, b) =>
+            earliestDate(a).localeCompare(earliestDate(b))
+          ),
+        }))
+        .sort((a, b) => a.label.localeCompare(b.label));
+
+      let htmlStr = `<div class="uffb-groups">`;
+      groups.forEach((g) => {
+        htmlStr += `
+        <section class="uffb-group" data-group="${escapeHtml(g.key)}">
+          <h4 class="uffb-group-title">#${escapeHtml(g.label)}</h4>
+          <div class="uffb-grid">
+            ${g.films.map((f) => card(f)).join('')}
+          </div>
+        </section>`;
+      });
+      htmlStr += `</div>`;
+      outlet.innerHTML = htmlStr;
+
+      // re-bind trailer buttons
+      const modal = mountModal();
+      outlet.querySelectorAll('[data-trailer]').forEach((btn) => {
+        btn.addEventListener('click', (e) => {
+          const u = decodeURIComponent(
+            e.currentTarget.getAttribute('data-trailer')
+          );
+          modal.open(u);
+        });
+      });
+    }
+
+    function renderGroupedByDate(list) {
+      // date -> [{film, date}]
+      const dateMap = explodeByDate(list);
+      const dates = Array.from(dateMap.keys()).sort(); // ISO sorts chronologically
+
+      let htmlStr = `<div class="uffb-groups">`;
+      dates.forEach((d) => {
+        const nice = isoToLabel(d);
+        const entries = dateMap.get(d) || [];
+        // The same film can appear multiple times; card shows only that date's screenings
+        htmlStr += `
+        <section class="uffb-group" data-date="${escapeHtml(d)}">
+          <h4 class="uffb-group-title">${escapeHtml(nice)}</h4>
+          <div class="uffb-grid">
+            ${entries.map(({ film, date }) => card(film, { onlyDate: date })).join('')}
+          </div>
+        </section>`;
+      });
+      htmlStr += `</div>`;
+      outlet.innerHTML = htmlStr;
+
+      // re-bind trailer buttons
+      const modal = mountModal();
+      outlet.querySelectorAll('[data-trailer]').forEach((btn) => {
+        btn.addEventListener('click', (e) => {
+          const u = decodeURIComponent(
+            e.currentTarget.getAttribute('data-trailer')
+          );
+          modal.open(u);
+        });
+      });
+    }
+
+    // --- filtering + apply ---
     function applyAll() {
       filtered = items.filter((f) => {
         if (state.category) {
@@ -773,9 +1036,17 @@
       });
 
       filtered.sort((a, b) => earliestDate(a).localeCompare(earliestDate(b)));
-      renderGrid(filtered);
+
+      if (state.groupBy === 'category') {
+        renderGroupedByCategory(filtered);
+      } else if (state.groupBy === 'date') {
+        renderGroupedByDate(filtered);
+      } else {
+        renderGrid(filtered);
+      }
     }
 
+    // --- toggles ---
     function toggle(panel, btn) {
       const hidden = panel.hasAttribute('hidden');
       if (hidden) {
@@ -787,6 +1058,7 @@
       }
     }
 
+    // --- filter options init ---
     function initFilterOptions(data) {
       // categories
       const catSet = new Map(); // key -> label (current lang)
@@ -843,7 +1115,7 @@
         });
     }
 
-    // toggles
+    // --- UI events ---
     ui.toggles.filterBtn.addEventListener('click', () =>
       toggle(ui.filters.root, ui.toggles.filterBtn)
     );
@@ -886,7 +1158,7 @@
     });
     ui.search.input.addEventListener('search', doSearch);
 
-    // fetch + initial render
+    // --- fetch + initial render ---
     fetch(jsonUrl, { cache: 'no-cache' })
       .then((r) => {
         if (!r.ok) throw new Error('load fail');
@@ -900,7 +1172,7 @@
         applyAll();
       })
       .catch((err) => {
-        grid.innerHTML = `<p>${t('loadError')}</p>`;
+        outlet.innerHTML = `<p>${t('loadError')}</p>`;
         console.error('[UFFB] JSON fetch error', err);
       });
   }
