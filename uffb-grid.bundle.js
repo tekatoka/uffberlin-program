@@ -278,6 +278,10 @@
       display: block;
     }
 
+    .uffb-groupby .uffb-group-title {
+      margin: 25px 0;
+    }
+
     .uffb-groupby .chips {
       display: flex;
       gap: 0.5rem;
