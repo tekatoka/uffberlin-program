@@ -1,0 +1,13 @@
+{
+  "singleQuote": true,
+  "semi": true,
+  "tabWidth": 2,
+  "trailingComma": "es5",
+
+  "plugins": ["prettier-plugin-embed"],
+  "embeddedLanguageFormatting": "auto",
+  "embeddedHtmlTags": ["html"],
+  "embeddedHtmlComments": ["html"],
+  "embeddedCssTags": ["css"],
+  "embeddedCssComments": ["css"]
+}
