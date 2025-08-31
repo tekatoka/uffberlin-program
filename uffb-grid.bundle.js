@@ -501,9 +501,15 @@
       margin-top: 4px;
     }
 
-    .uffb-row div {
-      color: #fff !important;
+    .uffb-row .uffb-body,
+    .uffb-row .uffb-category,
+    .uffb-row .uffb-desc,
+    .uffb-row .uffb-meta,
+    .uffb-row .uffb-screening .uffb-left {
+      color: #fff;
     }
+
+    /* Links in rows stay brand-colored (you already have this) */
     .uffb-row a {
       color: var(--paragraphLinkColor);
     }
@@ -553,54 +559,134 @@
         transform 0.06s ease;
     }
 
-    /* invert on hover: fill with current text color, switch text to white */
-    .uffb-btn:hover,
-    .uffb-tickets a:hover {
-      background: currentColor;
-      color: #fff; /* ensure contrast on dark fill */
-      border-color: currentColor;
-      text-decoration: none; /* keep it looking like a button */
+    /* Base tokens (optional) */
+    :root {
+      --btn-anim: 0.18s;
     }
 
-    /* subtle press feedback */
+    /* Generic festival button */
+    .uffb-btn {
+      --btn-fg: #111; /* the color to invert to */
+      color: var(--btn-fg);
+      background: #fff;
+      border: 1.5px solid var(--btn-fg);
+      transition:
+        background-color var(--btn-anim) ease,
+        color var(--btn-anim) ease,
+        border-color var(--btn-anim) ease,
+        transform 0.06s ease;
+    }
+    .uffb-btn:hover {
+      background: var(--btn-fg); /* uses stored color, not currentColor */
+      color: #fff;
+      border-color: #fff;
+    }
+
+    /* Tickets link styled as button */
+    .uffb-tickets a {
+      --btn-fg: var(--paragraphLinkColor, #0bb);
+      color: var(--btn-fg);
+      background: transparent;
+      border: 1.5px solid var(--btn-fg);
+      transition:
+        background-color var(--btn-anim) ease,
+        color var(--btn-anim) ease,
+        border-color var(--btn-anim) ease,
+        transform 0.06s ease;
+    }
+    .uffb-tickets a:hover {
+      background: var(--btn-fg);
+      color: #fff;
+      border-color: var(--btn-fg);
+    }
+
+    /* Tiny press feedback */
     .uffb-btn:active,
-    .uffb-tickets a:active,
-    .uffb-icon-btn:active,
+    .uffb-tickets a:active {
+      transform: translateY(1px);
+    }
+    /* --- Chip interaction (independent from buttons) --- */
+    .uffb-chip {
+      --chip-fg: #fff; /* base text/border color on dark bg */
+      color: var(--chip-fg);
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      transition:
+        background-color 0.18s ease,
+        color 0.18s ease,
+        border-color 0.18s ease,
+        box-shadow 0.18s ease,
+        transform 0.06s ease;
+    }
+    .uffb-chip:hover {
+      background: rgba(255, 255, 255, 0.16); /* visible hover */
+      border-color: #fff;
+    }
     .uffb-chip:active {
       transform: translateY(1px);
     }
 
-    /* icon buttons: light hover background so they feel clickable */
-    .uffb-icon-btn:hover {
-      background: rgba(255, 255, 255, 0.12);
-      border-radius: 6px;
-    }
-
-    /* chips: brighten border on hover; checked chips already invert */
-    .uffb-chip:hover {
+    /* Selected chip: invert to white pill, dark text */
+    .uffb-chip[data-checked='true'] {
+      --chip-fg: #000;
+      background: #fff;
+      color: #000;
       border-color: #fff;
-      background: rgba(255, 255, 255, 0.14);
+      box-shadow: 0 0 0 2px #fff inset; /* subtle emphasis */
     }
     .uffb-chip[data-checked='true']:hover {
-      background: #f4f4f4;
-      color: #000;
+      background: #f6f6f6;
     }
 
-    /* strong keyboard focus (a11y) */
-    .uffb-btn:focus-visible,
-    .uffb-tickets a:focus-visible,
-    .uffb-icon-btn:focus-visible,
+    /* Focus ring (keyboard) */
     .uffb-chip:has(input:focus-visible) {
-      outline: 2px solid currentColor;
+      outline: 2px solid #fff;
       outline-offset: 2px;
-      box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.35);
+    }
+    /* Put all filter cells on the same baseline row */
+    .uffb-filters {
+      align-items: end;
     }
 
-    /* optional: make Tickets link adopt brand color as its "currentColor" */
-    .uffb-tickets a {
-      color: var(--paragraphLinkColor);
-      border-color: currentColor;
-      background: transparent;
+    /* Make the Clear button align with the bottom of inputs */
+    .uffb-filter-actions {
+      align-self: end;
+    }
+
+    /* Chip-like Clear button, same height as inputs */
+    .uffb-chip-btn {
+      /* match .uffb-field vertical rhythm */
+      padding: 0.55rem 0.8rem; /* same Y padding as .uffb-field */
+      border-radius: 6px; /* same radius as inputs */
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      height: 42px;
+    }
+
+    /* small icon before label */
+    .uffb-chip-btn .chip-icon {
+      display: inline-block;
+      font-weight: 700;
+      line-height: 0;
+      opacity: 0.8;
+      transform: translateY(-0.5px);
+    }
+
+    /* hover/active (reuses your chip interaction feel) */
+    .uffb-chip-btn:hover {
+      background: rgba(255, 255, 255, 0.16);
+      border-color: #fff;
+    }
+    .uffb-chip-btn:active {
+      transform: translateY(1px);
+    }
+
+    /* optional: full “selected” look if you ever toggle it */
+    .uffb-chip-btn[aria-pressed='true'] {
+      background: #fff;
+      color: #000;
+      border-color: #fff;
     }
   `;
 
@@ -1036,8 +1122,9 @@
         </select>
       </label>
       <div class="uffb-filter-actions">
-        <button type="button" id="clearFilters" class="uffb-icon-btn">
-          ${t('clearFilters')}
+        <button type="button" id="clearFilters" class="uffb-chip uffb-chip-btn">
+          <span class="chip-icon" aria-hidden="true">✕</span>
+          <span class="chip-label">${t('clearFilters')}</span>
         </button>
       </div>
     `;
@@ -1072,7 +1159,7 @@
       >
         <label class="uffb-chip" data-value="">
           <input type="radio" name="groupby" value="" checked />
-          <span>${I18N[lang].groupNone || 'None'}</span>
+          <span>${I18N[lang].none || 'None'}</span>
         </label>
         <label class="uffb-chip" data-value="category">
           <input type="radio" name="groupby" value="category" />
