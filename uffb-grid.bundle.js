@@ -1416,6 +1416,15 @@
       });
     }
 
+    // normalize i18n/arrays/strings → single lowercase-ready string
+    const langTxt = (v) => {
+      if (!v) return '';
+      // pickLangVal can return string OR array (e.g., director: {en: ["Name"]})
+      const val = Array.isArray(v) ? v.map(pickLangVal) : [pickLangVal(v)];
+      const flat = (Array.isArray(val) ? val.flat() : [val]).filter(Boolean);
+      return flat.join(' ');
+    };
+
     // --- filtering + apply ---
     function applyAll() {
       filtered = items.filter((f) => {
@@ -1446,7 +1455,8 @@
         }
         if (state.q) {
           const q = state.q.toLowerCase();
-          const text = [
+
+          const baseText = [
             f.title?.de,
             f.title?.en,
             f.title?.uk,
@@ -1456,22 +1466,38 @@
             f.category?.de,
             f.category?.en,
             f.category?.uk,
-            f.director?.de,
-            f.director?.en,
-            f.director?.uk,
+            langTxt(f.director), // ⬅️ use helper (fixes string/array/i18n)
             f.original_title,
-            f.cast?.de,
-            f.cast?.en,
+            langTxt(f.cast), // (optional) normalize cast too
           ]
             .filter(Boolean)
-            .join(' ')
-            .toLowerCase();
+            .join(' ');
+
+          // NEW: include shorts program films (title, description, director)
+          const shortsText = Array.isArray(f.films)
+            ? f.films
+                .map((sf) =>
+                  [
+                    langTxt(sf.title),
+                    langTxt(sf.description),
+                    langTxt(sf.director),
+                  ]
+                    .filter(Boolean)
+                    .join(' ')
+                )
+                .join(' ')
+            : '';
+
+          const text = (baseText + ' ' + shortsText).toLowerCase();
+
           const venuesText = (f.screenings || [])
             .map(getVenueName)
             .join(' ')
             .toLowerCase();
+
           if (!text.includes(q) && !venuesText.includes(q)) return false;
         }
+
         return true;
       });
 
