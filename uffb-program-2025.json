@@ -182,5 +182,99 @@
         "tickets": "https://www.eventim-light.com/de/a/630258da01bcd227acaad56c/e/6894ef794451ed23a93229c3"
       }
     ]
+  },
+  {
+    "id": "short-films-competition-1",
+    "title": {
+      "en": "Short Films Competition I",
+      "de": "Kurzfilmwettbewerb I"
+    },
+    "category": {
+      "key": "shorts_competition",
+      "en": "Short films – Competition",
+      "de": "Kurzfilmwettbewerb"
+    },
+    "description": {
+      "en": "With Q&A after the screenings.",
+      "de": "Mit Q&A nach den Screenings."
+    },
+    "year": 2025,
+    "image": "https://images.squarespace-cdn.com/content/v1/5f739670761e02764c54e1ca/1728245892288-XBPDFNZYCUMP6O73AF9Q/3..png",
+    "films": [
+      {
+        "title": { "en": "I DIED IN IRPIN" },
+        "director": "Anastasiia Falileieva",
+        "countries": { "en": ["Ukraine"] },
+        "year": 2024,
+        "duration": 11,
+        "image": "https://images.squarespace-cdn.com/content/v1/5f739670761e02764c54e1ca/1727779010212-L3CD5Y9AZI6WRJW1W5OD/From+the+past.jpeg",
+        "description": { "en": "A reflective short from Kyiv’s suburbs." },
+        "trailer": ""
+      },
+      {
+        "title": { "en": "BEWARE OF A GOOD DOG" },
+        "director": "Adelina Borets",
+        "countries": { "en": ["Ukraine"] },
+        "year": 2024,
+        "duration": 26,
+        "image": "https://images.squarespace-cdn.com/content/v1/5f739670761e02764c54e1ca/1727779126946-LGGPTWZWQCVEUT7WS9ST/Nuance.jpg",
+        "description": {
+          "en": "Neighbourhood tensions seen through a pet’s presence."
+        },
+        "trailer": ""
+      },
+      {
+        "title": { "en": "VOICE MESSAGES FROM BAKHMUT" },
+        "director": "Ihor Babaiev",
+        "countries": { "en": ["Ukraine"] },
+        "year": 2024,
+        "duration": 15,
+        "image": "https://images.squarespace-cdn.com/content/v1/5f739670761e02764c54e1ca/1727779233370-ZUB8240NPSYN3OZ76BR4/YA+VZHE+NE+UYIDU+NIKUDA.png",
+        "description": {
+          "en": "Fragments of life at the frontline become audio postcards."
+        },
+        "trailer": "https://www.youtube.com/watch?v=qn20XMgO-fc"
+      },
+      {
+        "title": { "en": "IN PARIS NO ONE THINKS ABOUT TOMORROW" },
+        "director": "Andrii Kokura",
+        "countries": { "en": ["Ukraine", "France"] },
+        "year": 2024,
+        "duration": 14,
+        "image": "https://images.squarespace-cdn.com/content/v1/5f739670761e02764c54e1ca/1727779334354-4VJQKTL9K30M2K6YQSCZ/Three+beasts.jpg",
+        "description": {
+          "en": "Between nostalgia and new beginnings in exile."
+        },
+        "trailer": ""
+      },
+      {
+        "title": { "en": "DOVECOTES OF KYIV" },
+        "director": "Mykhailo Volkov",
+        "countries": { "en": ["Ukraine"] },
+        "year": 2024,
+        "duration": 10,
+        "image": "https://images.squarespace-cdn.com/content/v1/5f739670761e02764c54e1ca/1727779424995-RKNB6HI4J2RVUL0FOB22/Metallic+taste.jpg?format=750w",
+        "description": {
+          "en": "A tender city portrait told through rooftop dovecotes."
+        },
+        "trailer": "https://youtu.be/KYtFzkWz6zE"
+      }
+    ],
+    "screenings": [
+      {
+        "date": "2025-10-24",
+        "time": "19:00",
+        "venue": { "en": "ACUD Kino", "de": "ACUD Kino" },
+        "address": "Veteranenstraße 21, 10119 Berlin",
+        "tickets": "https://tickets.example/shorts-comp-1-2410"
+      },
+      {
+        "date": "2025-10-26",
+        "time": "18:50",
+        "venue": { "en": "IL Kino", "de": "IL Kino" },
+        "address": "Nansenstraße 22, 12047 Berlin",
+        "tickets": "https://tickets.example/shorts-comp-1-2610"
+      }
+    ]
   }
 ]

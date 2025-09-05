@@ -688,6 +688,26 @@
       color: #000;
       border-color: #fff;
     }
+
+    .uffb-shorts {
+      margin: 8px 0 0;
+      padding-left: 1.25rem; /* ordered list indent */
+      color: #333;
+      font-size: 1.05rem;
+      line-height: 1.4;
+    }
+
+    .uffb-row .uffb-shorts {
+      color: #fff; /* row layout is on dark bg */
+    }
+
+    .uffb-shorts li {
+      list-style: circle;
+    }
+
+    .uffb-shorts li + li {
+      margin-top: 6px;
+    }
   `;
 
   function injectCSS() {
@@ -782,6 +802,25 @@
     return val;
   }
 
+  // Priority: 0 = main, 1 = shorts-competition, 2 = others
+  const CATEGORY_ORDER = ['main', 'shorts_competition'];
+
+  function categoryRank(key, label) {
+    const k = (key || '').toLowerCase();
+    const l = (label || '').toLowerCase();
+
+    // exact key match first
+    const idx = CATEGORY_ORDER.indexOf(k);
+    if (idx !== -1) return idx;
+
+    // label fallbacks (multi-language friendly)
+    if (l.includes('main')) return 0;
+    // match things like: "Short films – Competition", "Kurzfilmwettbewerb"
+    if (/(short|kurz).*?(comp|wettbewerb)/.test(l)) return 1;
+
+    return CATEGORY_ORDER.length; // 2 = others
+  }
+
   function getCategoryKeyAndLabel(film) {
     const key =
       (film.category &&
@@ -825,6 +864,33 @@
       })
     );
     return map;
+  }
+
+  function renderShortsList(item) {
+    const list = Array.isArray(item.films) ? item.films : null;
+    if (!list || !list.length) return '';
+
+    const li = list
+      .map((sf) => {
+        const t = pickLangVal(sf.title) || ''; // supports {en,de,uk} or string
+        const dir = sf.director ? ` by ${escapeHtml(sf.director)}` : '';
+        let dur = '';
+        if (sf.duration != null) {
+          const d =
+            typeof sf.duration === 'number'
+              ? `${sf.duration}’`
+              : pickLangVal(sf.duration);
+          dur = d ? ` | ${escapeHtml(d)}` : '';
+        }
+        return `<li><strong>${escapeHtml(t)}</strong>${dir}${dur}</li>`;
+      })
+      .join('');
+
+    return `
+    <ol class="uffb-shorts">
+      ${li}
+    </ol>
+  `;
   }
 
   function screeningLine(s) {
@@ -942,6 +1008,7 @@
           <h3 class="uffb-title"><a href="${href}">${escapeHtml(title)}</a></h3>
           ${metaBlock}
           <div class="uffb-desc">${escapeHtml(desc)}</div>
+          ${renderShortsList(it)}
           <div class="uffb-actions">
             ${trailer
               ? `<button class="uffb-btn" data-trailer="${encodeURIComponent(
@@ -1026,6 +1093,7 @@
               </h3>
               ${metaBlock}
               <div class="uffb-desc">${escapeHtml(desc)}</div>
+              ${renderShortsList(it)}
               <div class="uffb-actions">
                 ${trailer
                   ? `<button class="uffb-btn" data-trailer="${encodeURIComponent(trailer)}">${t('watchTrailer')}</button>`
@@ -1283,8 +1351,12 @@
           films: v.films.sort((a, b) =>
             earliestDate(a).localeCompare(earliestDate(b))
           ),
+          rank: categoryRank(k, v.label),
         }))
-        .sort((a, b) => a.label.localeCompare(b.label));
+        .sort((a, b) => {
+          if (a.rank !== b.rank) return a.rank - b.rank; // our custom order first
+          return a.label.localeCompare(b.label); // then alphabetically
+        });
 
       let htmlStr = `<div class="uffb-groups">`;
       groups.forEach((g) => {
@@ -1403,9 +1475,23 @@
         return true;
       });
 
-      filtered.sort((a, b) => earliestDate(a).localeCompare(earliestDate(b)));
+      // If same earliest date, use category priority
+      filtered.sort((a, b) => {
+        const da = earliestDate(a);
+        const db = earliestDate(b);
+        if (da !== db) return 0; // keep earlier date precedence
 
-      filtered.sort((a, b) => earliestDate(a).localeCompare(earliestDate(b)));
+        const ca = getCategoryKeyAndLabel(a);
+        const cb = getCategoryKeyAndLabel(b);
+        const ra = categoryRank(ca.key, ca.label);
+        const rb = categoryRank(cb.key, cb.label);
+        if (ra !== rb) return ra - rb;
+
+        // final tie-breaker by localized title
+        const at = pickLangVal(a.title) || '';
+        const bt = pickLangVal(b.title) || '';
+        return at.localeCompare(bt);
+      });
 
       if (state.groupBy === 'category') {
         renderGroupedByCategory(filtered, layoutVariant);
@@ -1430,8 +1516,12 @@
 
     // --- filter options init ---
     function initFilterOptions(data) {
-      // categories
-      const catSet = new Map(); // key -> label (current lang)
+      // --- CATEGORY OPTIONS ---
+      // keep the first "All" option, remove the rest (prevents duplicates on re-init)
+      while (ui.filters.cat.options.length > 1) ui.filters.cat.remove(1);
+
+      // collect categories: key -> localized label
+      const catSet = new Map();
       data.forEach((f) => {
         const key = (f.category && f.category.key) || null;
         const label =
@@ -1443,14 +1533,28 @@
           null;
         if (key && label && !catSet.has(key)) catSet.set(key, label);
       });
-      catSet.forEach((label, key) => {
-        const opt = document.createElement('option');
-        opt.value = key;
-        opt.textContent = label;
-        ui.filters.cat.appendChild(opt);
-      });
 
-      // venues (norm -> pretty)
+      // order by rank, then alphabetically by label
+      const catArray = Array.from(catSet.entries()).map(([key, label]) => ({
+        key,
+        label,
+        rank: categoryRank(key, label),
+      }));
+
+      catArray
+        .sort((a, b) =>
+          a.rank !== b.rank ? a.rank - b.rank : a.label.localeCompare(b.label)
+        )
+        .forEach(({ key, label }) => {
+          const opt = document.createElement('option');
+          opt.value = key;
+          opt.textContent = label;
+          ui.filters.cat.appendChild(opt);
+        });
+
+      // --- VENUE OPTIONS ---
+      while (ui.filters.venue.options.length > 1) ui.filters.venue.remove(1);
+
       const venueMap = new Map();
       data.forEach((f) =>
         (f.screenings || []).forEach((s) => {
@@ -1468,7 +1572,9 @@
           ui.filters.venue.appendChild(opt);
         });
 
-      // dates
+      // --- DATE OPTIONS ---
+      while (ui.filters.date.options.length > 1) ui.filters.date.remove(1);
+
       const dateSet = new Set();
       data.forEach((f) =>
         (f.screenings || []).forEach((s) => {

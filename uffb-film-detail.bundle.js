@@ -1,4 +1,4 @@
-/* uffb-film.bundle.js — refactored to mirror program overview structure */
+/* uffb-film.bundle.js — program-detail with shorts layout */
 (function () {
   const MOUNT = '#film-detail';
 
@@ -15,11 +15,8 @@
       .slice(0, 2);
     const path = location.pathname || '';
 
-    // URL prefix wins if present
     if (path.startsWith('/de/')) return 'de';
     if (path.startsWith('/uk/')) return 'uk';
-
-    // else fall back to <html lang>
     if (SUPPORTED_LANGS.includes(htmlLang)) return htmlLang;
     return DEFAULT_LANG;
   }
@@ -33,11 +30,8 @@
 
   const I18N = {
     en: {
-      // navigation
       home: 'Home',
       programLabel: 'UFFB Program 2025',
-
-      // actions / sections
       watchTrailer: 'Watch trailer',
       tickets: 'TICKETS',
       screenings: 'Screenings',
@@ -45,8 +39,6 @@
       info: 'Info',
       credits: 'Credits',
       synopsis: 'Synopsis',
-
-      // info table labels
       category: 'Category',
       originalTitle: 'Original title',
       countries: 'Countries',
@@ -54,17 +46,13 @@
       language: 'Language',
       director: 'Director',
       cast: 'Cast',
-
-      // errors
+      shortDescLabel: 'Short description:',
       loadError: 'Film data could not be loaded.',
       filmNotFound: 'Film not found.',
     },
     de: {
-      // navigation
       home: 'Start',
       programLabel: 'UFFB Programm 2025',
-
-      // actions / sections
       watchTrailer: 'Trailer ansehen',
       tickets: 'TICKETS',
       screenings: 'Vorführungen',
@@ -72,8 +60,6 @@
       info: 'Info',
       credits: 'Credits',
       synopsis: 'Über den Film',
-
-      // info table labels
       category: 'Kategorie',
       originalTitle: 'Originaltitel',
       countries: 'Länder',
@@ -81,8 +67,7 @@
       language: 'Sprache',
       director: 'Regie',
       cast: 'Cast',
-
-      // errors
+      shortDescLabel: 'Kurzbeschreibung:',
       loadError: 'Filmdaten konnten nicht geladen werden.',
       filmNotFound: 'Film nicht gefunden.',
     },
@@ -103,13 +88,14 @@
       language: 'Мова',
       director: 'Режисер',
       cast: 'Акторський склад',
+      shortDescLabel: 'Короткий опис:',
       loadError: 'Не вдалося завантажити дані про фільм.',
       filmNotFound: 'Фільм не знайдено.',
     },
   };
   const t = (key) => I18N[lang]?.[key] ?? key;
 
-  /* ---------- utils (unchanged) ---------- */
+  /* ---------- utils ---------- */
   function getFilmId() {
     const params = new URLSearchParams(location.search);
     if (params.get('id')) return params.get('id');
@@ -125,14 +111,11 @@
     }
     return typeof val === 'object' ? localized(val) : String(val);
   }
-
   function localized(obj) {
     if (!obj) return '';
     if (typeof obj === 'string') return obj;
-    // prefer current lang → English → first available key
     return obj[lang] ?? obj['en'] ?? obj['de'] ?? Object.values(obj)[0] ?? '';
   }
-
   function fmtDuration(mins) {
     if (!mins || isNaN(mins)) return '';
     return `${mins} min`;
@@ -147,14 +130,14 @@
     const homeHref = lang === 'de' ? '/de/' : '/';
     const progHref = lang === 'de' ? '/de/uffb2025' : '/uffb2025';
     return html`
-    <nav class="uffb-breadcrumb" aria-label="Breadcrumb">
+      <nav class="uffb-breadcrumb" aria-label="Breadcrumb">
         <ol>
           <li><a href="${homeHref}">${t('home')}</a></li>
           <li><a href="${progHref}">${t('programLabel')}</a></li>
           <li aria-current="page">${title}</li>
         </ol>
       </nav>
-  `;
+    `;
   }
 
   /* --- trailer helpers (no autoplay) --- */
@@ -181,7 +164,7 @@
     }
   }
 
-  /* ---------- UI pieces (unchanged) ---------- */
+  /* ---------- UI pieces ---------- */
   function buildTopLine(film) {
     const title = localized(film.title) || film.original_title || '';
     const cat = film.category
@@ -189,7 +172,7 @@
       : '';
     const hasTrailer = Boolean(film.trailer);
     return html`
-    <div class="uffb-topline">
+      <div class="uffb-topline">
         <div class="uffb-topline-left">
           <div class="uffb-cat">#${cat}</div>
           <div class="uffb-top-title">${title}</div>
@@ -201,7 +184,7 @@
           <a class="uffb-top-cta" href="#screenings">${t('tickets')}</a>
         </div>
       </div>
-  `;
+    `;
   }
 
   function buildJsonLd(film) {
@@ -268,17 +251,17 @@
       ? film.language[lang] || film.language.en || film.language.de || ''
       : '';
     return `
-    <section class="uffb-panel">
-      <h3 class="uffb-panel-title">${t('info')}</h3>
-      <div class="uffb-info">
-        ${infoRow(t('category'), cat)}
-        ${infoRow(t('originalTitle'), original)}
-        ${infoRow(t('countries'), countriesTxt)}
-        ${year ? infoRow(t('year'), year) : ''}
-        ${languageTxt ? infoRow(t('language'), languageTxt) : ''}
-      </div>
-    </section>
-  `;
+      <section class="uffb-panel">
+        <h3 class="uffb-panel-title">${t('info')}</h3>
+        <div class="uffb-info">
+          ${infoRow(t('category'), cat)}
+          ${infoRow(t('originalTitle'), original)}
+          ${infoRow(t('countries'), countriesTxt)}
+          ${year ? infoRow(t('year'), year) : ''}
+          ${languageTxt ? infoRow(t('language'), languageTxt) : ''}
+        </div>
+      </section>
+    `;
   }
 
   function buildSynopsisBlock(film) {
@@ -287,7 +270,7 @@
       (film.detailed_description && localized(film.detailed_description)) || '';
     if (!shortDesc && !longDesc) return '';
     return html`
-    <section class="uffb-panel">
+      <section class="uffb-panel">
         <h3 class="uffb-panel-title">${t('synopsis')}</h3>
         <div class="uffb-synopsis2">
           ${shortDesc
@@ -296,7 +279,7 @@
           ${longDesc ? `<div class="uffb-bodytext">${longDesc}</div>` : ''}
         </div>
       </section>
-  `;
+    `;
   }
 
   function buildCreditsBlock(film) {
@@ -305,14 +288,14 @@
       ? localized(film.cast).join(', ')
       : localized(film.cast) || '';
     return html`
-    <section class="uffb-panel">
+      <section class="uffb-panel">
         <h3 class="uffb-panel-title">${t('credits')}</h3>
         <div class="uffb-credits">
           ${infoRow(t('director'), director)}
           ${cast ? infoRow(t('cast'), cast) : ''}
         </div>
       </section>
-  `;
+    `;
   }
 
   function fmtWhen(isoDate, timeHHMM) {
@@ -323,7 +306,6 @@
       month: 'short',
       year: 'numeric',
     });
-    // e.g., "пн, 23 жовт. 2025 · 19:00"
     return `${fmt.format(d)} · ${timeHHMM}`;
   }
 
@@ -343,7 +325,7 @@
             : `<span class="uffb-addr">${addr}</span>`
           : '';
         return html`
-      <article class="uffb-screening-card">
+          <article class="uffb-screening-card">
             <div class="uffb-whenline">${when}</div>
             ${venueName
               ? `<div class="uffb-venue-title">${venueName}</div>`
@@ -359,19 +341,19 @@
               >
             </div>
           </article>
-    `;
+        `;
       })
       .join('');
 
     return html`
-    <section class="uffb-screenings-block" id="screenings">
+      <section class="uffb-screenings-block" id="screenings">
         <h2 class="uffb-section-title">${t('screenings')}</h2>
         <div class="uffb-screenings-grid">${cards}</div>
       </section>
-  `;
+    `;
   }
 
-  /* --- hero carousel (unchanged) --- */
+  /* --- hero carousel (kept for regular films only) --- */
   function buildMediaCarousel(film) {
     const title = localized(film.title) || film.original_title || '';
     const embed = film.trailer ? toEmbedUrl(film.trailer) : null;
@@ -393,22 +375,18 @@
 
     return `
       <div class="uffb-media">
-        <div class="uffb-slides" data-index="0" style="transform:translateX(0%)">
-          ${slides.join('')}
-        </div>
+        <div class="uffb-slides" data-index="0" style="transform:translateX(0%)">${slides.join('')}</div>
         ${
           slides.length > 1
-            ? `
-          <button class="uffb-nav uffb-prev" aria-label="Previous">‹</button>
-          <button class="uffb-nav uffb-next" aria-label="Next">›</button>
-        `
+            ? `<button class="uffb-nav uffb-prev" aria-label="Previous">‹</button>
+             <button class="uffb-nav uffb-next" aria-label="Next">›</button>`
             : ''
         }
       </div>
     `;
   }
 
-  /* --- lightbox (kept, created lazily) --- */
+  /* --- lightbox --- */
   function ensureLightbox() {
     if (document.getElementById('uffb-lightbox')) return;
     const box = document.createElement('div');
@@ -465,7 +443,7 @@
     document.documentElement.classList.remove('uffb-noscroll');
   }
 
-  /* --- carousel wiring (unchanged) --- */
+  /* --- carousel wiring --- */
   function initCarousel($root) {
     const $media = $root.querySelector('.uffb-media');
     if (!$media) return;
@@ -534,7 +512,6 @@
       dx = 0;
     });
 
-    // play badge → jump to trailer slide
     $media.addEventListener('click', (e) => {
       const btn = e.target.closest('.uffb-play-badge');
       if (btn) {
@@ -546,7 +523,7 @@
     });
   }
 
-  // Keep your fix: always scroll to #screenings even if hash is already there
+  // Always scroll to #screenings even if hash is already there
   function enableTicketsJump() {
     document.addEventListener('click', (e) => {
       const a = e.target.closest('a[href="#screenings"]');
@@ -563,7 +540,84 @@
     });
   }
 
-  /* ---------- CSS injection (same pattern as overview) ---------- */
+  /* --- SHORTS: centered list with bigger thumbs; screenings on right --- */
+  function buildShortsItemsSection(film) {
+    const shorts = Array.isArray(film.films) ? film.films : [];
+    if (!shorts.length) return '';
+
+    const items = shorts
+      .map((sf) => {
+        const title =
+          (typeof sf.title === 'object' ? localized(sf.title) : sf.title) || '';
+        const director =
+          (typeof sf.director === 'object'
+            ? localized(sf.director)
+            : sf.director) || '';
+        const countriesRaw =
+          (sf.countries &&
+            (sf.countries[lang] || sf.countries.en || sf.countries.de)) ??
+          '';
+        const countries = Array.isArray(countriesRaw)
+          ? countriesRaw.join(', ')
+          : countriesRaw || '';
+        const year = sf.year ?? '';
+        const desc =
+          (sf.description &&
+            (typeof sf.description === 'object'
+              ? localized(sf.description)
+              : sf.description)) ||
+          '';
+        const img = sf.image || '';
+        const trailer = sf.trailer || '';
+        const genreTxt = joinLocalized(sf.genre);
+        let durationTxt = sf.duration != null ? sf.duration : '';
+        if (typeof durationTxt === 'number') durationTxt = `${durationTxt}'`;
+        else if (typeof durationTxt === 'object')
+          durationTxt = localized(durationTxt);
+
+        const imgHtml = img
+          ? `<div class="uffb-short-img"><img loading="lazy" src="${img}" alt="${title}"></div>`
+          : `<div class="uffb-short-img" aria-hidden="true"></div>`;
+
+        const metaBlock = `
+        <div class="uffb-short-metas">
+          ${genreTxt ? `<div class="uffb-short-meta1"><em>${genreTxt}</em></div>` : ''}
+          ${[countries, year].filter(Boolean).length ? `<div class="uffb-short-meta1"><em>${[countries, year].filter(Boolean).join(' | ')}</em></div>` : ''}
+          ${director ? `<div class="uffb-short-meta2"><strong>${t('director')}:</strong> ${director}</div>` : ''}
+          ${durationTxt ? `<div class="uffb-short-meta3">${durationTxt}</div>` : ''}
+        </div>
+      `;
+
+        const trailerBtn = trailer
+          ? `<div class="uffb-short-actions"><a class="uffb-top-cta uffb-trailer-btn" href="#" data-trailer="${trailer}">${t('watchTrailer')}</a></div>`
+          : '';
+
+        const descBlock = desc
+          ? `<div class="uffb-short-desc">${desc}</div>`
+          : '';
+
+        return `
+        <li class="uffb-short-item">
+          ${imgHtml}
+          <div class="uffb-short-body">
+            <h4 class="uffb-short-title">${title}</h4>
+            ${metaBlock}
+            ${descBlock}
+            ${trailerBtn}
+          </div>
+        </li>
+      `;
+      })
+      .join('');
+
+    return `
+      <section class="uffb-panel uffb-shorts-block">
+        <ol class="uffb-shorts-list">${items}</ol>
+      </section>
+    `;
+  }
+
+  /* ---------- CSS ---------- */
   const CSS = css`
     .uffb-film {
       display: grid;
@@ -822,6 +876,7 @@
     }
     .uffb-screenings-block {
       margin-top: 25px;
+      scroll-margin-top: 80px;
     }
 
     .uffb-screenings-grid {
@@ -837,6 +892,10 @@
       .uffb-screenings-grid {
         grid-template-columns: 1fr 1fr 1fr;
       }
+    }
+
+    .uffb-shorts-right .uffb-screenings-grid {
+      grid-template-columns: 1fr !important; /* force single column */
     }
 
     .uffb-screening-card {
@@ -929,8 +988,105 @@
       display: block;
     }
 
-    .uffb-screenings-block {
-      scroll-margin-top: 80px;
+    /* --- Shorts + Screenings two-column layout (desktop) --- */
+    .uffb-shorts-layout {
+      display: grid;
+      gap: 28px;
+      margin-top: 32px;
+    }
+    @media (min-width: 1100px) {
+      .uffb-shorts-layout {
+        grid-template-columns: 2fr 1fr;
+        align-items: start;
+      }
+    }
+    .uffb-shorts-left {
+      max-width: 960px;
+      margin: 0 auto;
+    }
+    .uffb-shorts-right {
+      position: relative;
+    }
+    @media (min-width: 1100px) {
+      .uffb-shorts-right {
+        padding-left: 20px;
+        border-left: 1px solid rgba(255, 255, 255, 0.1);
+      }
+    }
+
+    /* --- Shorts list tweaks --- */
+    .uffb-shorts-block {
+      margin-top: 8px;
+    }
+    .uffb-shorts-list {
+      list-style: decimal;
+      padding-left: 1.25rem;
+      margin: 0;
+      display: grid;
+      gap: 32px;
+    }
+
+    .uffb-short-item {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      gap: 16px;
+      align-items: start;
+    }
+    @media (max-width: 800px) {
+      .uffb-short-item {
+        grid-template-columns: 200px 1fr;
+      }
+    }
+    @media (max-width: 640px) {
+      .uffb-short-item {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .uffb-short-img {
+      width: 100%;
+      aspect-ratio: 16/9;
+      background: #f3f3f3;
+      border-radius: 6px;
+      overflow: hidden;
+    }
+    .uffb-short-img img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+    }
+
+    .uffb-short-body {
+      display: grid;
+      gap: 8px;
+    }
+    .uffb-short-title {
+      font-weight: 800;
+      font-size: 1.1rem;
+      margin: 0;
+    }
+    .uffb-short-metas {
+      display: grid;
+      gap: 4px;
+    }
+    .uffb-short-meta1 {
+      color: #ddd;
+    }
+    .uffb-short-meta1 em {
+      font-style: normal;
+      opacity: 0.9;
+    }
+    .uffb-short-meta2,
+    .uffb-short-meta3 {
+      color: #fff;
+    }
+    .uffb-short-desc {
+      font-size: 1.03rem;
+      line-height: 1.45;
+    }
+    .uffb-short-actions {
+      margin-top: 6px;
     }
   `;
 
@@ -946,18 +1102,15 @@
   async function render(el) {
     injectCSS();
 
-    // Alignment with program overview: wrap + use el.dataset.json
     const wrap = document.createElement('div');
     el.appendChild(wrap);
 
-    // Read JSON URL the same way as program overview
     const jsonUrl = el.dataset.json;
     if (!jsonUrl) {
       console.error('[UFFB] Missing data-json on', el);
       return;
     }
 
-    // Load data
     let films = [];
     try {
       const res = await fetch(jsonUrl, { cache: 'no-cache' });
@@ -969,7 +1122,6 @@
       return;
     }
 
-    // Find film
     const filmId = getFilmId();
     if (!filmId) return;
     const film = films.find((f) => f.id === filmId);
@@ -977,6 +1129,8 @@
       wrap.innerHTML = `<p>${t('filmNotFound')}</p>`;
       return;
     }
+
+    const isShortsProgram = Array.isArray(film.films) && film.films.length > 0;
 
     const title = localized(film.title) || film.original_title || '';
     const screeningsBlock = buildScreeningsSection(film);
@@ -987,36 +1141,50 @@
         <header class="uffb-film-header">
           ${buildTopLine(film)}
           <h1 class="uffb-title visually-hidden">${title}</h1>
-          ${buildMediaCarousel(film)}
+          ${isShortsProgram ? '' : buildMediaCarousel(film)}
         </header>
 
-        <section class="uffb-two-col">
-          <div class="uffb-col-left">
-            ${buildInfoBlock(film)}
-            ${buildCreditsBlock(film)}
-          </div>
-          <div class="uffb-col-right">
-            ${buildSynopsisBlock(film)}
-          </div>
-        </section>
+        ${
+          isShortsProgram
+            ? `
+              <section class="uffb-shorts-layout">
+                <div class="uffb-shorts-left">
+                  ${buildShortsItemsSection(film)}
+                </div>
+                <aside class="uffb-shorts-right">
+                  ${screeningsBlock}
+                </aside>
+              </section>
+            `
+            : `
+              <section class="uffb-two-col">
+                <div class="uffb-col-left">
+                  ${buildInfoBlock(film)}
+                  ${buildCreditsBlock(film)}
+                </div>
+                <div class="uffb-col-right">
+                  ${buildSynopsisBlock(film)}
+                </div>
+              </section>
 
-        ${screeningsBlock}
+              ${screeningsBlock}
+            `
+        }
 
         <section class="uffb-actions"></section>
       </article>
     `;
 
-    // trailer button → lightbox
-    const trailerBtn = wrap.querySelector('.uffb-trailer-btn');
-    if (trailerBtn) {
-      trailerBtn.addEventListener('click', (e) => {
+    // trailer buttons → lightbox (topline + per-short)
+    wrap.querySelectorAll('.uffb-trailer-btn').forEach((btn) => {
+      btn.addEventListener('click', (e) => {
         e.preventDefault();
-        const url = trailerBtn.getAttribute('data-trailer');
+        const url = btn.getAttribute('data-trailer');
         if (url) openLightbox(url);
       });
-    }
+    });
 
-    // carousel
+    // carousel (no-op if hero omitted for shorts)
     initCarousel(wrap);
 
     // tickets anchor behavior
@@ -1029,12 +1197,11 @@
     document.head.appendChild(ld);
   }
 
-  /* ---------- robust init (same approach as program overview) ---------- */
+  /* ---------- robust init ---------- */
   let started = false;
   const tryStart = () => {
     const nodes = document.querySelectorAll(MOUNT);
     if (!nodes.length) return;
-    // allow multiple film-detail blocks, but prevent re-running for same session
     if (started) return;
     started = true;
     nodes.forEach(render);
@@ -1049,6 +1216,4 @@
     childList: true,
     subtree: true,
   });
-
-  // Lightbox gets created on first open (lazy), no global call needed
 })();
