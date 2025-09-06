@@ -1020,7 +1020,7 @@
     }
     .uffb-shorts-list {
       list-style: decimal;
-      padding-left: 1.25rem;
+      padding-left: 0;
       margin: 0;
       display: grid;
       gap: 32px;
