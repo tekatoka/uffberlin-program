@@ -434,6 +434,7 @@
     }
 
     /* --- LIST LAYOUT (row cards) --- */
+    .uffb-groups,
     .uffb-list {
       display: flex;
       flex-direction: column;
