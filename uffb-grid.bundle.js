@@ -109,7 +109,7 @@
     @media (min-width: 700px) {
       .uffb-grid {
         grid-template-columns: repeat(2, 1fr);
-        gap: 32px;
+        gap: 42px;
       }
     }
     @media (min-width: 1024px) {
@@ -146,7 +146,7 @@
       display: flex;
       flex-direction: column;
       gap: 10px;
-      padding: 25px;
+      padding: 25px 0;
     }
     .uffb-title {
       margin: 0;
