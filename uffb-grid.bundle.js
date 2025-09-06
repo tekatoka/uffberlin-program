@@ -232,6 +232,7 @@
       padding: 10px;
       border: 1.5px solid;
       border-radius: 0px;
+      text-transform: uppercase;
     }
 
     /* Icon buttons */
