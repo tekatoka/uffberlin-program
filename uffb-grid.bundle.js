@@ -178,17 +178,6 @@
       margin-top: 4px;
       flex-wrap: wrap;
     }
-    .uffb-btn {
-      display: inline-block;
-      padding: 18px;
-      border: 1.5px solid currentColor;
-      border-radius: 0px;
-      font-weight: 800;
-      text-decoration: none;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      background: white;
-    }
     .uffb-screenings {
       color: #fff;
       margin: 8px 0 2px;
@@ -586,8 +575,15 @@
     .uffb-btn {
       --btn-fg: #111; /* the color to invert to */
       color: var(--btn-fg);
+      display: inline-block;
+      padding: 18px;
+      border: 1.5px solid currentColor;
+      border-radius: 0px;
+      font-weight: 800;
+      text-decoration: none;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
       background: #fff;
-      border: 1.5px solid var(--btn-fg);
       transition:
         background-color var(--btn-anim) ease,
         color var(--btn-anim) ease,

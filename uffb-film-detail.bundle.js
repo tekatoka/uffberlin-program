@@ -179,9 +179,9 @@
         </div>
         <div class="uffb-topline-right">
           ${hasTrailer
-            ? `<a class="uffb-top-cta uffb-trailer-btn" href="#" data-trailer="${film.trailer}">${t('watchTrailer')}</a>`
+            ? `<a class="uffb-btn uffb-trailer-btn" href="#" data-trailer="${film.trailer}">${t('watchTrailer')}</a>`
             : ''}
-          <a class="uffb-top-cta" href="#screenings">${t('tickets')}</a>
+          <a class="uffb-btn" href="#screenings">${t('tickets')}</a>
         </div>
       </div>
     `;
@@ -333,7 +333,7 @@
             ${addrHtml}
             <div class="uffb-card-actions">
               <a
-                class="uffb-book-btn"
+                class="uffb-btn uffb-book-btn"
                 href="${tixUrl}"
                 target="_blank"
                 rel="noopener"
@@ -589,7 +589,7 @@
       `;
 
         const trailerBtn = trailer
-          ? `<div class="uffb-short-actions"><a class="uffb-top-cta uffb-trailer-btn" href="#" data-trailer="${trailer}">${t('watchTrailer')}</a></div>`
+          ? `<div class="uffb-short-actions"><a class="uffb-btn uffb-trailer-btn" href="#" data-trailer="${trailer}">${t('watchTrailer')}</a></div>`
           : '';
 
         const descBlock = desc
@@ -661,7 +661,7 @@
     .uffb-media {
       position: relative;
       overflow: hidden;
-      border-radius: 6px;
+      border-radius: 0px;
       background: #000;
       aspect-ratio: 16/9;
     }
@@ -730,7 +730,7 @@
       background: rgba(0, 0, 0, 0.6);
       color: #fff;
       padding: 4px 8px;
-      border-radius: 6px;
+      border-radius: 0px;
       font-size: 12px;
       letter-spacing: 0.04em;
       text-transform: uppercase;
@@ -743,7 +743,7 @@
       justify-content: space-between;
       background: #000;
       color: #fff;
-      border-radius: 6px;
+      border-radius: 0px;
     }
     .uffb-topline-left {
       display: grid;
@@ -766,15 +766,46 @@
       align-items: center;
       gap: 10px;
     }
-    .uffb-top-cta {
+    .uffb-btn {
+      --btn-fg: #111; /* the color to invert to */
+      color: var(--btn-fg);
       display: inline-block;
-      padding: 10px 18px;
+      padding: 18px;
       border: 1.5px solid currentColor;
-      border-radius: 6px;
+      border-radius: 0px;
       font-weight: 800;
       text-decoration: none;
       letter-spacing: 0.06em;
       text-transform: uppercase;
+      background: #fff;
+      transition:
+        background-color var(--btn-anim) ease,
+        color var(--btn-anim) ease,
+        border-color var(--btn-anim) ease,
+        transform 0.06s ease;
+    }
+
+    .uffb-btn,
+    .uffb-tickets a,
+    .uffb-icon-btn,
+    .uffb-chip {
+      transition:
+        background-color 0.18s ease,
+        color 0.18s ease,
+        border-color 0.18s ease,
+        box-shadow 0.18s ease,
+        transform 0.06s ease;
+    }
+
+    .uffb-btn:hover {
+      background: var(--btn-fg); /* uses stored color, not currentColor */
+      color: #fff;
+      border-color: #fff;
+    }
+
+    .uffb-btn:active,
+    .uffb-tickets a:active {
+      transform: translateY(1px);
     }
     @media (max-width: 640px) {
       .uffb-topline {
@@ -903,7 +934,7 @@
       gap: 8px;
       padding: 16px;
       border: 1px solid rgba(0, 0, 0, 0.12);
-      border-radius: 6px;
+      border-radius: 0px;
       background: #fff;
     }
     .uffb-screening-card .uffb-whenline,
@@ -926,7 +957,7 @@
       display: inline-block;
       padding: 10px 18px;
       border: 1.5px solid #333;
-      border-radius: 6px;
+      border-radius: 0px;
       font-weight: 800;
       text-decoration: none;
       letter-spacing: 0.06em;
@@ -962,7 +993,7 @@
       width: min(92vw, 960px);
       aspect-ratio: 16/9;
       background: #000;
-      border-radius: 6px;
+      border-radius: 0px;
       overflow: hidden;
       box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
     }
@@ -1047,7 +1078,7 @@
       width: 100%;
       aspect-ratio: 16/9;
       background: #f3f3f3;
-      border-radius: 6px;
+      border-radius: 0px;
       overflow: hidden;
     }
     .uffb-short-img img {
