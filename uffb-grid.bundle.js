@@ -243,7 +243,7 @@
       background: transparent;
       color: #fff;
       cursor: pointer;
-      padding: 0.25rem 0.5rem;
+      padding: 0;
       line-height: 1; /* prevent tall line box */
     }
     .uffb-icon-btn svg {
@@ -295,11 +295,13 @@
       align-items: center;
       gap: 0.4rem;
       background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(255, 255, 255, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.2);
       border-radius: 6px;
       padding: 0.35rem 0.7rem;
       cursor: pointer;
       user-select: none;
+      font-size: 14px;
+      padding: 0 10px;
     }
     .uffb-chip input {
       appearance: none;
@@ -450,6 +452,9 @@
     @media (max-width: 900px) {
       .uffb-row {
         grid-template-columns: 1fr;
+      }
+      .uffb-row .uffb-body {
+        padding: 0;
       }
     }
 
