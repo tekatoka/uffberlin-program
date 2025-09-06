@@ -771,13 +771,13 @@
       color: var(--btn-fg);
       display: inline-block;
       padding: 18px;
-      border: 1.5px solid currentColor;
+      border: 0 solid currentColor;
       border-radius: 0px;
       font-weight: 800;
       text-decoration: none;
       letter-spacing: 0.06em;
       text-transform: uppercase;
-      background: #fff;
+      background: var(--paragraphLinkColor);
       transition:
         background-color var(--btn-anim) ease,
         color var(--btn-anim) ease,
@@ -951,7 +951,7 @@
     .uffb-addr {
       text-decoration: underline;
       opacity: 1;
-      color: var(--paragraphLinkColor);
+      color: #000;
     }
     .uffb-book-btn {
       display: inline-block;

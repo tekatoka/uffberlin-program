@@ -610,7 +610,7 @@
     }
     .uffb-tickets a:hover {
       background: var(--btn-fg);
-      color: #fff;
+      color: #000;
       border-color: var(--btn-fg);
     }
 
