@@ -109,6 +109,7 @@
     @media (min-width: 700px) {
       .uffb-grid {
         grid-template-columns: repeat(2, 1fr);
+        gap: 32px;
       }
     }
     @media (min-width: 1024px) {
@@ -119,9 +120,9 @@
     .uffb-card {
       display: flex;
       flex-direction: column;
-      background: #fff;
+      background: #000;
       border-radius: 6px;
-      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+      // box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
       overflow: hidden;
       height: 100%;
     }
@@ -153,18 +154,23 @@
       line-height: 1.25;
     }
     .uffb-title a {
-      color: inherit;
+      color: var(--paragraphLinkColor, #0bb);
       text-decoration: none;
     }
+
+    .uffb-title a:hover {
+      text-decoration: underline !important;
+    }
+
     .uffb-desc {
-      color: #333;
+      color: #fff;
       opacity: 0.9;
       display: -webkit-box;
       -webkit-line-clamp: 3;
       -webkit-box-orient: vertical;
       overflow: hidden;
       min-height: 3.6em;
-      font-size: 1.25rem;
+      font-size: 1rem;
     }
     .uffb-actions {
       display: flex;
@@ -184,7 +190,7 @@
       background: white;
     }
     .uffb-screenings {
-      color: #333;
+      color: #fff;
       margin: 8px 0 2px;
       padding: 0;
       list-style: none;
@@ -197,16 +203,17 @@
       grid-template-columns: 1fr auto;
       align-items: start;
       gap: 6px 12px;
-      font-size: 1.25rem;
+      font-size: 1rem;
     }
     .uffb-category {
       font-size: 0.9rem;
-      color: #333;
+      color: var(--paragraphLinkColor, #0bb);
       padding: 10px 15px 0;
       letter-spacing: 0.02em;
       text-transform: uppercase;
       opacity: 0.7;
       margin-bottom: 0.4rem;
+      font-weight: 600;
     }
     .uffb-when {
       font-weight: 700;
@@ -216,9 +223,13 @@
     }
     .uffb-address a {
       font-size: 0.92rem;
-      text-decoration: underline;
-      color: #444;
+      text-decoration: none;
+      color: var(--paragraphLinkColor, #0bb);
       font-size: 1rem;
+    }
+
+    .uffb-address a:hover {
+      text-decoration: underline !important;
     }
 
     .uffb-tickets {
@@ -364,7 +375,7 @@
     .uffb-field {
       width: 100%;
       font: inherit;
-      color: #333;
+      color: #fff;
       background: #fff;
       padding: 0.55rem 0.65rem;
       border: 1px solid #d7d7d7;
@@ -380,7 +391,7 @@
 
     .uffb-meta {
       margin: 0.35rem 0 0.25rem;
-      color: #333;
+      color: #fff;
       font-size: 1.25rem;
     }
     .uffb-meta1 em {
@@ -699,7 +710,7 @@
     .uffb-shorts {
       margin: 8px 0 0;
       padding-left: 1.25rem; /* ordered list indent */
-      color: #333;
+      color: #fff;
       font-size: 1.05rem;
       line-height: 1.4;
     }
@@ -710,6 +721,7 @@
 
     .uffb-shorts li {
       list-style: circle;
+      font-size: 1rem;
     }
 
     .uffb-shorts li + li {
