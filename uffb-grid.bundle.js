@@ -364,7 +364,7 @@
     .uffb-field {
       width: 100%;
       font: inherit;
-      color: #fff;
+      color: #333;
       background: #fff;
       padding: 0.55rem 0.65rem;
       border: 1px solid #d7d7d7;
