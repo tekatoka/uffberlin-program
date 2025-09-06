@@ -771,7 +771,7 @@
       color: var(--btn-fg);
       display: inline-block;
       padding: 18px;
-      border: 0 solid currentColor;
+      border: 1px solid var(--paragraphLinkColor);
       border-radius: 0px;
       font-weight: 800;
       text-decoration: none;
@@ -956,7 +956,7 @@
     .uffb-book-btn {
       display: inline-block;
       padding: 10px 18px;
-      border: 1.5px solid #333;
+      border: 1.5px solid var(--paragraphLinkColor);
       border-radius: 0px;
       font-weight: 800;
       text-decoration: none;
