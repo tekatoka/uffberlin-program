@@ -1023,7 +1023,7 @@
       padding-left: 0;
       margin: 0;
       display: grid;
-      gap: 32px;
+      gap: 52px;
     }
 
     .uffb-short-item {
