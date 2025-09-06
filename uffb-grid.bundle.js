@@ -121,7 +121,7 @@
       display: flex;
       flex-direction: column;
       background: #000;
-      border-radius: 6px;
+      border-radius: 0px;
       // box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
       overflow: hidden;
       height: 100%;
@@ -182,7 +182,7 @@
       display: inline-block;
       padding: 18px;
       border: 1.5px solid currentColor;
-      border-radius: 6px;
+      border-radius: 0px;
       font-weight: 800;
       text-decoration: none;
       letter-spacing: 0.06em;
@@ -242,7 +242,7 @@
       font-weight: 600;
       padding: 10px;
       border: 1.5px solid;
-      border-radius: 5px;
+      border-radius: 0px;
     }
 
     /* Icon buttons */
@@ -307,7 +307,7 @@
       gap: 0.4rem;
       background: rgba(255, 255, 255, 0.08);
       border: 1px solid rgba(255, 255, 255, 0.2);
-      border-radius: 6px;
+      border-radius: 0px;
       padding: 0.35rem 0.7rem;
       cursor: pointer;
       user-select: none;
@@ -351,7 +351,7 @@
       grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
       padding: 0.8rem;
       border: 1px solid rgba(255, 255, 255, 0.5);
-      border-radius: 6px;
+      border-radius: 0px;
       margin: 0.5rem 0 1rem 0;
       background: rgba(255, 255, 255, 0.06);
       backdrop-filter: saturate(120%) blur(4px);
@@ -379,7 +379,7 @@
       background: #fff;
       padding: 0.55rem 0.65rem;
       border: 1px solid #d7d7d7;
-      border-radius: 6px;
+      border-radius: 0px;
     }
     .uffb-field:focus {
       outline: 2px solid #bbb;
@@ -422,7 +422,7 @@
       aspect-ratio: 16/9;
       max-height: 80vh;
       background: #000;
-      border-radius: 6px;
+      border-radius: 0px;
       overflow: hidden;
       position: relative;
     }
@@ -457,7 +457,7 @@
       grid-template-columns: min(38vw, 420px) 1fr;
       gap: 24px;
       background: transparent;
-      border-radius: 6px;
+      border-radius: 0px;
       box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
       overflow: hidden;
     }
@@ -675,7 +675,7 @@
     .uffb-chip-btn {
       /* match .uffb-field vertical rhythm */
       padding: 0.55rem 0.8rem; /* same Y padding as .uffb-field */
-      border-radius: 6px; /* same radius as inputs */
+      border-radius: 0px; /* same radius as inputs */
       display: inline-flex;
       align-items: center;
       gap: 0.45rem;
