@@ -437,7 +437,7 @@
     .uffb-list {
       display: flex;
       flex-direction: column;
-      gap: 32px;
+      gap: 64px;
     }
 
     .uffb-row {
@@ -453,8 +453,9 @@
       .uffb-row {
         grid-template-columns: 1fr;
       }
-      .uffb-row .uffb-body {
-        padding: 0;
+      .uffb-row .uffb-body,
+      .uffb-row .uffb-category {
+        padding: 0 !important;
       }
     }
 
