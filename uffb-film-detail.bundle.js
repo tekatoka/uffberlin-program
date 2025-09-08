@@ -171,6 +171,7 @@
       ? film.category[lang] || film.category.en || film.category.de || ''
       : '';
     const hasTrailer = Boolean(film.trailer);
+    const hasScreenings = Boolean(film.screenings?.length > 0);
     return html`
       <div class="uffb-topline">
         <div class="uffb-topline-left">
@@ -181,7 +182,9 @@
           ${hasTrailer
             ? `<a class="uffb-btn uffb-trailer-btn" href="#" data-trailer="${film.trailer}">${t('watchTrailer')}</a>`
             : ''}
-          <a class="uffb-btn" href="#screenings">${t('tickets')}</a>
+          ${hasScreenings
+            ? `<a class="uffb-btn" href="#screenings">${t('tickets')}</a>`
+            : ''}
         </div>
       </div>
     `;
