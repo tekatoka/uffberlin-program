@@ -1,0 +1,282 @@
+[
+  {
+    "id": "songs-of-slow-burning-earth",
+    "title": {
+      "en": "Songs of Slow Burning Earth",
+      "de": "Wenn Krieg Alltag wird"
+    },
+    "language": {
+      "de": "Ukrainisch mit englischen Untertiteln (OmeU)",
+      "en": "Ukrainian with English subtitles"
+    },
+    "original_title": "Songs of Slow Burning Earth",
+    "director": "Olha Zhurba",
+    "genre": {
+      "en": ["Documentary", "War"],
+      "de": ["Dokumentarfilm", "Krieg"]
+    },
+    "countries": {
+      "en": ["Ukraine", "Denmark", "Sweden", "France"],
+      "de": ["Ukraine", "Dänemark", "Schweden", "Frankreich"]
+    },
+    "cast": "",
+    "duration": 95,
+    "year": 2024,
+    "short_description": {
+      "en": "A story of love and resistance.",
+      "de": "Eine Geschichte von Liebe und Widerstand."
+    },
+    "detailed_description": {
+      "en": "An elegiac, panoramic documentary essay chronicling two years of life in Ukraine during Russia’s full-scale invasion. Through observational vignettes, rare dialogue and carefully composed soundscapes, the film contemplates how war seeps into everyday routines while a new generation tries to imagine a future.",
+      "de": "Ein elegisches, panoramisches Doku-Essay über zwei Jahre Alltagsleben in der Ukraine während der russischen Invasion. In beobachtenden Miniaturen, mit wenigen Dialogen und feinen Klangräumen, zeigt der Film, wie der Krieg in den Alltag einsickert – und wie eine neue Generation dennoch an Zukunft glaubt."
+    },
+    "category": {
+      "key": "main",
+      "en": "Main program",
+      "de": "Hauptprogramm"
+    },
+    "trailer": "https://www.youtube.com/watch?v=Rd1XdUyB_JU",
+    "image": "https://www.lab111.nl/wp-content/uploads/2025/05/Slow.jpg",
+    "screenings": [
+      {
+        "date": "2025-10-22",
+        "time": "19:30",
+        "venue": {
+          "en": "silent green Kulturquartier",
+          "de": "silent green Kulturquartier"
+        },
+        "address": "Gerichtstraße 35, 13347 Berlin",
+        "maps": {
+          "google": "https://www.google.com/maps/search/?api=1&query=silent%20green%20Kulturquartier%2C%20Gerichtstrasse%2035%2C%2013347%20Berlin"
+        },
+        "tickets": "https://uffb2025-opening.eventbrite.de/"
+      }
+    ]
+  },
+  {
+    "id": "timestamp",
+    "title": {
+      "en": "Timestamp",
+      "de": "Timestamp"
+    },
+    "language": {
+      "de": "Ukrainisch mit englischen Untertiteln (OmeU)",
+      "en": "Ukrainian with English subtitles"
+    },
+    "original_title": "Стрічка часу",
+    "director": "Kateryna Gornostai",
+    "genre": {
+      "en": ["Documentary", "Education", "War"],
+      "de": ["Dokumentarfilm", "Bildung", "Krieg"]
+    },
+    "countries": {
+      "en": ["Ukraine", "France", "Luxembourg", "Netherlands"],
+      "de": ["Ukraine", "Frankreich", "Luxemburg", "Niederlande"]
+    },
+    "cast": "Olha Bryhynets, Borys Khovriak, Mykola Kolomiiets, Valeriia Hukova, Mykola Shpak",
+    "duration": 125,
+    "year": 2024,
+    "short_description": {
+      "en": "The film is a mosaic of the everyday lives of teachers and students from different corners of Ukraine.",
+      "de": "Der Film zeigt, wie sich der Ukrainekrieg auf den Schulalltag auswirkt."
+    },
+    "detailed_description": {
+      "en": "A classroom-level portrait of Ukraine’s school system under fire. Gornostai weaves scenes of lessons, air-raid drills and graduation prep into a patient mosaic about resilience, showing how teachers and teenagers rebuild routines and meaning amid constant danger.",
+      "de": "Ein intimes Porträt des ukrainischen Schulalltags im Ausnahmezustand. Gornostai verbindet Unterrichtsszenen, Luftalarm-Proben und Abiturvorbereitungen zu einem ruhigen Mosaik der Resilienz – und zeigt, wie Lehrkräfte und Jugendliche trotz ständiger Bedrohung Struktur und Hoffnung bewahren."
+    },
+    "category": {
+      "key": "restrospective",
+      "en": "Retrospective",
+      "de": "Retrospektive"
+    },
+    "trailer": "https://www.youtube.com/watch?v=5xPjzNrPsRg",
+    "image": "https://i.ytimg.com/vi/5xPjzNrPsRg/maxresdefault.jpg",
+    "screenings": [
+      {
+        "date": "2025-10-24",
+        "time": "20:00",
+        "venue": {
+          "en": "ACUD Kino",
+          "de": "ACUD Kino"
+        },
+        "address": "Veteranenstraße 21, 10119 Berlin",
+        "maps": {
+          "google": "https://maps.app.goo.gl/gc1HdRB8n4PJHAkZ8"
+        },
+        "tickets": "https://uffb2025-opening.eventbrite.de/"
+      }
+    ]
+  },
+  {
+    "id": "2000-meters-to-andriivka",
+    "title": {
+      "en": "2000 Meters to Andriivka",
+      "de": "2000 Meters to Andriivka",
+      "uk": "2000 метрів до Андоіівки"
+    },
+    "language": {
+      "de": "Ukrainisch mit englischen Untertiteln (OmeU)",
+      "en": "Ukrainian with English subtitles"
+    },
+    "original_title": "2000 метрів до Андріївки",
+    "director": {
+      "en": ["Mstyslav Chernov"],
+      "de": ["Mstyslav Chernov"],
+      "uk": ["Мстислав Чернов"]
+    },
+    "genre": {
+      "en": ["Documentary"],
+      "de": ["Dokumentarfilm"]
+    },
+    "countries": {
+      "en": ["Ukraine", "United States"],
+      "de": ["Ukraine", "Vereinigte Staaten"]
+    },
+    "cast": {
+      "en": ["Mstyslav Chernov, Alex Babenko"],
+      "de": ["Mstyslav Chernov, Alex Babenko"],
+      "uk": ["Мстислав Чернов, Алекс Бабенко"]
+    },
+    "duration": 107,
+    "year": 2024,
+    "short_description": {
+      "en": "A story of love and resistance.",
+      "de": "Eine Geschichte von Liebe und Widerstand."
+    },
+    "detailed_description": {
+      "en": "From the director of “20 Days in Mariupol,” an embedded frontline chronicle following a Ukrainian platoon on a perilous push to liberate Andriivka. Shot with unblinking proximity, the film tracks camaraderie, fear and loss across a lethal two-kilometre gauntlet of forest and trenches.",
+      "de": "Vom Regisseur von „20 Days in Mariupol“: Eine schonungsnahe Front-Chronik über einen ukrainischen Zug auf dem gefährlichen Vorstoß zur Befreiung von Andriivka. Mit unmittelbarer Nähe gefilmt, erzählt der Film von Kameradschaft, Angst und Verlust auf einem tödlichen Zwei-Kilometer-Korridor aus Wald und Schützengräben."
+    },
+    "category": {
+      "key": "main",
+      "en": "Main program",
+      "de": "Hauptprogramm"
+    },
+    "trailer": "https://www.youtube.com/watch?v=xRSPxuptLd8",
+    "image": "https://novynarnia.com/wp-content/uploads/2024/12/film-mstyslava-chernova-2000-metriv-do-andriyivky-pokazhut-v-programi-kinofestyvalyu-sandens.jpeg",
+    "screenings": [
+      {
+        "date": "2025-10-22",
+        "time": "21:00",
+        "venue": {
+          "en": "Kino in der Kulturbrauerei",
+          "de": "Kino in der Kulturbrauerei"
+        },
+        "address": "Schönhauser Allee 36, 10435 Berlin",
+        "maps": {
+          "google": "https://maps.app.goo.gl/VGCMQxEgLti9WuTbA"
+        },
+        "tickets": "https://www.eventim-light.com/de/a/630258da01bcd227acaad56c/e/6894ef794451ed23a93229c3"
+      },
+      {
+        "date": "2025-10-26",
+        "time": "19:00",
+        "venue": {
+          "en": "silent green Kulturquartier",
+          "de": "silent green Kulturquartier"
+        },
+        "address": "Gerichtstraße 35, 13347 Berlin",
+        "maps": {
+          "google": "https://www.google.com/maps/search/?api=1&query=silent%20green%20Kulturquartier%2C%20Gerichtstrasse%2035%2C%2013347%20Berlin"
+        },
+        "tickets": "https://www.eventim-light.com/de/a/630258da01bcd227acaad56c/e/6894ef794451ed23a93229c3"
+      }
+    ]
+  },
+  {
+    "id": "short-films-competition-1",
+    "title": {
+      "en": "Short Films Competition I",
+      "de": "Kurzfilmwettbewerb I"
+    },
+    "category": {
+      "key": "shorts_competition",
+      "en": "Short films – Competition",
+      "de": "Kurzfilmwettbewerb"
+    },
+    "short_description": {
+      "en": "With Q&A after the screenings.",
+      "de": "Mit Q&A nach den Screenings."
+    },
+    "year": 2025,
+    "image": "https://images.squarespace-cdn.com/content/v1/5f739670761e02764c54e1ca/1728245892288-XBPDFNZYCUMP6O73AF9Q/3..png",
+    "films": [
+      {
+        "title": { "en": "I DIED IN IRPIN" },
+        "director": "Anastasiia Falileieva",
+        "countries": { "en": ["Ukraine"] },
+        "year": 2024,
+        "duration": 11,
+        "image": "https://images.squarespace-cdn.com/content/v1/5f739670761e02764c54e1ca/1727779010212-L3CD5Y9AZI6WRJW1W5OD/From+the+past.jpeg",
+        "short_description": {
+          "en": "A reflective short from Kyiv’s suburbs."
+        },
+        "trailer": ""
+      },
+      {
+        "title": { "en": "BEWARE OF A GOOD DOG" },
+        "director": "Adelina Borets",
+        "countries": { "en": ["Ukraine"] },
+        "year": 2024,
+        "duration": 26,
+        "image": "https://images.squarespace-cdn.com/content/v1/5f739670761e02764c54e1ca/1727779126946-LGGPTWZWQCVEUT7WS9ST/Nuance.jpg",
+        "short_description": {
+          "en": "Neighbourhood tensions seen through a pet’s presence."
+        },
+        "trailer": ""
+      },
+      {
+        "title": { "en": "VOICE MESSAGES FROM BAKHMUT" },
+        "director": "Ihor Babaiev",
+        "countries": { "en": ["Ukraine"] },
+        "year": 2024,
+        "duration": 15,
+        "image": "https://images.squarespace-cdn.com/content/v1/5f739670761e02764c54e1ca/1727779233370-ZUB8240NPSYN3OZ76BR4/YA+VZHE+NE+UYIDU+NIKUDA.png",
+        "short_description": {
+          "en": "Fragments of life at the frontline become audio postcards."
+        },
+        "trailer": "https://www.youtube.com/watch?v=qn20XMgO-fc"
+      },
+      {
+        "title": { "en": "IN PARIS NO ONE THINKS ABOUT TOMORROW" },
+        "director": "Andrii Kokura",
+        "countries": { "en": ["Ukraine", "France"] },
+        "year": 2024,
+        "duration": 14,
+        "image": "https://images.squarespace-cdn.com/content/v1/5f739670761e02764c54e1ca/1727779334354-4VJQKTL9K30M2K6YQSCZ/Three+beasts.jpg",
+        "short_description": {
+          "en": "Between nostalgia and new beginnings in exile."
+        },
+        "trailer": ""
+      },
+      {
+        "title": { "en": "DOVECOTES OF KYIV" },
+        "director": "Mykhailo Volkov",
+        "countries": { "en": ["Ukraine"] },
+        "year": 2024,
+        "duration": 10,
+        "image": "https://images.squarespace-cdn.com/content/v1/5f739670761e02764c54e1ca/1727779424995-RKNB6HI4J2RVUL0FOB22/Metallic+taste.jpg?format=750w",
+        "short_description": {
+          "en": "A tender city portrait told through rooftop dovecotes."
+        },
+        "trailer": "https://youtu.be/KYtFzkWz6zE"
+      }
+    ],
+    "screenings": [
+      {
+        "date": "2025-10-24",
+        "time": "19:00",
+        "venue": { "en": "ACUD Kino", "de": "ACUD Kino" },
+        "address": "Veteranenstraße 21, 10119 Berlin",
+        "tickets": "https://tickets.example/shorts-comp-1-2410"
+      },
+      {
+        "date": "2025-10-26",
+        "time": "18:50",
+        "venue": { "en": "IL Kino", "de": "IL Kino" },
+        "address": "Nansenstraße 22, 12047 Berlin",
+        "tickets": "https://tickets.example/shorts-comp-1-2610"
+      }
+    ]
+  }
+]

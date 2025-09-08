@@ -22,13 +22,13 @@
     "cast": "",
     "duration": 95,
     "year": 2024,
-    "description": {
-      "en": "A story of love and resistance.",
-      "de": "Eine Geschichte von Liebe und Widerstand."
+    "short_description": {
+      "en": "A powerful film diary capturing everyday life amid the war in Ukraine – filled with poetic images, quiet moments, and traces of destruction.",
+      "de": "Ein eindringliches Film-Tagebuch über den Alltag inmitten des Krieges in der Ukraine – voller poetischer Bilder, leiser Momente und Spuren der Zerstörung."
     },
     "detailed_description": {
-      "en": "An elegiac, panoramic documentary essay chronicling two years of life in Ukraine during Russia’s full-scale invasion. Through observational vignettes, rare dialogue and carefully composed soundscapes, the film contemplates how war seeps into everyday routines while a new generation tries to imagine a future.",
-      "de": "Ein elegisches, panoramisches Doku-Essay über zwei Jahre Alltagsleben in der Ukraine während der russischen Invasion. In beobachtenden Miniaturen, mit wenigen Dialogen und feinen Klangräumen, zeigt der Film, wie der Krieg in den Alltag einsickert – und wie eine neue Generation dennoch an Zukunft glaubt."
+      "en": "A poetic journey through Ukraine’s shifting landscapes where war becomes part of daily rhythm. Zhurba weaves together intimate moments of ordinary life, silences, and fragments of destruction into a film that feels like a diary of a country in turmoil. With its striking imagery and layered sound, the film meditates on resilience and fragility in equal measure. Premiered out of competition at the 2024 Venice Film Festival.",
+      "de": "Eine poetische Reise durch die sich wandelnden Landschaften der Ukraine, in der der Krieg Teil des täglichen Rhythmus wird. Zhurba verwebt intime Momente des Alltags, Stille und Bruchstücke der Zerstörung zu einem Film, der wie das Tagebuch eines Landes im Aufruhr wirkt. Mit eindringlichen Bildern und vielschichtigem Klang reflektiert der Film gleichermaßen über Widerstandskraft und Zerbrechlichkeit. Premiere außerhalb des Wettbewerbs bei den Internationalen Filmfestspielen von Venedig 2024."
     },
     "category": {
       "key": "main",
@@ -36,7 +36,7 @@
       "de": "Hauptprogramm"
     },
     "trailer": "https://www.youtube.com/watch?v=Rd1XdUyB_JU",
-    "image": "https://www.lab111.nl/wp-content/uploads/2025/05/Slow.jpg",
+    "image": "https://images.squarespace-cdn.com/content/5f739670761e02764c54e1ca/f8c411fc-058f-44c3-9291-5978df955cdd/main-program-songs-of-slow-burning-earth.jpg",
     "screenings": [
       {
         "date": "2025-10-22",
@@ -76,36 +76,22 @@
     "cast": "Olha Bryhynets, Borys Khovriak, Mykola Kolomiiets, Valeriia Hukova, Mykola Shpak",
     "duration": 125,
     "year": 2024,
-    "description": {
-      "en": "The film is a mosaic of the everyday lives of teachers and students from different corners of Ukraine.",
-      "de": "Der Film zeigt, wie sich der Ukrainekrieg auf den Schulalltag auswirkt."
+    "short_description": {
+      "en": "Timestamp follows young people in Ukraine whose daily lives are marked by war. Blending documentary realism with poetic reflection, the film portrays a generation navigating uncertainty, friendship, and resilience while searching for their own path.",
+      "de": "Timestamp begleitet junge Menschen in der Ukraine, deren Alltag vom Krieg überschattet ist. Mit einer Mischung aus dokumentarischem Realismus und poetischen Momenten zeigt der Film, wie eine Generation zwischen Unsicherheit, Freundschaft und dem Willen zum Weitermachen ihren eigenen Weg sucht."
     },
     "detailed_description": {
-      "en": "A classroom-level portrait of Ukraine’s school system under fire. Gornostai weaves scenes of lessons, air-raid drills and graduation prep into a patient mosaic about resilience, showing how teachers and teenagers rebuild routines and meaning amid constant danger.",
-      "de": "Ein intimes Porträt des ukrainischen Schulalltags im Ausnahmezustand. Gornostai verbindet Unterrichtsszenen, Luftalarm-Proben und Abiturvorbereitungen zu einem ruhigen Mosaik der Resilienz – und zeigt, wie Lehrkräfte und Jugendliche trotz ständiger Bedrohung Struktur und Hoffnung bewahren."
+      "en": "Known for her intimate, finely tuned portraits of young people (Stop-Zemlia), Gornostai turns her gaze to a new generation navigating life under the shadow of war. Blending observational realism with moments of lyrical reflection, Timestamp captures fleeting fragments of daily existence—friendship, uncertainty, resilience—at a time when nothing feels permanent.",
+      "de": "Bekannt für ihre intimen, feinfühligen Porträts junger Menschen (Stop-Zemlia), richtet Gornostai ihren Blick auf eine neue Generation, die ihr Leben im Schatten des Krieges meistert. Zwischen beobachtendem Realismus und lyrischen Reflexionen fängt Timestamp flüchtige Fragmente des Alltags ein – Freundschaft, Unsicherheit, Widerstandskraft – in einer Zeit, in der nichts beständig scheint."
     },
     "category": {
-      "key": "restrospective",
-      "en": "Retrospective",
-      "de": "Retrospektive"
+      "key": "main",
+      "en": "Main program",
+      "de": "Hauptprogramm"
     },
     "trailer": "https://www.youtube.com/watch?v=5xPjzNrPsRg",
-    "image": "https://i.ytimg.com/vi/5xPjzNrPsRg/maxresdefault.jpg",
-    "screenings": [
-      {
-        "date": "2025-10-24",
-        "time": "20:00",
-        "venue": {
-          "en": "ACUD Kino",
-          "de": "ACUD Kino"
-        },
-        "address": "Veteranenstraße 21, 10119 Berlin",
-        "maps": {
-          "google": "https://maps.app.goo.gl/gc1HdRB8n4PJHAkZ8"
-        },
-        "tickets": "https://uffb2025-opening.eventbrite.de/"
-      }
-    ]
+    "image": "https://images.squarespace-cdn.com/content/5f739670761e02764c54e1ca/12f53cc1-1c44-405d-86aa-99d344d7dcaa/main-program-timestamp.jpg",
+    "screenings": []
   },
   {
     "id": "2000-meters-to-andriivka",
@@ -125,8 +111,8 @@
       "uk": ["Мстислав Чернов"]
     },
     "genre": {
-      "en": ["Documentary"],
-      "de": ["Dokumentarfilm"]
+      "en": ["Documentary", "War"],
+      "de": ["Dokumentarfilm", "Krieg"]
     },
     "countries": {
       "en": ["Ukraine", "United States"],
@@ -137,15 +123,15 @@
       "de": ["Mstyslav Chernov, Alex Babenko"],
       "uk": ["Мстислав Чернов, Алекс Бабенко"]
     },
-    "duration": 107,
+    "duration": 108,
     "year": 2024,
-    "description": {
-      "en": "A story of love and resistance.",
-      "de": "Eine Geschichte von Liebe und Widerstand."
+    "short_description": {
+      "en": "An intense documentary on Ukraine’s counteroffensive, blending the harsh reality of modern trench warfare with moments of human closeness, offering a powerful reflection on fear, courage, and survival.",
+      "de": "Ein intensiver Dokumentarfilm über die ukrainische Gegenoffensive, der die Härte des modernen Grabenkampfes mit Momenten menschlicher Nähe verbindet und die Themen Angst, Mut und Überleben eindringlich beleuchtet."
     },
     "detailed_description": {
-      "en": "From the director of “20 Days in Mariupol,” an embedded frontline chronicle following a Ukrainian platoon on a perilous push to liberate Andriivka. Shot with unblinking proximity, the film tracks camaraderie, fear and loss across a lethal two-kilometre gauntlet of forest and trenches.",
-      "de": "Vom Regisseur von „20 Days in Mariupol“: Eine schonungsnahe Front-Chronik über einen ukrainischen Zug auf dem gefährlichen Vorstoß zur Befreiung von Andriivka. Mit unmittelbarer Nähe gefilmt, erzählt der Film von Kameradschaft, Angst und Verlust auf einem tödlichen Zwei-Kilometer-Korridor aus Wald und Schützengräben."
+      "en": "Embedded with a platoon during Ukraine’s counteroffensive, Chernov captures the stark reality of modern trench warfare. Through body-cams, drone footage, and moments of human closeness, the film pulls the viewer into the immediacy of battle. More than a record of combat, it’s a meditation on fear, courage, and survival at the edge of destruction. Chernov, whose 20 Days in Mariupol won Ukraine’s first Oscar, here continues his urgent chronicle of a country at war.",
+      "de": "Eingebettet in ein Platoon während der ukrainischen Gegenoffensive fängt Chernov die schonungslose Realität moderner Grabenkämpfe ein. Durch Bodycams, Drohnenaufnahmen und Momente menschlicher Nähe zieht der Film die Zuschauer unmittelbar ins Geschehen. Mehr als nur eine Aufzeichnung des Kampfes ist er eine Reflexion über Angst, Mut und Überleben am Rand der Zerstörung. Chernov, dessen 20 Days in Mariupol den ersten Oscar für die Ukraine gewann, setzt hier seine dringliche Chronik eines Landes im Krieg fort."
     },
     "category": {
       "key": "main",
@@ -153,128 +139,279 @@
       "de": "Hauptprogramm"
     },
     "trailer": "https://www.youtube.com/watch?v=xRSPxuptLd8",
-    "image": "https://novynarnia.com/wp-content/uploads/2024/12/film-mstyslava-chernova-2000-metriv-do-andriyivky-pokazhut-v-programi-kinofestyvalyu-sandens.jpeg",
-    "screenings": [
-      {
-        "date": "2025-10-22",
-        "time": "21:00",
-        "venue": {
-          "en": "Kino in der Kulturbrauerei",
-          "de": "Kino in der Kulturbrauerei"
-        },
-        "address": "Schönhauser Allee 36, 10435 Berlin",
-        "maps": {
-          "google": "https://maps.app.goo.gl/VGCMQxEgLti9WuTbA"
-        },
-        "tickets": "https://www.eventim-light.com/de/a/630258da01bcd227acaad56c/e/6894ef794451ed23a93229c3"
-      },
-      {
-        "date": "2025-10-26",
-        "time": "19:00",
-        "venue": {
-          "en": "silent green Kulturquartier",
-          "de": "silent green Kulturquartier"
-        },
-        "address": "Gerichtstraße 35, 13347 Berlin",
-        "maps": {
-          "google": "https://www.google.com/maps/search/?api=1&query=silent%20green%20Kulturquartier%2C%20Gerichtstrasse%2035%2C%2013347%20Berlin"
-        },
-        "tickets": "https://www.eventim-light.com/de/a/630258da01bcd227acaad56c/e/6894ef794451ed23a93229c3"
-      }
-    ]
+    "image": "https://images.squarespace-cdn.com/content/5f739670761e02764c54e1ca/7536a7f0-aeb9-48a8-ba81-5b349139b4c6/main-program-2000-meters-to-andriivka.jpeg",
+    "screenings": []
   },
+
   {
-    "id": "short-films-competition-1",
+    "id": "my-dear-theo",
     "title": {
-      "en": "Short Films Competition I",
-      "de": "Kurzfilmwettbewerb I"
+      "en": "My Dear Théo",
+      "de": "My Dear Théo",
+      "uk": "З любов'ю з фронту"
+    },
+    "language": {
+      "de": "Ukrainisch mit englischen Untertiteln (OmeU)",
+      "en": "Ukrainian with English subtitles"
+    },
+    "original_title": "З любов'ю з фронту",
+    "director": {
+      "en": ["Alisa Kovalenko"],
+      "de": ["Alisa Kovalenko"],
+      "uk": ["Аліса Коваленко"]
+    },
+    "genre": {
+      "en": ["Documentary", "War"],
+      "de": ["Dokumentarfilm", "Krieg"]
+    },
+    "countries": {
+      "en": ["Ukraine", "Denmark", "Poland"],
+      "de": ["Ukraine", "Dänemark", "Polen"]
+    },
+    "cast": {},
+    "duration": 98,
+    "year": 2025,
+    "short_description": {
+      "en": "A personal video-letter from the frontline, showing war as both a collective reality and an individual experience—marked by danger, exhaustion, and fleeting tenderness.",
+      "de": "Ein persönlicher Videobrief von der Front, der den Krieg zugleich als kollektive Realität und individuelle Erfahrung zeigt – geprägt von Gefahr, Erschöpfung und Momenten der Nähe."
+    },
+    "detailed_description": {
+      "en": "Shot as a personal video-letter to her son in France, the filmmaker documents her time as a volunteer on the frontline. Between danger, exhaustion, and fleeting tenderness, Kovalenko crafts an intimate portrait of war as both a collective and deeply personal experience. It’s a raw diary where the mother’s voice softens the soldier’s eye.",
+      "de": "Als persönlicher Videobrief an ihren Sohn in Frankreich gedreht, dokumentiert die Filmemacherin ihre Zeit als Freiwillige an der Front. Zwischen Gefahr, Erschöpfung und flüchtigen Momenten der Zärtlichkeit entwirft Kovalenko ein intimes Porträt des Krieges als kollektive und zugleich zutiefst persönliche Erfahrung. Es ist ein schonungsloses Tagebuch, in dem die Stimme der Mutter den Blick der Soldatin mildert."
     },
     "category": {
-      "key": "shorts_competition",
-      "en": "Short films – Competition",
-      "de": "Kurzfilmwettbewerb"
+      "key": "main",
+      "en": "Main program",
+      "de": "Hauptprogramm"
     },
-    "description": {
-      "en": "With Q&A after the screenings.",
-      "de": "Mit Q&A nach den Screenings."
+    "trailer": "https://vimeo.com/1074242026",
+    "image": "https://images.squarespace-cdn.com/content/5f739670761e02764c54e1ca/9b39b354-8500-4c1d-a5b6-9a8aaf4bc8e0/main-program-my-dear-theo.jpeg",
+    "screenings": []
+  },
+  {
+    "id": "militantropos",
+    "title": {
+      "en": "Militantropos",
+      "de": "Militantropos",
+      "uk": "Мілітантропос"
     },
+    "language": {
+      "de": "Ukrainisch mit englischen Untertiteln (OmeU)",
+      "en": "Ukrainian with English subtitles"
+    },
+    "original_title": "Мілітантропос",
+    "director": {
+      "en": ["Yelizaveta Smith, Alina Gorlova, Simon Mozgovy"],
+      "de": ["Yelizaveta Smith, Alina Gorlova, Simon Mozgovy"],
+      "uk": ["Єлизавета Сміт, Аліна Горлова, Семен Мозговий"]
+    },
+    "genre": {
+      "en": ["Documentary", "War"],
+      "de": ["Dokumentarfilm", "Krieg"]
+    },
+    "countries": {
+      "en": ["France", "Austria", "Ukraine"],
+      "de": ["Frankreich", "Österreich", "Ukraine"]
+    },
+    "cast": {},
+    "duration": 111,
+    "year": 2024,
+    "short_description": {
+      "en": "Militantropos (Lat. “milit” – warrior, Gr. “antropos” – human) describes the state of a person in war. This experience demands constant individual and collective transformation, where war becomes the condition for survival.",
+      "de": "Militantropos (lat. „milit“ – Krieger, gr. „antropos“ – Mensch) bezeichnet den Zustand des Menschen im Krieg. Diese Erfahrung fordert eine ständige individuelle und kollektive Transformation, bei der Krieg zur Bedingung des Weiterlebens wird.",
+      "uk": "Мілітантропос (від лат. «milit» – воїн, гр. «antropos» – людина) — стан людини у війні. Цей досвід вимагає постійної особистої й колективної трансформації, де війна стає умовою існування."
+    },
+    "detailed_description": {
+      "en": "Militantropos is a collective documentary experiment by three of Ukraine’s most distinctive filmmakers. The film explores how war infiltrates everyday life and transforms both private and public spaces. Combining observational fragments, poetic imagery, and philosophical reflection, it creates a mosaic of voices and perspectives rather than a single narrative.",
+      "de": "Militantropos ist ein kollektives Dokumentarfilm-Experiment von drei der markantesten Filmemacher*innen der Ukraine. Der Film untersucht, wie der Krieg in den Alltag eindringt und sowohl private als auch öffentliche Räume verändert. Durch die Verbindung von beobachtenden Fragmenten, poetischen Bildern und philosophischen Reflexionen entsteht ein Mosaik aus Stimmen und Perspektiven statt einer einzelnen Erzählung."
+    },
+    "category": {
+      "key": "main",
+      "en": "Main program",
+      "de": "Hauptprogramm"
+    },
+    "trailer": "https://www.youtube.com/watch?v=iozKw9blaTI",
+    "image": "https://images.squarespace-cdn.com/content/5f739670761e02764c54e1ca/9519c623-1ac4-4fda-912b-b43d74168c89/main-program-militantropos.webp",
+    "screenings": []
+  },
+  {
+    "id": "sanatorium",
+    "title": {
+      "en": "Sanatorium",
+      "de": "Sanatorium",
+      "uk": "Sanatorium"
+    },
+    "language": {
+      "de": "Ukrainisch mit englischen Untertiteln (OmeU)",
+      "en": "Ukrainian with English subtitles"
+    },
+    "original_title": "Sanatorium",
+    "director": {
+      "en": ["Gar O'Rourke"],
+      "de": ["Gar O'Rourke"],
+      "uk": ["Гар О'Рурк"]
+    },
+    "genre": {
+      "en": ["Documentary", "Comedy"],
+      "de": ["Dokumentarfilm", "Komödie"]
+    },
+    "countries": {
+      "en": ["Ireland", "Ukraine", "France"],
+      "de": ["Irland", "Ukraine", "Frankreich"]
+    },
+    "cast": {},
+    "duration": 95,
     "year": 2025,
-    "image": "https://images.squarespace-cdn.com/content/v1/5f739670761e02764c54e1ca/1728245892288-XBPDFNZYCUMP6O73AF9Q/3..png",
-    "films": [
-      {
-        "title": { "en": "I DIED IN IRPIN" },
-        "director": "Anastasiia Falileieva",
-        "countries": { "en": ["Ukraine"] },
-        "year": 2024,
-        "duration": 11,
-        "image": "https://images.squarespace-cdn.com/content/v1/5f739670761e02764c54e1ca/1727779010212-L3CD5Y9AZI6WRJW1W5OD/From+the+past.jpeg",
-        "description": { "en": "A reflective short from Kyiv’s suburbs." },
-        "trailer": ""
-      },
-      {
-        "title": { "en": "BEWARE OF A GOOD DOG" },
-        "director": "Adelina Borets",
-        "countries": { "en": ["Ukraine"] },
-        "year": 2024,
-        "duration": 26,
-        "image": "https://images.squarespace-cdn.com/content/v1/5f739670761e02764c54e1ca/1727779126946-LGGPTWZWQCVEUT7WS9ST/Nuance.jpg",
-        "description": {
-          "en": "Neighbourhood tensions seen through a pet’s presence."
-        },
-        "trailer": ""
-      },
-      {
-        "title": { "en": "VOICE MESSAGES FROM BAKHMUT" },
-        "director": "Ihor Babaiev",
-        "countries": { "en": ["Ukraine"] },
-        "year": 2024,
-        "duration": 15,
-        "image": "https://images.squarespace-cdn.com/content/v1/5f739670761e02764c54e1ca/1727779233370-ZUB8240NPSYN3OZ76BR4/YA+VZHE+NE+UYIDU+NIKUDA.png",
-        "description": {
-          "en": "Fragments of life at the frontline become audio postcards."
-        },
-        "trailer": "https://www.youtube.com/watch?v=qn20XMgO-fc"
-      },
-      {
-        "title": { "en": "IN PARIS NO ONE THINKS ABOUT TOMORROW" },
-        "director": "Andrii Kokura",
-        "countries": { "en": ["Ukraine", "France"] },
-        "year": 2024,
-        "duration": 14,
-        "image": "https://images.squarespace-cdn.com/content/v1/5f739670761e02764c54e1ca/1727779334354-4VJQKTL9K30M2K6YQSCZ/Three+beasts.jpg",
-        "description": {
-          "en": "Between nostalgia and new beginnings in exile."
-        },
-        "trailer": ""
-      },
-      {
-        "title": { "en": "DOVECOTES OF KYIV" },
-        "director": "Mykhailo Volkov",
-        "countries": { "en": ["Ukraine"] },
-        "year": 2024,
-        "duration": 10,
-        "image": "https://images.squarespace-cdn.com/content/v1/5f739670761e02764c54e1ca/1727779424995-RKNB6HI4J2RVUL0FOB22/Metallic+taste.jpg?format=750w",
-        "description": {
-          "en": "A tender city portrait told through rooftop dovecotes."
-        },
-        "trailer": "https://youtu.be/KYtFzkWz6zE"
-      }
-    ],
-    "screenings": [
-      {
-        "date": "2025-10-24",
-        "time": "19:00",
-        "venue": { "en": "ACUD Kino", "de": "ACUD Kino" },
-        "address": "Veteranenstraße 21, 10119 Berlin",
-        "tickets": "https://tickets.example/shorts-comp-1-2410"
-      },
-      {
-        "date": "2025-10-26",
-        "time": "18:50",
-        "venue": { "en": "IL Kino", "de": "IL Kino" },
-        "address": "Nansenstraße 22, 12047 Berlin",
-        "tickets": "https://tickets.example/shorts-comp-1-2610"
-      }
-    ]
+    "short_description": {
+      "en": "A mysterious film about an institution where personal stories blur the line between reality and delusion, prompting reflection on the nature of healing.",
+      "de": "Ein rätselhafter Film über eine Institution, in der persönliche Geschichten Realität und Illusion verschwimmen lassen und die Frage nach dem Wesen von Heilung aufwerfen."
+    },
+    "detailed_description": {
+      "en": "In Sanatorium, Gar O'Rourke explores the fragile line between reality and delusion within a mysterious institution. Set within the confines of a mysterious institution, the film follows its inhabitants’ personal histories. Through those, O'Rourke invites the audience to question the nature of healing.",
+      "de": "In Sanatorium erkundet Gar O'Rourke die fragile Grenze zwischen Realität und Wahn innerhalb einer geheimnisvollen Institution. Eingeschlossen in deren Mauern erzählt der Film die persönlichen Geschichten ihrer Bewohner*innen. Durch diese lädt O'Rourke das Publikum ein, das Wesen von Heilung zu hinterfragen."
+    },
+    "category": {
+      "key": "main",
+      "en": "Main program",
+      "de": "Hauptprogramm"
+    },
+    "trailer": "https://www.youtube.com/watch?v=AUiGagXfQO0",
+    "image": "https://images.squarespace-cdn.com/content/5f739670761e02764c54e1ca/e04b1ef6-83ef-442f-aa3e-9dd3dca816b6/main-program-sanatorium.jpeg",
+    "screenings": []
+  },
+  {
+    "id": "under-the-volcano",
+    "title": {
+      "en": "Under the Volcano",
+      "de": "Unter dem Vulkan",
+      "uk": "Під вулканом"
+    },
+    "language": {
+      "de": "Ukrainisch mit englischen Untertiteln (OmeU)",
+      "en": "Ukrainian with English subtitles"
+    },
+    "original_title": "Pod wulkanem",
+    "director": {
+      "en": ["Damian Kocur"],
+      "de": ["Damian Kocur"],
+      "uk": ["Даміан Кочур"]
+    },
+    "genre": {
+      "en": ["Drama", "War"],
+      "de": ["Drama", "Krieg"]
+    },
+    "countries": {
+      "en": ["Poland"],
+      "de": ["Polen"]
+    },
+    "cast": "Sofiia Berezovska, Roman Lutskyi, Anastasiia Karpenko, Fedir Pugachov",
+    "duration": 102,
+    "year": 2024,
+    "short_description": {
+      "en": "A Ukrainian family’s holiday in Tenerife turns into a struggle for survival when war at home prevents their return, highlighting the fragility of life and the strength of those forced into exile.",
+      "de": "Ein Urlaub einer ukrainischen Familie auf Teneriffa wird zur Überlebensreise, als der Krieg eine Rückkehr unmöglich macht – ein bewegendes Bild von Zerbrechlichkeit und Widerstandskraft im Angesicht von Flucht."
+    },
+    "detailed_description": {
+      "en": "From renowned Polish director Damian Kocur comes Under the Volcano (Pod wulkanem), a gripping drama starring acclaimed Ukrainian actors Anastasiia Karpenko and Roman Lutskyi. The film follows a Ukrainian family on their last day of vacation in Tenerife, Spain, when Russia’s occupation escalates into a full-scale invasion. Suddenly unable to return home, their holiday turns into a harrowing journey of displacement and survival—capturing both the sudden fragility of life and the resilience of those forced to become refugees overnight.",
+      "de": "Vom renommierten polnischen Regisseur Damian Kocur kommt Under the Volcano (Pod wulkanem), ein packendes Drama mit den gefeierten ukrainischen Schauspieler*innen Anastasiia Karpenko und Roman Lutskyi. Der Film erzählt von einer ukrainischen Familie am letzten Tag ihres Urlaubs auf Teneriffa, Spanien, als sich die russische Besatzung zu einer groß angelegten Invasion ausweitet. Plötzlich können sie nicht mehr nach Hause zurückkehren, und der Urlaub verwandelt sich in eine erschütternde Reise von Vertreibung und Überleben – ein eindringliches Bild der plötzlichen Zerbrechlichkeit des Lebens und der Widerstandskraft jener, die über Nacht zu Geflüchteten werden."
+    },
+    "category": {
+      "key": "main",
+      "en": "Main program",
+      "de": "Hauptprogramm"
+    },
+    "trailer": "https://www.youtube.com/watch?v=1d6acIy5dWs",
+    "image": "https://images.squarespace-cdn.com/content/5f739670761e02764c54e1ca/08ca1605-9022-4caf-ba9e-842182b26651/main-program-under-the-volcano.png",
+    "screenings": []
+  },
+  {
+    "id": "u-are-the-universe",
+    "title": {
+      "en": "U Are the Universe",
+      "de": "U Are the Universe",
+      "uk": "Ти - коcмоc"
+    },
+    "language": {
+      "de": "Ukrainisch mit englischen Untertiteln (OmeU)",
+      "en": "Ukrainian with English subtitles"
+    },
+    "original_title": "Ти - коcмоc",
+    "director": {
+      "en": ["Pavlo Ostrikov"],
+      "de": ["Pavlo Ostrikov"],
+      "uk": ["Павло Остріков"]
+    },
+    "genre": {
+      "en": ["Science-Fiction", "Comedy"],
+      "de": ["Science-Fiction", "Komödie"]
+    },
+    "countries": {
+      "en": ["Belgium", "Ukraine"],
+      "de": ["Belgien", "Ukraine"]
+    },
+    "cast": "Volodymyr Kravtschuk, Leonid Popadko, Alexia Depicker",
+    "duration": 101,
+    "year": 2024,
+    "short_description": {
+      "en": "A darkly humorous Ukrainian sci-fi about the last human in the universe, whose search for connection explores mortality, loneliness, and the universal longing for closeness.",
+      "de": "Eine ukrainische Science-Fiction mit schwarzem Humor über den letzten Menschen im Universum, dessen Suche nach Nähe Sterblichkeit, Einsamkeit und die Sehnsucht nach Verbundenheit thematisiert."
+    },
+    "detailed_description": {
+      "en": "After the destruction of Earth, space trucker Andriy Melnyk is the last human in the universe—until he suddenly receives a radio signal from a French astronaut named Catherine, who is also stranded alone on a distant space station. Determined to find her, he sets off on a dangerous journey. With deep emotion and dark humor, this Ukrainian response to existential sci-fi films like 2001, Solaris, Dark Star, and Moon explores timeless themes: mortality, loneliness, longing, and a universal need for human connection—even brightening the film’s nihilistic final note.",
+      "de": "Nach der Zerstörung der Erde ist Weltraum-Trucker Andriy Melnyk der letzte Mensch im Universum, bis er dann doch einen Funkspruch von einer französischen Astronautin namens Catherine erhält, die auf einer fernen Raumstation ebenso alleine ausharrt. Entschlossen, sie zu finden, macht er sich auf eine gefährliche Reise. Mit viel Gefühl, aber auch schwarzem Humor berührt diese ukrainische Antwort auf existenzialistische Science Fiction-Filme wie „2001“, „Solaris“, „Dark Star“ und „Moon“ zeitlose Themen: Sterblichkeit, Einsamkeit, Sehnsucht und ein universelles Bedürfnis nach menschlicher Nähe, die selbst den nihilistischen Schlussakkord aufhellt."
+    },
+    "category": {
+      "key": "main",
+      "en": "Main program",
+      "de": "Hauptprogramm"
+    },
+    "trailer": "https://www.youtube.com/watch?v=I6MjF1cb2SE",
+    "image": "https://images.squarespace-cdn.com/content/5f739670761e02764c54e1ca/01b56058-c190-4e96-b07d-525ae43abf8e/main-program-uaretheuniverse.jpg",
+    "screenings": []
+  },
+  {
+    "id": "honeymoon",
+    "title": {
+      "en": "Honeymoon",
+      "de": "Honeymoon",
+      "uk": "Медовий місяць"
+    },
+    "language": {
+      "de": "Ukrainisch mit englischen Untertiteln (OmeU)",
+      "en": "Ukrainian with English subtitles"
+    },
+    "original_title": "Медовий місяць",
+    "director": {
+      "en": ["Zhanna Ozirna"],
+      "de": ["Zhanna Ozirna"],
+      "uk": ["Жанна Озірна"]
+    },
+    "genre": {
+      "en": ["Drama", "War"],
+      "de": ["Drama", "Krieg"]
+    },
+    "countries": {
+      "en": ["Ukraine"],
+      "de": ["Ukraine"]
+    },
+    "cast": "Roman Lutskyi, Ira Nirsha",
+    "duration": 84,
+    "year": 2024,
+    "short_description": {
+      "en": "A gripping drama about a young couple trapped in their new home on the eve of Russia’s invasion, forced to confront both the struggle for survival and the fragility of love under siege.",
+      "de": "Ein eindringliches Drama über ein junges Paar, das am Vorabend der russischen Invasion in seiner neuen Wohnung eingeschlossen wird – zwischen Überlebenskampf und der Zerbrechlichkeit der Liebe im Belagerungszustand."
+    },
+    "detailed_description": {
+      "en": "Set on 23 February 2022, on the outskirts of Kyiv, Honeymoon follows Taras and Olya as they celebrate their first night in a new apartment. At dawn, explosions shatter their world, and Russian troops turn their building into a military headquarters. Cut off from electricity, water, and communication, the couple finds themselves trapped in their own home, uncertain if Ukraine even still exists. Over the next five days, they navigate the stark realities of survival while confronting the intimate depths of their relationship and the existential questions that arise under mortal danger.",
+      "de": "Am 23. Februar 2022, am Stadtrand von Kiew, feiern Taras und Olya ihre erste Nacht in einer neuen Wohnung. Bei Tagesanbruch zerreißen Explosionen ihre Welt, als russische Truppen das Gebäude besetzen und in ein Militärhauptquartier verwandeln. Ohne Strom, Wasser und Kommunikation sind sie in ihrem eigenen Zuhause eingeschlossen – unsicher, ob die Ukraine überhaupt noch existiert. In den folgenden fünf Tagen kämpfen sie mit den harten Realitäten des Überlebens und stellen sich zugleich den tiefsten Dimensionen ihrer Beziehung sowie den existenziellen Fragen, die unter Lebensgefahr aufbrechen."
+    },
+    "category": {
+      "key": "main",
+      "en": "Main program",
+      "de": "Hauptprogramm"
+    },
+    "trailer": "https://www.youtube.com/watch?v=RCQEO1l0xpY",
+    "image": "https://images.squarespace-cdn.com/content/5f739670761e02764c54e1ca/e623deaf-0246-49d8-a149-ebbc725c1292/main-program-honeymoon.jpeg",
+    "screenings": []
   }
 ]

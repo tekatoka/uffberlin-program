@@ -1,7 +1,7 @@
 {
   "name": "uffberlin-program",
   "version": "1.0.0",
-  "description": "",
+  "short_description": "",
   "main": "uffb-film-detail.bundle.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

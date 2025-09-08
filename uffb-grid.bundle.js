@@ -21,7 +21,7 @@
       filterBtn: 'Filter',
       searchBtn: 'Search',
       category: 'Category',
-      director: 'Director',
+      director: 'Directed by',
       venue: 'Venue',
       date: 'Date',
       all: 'All',
@@ -384,6 +384,9 @@
       color: #fff;
       font-size: 1.25rem;
     }
+    .uffb-meta1 {
+      font-size: 1rem;
+    }
     .uffb-meta1 em {
       font-style: normal;
       font-weight: 600;
@@ -739,22 +742,68 @@
       .replaceAll('<', '&lt;')
       .replaceAll('>', '&gt;');
   }
-  function ytEmbed(url) {
+  function embedUrl(url) {
     try {
       const u = new URL(url);
-      if (u.hostname.includes('youtube.com') && u.searchParams.get('v'))
-        return `https://www.youtube-nocookie.com/embed/${u.searchParams.get(
-          'v'
-        )}?rel=0&autoplay=1`;
-      if (u.hostname.includes('youtu.be'))
-        return `https://www.youtube-nocookie.com/embed/${u.pathname.slice(
-          1
-        )}?rel=0&autoplay=1`;
-      return url;
+
+      // --- YouTube -> privacy embed
+      if (
+        (u.hostname.includes('youtube.com') && u.searchParams.get('v')) ||
+        u.hostname.includes('youtu.be')
+      ) {
+        const id = u.hostname.includes('youtu.be')
+          ? u.pathname.slice(1)
+          : u.searchParams.get('v');
+        const p = new URLSearchParams({
+          rel: '0',
+          autoplay: '1',
+          modestbranding: '1',
+        });
+        return `https://www.youtube-nocookie.com/embed/${id}?${p.toString()}`;
+      }
+
+      // --- Vimeo -> player embed
+      if (u.hostname.includes('player.vimeo.com')) {
+        // already a player URL – just ensure flags
+        u.searchParams.set('autoplay', '1');
+        u.searchParams.set('title', '0');
+        u.searchParams.set('byline', '0');
+        u.searchParams.set('portrait', '0');
+        u.searchParams.set('dnt', '1');
+        return u.toString();
+      }
+      if (u.hostname.includes('vimeo.com')) {
+        // Accepts forms like:
+        //  - vimeo.com/123456789
+        //  - vimeo.com/123456789/abcdef   (old private hash)
+        //  - vimeo.com/ondemand/.../123456789
+        //  - vimeo.com/channels/.../123456789
+        const segs = u.pathname.split('/').filter(Boolean);
+        const id = segs.find((s) => /^\d+$/.test(s));
+        // hash can be in ?h= or as next path segment after the id
+        const pathIdx = segs.findIndex((s) => s === id);
+        const pathHash =
+          pathIdx >= 0 && segs[pathIdx + 1] && !/^\d+$/.test(segs[pathIdx + 1])
+            ? segs[pathIdx + 1]
+            : '';
+        const h = u.searchParams.get('h') || pathHash || '';
+        const qs = new URLSearchParams({
+          autoplay: '1',
+          title: '0',
+          byline: '0',
+          portrait: '0',
+          dnt: '1',
+        });
+        if (h) qs.set('h', h);
+        if (id) return `https://player.vimeo.com/video/${id}?${qs.toString()}`;
+      }
+
+      return url; // fallback unchanged
     } catch {
       return url;
     }
   }
+
   function offsetFor() {
     const m = new Date().getTimezoneOffset(),
       sign = m <= 0 ? '+' : '-',
@@ -970,10 +1019,10 @@
       it.category?.uk ||
       '—';
     const desc =
-      it.description?.[lang] ||
-      it.description?.de ||
-      it.description?.en ||
-      it.description?.uk ||
+      it.short_description?.[lang] ||
+      it.short_description?.de ||
+      it.short_description?.en ||
+      it.short_description?.uk ||
       '';
     const img = it.image || '';
     const trailer = it.trailer;
@@ -1057,10 +1106,10 @@
       it.category?.uk ||
       '—';
     const desc =
-      it.description?.[lang] ||
-      it.description?.de ||
-      it.description?.en ||
-      it.description?.uk ||
+      it.short_description?.[lang] ||
+      it.short_description?.de ||
+      it.short_description?.en ||
+      it.short_description?.uk ||
       '';
     const img = it.image || '';
     const trailer = it.trailer;
@@ -1133,7 +1182,7 @@
         open: (url) => {
           const iframe = document.querySelector('#uffb-modal iframe');
           document.getElementById('uffb-modal').classList.add('is-open');
-          iframe.src = ytEmbed(url);
+          iframe.src = embedUrl(url);
         },
       };
     const m = document.createElement('div');
@@ -1159,7 +1208,7 @@
     return {
       open: (url) => {
         m.classList.add('is-open');
-        iframe.src = ytEmbed(url);
+        iframe.src = embedUrl(url);
       },
     };
   }
@@ -1476,9 +1525,9 @@
             f.title?.de,
             f.title?.en,
             f.title?.uk,
-            f.description?.de,
-            f.description?.en,
-            f.description?.uk,
+            f.short_description?.de,
+            f.short_description?.en,
+            f.short_description?.uk,
             f.category?.de,
             f.category?.en,
             f.category?.uk,
@@ -1495,7 +1544,7 @@
                 .map((sf) =>
                   [
                     langTxt(sf.title),
-                    langTxt(sf.description),
+                    langTxt(sf.short_description),
                     langTxt(sf.director),
                   ]
                     .filter(Boolean)

@@ -195,7 +195,7 @@
       alternateName: film.original_title || undefined,
       description:
         localized(film.detailed_description) ||
-        localized(film.description) ||
+        localized(film.short_description) ||
         '',
       image: film.image,
       url: location.href,
@@ -265,7 +265,8 @@
   }
 
   function buildSynopsisBlock(film) {
-    const shortDesc = (film.description && localized(film.description)) || '';
+    const shortDesc =
+      (film.short_description && localized(film.short_description)) || '';
     const longDesc =
       (film.detailed_description && localized(film.detailed_description)) || '';
     if (!shortDesc && !longDesc) return '';
@@ -562,10 +563,10 @@
           : countriesRaw || '';
         const year = sf.year ?? '';
         const desc =
-          (sf.description &&
-            (typeof sf.description === 'object'
-              ? localized(sf.description)
-              : sf.description)) ||
+          (sf.short_description &&
+            (typeof sf.short_description === 'object'
+              ? localized(sf.short_description)
+              : sf.short_description)) ||
           '';
         const img = sf.image || '';
         const trailer = sf.trailer || '';
