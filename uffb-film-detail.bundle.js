@@ -1199,6 +1199,9 @@
       justify-content: center;
       text-decoration: none; /* logo is the link */
     }
+    uffb-panel-title .uffb-partner {
+      margin-top: 45px;
+    }
     .uffb-partner-logo {
       display: flex;
       align-items: center;
