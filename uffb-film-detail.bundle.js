@@ -1199,7 +1199,7 @@
       justify-content: center;
       text-decoration: none; /* logo is the link */
     }
-    uffb-panel-title .uffb-partner {
+    .uffb-partner .uffb-panel-title {
       margin-top: 45px;
     }
     .uffb-partner-logo {
