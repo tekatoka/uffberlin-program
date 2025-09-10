@@ -51,6 +51,18 @@
         },
         "tickets": "https://uffb2025-opening.eventbrite.de/"
       }
+    ],
+    "partners": [
+      {
+        "name": "Arte",
+        "url": "https://www.arte.de",
+        "logo": "https://images.squarespace-cdn.com/content/5f739670761e02764c54e1ca/1729454053831-H4HXV4A4Z9M68G196SDS/Arte.png"
+      },
+      {
+        "name": "Bundeszentrale für politische Bildung",
+        "url": "https://www.bpb.de/",
+        "logo": "https://images.squarespace-cdn.com/content/5f739670761e02764c54e1ca/38a744a5-9f27-46f2-8765-9e558f306006/BPB.png"
+      }
     ]
   },
   {

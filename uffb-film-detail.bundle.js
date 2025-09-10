@@ -49,6 +49,7 @@
       shortDescLabel: 'Short description:',
       loadError: 'Film data could not be loaded.',
       filmNotFound: 'Film not found.',
+      cooperation: 'In cooperation with',
     },
     de: {
       home: 'Start',
@@ -70,6 +71,7 @@
       shortDescLabel: 'Kurzbeschreibung:',
       loadError: 'Filmdaten konnten nicht geladen werden.',
       filmNotFound: 'Film nicht gefunden.',
+      cooperation: 'In Kooperation mit',
     },
     uk: {
       home: 'Головна',
@@ -91,6 +93,7 @@
       shortDescLabel: 'Короткий опис:',
       loadError: 'Не вдалося завантажити дані про фільм.',
       filmNotFound: 'Фільм не знайдено.',
+      cooperation: 'У співпраці з',
     },
   };
   const t = (key) => I18N[lang]?.[key] ?? key;
@@ -300,6 +303,63 @@
         </div>
       </section>
     `;
+  }
+
+  function collectPartners(film) {
+    const out = [];
+    const add = (p) => {
+      if (!p || !p.name) return;
+      // de-dupe by name+url
+      const key = (p.name || '') + '|' + (p.url || '');
+      if (out.some((x) => (x.name || '') + '|' + (x.url || '') === key)) return;
+      out.push({ name: p.name, url: p.url || '', logo: p.logo || '' });
+    };
+
+    // film-level
+    if (Array.isArray(film.partners)) film.partners.forEach(add);
+    // screening-level
+    if (Array.isArray(film.screenings)) {
+      film.screenings.forEach((s) => {
+        if (Array.isArray(s.partners)) s.partners.forEach(add);
+      });
+    }
+    return out;
+  }
+
+  function buildPartnersSection(film) {
+    const partners = collectPartners(film);
+    if (!partners.length) return '';
+    const items = partners
+      .map((p) => {
+        const img = p.logo
+          ? html`<img
+                loading="lazy"
+                src="${p.logo}"
+                alt="${p.name}"
+                title="${p.name}"
+              />`
+          : '';
+        const logo = html`<div class="uffb-partner-logo">${img}</div>`;
+        return p.url
+          ? html`<a
+                class="uffb-partner"
+                href="${p.url}"
+                target="_blank"
+                rel="noopener"
+                aria-label="${p.name}"
+                >${logo}</a
+              >`
+          : html`<div class="uffb-partner" aria-label="${p.name}">
+                ${logo}
+              </div>`;
+      })
+      .join('');
+    return html`
+    <section class="uffb-panel uffb-partners">
+        <h3 class="uffb-panel-title">${t('cooperation')}</h3>
+        <div class="uffb-partner-grid">${items}</div>
+      </section>
+  `;
   }
 
   function fmtWhen(isoDate, timeHHMM) {
@@ -844,7 +904,7 @@
       letter-spacing: 0.08em;
       text-transform: uppercase;
       opacity: 0.6;
-      margin: 6px 0 10px 0;
+      margin: 15px 0 10px 0;
     }
 
     .uffb-info,
@@ -1123,6 +1183,46 @@
     .uffb-short-actions {
       margin-top: 6px;
     }
+    /* Partners */
+    .uffb-partners {
+      margin-top: 16px;
+    }
+    .uffb-partner-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px 24px;
+      align-items: center;
+    }
+    .uffb-partner {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none; /* logo is the link */
+    }
+    .uffb-partner-logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      /* keep logos visually consistent */
+      max-width: 350px; /* desktop max width */
+      background: white;
+    }
+    .uffb-partner-logo img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      object-fit: contain;
+      /* optional: cap height to keep row tidy; tweak if needed */
+      max-height: 120px;
+    }
+    @media (max-width: 640px) {
+      .uffb-partner-logo {
+        max-width: 150px;
+      } /* phone max width */
+      .uffb-partner-logo img {
+        max-height: 95px;
+      }
+    }
   `;
 
   function injectCSS() {
@@ -1185,6 +1285,7 @@
               <section class="uffb-shorts-layout">
                 <div class="uffb-shorts-left">
                   ${buildShortsItemsSection(film)}
+                  ${buildPartnersSection(film)}
                 </div>
                 <aside class="uffb-shorts-right">
                   ${screeningsBlock}
@@ -1199,6 +1300,7 @@
                 </div>
                 <div class="uffb-col-right">
                   ${buildSynopsisBlock(film)}
+                  ${buildPartnersSection(film)}
                 </div>
               </section>
 
