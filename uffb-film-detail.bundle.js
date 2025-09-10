@@ -1185,7 +1185,7 @@
     }
     /* Partners */
     .uffb-partners {
-      margin-top: 45px;
+      margin-top: 45px !important;
     }
     .uffb-partner-grid {
       display: flex;
