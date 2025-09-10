@@ -1185,7 +1185,7 @@
     }
     /* Partners */
     .uffb-partners {
-      margin-top: 16px;
+      margin-top: 45px;
     }
     .uffb-partner-grid {
       display: flex;
@@ -1198,9 +1198,6 @@
       align-items: center;
       justify-content: center;
       text-decoration: none; /* logo is the link */
-    }
-    .uffb-partner .uffb-panel-title {
-      margin-top: 45px;
     }
     .uffb-partner-logo {
       display: flex;
