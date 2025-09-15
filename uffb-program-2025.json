@@ -5,6 +5,7 @@
       "en": "Songs of Slow Burning Earth",
       "de": "Songs of Slow Burning Earth"
     },
+    "published": true,
     "language": {
       "de": "Ukrainisch mit englischen Untertiteln (OmeU)",
       "en": "Ukrainian with English subtitles"
@@ -94,6 +95,7 @@
       "en": "Cuba & Alaska",
       "de": "Cuba & Alaska"
     },
+    "published": true,
     "language": {
       "de": "Ukrainisch mit englischen Untertiteln (OmeU)",
       "en": "Ukrainian with English subtitles"
@@ -547,6 +549,7 @@
       "en": "Short Films Competition: Program I",
       "de": "Kurzfilmwettbewerb: Programm I"
     },
+    "published": true,
     "category": {
       "key": "shorts_competition",
       "en": "Short films – Competition",
@@ -690,6 +693,7 @@
       "en": "Short Films Competition: Program II",
       "de": "Kurzfilmwettbewerb: Programm II"
     },
+    "published": true,
     "category": {
       "key": "shorts_competition",
       "en": "Short films – Competition",

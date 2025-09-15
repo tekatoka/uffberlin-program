@@ -1740,6 +1740,7 @@
       .then((data) => {
         items = data
           .slice()
+          .filter((f) => f.published === true) //remove after all films are published!
           .sort((a, b) => earliestDate(a).localeCompare(earliestDate(b)));
         initFilterOptions(items);
         applyAll();
