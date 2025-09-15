@@ -332,7 +332,7 @@
       : '';
 
     const ticketHtml = s.tickets
-      ? `<span class="uffb-tickets"><a href="${s.tickets}" target="_blank" rel="noopener" class="eventlist-button sqs-editable-button sqs-button-element--primary equal-button">${t('tickets')}</a></span>`
+      ? `<span class="uffb-tickets"><a href="${s.tickets}" target="_blank" rel="noopener" class="eventlist-button sqs-editable-button sqs-button-element--primary">${t('tickets')}</a></span>`
       : '';
 
     return `
