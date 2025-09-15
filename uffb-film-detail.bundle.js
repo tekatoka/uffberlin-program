@@ -1132,8 +1132,8 @@
 
     .uffb-short-item {
       display: grid;
-      grid-template-columns: 1fr 1fr; /* 2 columns */
-      gap: 8px 16px;
+      grid-template-columns: 2fr 1fr; /* 2 columns */
+      gap: 8px 28px;
     }
     /* Any child with .full-row will span both columns */
     .uffb-short-item > .full-row {
