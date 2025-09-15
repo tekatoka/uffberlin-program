@@ -69,7 +69,6 @@
       width: 100%;
       aspect-ratio: 4/3;
       overflow: hidden;
-      background: #222;
       border-radius: 0px;
       padding: 10px 0 35px;
     }
@@ -133,6 +132,62 @@
       max-height: 48px;
       object-fit: contain;
       display: block;
+    }
+    .uffb-screenings {
+      color: #fff;
+      margin: 8px 0 2px;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: 25px;
+      row-gap: 25px;
+    }
+    .uffb-screening {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: start;
+      gap: 6px 12px;
+      font-size: 1rem;
+    }
+    .uffb-category {
+      font-size: 0.9rem;
+      color: var(--paragraphLinkColor, #0bb);
+      padding: 10px 15px 0;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      opacity: 0.7;
+      margin-bottom: 0.4rem;
+      font-weight: 600;
+    }
+    .uffb-when {
+      font-weight: 700;
+    }
+    .uffb-venue {
+      margin-top: 2px;
+    }
+    .uffb-address a {
+      font-size: 0.92rem;
+      text-decoration: none;
+      color: var(--paragraphLinkColor, #0bb);
+      font-size: 1rem;
+    }
+
+    .uffb-address a:hover {
+      text-decoration: underline !important;
+    }
+
+    .uffb-tickets {
+      margin-top: 15px;
+    }
+
+    .uffb-tickets a {
+      color: var(--paragraphLinkColor);
+      font-size: 1.1rem;
+      font-weight: 600;
+      padding: 10px;
+      border: 1.5px solid;
+      border-radius: 0px;
+      text-transform: uppercase;
     }
   `;
 
