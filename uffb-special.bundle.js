@@ -20,7 +20,7 @@
         month: 'short',
         year: 'numeric',
       },
-      cooperation: 'In cooperation with',
+      collaboration: 'In collaboration with',
     },
     de: {
       director: 'Regie',
@@ -31,7 +31,7 @@
         month: 'short',
         year: 'numeric',
       },
-      cooperation: 'In Kooperation mit',
+      collaboration: 'In Kooperation mit',
     },
   };
   const t = (k) => I18N[lang][k];
@@ -69,7 +69,7 @@
     .uffb-special .uffb-special-media {
       position: relative;
       width: 100%;
-      aspect-ratio: 4/3;
+      aspect-ratio: 16/9;
       overflow: hidden;
       border-radius: 0px;
       padding: 10px 0 35px;
@@ -241,7 +241,7 @@
     }
     @media (max-width: 640px) {
       .uffb-partner-logo {
-        max-width: 150px;
+        max-width: 350px;
       } /* phone max width */
       .uffb-partner-logo img {
         max-height: 95px;
@@ -359,7 +359,7 @@
         ) {
           const tm = escapeHtml(item.time || '');
           const tx = escapeHtml(pickLangVal(item.text) || '');
-          return `<div class="row"><span class="tm">${tm}</span><span class="sep"> - </span><span class="tx">${tx}</span></div>`;
+          return `<div class="row"><span class="tm">${tm}</span>${tm && '<span class="sep"> - </span>'}<span class="tx">${tx}</span></div>`;
         }
         const str = String(item);
         // as-is if author already provided "18:00 - Doors"
@@ -399,7 +399,7 @@
       .join('');
     return html`
     <section class="uffb-panel uffb-partners">
-        <h3 class="uffb-panel-title">${t('cooperation')}</h3>
+        <h3 class="uffb-panel-title">${t('collaboration')}</h3>
         <div class="uffb-partner-grid">${items}</div>
       </section>
   `;
@@ -434,7 +434,7 @@
     `;
 
     const prog = renderProgramRows(it.special_program);
-    const about = pickLangVal(it.short_description) || '';
+    const about = pickLangVal(it.detailed_description) || '';
     const first = earliestScreening(it);
 
     return html`

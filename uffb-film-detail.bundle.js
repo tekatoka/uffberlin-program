@@ -49,7 +49,7 @@
       shortDescLabel: 'Short description:',
       loadError: 'Film data could not be loaded.',
       filmNotFound: 'Film not found.',
-      cooperation: 'In cooperation with',
+      collaboration: 'In collaboration with',
     },
     de: {
       home: 'Start',
@@ -71,7 +71,7 @@
       shortDescLabel: 'Kurzbeschreibung:',
       loadError: 'Filmdaten konnten nicht geladen werden.',
       filmNotFound: 'Film nicht gefunden.',
-      cooperation: 'In Kooperation mit',
+      collaboration: 'In Kooperation mit',
     },
     uk: {
       home: 'Головна',
@@ -93,7 +93,7 @@
       shortDescLabel: 'Короткий опис:',
       loadError: 'Не вдалося завантажити дані про фільм.',
       filmNotFound: 'Фільм не знайдено.',
-      cooperation: 'У співпраці з',
+      collaboration: 'У співпраці з',
     },
   };
   const t = (key) => I18N[lang]?.[key] ?? key;
@@ -356,7 +356,7 @@
       .join('');
     return html`
     <section class="uffb-panel uffb-partners">
-        <h3 class="uffb-panel-title">${t('cooperation')}</h3>
+        <h3 class="uffb-panel-title">${t('collaboration')}</h3>
         <div class="uffb-partner-grid">${items}</div>
       </section>
   `;

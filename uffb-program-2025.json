@@ -36,7 +36,7 @@
       "de": "Hauptprogramm"
     },
     "trailer": "https://www.youtube.com/watch?v=Rd1XdUyB_JU",
-    "image": "https://images.squarespace-cdn.com/content/5f739670761e02764c54e1ca/f8c411fc-058f-44c3-9291-5978df955cdd/main-program-songs-of-slow-burning-earth.jpg",
+    "image": "https://images.squarespace-cdn.com/content/5f739670761e02764c54e1ca/29047419-6b8f-4528-826c-1a4fd1bd8803/SOSBE_MAIN_1_%28c%29Volodymyr+Usyk.jpg",
     "screenings": [
       {
         "date": "2025-10-22",
@@ -59,20 +59,33 @@
         "logo": "https://images.squarespace-cdn.com/content/5f739670761e02764c54e1ca/1729454053831-H4HXV4A4Z9M68G196SDS/Arte.png"
       },
       {
-        "name": "Bundeszentrale für politische Bildung",
-        "url": "https://www.bpb.de/",
-        "logo": "https://images.squarespace-cdn.com/content/5f739670761e02764c54e1ca/38a744a5-9f27-46f2-8765-9e558f306006/BPB.png"
+        "name": "Goethe-Institute in Exile",
+        "url": "https://www.goethe.de/prj/gex/en/index.html",
+        "logo": "https://images.squarespace-cdn.com/content/5f739670761e02764c54e1ca/a684ca66-8fb8-42b4-ba6d-92a88ed8d472/goethe_in_exile_logo_black_rgb_350.png"
       }
     ],
 
     "special": true,
     "special_program_tag": {
-      "en": "Festival Opening",
-      "de": "Festivaleröffnung"
+      "en": "Festival Opening, Oct. 22nd, 2025",
+      "de": "Festivaleröffnung, 22. Oktober 2025"
     },
     "special_program": [
-      { "time": "18:00", "text": { "en": "Doors", "de": "Einlass" } },
-      { "time": "19:30", "text": { "en": "Film begins", "de": "Filmbeginn" } }
+      {
+        "time": "18:00",
+        "text": { "en": "Doors, reception and performances", "de": "Einlass" }
+      },
+      {
+        "time": "19:30",
+        "text": { "en": "Start of the screening", "de": "Filmbeginn" }
+      },
+      {
+        "time": "",
+        "text": {
+          "en": "Afterwards: Q&A with film producer Darya Bassel afterwards",
+          "de": "Anschließend: Q&A mit der Produzentin Darya Bassel"
+        }
+      }
     ]
   },
   {
