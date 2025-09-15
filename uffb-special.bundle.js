@@ -60,6 +60,8 @@
     /* Title uses your global .uffb-title; just spacing here */
     .uffb-special .uffb-title {
       margin: 0 0 16px 0;
+      font-size: 2.25rem;
+      color: var(--tweak-heading-extra-large-color-on-background);
     }
 
     .uffb-special .uffb-special-media {
@@ -68,7 +70,8 @@
       aspect-ratio: 4/3;
       overflow: hidden;
       background: #222;
-      border-radius: 6px;
+      border-radius: 0px;
+      padding: 10px 0 35px;
     }
     .uffb-special .uffb-special-media img {
       width: 100%;
@@ -91,6 +94,22 @@
       margin: 0 0.4ch;
     }
 
+    .uffb-meta {
+      margin: 0.35rem 0 0.25rem;
+      color: #fff;
+      font-size: 1.25rem;
+    }
+    .uffb-meta1 {
+      font-size: 1rem;
+    }
+    .uffb-meta1 em {
+      font-style: normal;
+      font-weight: 600;
+    }
+    .uffb-meta2,
+    .uffb-meta3 {
+      line-height: 1.4;
+    }
     /* Partners grid */
     .uffb-special .uffb-partners {
       margin-top: 18px;
