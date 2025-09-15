@@ -66,6 +66,10 @@
       color: var(--tweak-heading-extra-large-color-on-background);
     }
 
+    .uffb-title a:hover {
+      text-decoration: underline !important;
+    }
+
     .uffb-special .uffb-special-media {
       position: relative;
       width: 100%;
