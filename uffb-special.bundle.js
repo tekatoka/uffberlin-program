@@ -45,7 +45,7 @@
     .uffb-special .uffb-special-card {
       box-sizing: border-box !important;
       height: 100% !important;
-      padding: 6% 6% 6% 6% !important;
+      padding: 5% 5% 5% 5% !important;
       border-radius: 6px !important;
       background-color: #111111 !important;
       width: 100%;

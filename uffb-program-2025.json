@@ -3,13 +3,13 @@
     "id": "songs-of-slow-burning-earth",
     "title": {
       "en": "Songs of Slow Burning Earth",
-      "de": "Wenn Krieg Alltag wird"
+      "de": "Songs of Slow Burning Earth"
     },
     "language": {
       "de": "Ukrainisch mit englischen Untertiteln (OmeU)",
       "en": "Ukrainian with English subtitles"
     },
-    "original_title": "Songs of Slow Burning Earth",
+    "original_title": "Пісні землі, що повільно горить",
     "director": "Olha Zhurba",
     "genre": {
       "en": ["Documentary", "War"],
@@ -84,6 +84,98 @@
         "text": {
           "en": "Afterwards: Q&A with film producer Darya Bassel afterwards",
           "de": "Anschließend: Q&A mit der Produzentin Darya Bassel"
+        }
+      }
+    ]
+  },
+  {
+    "id": "cuba-and-alaska",
+    "title": {
+      "en": "Cuba & Alaska",
+      "de": "Cuba & Alaska"
+    },
+    "language": {
+      "de": "Ukrainisch mit englischen Untertiteln (OmeU)",
+      "en": "Ukrainian with English subtitles"
+    },
+    "original_title": "Куба & Аляска",
+    "director": "Yegor Troyanovsky",
+    "genre": {
+      "en": ["Documentary", "War"],
+      "de": ["Dokumentarfilm", "Krieg"]
+    },
+    "countries": {
+      "en": ["Belgium", "Ukraine", "France"],
+      "de": ["Belgien", "Ukraine", "Frankreich"]
+    },
+    "cast": "Olexandra ,Alaska’, Yulia Sidorova ,Cuba’",
+    "duration": 93,
+    "year": 2025,
+    "short_description": {
+      "en": "Two frontline medics—Cuba and Alaska—document war via phone and body-cam, revealing courage, humour, and an unbreakable friendship.",
+      "de": "Zwei Front-Sanitäterinnen – „Cuba“ und „Alaska“ – zeigen in Handy- und Bodycam-Aufnahmen Mut, Humor und unerschütterliche Freundschaft mitten im Krieg."
+    },
+    "detailed_description": {
+      "en": "Cuba & Alaska follows two female medics on the frontlines of the Ukrainian war, captured through phone and body-cam footage that offers an intimate, ground-level view of conflict. Codenamed Cuba and Alaska, they navigate the chaos with courage, humour, and unshakable friendship.",
+      "de": "Cuba & Alaska begleitet zwei Sanitäterinnen an der Front des ukrainischen Krieges, eingefangen durch Handy- und Bodycam-Aufnahmen, die einen intimen, unmittelbaren Blick auf den Krieg bieten. Unter den Codenamen „Cuba“ und „Alaska“ navigieren sie das Chaos mit Mut, Humor und unerschütterlicher Freundschaft."
+    },
+    "category": {
+      "key": "main",
+      "en": "Main program",
+      "de": "Hauptprogramm"
+    },
+    "trailer": "https://vimeo.com/1090248528",
+    "image": "https://images.squarespace-cdn.com/content/5f739670761e02764c54e1ca/1c4b57a5-12bf-48ed-991d-47f327e97b3a/cuba-and-alaska.jpg",
+    "screenings": [
+      {
+        "date": "2025-10-26",
+        "time": "19:00",
+        "venue": {
+          "en": "silent green Kulturquartier",
+          "de": "silent green Kulturquartier"
+        },
+        "address": "Gerichtstraße 35, 13347 Berlin",
+        "maps": {
+          "google": "https://www.google.com/maps/search/?api=1&query=silent%20green%20Kulturquartier%2C%20Gerichtstrasse%2035%2C%2013347%20Berlin"
+        },
+        "tickets": "https://uffb2025-closing.eventbrite.de/"
+      }
+    ],
+    "partners": [
+      {
+        "name": "Arte",
+        "url": "https://www.arte.de",
+        "logo": "https://images.squarespace-cdn.com/content/5f739670761e02764c54e1ca/1729454053831-H4HXV4A4Z9M68G196SDS/Arte.png"
+      },
+      {
+        "name": "Goethe-Institute in Exile",
+        "url": "https://www.goethe.de/prj/gex/en/index.html",
+        "logo": "https://images.squarespace-cdn.com/content/5f739670761e02764c54e1ca/a684ca66-8fb8-42b4-ba6d-92a88ed8d472/goethe_in_exile_logo_black_rgb_350.png"
+      }
+    ],
+
+    "special": true,
+    "special_program_tag": {
+      "en": "Festival Closing Ceremony, Oct. 26th, 2025",
+      "de": "Festival-Abschlusszeremonie, 26. Oktober 2025"
+    },
+    "special_program": [
+      {
+        "time": "18:00",
+        "text": { "en": "Doors", "de": "Einlass" }
+      },
+      {
+        "time": "19:00",
+        "text": {
+          "en": "Award Ceremony for the Short Film Competition",
+          "de": "Preisverleihung des Kurzfilmwettbewerbs"
+        }
+      },
+      {
+        "time": "",
+        "text": {
+          "en": "Afterwards: Film screening followed by a Q&A with film producer Olga Bergman.",
+          "de": "Im Anschluss: Filmvorführung und Q&A mit der Filmproduzentin Olga Bergman."
         }
       }
     ]
