@@ -540,5 +540,268 @@
     "trailer": "https://www.youtube.com/watch?v=RCQEO1l0xpY",
     "image": "https://images.squarespace-cdn.com/content/5f739670761e02764c54e1ca/e623deaf-0246-49d8-a149-ebbc725c1292/main-program-honeymoon.jpeg",
     "screenings": []
+  },
+  {
+    "id": "short-films-competition-program-1",
+    "title": {
+      "en": "Short Films Competition: Program I",
+      "de": "Kurzfilmwettbewerb: Programm I"
+    },
+    "category": {
+      "key": "shorts_competition",
+      "en": "Short films – Competition",
+      "de": "Kurzfilmwettbewerb"
+    },
+    "description": {
+      "en": "Short film program I",
+      "de": "Kurzfilmprogramm I"
+    },
+    "language": {
+      "de": "Ukrainisch mit englischen Untertiteln (OmeU)",
+      "en": "Ukrainian with English subtitles"
+    },
+    "year": "2024/2025",
+    "image": "https://images.squarespace-cdn.com/content/v1/5f739670761e02764c54e1ca/1728245892288-XBPDFNZYCUMP6O73AF9Q/3..png",
+    "films": [
+      {
+        "title": {
+          "en": "Off time",
+          "de": "Off time"
+        },
+        "director": "Nata Metlukh",
+        "countries": {
+          "en": ["USA", "Ukraine", "Japan"]
+        },
+        "genre": {
+          "en": ["Animation"],
+          "de": ["Animation"]
+        },
+        "year": 2025,
+        "duration": 11,
+        "image": "https://images.squarespace-cdn.com/content/5f739670761e02764c54e1ca/a49dc808-3e06-4ff3-a4e8-0625fdcab4c1/Shorts-2025-Program1-Off-Time.png",
+        "description": {
+          "en": "A data engineer rushes through life, believing multitasking saves time—but it only creates chaos. Despite his strict control over time, nothing gets done: his home is a mess, work overflows, and breakfast is always burnt. He discovers joy in life only when time breaks apart.",
+          "de": "Ein Dateningenieur hetzt durchs Leben, im Glauben, Multitasking spare Zeit – doch es stiftet nur Chaos. Trotz strenger Kontrolle über seine Zeit wird nichts erledigt: Sein Zuhause ist ein einziges Durcheinander, die Arbeit türmt sich, und das Frühstück ist immer angebrannt. Die Freude am Leben entdeckt er erst, als die Zeit auseinanderbricht."
+        },
+        "trailer": "https://www.youtube.com/watch?v=Gi4uIJZ8Mis"
+      },
+      {
+        "title": {
+          "en": "Prelude",
+          "de": "Prelude"
+        },
+        "director": "Alina Panasenko",
+        "countries": {
+          "en": ["Ukraine"]
+        },
+        "genre": {
+          "en": ["Experimental Documentary"],
+          "de": ["Experimenteller Dokumentarfilm"]
+        },
+        "year": 2025,
+        "duration": 14,
+        "image": "https://images.squarespace-cdn.com/content/5f739670761e02764c54e1ca/dea5b2a8-0e1f-45be-8428-333b54fd5a13/Shorts-2025-Program1-Poster.jpg",
+        "description": {
+          "en": "While roaming through the streets of wartime Kyiv, Anna discreetly films men passing by. Her search for a one-night stand ends in an unexpected meeting with a soldier. Distant observation leads her into the unsettling collision with reality.",
+          "de": "Während sie durch die Straßen des Kyjiw im Krieg streift, filmt Anna unauffällig die Männer, die an ihr vorbeigehen. Ihre Suche nach einem One-Night-Stand endet in einer unerwarteten Begegnung mit einem Soldaten. Aus der distanzierten Beobachtung wird eine verstörende Kollision mit der Realität."
+        },
+        "trailer": ""
+      },
+      {
+        "title": {
+          "en": "Night Shift",
+          "de": "Nachtschift"
+        },
+        "director": "Megumi Lim",
+        "countries": {
+          "en": ["Ukraine"]
+        },
+        "genre": {
+          "en": ["Documentary"],
+          "de": ["Dokumentarfilm"]
+        },
+        "year": 2024,
+        "duration": 29,
+        "image": "https://images.squarespace-cdn.com/content/5f739670761e02764c54e1ca/37e83914-3dd2-4ea8-bb50-484ab348525f/Shorts-2025-Program1-night-shift.png",
+        "description": {
+          "en": "In the still hours of Kharkiv's curfewed nights, a quiet resilience hums through its empty streets. Night Shift is a short film about people who work under the cover of darkness, navigating both routine and risk as Russia often attacks when residents try to sleep. The film explores how nighttime in Ukraine's second largest city has transformed because of war, its nightly hope that dawn will arrive quietly, and the human need to carry on.",
+          "de": "In den stillen Stunden der nächtlichen Ausgangssperre in Charkiw summt eine leise Resilienz durch die leeren Straßen. Night Shift ist ein Kurzfilm über Menschen, die im Schutz der Dunkelheit arbeiten und dabei zwischen Routine und Risiko navigieren, da Russland häufig angreift, wenn die Bewohner zu schlafen versuchen. Der Film erkundet, wie sich die Nächte in der zweitgrößten Stadt der Ukraine durch den Krieg verändert haben, die nächtliche Hoffnung, dass die Morgendämmerung leise eintrifft, und das zutiefst menschliche Bedürfnis, weiterzumachen."
+        },
+        "trailer": ""
+      },
+      {
+        "title": {
+          "en": "Walk",
+          "de": "Spaziere"
+        },
+        "director": "Daria Zhuravel",
+        "countries": {
+          "en": ["Ukraine", "Georgia"],
+          "de": ["Ukraine", "Georgien"]
+        },
+        "genre": {
+          "en": ["Documentary"],
+          "de": ["Dokumentarfilm"]
+        },
+        "year": 2024,
+        "duration": 7,
+        "image": "https://images.squarespace-cdn.com/content/5f739670761e02764c54e1ca/7ca2a9ff-38cc-43f5-90ff-db82481c65fb/Shorts-2025-Program-1-Walk.png",
+        "description": {
+          "en": "This is an autobiographical story by Daria Zhuravel, dedicated to the childhood and those who are no longer with us, but whose presence accompanies us wherever we go.",
+          "de": "Dies ist eine autobiografische Geschichte von Daria Zhuravel, gewidmet der Kindheit und all jenen, die nicht mehr bei uns sind, deren Gegenwart uns jedoch überallhin begleitet."
+        },
+        "trailer": ""
+      },
+      {
+        "title": {
+          "en": "Additional scenes",
+          "de": "Zusätzliche Szenen"
+        },
+        "director": "Roman Khimei, Yarema Malashchuk",
+        "countries": {
+          "en": ["Ukraine"],
+          "de": ["Ukraine"]
+        },
+        "genre": {
+          "en": ["Documentary"],
+          "de": ["Dokumentarfilm"]
+        },
+        "year": 2025,
+        "duration": 17,
+        "image": "https://images.squarespace-cdn.com/content/5f739670761e02764c54e1ca/982188c5-f175-4658-8fdd-38c411a104b7/Shorts-2025-Program-1-Additional_Scenes.jpg",
+        "description": {
+          "en": "From the very beginning of the Russian attack on Ukraine, we began to ask ourselves “What is normality today?”. We decided to contact Pavlo Aldoshyn, an actor, who at the beginning of the full-scale Russian invasion, joined the Ukrainian army. Pavlo's last role before the full-scale war was the lead in the action movie “Sniper: The White Raven”. We invited Pavlo to come to Kyiv from the frontline as a soldier and portray a civilian. The change in perception of reality that Pavlo is confronted with becomes literal: for Pavlo, everyday civilian life seems like a fiction that has to be acted out in order to be experienced. Instead, military actions or even their cinematic representation become more „normal“ than everyday scenes.",
+          "de": "Seit dem Beginn des russischen Angriffs auf die Ukraine stellten wir uns die Frage: „Was ist heute Normalität?“ Wir entschieden uns, Pavlo Aldoshyn zu kontaktieren, einen Schauspieler, der sich zu Beginn der russischen Vollinvasion der ukrainischen Armee anschloss. Pavlos letzte Rolle vor dem umfassenden Krieg war die Hauptrolle im Actionfilm „Sniper: The White Raven“. Wir luden Pavlo ein, als Soldat von der Front nach Kyjiw zu kommen und einen Zivilisten zu verkörpern. Die Veränderung der Wirklichkeitswahrnehmung, mit der Pavlo konfrontiert ist, wird wörtlich: Für ihn wirkt der zivile Alltag wie eine Fiktion, die erst gespielt werden muss, um erlebt werden zu können. Stattdessen erscheinen militärische Handlungen – oder sogar deren filmische Darstellung – „normaler“ als Alltagsszenen."
+        },
+        "trailer": ""
+      }
+    ],
+    "screenings": [],
+    "special": true,
+    "special_program_tag": {
+      "en": "UFFB Shorts",
+      "de": "UFFB Shorts"
+    },
+    "special_program": []
+  },
+  {
+    "id": "short-films-competition-program-2",
+    "title": {
+      "en": "Short Films Competition: Program II",
+      "de": "Kurzfilmwettbewerb: Programm II"
+    },
+    "category": {
+      "key": "shorts_competition",
+      "en": "Short films – Competition",
+      "de": "Kurzfilmwettbewerb"
+    },
+    "description": {
+      "en": "Short film program II",
+      "de": "Kurzfilmprogramm II"
+    },
+    "language": {
+      "de": "Original mit englischen Untertiteln (OmeU)",
+      "en": "Originalsprache with English subtitles"
+    },
+    "year": "2024/2025",
+    "image": "https://images.squarespace-cdn.com/content/v1/5f739670761e02764c54e1ca/1728245892288-XBPDFNZYCUMP6O73AF9Q/3..png",
+    "films": [
+      {
+        "title": {
+          "en": "Can you hear me?",
+          "de": "Kannst du mich hören?"
+        },
+        "director": "Anastazja Naumenko",
+        "countries": {
+          "en": ["Poland"]
+        },
+        "genre": {
+          "en": ["Animation"],
+          "de": ["Animation"]
+        },
+        "year": 2025,
+        "duration": 15,
+        "image": "https://images.squarespace-cdn.com/content/5f739670761e02764c54e1ca/21121017-94de-4622-92e5-bf79c0bf6601/Shorts-2025-Program-2-Can+You+Hear+Me.jpg",
+        "description": {
+          "en": "Nastia, who has lived abroad for years, starts to teach her mom how to use Internet services. Different perceptions of technology become the starting point for exposing intergenerational conflicts and long-forgotten family threads. Can an intimacy regained via zoom be a turning point for the future relationship between two adults?",
+          "de": "Nastia, die seit Jahren im Ausland lebt, bringt ihrer Mutter bei, wie man Online-Dienste nutzt. Unterschiedliche Auffassungen von Technik werden zum Ausgangspunkt, um Generationenkonflikte und lange vergessene familiäre Verbindungen offenzulegen. Kann eine über Zoom wiedergewonnene Intimität zum Wendepunkt für die künftige Beziehung zweier Erwachsener werden?"
+        },
+        "trailer": ""
+      },
+      {
+        "title": {
+          "en": "Life begins",
+          "de": "Das Leben beginnt"
+        },
+        "director": "Oleksiy Taranenko",
+        "countries": {
+          "en": ["Ukraine"]
+        },
+        "genre": {
+          "en": ["Feature"],
+          "de": ["Spielfilm"]
+        },
+        "year": 2025,
+        "duration": 27,
+        "image": "https://images.squarespace-cdn.com/content/5f739670761e02764c54e1ca/665edf05-2a9c-4413-93e4-13104e3370cd/Shorts-2025-Program2-Life+Begins.png",
+        "description": {
+          "en": "The Protagonist is a war veteran who struggles to readjust to civilian life after participating in fierce battles. He finds it difficult to find his place, even at home. After a fight in a pub, he is imprisoned in a military facility and then sent back home, where memories, physical and emotional trauma, and the sounds of war haunt him.",
+          "de": "Der Protagonist des Films ist ein Kriegsveteran, der nach heftigen Gefechten Mühe hat, sich wieder ins Zivilleben einzufügen. Selbst zu Hause findet er nur schwer seinen Platz. Nach einer Schlägerei in einer Kneipe wird er in eine militärische Einrichtung eingesperrt und anschließend nach Hause zurückgeschickt, wo ihn Erinnerungen, körperliche und seelische Traumata sowie die Geräusche des Krieges verfolgen."
+        },
+        "trailer": ""
+      },
+      {
+        "title": {
+          "en": "Where is my body armor?",
+          "de": "Wo ist meine Schutzweste?"
+        },
+        "director": "Daria Penkova",
+        "countries": {
+          "en": ["Ukraine"]
+        },
+        "genre": {
+          "en": ["Documentary"],
+          "de": ["Dokumentarfilm"]
+        },
+        "year": 2025,
+        "duration": 17,
+        "image": "https://images.squarespace-cdn.com/content/5f739670761e02764c54e1ca/ff0e3338-673c-4e83-9fc7-a79859eeb650/Shorts-2025-Program2-Where-is-my-body-armor.png",
+        "description": {
+          "en": "Dasha, a young cameraman, is going home from Germany to Druzhkivka, in the Donetsk region. She had not been home for two years since the beginning of the full-scale invasion. Immediately upon exiting the train, she meets her old friend Andrii, about whom she once filmed a documentary and with whom she has mutual sympathy. Now he is a military man.",
+          "de": "Dasha, eine junge Kamerafrau, fährt von Deutschland nach Druzhkivka in der Region Donezk nach Hause. Seit Beginn des großen Krieges war sie zwei Jahre lang nicht zu Hause gewesen. Gleich nach dem Aussteigen aus dem Zug trifft sie ihren alten Freund Andrii, über den sie einst einen Dokumentarfilm gedreht hat und mit dem sie eine gegenseitige Sympathie verbindet. Jetzt ist er Soldat."
+        },
+        "trailer": ""
+      },
+      {
+        "title": {
+          "en": "Critical Condition",
+          "de": "Kritischer Zustand"
+        },
+        "director": "Mila Zhluktenko",
+        "countries": {
+          "en": ["Germany"],
+          "de": ["Deutschland"]
+        },
+        "genre": {
+          "en": ["Feature"],
+          "de": ["Spielfilm"]
+        },
+        "year": 2025,
+        "duration": 24,
+        "image": "https://images.squarespace-cdn.com/content/5f739670761e02764c54e1ca/b3100db4-913a-4034-9151-aa622a3fabe8/Shorts-2025-Program-2-Critical-Condition.jpg",
+        "description": {
+          "en": "Inspired by the events around the life of Lev Rebet, Ukrainian author and editor-in-chief of the Munich-based exile newspaper „Ukrainian Independist“, “Critical Condition” portrays the fates of the Ukrainian diaspora in the past and present.",
+          "de": "Inspiriert von den Ereignissen rund um das Leben von Lev Rebet – eines ukrainischen Autors und Chefredakteurs der in München erscheinenden Exilzeitung „Ukrainian Independist“ – zeichnet „Critical Condition“ die Schicksale der ukrainischen Diaspora in Vergangenheit und Gegenwart nach."
+        },
+        "trailer": ""
+      }
+    ],
+    "screenings": [],
+    "special": true,
+    "special_program_tag": {
+      "en": "UFFB Shorts",
+      "de": "UFFB Shorts"
+    },
+    "special_program": []
   }
 ]

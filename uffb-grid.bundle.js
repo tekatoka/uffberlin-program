@@ -935,6 +935,12 @@
     const list = Array.isArray(item.films) ? item.films : null;
     if (!list || !list.length) return '';
 
+    const desc =
+      item.description?.[lang] ||
+      item.description?.de ||
+      item.description?.en ||
+      item.description?.uk ||
+      '';
     const li = list
       .map((sf) => {
         const t = pickLangVal(sf.title) || ''; // supports {en,de,uk} or string
@@ -951,10 +957,10 @@
       })
       .join('');
 
-    return `
-    <ol class="uffb-shorts">
-      ${li}
-    </ol>
+    return html`
+      <ol class="uffb-shorts">
+        ${li}
+      </ol>
   `;
   }
 

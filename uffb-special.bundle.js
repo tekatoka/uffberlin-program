@@ -251,6 +251,21 @@
         max-height: 95px;
       }
     }
+    /* Shorts list (same look & feel as grid script) */
+    .uffb-special .uffb-shorts {
+      margin: 8px 0 0;
+      padding-left: 1.25rem; /* ordered list indent */
+      color: #fff;
+      font-size: 1.05rem;
+      line-height: 1.4;
+    }
+    .uffb-special .uffb-shorts li {
+      list-style: circle; /* matches your previous style */
+      font-size: 1rem;
+    }
+    .uffb-special .uffb-shorts li + li {
+      margin-top: 6px;
+    }
   `;
 
   function injectCSS() {
@@ -373,6 +388,38 @@
     return `<div class="uffb-special-program">${rows}</div>`;
   }
 
+  // Render SHORTS program list exactly like in grid script,
+  // PLUS: add genre in parentheses right after the bold title.
+  function renderShortsList(item) {
+    const list = Array.isArray(item.films) ? item.films : null;
+    if (!list || !list.length) return '';
+
+    const li = list
+      .map((sf) => {
+        const t = pickLangVal(sf.title) || ''; // supports {en,de}
+        const genreTxt = joinVals(sf.genre); // handles arrays/i18n
+        const dirTxt = joinVals(sf.director); // string or i18n
+        let durTxt = sf.duration != null ? sf.duration : '';
+        if (typeof durTxt === 'number') durTxt = `${durTxt}’`;
+        else durTxt = pickLangVal(durTxt);
+
+        const bits = [];
+        // Bold title
+        bits.push(`<strong>${escapeHtml(t)}</strong>`);
+        // Genre in parentheses right after title (if present)
+        if (genreTxt) bits.push(` (${escapeHtml(genreTxt)})`);
+        // As in your grid script: " by Director"
+        if (dirTxt) bits.push(` by ${escapeHtml(dirTxt)}`);
+        // And " | 11’" duration suffix (if present)
+        if (durTxt) bits.push(` | ${escapeHtml(durTxt)}`);
+
+        return `<li>${bits.join('')}</li>`;
+      })
+      .join('');
+
+    return `<ol class="uffb-shorts">${li}</ol>`;
+  }
+
   function buildPartnersSection(it) {
     const partners = Array.isArray(it.partners) ? it.partners : [];
     if (!partners.length) return '';
@@ -415,6 +462,8 @@
     const href = `${basePath}/${encodeURIComponent(it.id)}`;
     const img = it.image || '';
 
+    const isShortsProgram = it.films?.length > 0;
+
     // --- META (reuse row view structure/classes) ---
     const countriesTxt = joinVals(it.countries);
     const yearTxt = it.year ? String(it.year) : '';
@@ -441,6 +490,12 @@
     const about = pickLangVal(it.detailed_description) || '';
     const first = earliestScreening(it);
 
+    // Short description (shown above the film list)
+    const shortDesc = pickLangVal(it.description) || '';
+
+    // Shorts list (if this item is a shorts program)
+    const shortsHtml = renderShortsList(it);
+
     return html`
       <article class="uffb-special-card" data-id="${it.id}">
         ${tag ? `<div class="uffb-special-tag">#${escapeHtml(tag)}</div>` : ''}
@@ -456,6 +511,10 @@
 
         ${metaBlock} ${prog || ''}
         ${about ? `<div class="uffb-desc">${escapeHtml(about)}</div>` : ''}
+        ${isShortsProgram && shortDesc
+          ? `<div class="uffb-desc" style="margin-top:12px">${escapeHtml(shortDesc)}</div>`
+          : ''}
+        ${shortsHtml || ''}
         ${first
           ? `<ul class="uffb-screenings" style="margin-top:12px">${screeningLine(first)}</ul>`
           : ''}

@@ -626,10 +626,10 @@
           : countriesRaw || '';
         const year = sf.year ?? '';
         const desc =
-          (sf.short_description &&
-            (typeof sf.short_description === 'object'
-              ? localized(sf.short_description)
-              : sf.short_description)) ||
+          (sf.description &&
+            (typeof sf.description === 'object'
+              ? localized(sf.description)
+              : sf.description)) ||
           '';
         const img = sf.image || '';
         const trailer = sf.trailer || '';
@@ -660,15 +660,12 @@
           ? `<div class="uffb-short-desc">${desc}</div>`
           : '';
 
-        return `
+        return html`
         <li class="uffb-short-item">
-          ${imgHtml}
-          <div class="uffb-short-body">
-            <h4 class="uffb-short-title">${title}</h4>
-            ${metaBlock}
-            ${descBlock}
-            ${trailerBtn}
-          </div>
+         ${imgHtml}
+          <div class="left"${title}</div>
+          <div class="right">${metaBlock}${trailerBtn}</div>
+          <div class="full-row">${descBlock}</div>
         </li>
       `;
       })
@@ -1127,6 +1124,24 @@
       gap: 16px;
       align-items: start;
     }
+
+    .uffb-short-item {
+      display: grid;
+      grid-template-columns: 1fr 1fr; /* 2 columns */
+      gap: 8px 16px;
+    }
+    /* Any child with .full-row will span both columns */
+    .uffb-short-item > .full-row {
+      grid-column: 1 / -1;
+    }
+
+    /* (optional) mobile: collapse to 1 column, the span is harmless */
+    @media (max-width: 700px) {
+      .uffb-short-item {
+        grid-template-columns: 1fr;
+      }
+    }
+
     @media (max-width: 800px) {
       .uffb-short-item {
         grid-template-columns: 200px 1fr;
@@ -1179,6 +1194,7 @@
     .uffb-short-desc {
       font-size: 1.03rem;
       line-height: 1.45;
+      margin-top: 20px;
     }
     .uffb-short-actions {
       margin-top: 6px;
