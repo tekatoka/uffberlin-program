@@ -20,6 +20,7 @@
         month: 'short',
         year: 'numeric',
       },
+      cooperation: 'In cooperation with',
     },
     de: {
       director: 'Regie',
@@ -30,6 +31,7 @@
         month: 'short',
         year: 'numeric',
       },
+      cooperation: 'In Kooperation mit',
     },
   };
   const t = (k) => I18N[lang][k];
@@ -116,8 +118,6 @@
     /* Partners grid */
     .uffb-special .uffb-partners {
       margin-top: 18px;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
       gap: 12px 18px;
       align-items: center;
     }
@@ -132,8 +132,6 @@
       text-decoration: underline !important;
     }
     .uffb-special .uffb-partner-logo {
-      max-width: 150px;
-      max-height: 48px;
       object-fit: contain;
       display: block;
     }
@@ -195,6 +193,59 @@
       border: 1.5px solid;
       border-radius: 0px;
       text-transform: uppercase;
+    }
+    .uffb-panel {
+      padding: 0;
+    }
+    .uffb-panel + .uffb-panel {
+      margin-top: 22px;
+    }
+    .uffb-panel-title {
+      font-size: 1.25rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      opacity: 0.6;
+      margin: 15px 0 10px 0;
+    }
+    /* Partners */
+    .uffb-partners {
+      margin-top: 45px !important;
+    }
+    .uffb-partner-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px 24px;
+      align-items: center;
+    }
+    .uffb-partner {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none; /* logo is the link */
+    }
+    .uffb-partner-logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      /* keep logos visually consistent */
+      max-width: 350px; /* desktop max width */
+      background: white;
+    }
+    .uffb-partner-logo img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      object-fit: contain;
+      /* optional: cap height to keep row tidy; tweak if needed */
+      max-height: 120px;
+    }
+    @media (max-width: 640px) {
+      .uffb-partner-logo {
+        max-width: 150px;
+      } /* phone max width */
+      .uffb-partner-logo img {
+        max-height: 95px;
+      }
     }
   `;
 
@@ -318,6 +369,42 @@
     return `<div class="uffb-special-program">${rows}</div>`;
   }
 
+  function buildPartnersSection(it) {
+    const partners = Array.isArray(it.partners) ? it.partners : [];
+    if (!partners.length) return '';
+    const items = partners
+      .map((p) => {
+        const img = p.logo
+          ? html`<img
+                loading="lazy"
+                src="${p.logo}"
+                alt="${p.name}"
+                title="${p.name}"
+              />`
+          : '';
+        const logo = html`<div class="uffb-partner-logo">${img}</div>`;
+        return p.url
+          ? html`<a
+                class="uffb-partner"
+                href="${p.url}"
+                target="_blank"
+                rel="noopener"
+                aria-label="${p.name}"
+                >${logo}</a
+              >`
+          : html`<div class="uffb-partner" aria-label="${p.name}">
+                ${logo}
+              </div>`;
+      })
+      .join('');
+    return html`
+    <section class="uffb-panel uffb-partners">
+        <h3 class="uffb-panel-title">${t('cooperation')}</h3>
+        <div class="uffb-partner-grid">${items}</div>
+      </section>
+  `;
+  }
+
   function specialCard(it) {
     const tag = pickLangVal(it.special_program_tag) || '';
     const title = pickLangVal(it.title) || 'Untitled';
@@ -350,25 +437,6 @@
     const about = pickLangVal(it.short_description) || '';
     const first = earliestScreening(it);
 
-    // partners
-    const partners = Array.isArray(it.partners) ? it.partners : [];
-    const partnersHtml = partners.length
-      ? `
-        <div class="uffb-partners">
-          ${partners
-            .map((p) => {
-              const name = escapeHtml(p.name || '');
-              const url = p.url || '#';
-              const logo = p.logo || '';
-              const logoImg = logo
-                ? `<img class="uffb-partner-logo" src="${logo}" alt="${name}" />`
-                : '';
-              return `<span class="uffb-partner"><a href="${url}" target="_blank" rel="noopener">${logoImg}<span>${name}</span></a></span>`;
-            })
-            .join('')}
-        </div>`
-      : '';
-
     return html`
       <article class="uffb-special-card" data-id="${it.id}">
         ${tag ? `<div class="uffb-special-tag">#${escapeHtml(tag)}</div>` : ''}
@@ -387,7 +455,7 @@
         ${first
           ? `<ul class="uffb-screenings" style="margin-top:12px">${screeningLine(first)}</ul>`
           : ''}
-        ${partnersHtml}
+        ${buildPartnersSection(it)}
       </article>
     `;
   }

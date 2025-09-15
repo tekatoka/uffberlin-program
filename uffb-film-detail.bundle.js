@@ -183,10 +183,10 @@
         </div>
         <div class="uffb-topline-right">
           ${hasTrailer
-            ? `<a class="uffb-btn uffb-trailer-btn" href="#" data-trailer="${film.trailer}">${t('watchTrailer')}</a>`
+            ? `<a class="uffb-btn uffb-trailer-btn eventlist-button sqs-editable-button sqs-button-element--primary equal-button" href="#" data-trailer="${film.trailer}">${t('watchTrailer')}</a>`
             : ''}
           ${hasScreenings
-            ? `<a class="uffb-btn" href="#screenings">${t('tickets')}</a>`
+            ? `<a class="uffb-btn eventlist-button sqs-editable-button sqs-button-element--primary equal-button" href="#screenings">${t('tickets')}</a>`
             : ''}
         </div>
       </div>
