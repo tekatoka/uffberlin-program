@@ -44,6 +44,7 @@
       countries: 'Countries',
       year: 'Year',
       language: 'Language',
+      duration: 'Duration',
       director: 'Director',
       cast: 'Cast',
       shortDescLabel: 'Short description:',
@@ -66,6 +67,7 @@
       countries: 'Länder',
       year: 'Jahr',
       language: 'Sprache',
+      duration: 'Filmlänge',
       director: 'Regie',
       cast: 'Cast',
       shortDescLabel: 'Kurzbeschreibung:',
@@ -88,6 +90,7 @@
       countries: 'Країни',
       year: 'Рік',
       language: 'Мова',
+      duration: 'Тривалість',
       director: 'Режисер',
       cast: 'Акторський склад',
       shortDescLabel: 'Короткий опис:',
@@ -183,10 +186,10 @@
         </div>
         <div class="uffb-topline-right">
           ${hasTrailer
-            ? `<a class="uffb-btn uffb-trailer-btn eventlist-button sqs-editable-button sqs-button-element--primary equal-button" href="#" data-trailer="${film.trailer}">${t('watchTrailer')}</a>`
+            ? `<a class="uffb-btn uffb-trailer-btn eventlist-button sqs-editable-button sqs-button-element--primary" href="#" data-trailer="${film.trailer}">${t('watchTrailer')}</a>`
             : ''}
           ${hasScreenings
-            ? `<a class="uffb-btn eventlist-button sqs-editable-button sqs-button-element--primary equal-button" href="#screenings">${t('tickets')}</a>`
+            ? `<a class="uffb-btn eventlist-button sqs-editable-button sqs-button-element--primary" href="#screenings">${t('tickets')}</a>`
             : ''}
         </div>
       </div>
@@ -256,6 +259,7 @@
     const languageTxt = film.language
       ? film.language[lang] || film.language.en || film.language.de || ''
       : '';
+    const duration = film.duration ? film.duration + "'" : '';
     return `
       <section class="uffb-panel">
         <h3 class="uffb-panel-title">${t('info')}</h3>
@@ -265,6 +269,7 @@
           ${infoRow(t('countries'), countriesTxt)}
           ${year ? infoRow(t('year'), year) : ''}
           ${languageTxt ? infoRow(t('language'), languageTxt) : ''}
+          ${languageTxt ? infoRow(t('duration'), duration) : ''}
         </div>
       </section>
     `;
