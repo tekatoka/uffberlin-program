@@ -63,6 +63,16 @@
         "url": "https://www.bpb.de/",
         "logo": "https://images.squarespace-cdn.com/content/5f739670761e02764c54e1ca/38a744a5-9f27-46f2-8765-9e558f306006/BPB.png"
       }
+    ],
+
+    "special": true,
+    "special_program_tag": {
+      "en": "Festival Opening",
+      "de": "Festivaleröffnung"
+    },
+    "special_program": [
+      { "time": "18:00", "text": { "en": "Doors", "de": "Einlass" } },
+      { "time": "19:30", "text": { "en": "Film begins", "de": "Filmbeginn" } }
     ]
   },
   {
