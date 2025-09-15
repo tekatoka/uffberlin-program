@@ -109,6 +109,10 @@
     .uffb-meta3 {
       line-height: 1.4;
     }
+
+    .uffb-desc {
+      margin: 15px 0 25px;
+    }
     /* Partners grid */
     .uffb-special .uffb-partners {
       margin-top: 18px;
@@ -148,6 +152,9 @@
       align-items: start;
       gap: 6px 12px;
       font-size: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
     }
     .uffb-category {
       font-size: 0.9rem;
@@ -177,7 +184,7 @@
     }
 
     .uffb-tickets {
-      margin-top: 15px;
+      margin-top: 25px;
     }
 
     .uffb-tickets a {
@@ -274,7 +281,7 @@
       : '';
 
     const ticketHtml = s.tickets
-      ? `<span class="uffb-tickets"><a href="${s.tickets}" target="_blank" rel="noopener">${t('tickets')}</a></span>`
+      ? `<span class="uffb-tickets"><a href="${s.tickets}" target="_blank" rel="noopener" class="eventlist-button sqs-editable-button sqs-button-element--primary equal-button">${t('tickets')}</a></span>`
       : '';
 
     return `
@@ -376,9 +383,7 @@
         </div>
 
         ${metaBlock} ${prog || ''}
-        ${about
-          ? `<div class="uffb-desc" style="margin-top:12px">${escapeHtml(about)}</div>`
-          : ''}
+        ${about ? `<div class="uffb-desc">${escapeHtml(about)}</div>` : ''}
         ${first
           ? `<ul class="uffb-screenings" style="margin-top:12px">${screeningLine(first)}</ul>`
           : ''}
