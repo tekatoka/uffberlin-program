@@ -51,6 +51,7 @@
       loadError: 'Film data could not be loaded.',
       filmNotFound: 'Film not found.',
       collaboration: 'In collaboration with',
+      warning: 'Warning',
     },
     de: {
       home: 'Start',
@@ -74,6 +75,7 @@
       loadError: 'Filmdaten konnten nicht geladen werden.',
       filmNotFound: 'Film nicht gefunden.',
       collaboration: 'In Kooperation mit',
+      warning: 'Warnung',
     },
     uk: {
       home: 'Головна',
@@ -97,6 +99,7 @@
       loadError: 'Не вдалося завантажити дані про фільм.',
       filmNotFound: 'Фільм не знайдено.',
       collaboration: 'У співпраці з',
+      warning: 'Попередження',
     },
   };
   const t = (key) => I18N[lang]?.[key] ?? key;
@@ -281,6 +284,8 @@
       (film.short_description && localized(film.short_description)) || '';
     const longDesc =
       (film.detailed_description && localized(film.detailed_description)) || '';
+    const warning = film.warning ? localized(film.warning) : '';
+
     if (!shortDesc && !longDesc) return '';
     return html`
       <section class="uffb-panel">
@@ -290,6 +295,9 @@
             ? `<p class="uffb-lead"><strong>${shortDesc}</strong></p>`
             : ''}
           ${longDesc ? `<div class="uffb-bodytext">${longDesc}</div>` : ''}
+          ${warning
+            ? `<div class="uffb-warning"><strong>${t('warning')}</strong>: ${warning}</div>`
+            : ''}
         </div>
       </section>
     `;
@@ -938,6 +946,11 @@
     }
     .uffb-synopsis2 .uffb-bodytext {
       white-space: pre-wrap;
+      font-size: 1.15rem;
+    }
+
+    .uffb-warning {
+      margin: 15px 0 0;
       font-size: 1.15rem;
     }
 

@@ -227,8 +227,9 @@
     "title": {
       "en": "2000 Meters to Andriivka",
       "de": "2000 Meters to Andriivka",
-      "uk": "2000 метрів до Андоіівки"
+      "uk": "2000 метрів до Андріівки"
     },
+    "published": true,
     "language": {
       "de": "Ukrainisch mit englischen Untertiteln (OmeU)",
       "en": "Ukrainian with English subtitles"
@@ -244,8 +245,8 @@
       "de": ["Dokumentarfilm", "Krieg"]
     },
     "countries": {
-      "en": ["Ukraine", "United States"],
-      "de": ["Ukraine", "Vereinigte Staaten"]
+      "en": ["Ukraine", "USA"],
+      "de": ["Ukraine", "USA"]
     },
     "cast": {
       "en": ["Mstyslav Chernov, Alex Babenko"],
@@ -253,7 +254,7 @@
       "uk": ["Мстислав Чернов, Алекс Бабенко"]
     },
     "duration": 108,
-    "year": 2024,
+    "year": 2025,
     "short_description": {
       "en": "An intense documentary on Ukraine’s counteroffensive, blending the harsh reality of modern trench warfare with moments of human closeness, offering a powerful reflection on fear, courage, and survival.",
       "de": "Ein intensiver Dokumentarfilm über die ukrainische Gegenoffensive, der die Härte des modernen Grabenkampfes mit Momenten menschlicher Nähe verbindet und die Themen Angst, Mut und Überleben eindringlich beleuchtet."
@@ -267,11 +268,28 @@
       "en": "Main program",
       "de": "Hauptprogramm"
     },
+    "warning": {
+      "en": "Contains scenes of violence, war, and death.",
+      "de": "Enthält Darstellungen von Gewalt, Krieg und Tod."
+    },
     "trailer": "https://www.youtube.com/watch?v=xRSPxuptLd8",
     "image": "https://images.squarespace-cdn.com/content/5f739670761e02764c54e1ca/7536a7f0-aeb9-48a8-ba81-5b349139b4c6/main-program-2000-meters-to-andriivka.jpeg",
-    "screenings": []
+    "screenings": [
+      {
+        "date": "2025-10-25",
+        "time": "19:00",
+        "venue": {
+          "en": "CineStar Kino in der Kulturbrauerei",
+          "de": "CineStar Kino in der Kulturbrauerei"
+        },
+        "address": "Schönhauser Allee 36, 10435 Berlin",
+        "maps": {
+          "google": "https://maps.app.goo.gl/pfeW6Uaa5jAY6fdP6"
+        },
+        "tickets": "https://2000-meters-to-andriivka.eventbrite.de/"
+      }
+    ]
   },
-
   {
     "id": "my-dear-theo",
     "title": {
@@ -809,10 +827,3 @@
     "special_program": []
   }
 ]
-
-
-
-
-
-
-
