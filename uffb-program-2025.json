@@ -742,7 +742,7 @@
           "en": ["Ukraine"]
         },
         "genre": {
-          "en": ["Feature"],
+          "en": ["Fiction"],
           "de": ["Spielfilm"]
         },
         "year": 2025,
@@ -787,7 +787,7 @@
           "de": ["Deutschland"]
         },
         "genre": {
-          "en": ["Feature"],
+          "en": ["Fiction"],
           "de": ["Spielfilm"]
         },
         "year": 2025,
@@ -809,5 +809,6 @@
     "special_program": []
   }
 ]
+
 
 
