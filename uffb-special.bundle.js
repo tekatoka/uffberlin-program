@@ -397,7 +397,7 @@
     const li = list
       .map((sf) => {
         const t = pickLangVal(sf.title) || ''; // supports {en,de}
-        const genreTxt = joinVals(sf.genre); // handles arrays/i18n
+        //const genreTxt = joinVals(sf.genre); // handles arrays/i18n
         const dirTxt = joinVals(sf.director); // string or i18n
         let durTxt = sf.duration != null ? sf.duration : '';
         if (typeof durTxt === 'number') durTxt = `${durTxt}’`;
@@ -407,7 +407,7 @@
         // Bold title
         bits.push(`<strong>${escapeHtml(t)}</strong>`);
         // Genre in parentheses right after title (if present)
-        if (genreTxt) bits.push(` (${escapeHtml(genreTxt)})`);
+        //if (genreTxt) bits.push(` (${escapeHtml(genreTxt)})`);
         // As in your grid script: " by Director"
         if (dirTxt) bits.push(` by ${escapeHtml(dirTxt)}`);
         // And " | 11’" duration suffix (if present)
