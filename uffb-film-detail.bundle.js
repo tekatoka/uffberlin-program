@@ -639,7 +639,7 @@
           '';
         const img = sf.image || '';
         const trailer = sf.trailer || '';
-        const genreTxt = joinLocalized(sf.genre);
+        //const genreTxt = joinLocalized(sf.genre);
         let durationTxt = sf.duration != null ? sf.duration : '';
         if (typeof durationTxt === 'number') durationTxt = `${durationTxt}'`;
         else if (typeof durationTxt === 'object')
@@ -651,7 +651,6 @@
 
         const metaBlock = `
         <div class="uffb-short-metas">
-          ${genreTxt ? `<div class="uffb-short-meta1"><em>${genreTxt}</em></div>` : ''}
           ${[countries, year].filter(Boolean).length ? `<div class="uffb-short-meta1"><em>${[countries, year].filter(Boolean).join(' | ')}</em></div>` : ''}
           ${director ? `<div class="uffb-short-meta2"><strong>${t('director')}:</strong> ${director}</div>` : ''}
           ${durationTxt ? `<div class="uffb-short-meta3">${durationTxt}</div>` : ''}
