@@ -264,6 +264,7 @@
       <section class="uffb-panel">
         <h3 class="uffb-panel-title">${t('info')}</h3>
         <div class="uffb-info">
+        ${infoRow(t('category'), cat)}
           ${infoRow(t('category'), cat)}
           ${infoRow(t('originalTitle'), original)}
           ${infoRow(t('countries'), countriesTxt)}
@@ -667,11 +668,13 @@
 
         return html`
         <li class="uffb-short-item">
-         ${imgHtml}
-          <div class="left"${title}</div>
-          <div class="right">${metaBlock}${trailerBtn}</div>
-          <div class="full-row">${descBlock}</div>
-        </li>
+            ${imgHtml}
+            <div class="right">
+              <h2>${title}</h2>
+              ${metaBlock}${trailerBtn}
+            </div>
+            <div class="full-row">${descBlock}</div>
+          </li>
       `;
       })
       .join('');
@@ -1135,6 +1138,10 @@
       grid-template-columns: 2fr 1fr; /* 2 columns */
       gap: 8px 28px;
     }
+    .uffb-short-item h2 {
+      margin-top: 0;
+    }
+
     /* Any child with .full-row will span both columns */
     .uffb-short-item > .full-row {
       grid-column: 1 / -1;
