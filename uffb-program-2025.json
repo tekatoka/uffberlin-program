@@ -83,7 +83,7 @@
       {
         "time": "",
         "text": {
-          "en": "Afterwards: Q&A with film producer Darya Bassel afterwards",
+          "en": "Afterwards: Q&A with film producer Darya Bassel",
           "de": "Im Anschluss: Q&A mit der Produzentin Darya Bassel"
         }
       }
@@ -127,7 +127,7 @@
       "de": "Hauptprogramm"
     },
     "trailer": "https://vimeo.com/1090248528",
-    "image": "https://images.squarespace-cdn.com/content/5f739670761e02764c54e1ca/1c4b57a5-12bf-48ed-991d-47f327e97b3a/cuba-and-alaska.jpg",
+    "image": "https://images.squarespace-cdn.com/content/5f739670761e02764c54e1ca/cddb4a2a-9390-4008-aeb5-faa69e13252d/cuba-and-alaska.png",
     "screenings": [
       {
         "date": "2025-10-26",
@@ -809,3 +809,4 @@
     "special_program": []
   }
 ]
+
