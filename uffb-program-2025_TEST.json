@@ -424,6 +424,19 @@
     },
     "trailer": "https://www.youtube.com/watch?v=RCQEO1l0xpY",
     "image": "https://images.squarespace-cdn.com/content/5f739670761e02764c54e1ca/e623deaf-0246-49d8-a149-ebbc725c1292/main-program-honeymoon.jpeg",
-    "screenings": []
+    "screenings": [],
+
+    "partners": [
+      {
+        "name": "Arte",
+        "url": "https://www.arte.de",
+        "logo": "https://images.squarespace-cdn.com/content/5f739670761e02764c54e1ca/1729454053831-H4HXV4A4Z9M68G196SDS/Arte.png"
+      },
+      {
+        "name": "Bundeszentrale für politische Bildung",
+        "url": "https://www.bpb.de/",
+        "logo": "https://images.squarespace-cdn.com/content/5f739670761e02764c54e1ca/38a744a5-9f27-46f2-8765-9e558f306006/BPB.png"
+      }
+    ]
   }
 ]
