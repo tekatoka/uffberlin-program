@@ -267,7 +267,6 @@
       <section class="uffb-panel">
         <h3 class="uffb-panel-title">${t('info')}</h3>
         <div class="uffb-info">
-        ${infoRow(t('category'), cat)}
           ${infoRow(t('category'), cat)}
           ${infoRow(t('originalTitle'), original)}
           ${infoRow(t('countries'), countriesTxt)}
