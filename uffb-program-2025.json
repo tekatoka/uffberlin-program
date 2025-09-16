@@ -544,15 +544,15 @@
     "screenings": []
   },
   {
-    "id": "short-films-competition-program-1",
+    "id": "short-film-competition-program-1",
     "title": {
-      "en": "Short Films Competition: Program I",
+      "en": "Short Film Competition: Program I",
       "de": "Kurzfilmwettbewerb: Programm I"
     },
     "published": true,
     "category": {
       "key": "shorts_competition",
-      "en": "Short films – Competition",
+      "en": "Short film – Competition",
       "de": "Kurzfilmwettbewerb"
     },
     "description": {
@@ -688,15 +688,15 @@
     "special_program": []
   },
   {
-    "id": "short-films-competition-program-2",
+    "id": "short-film-competition-program-2",
     "title": {
-      "en": "Short Films Competition: Program II",
+      "en": "Short Film Competition: Program II",
       "de": "Kurzfilmwettbewerb: Programm II"
     },
     "published": true,
     "category": {
       "key": "shorts_competition",
-      "en": "Short films – Competition",
+      "en": "Short Film Competition",
       "de": "Kurzfilmwettbewerb"
     },
     "description": {
@@ -809,4 +809,5 @@
     "special_program": []
   }
 ]
+
 
