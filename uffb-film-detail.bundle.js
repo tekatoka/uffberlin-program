@@ -1140,6 +1140,7 @@
     }
     .uffb-short-item h2 {
       margin-top: 0;
+      font-size: 1.25rem;
     }
 
     /* Any child with .full-row will span both columns */
