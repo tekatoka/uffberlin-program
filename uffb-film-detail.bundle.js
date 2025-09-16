@@ -1164,6 +1164,9 @@
       .uffb-short-item {
         grid-template-columns: 1fr;
       }
+      .uffb-short-item h2 {
+        margin: 10px 0 15px;
+      }
     }
 
     .uffb-short-img {
