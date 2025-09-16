@@ -506,7 +506,7 @@
         </h1>
 
         <div class="uffb-special-media">
-          <img src="${img}" alt="${escapeHtml(title)}" />
+          <a href="${href}"><img src="${img}" alt="${escapeHtml(title)}" /></a>
         </div>
 
         ${metaBlock} ${prog || ''}
