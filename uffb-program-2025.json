@@ -229,7 +229,7 @@
       "de": "2000 Meters to Andriivka",
       "uk": "2000 метрів до Андріівки"
     },
-    "published": false,
+    "published": true,
     "language": {
       "de": "Ukrainisch mit englischen Untertiteln (OmeU)",
       "en": "Ukrainian with English subtitles"
@@ -827,3 +827,4 @@
     "special_program": []
   }
 ]
+
