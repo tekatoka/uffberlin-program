@@ -329,7 +329,8 @@
       .uffb-groupby {
         margin-left: 0;
         width: 100%;
-        display: content;
+        display: block;
+        margin-top: 15px;
       }
     }
 
