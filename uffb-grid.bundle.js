@@ -32,6 +32,7 @@
       watchTrailer: 'Watch trailer',
       tickets: 'Tickets',
       loadError: 'Program could not be loaded.',
+      noDates: 'Screening dates to be updated soon',
       // date labels
       weekdayDayMonthYear: {
         weekday: 'short',
@@ -59,6 +60,7 @@
       watchTrailer: 'Trailer ansehen',
       tickets: 'Tickets',
       loadError: 'Programm konnte nicht geladen werden.',
+      noDates: 'Vorführtermine folgen in Kürze',
       weekdayDayMonthYear: {
         weekday: 'short',
         day: '2-digit',
@@ -85,6 +87,7 @@
       watchTrailer: 'Дивитися трейлер',
       tickets: 'Квитки',
       loadError: 'Не вдалося завантажити програму фестивалю.',
+      noDates: 'Дати показів буде оновлено найближчим часом',
       weekdayDayMonthYear: {
         weekday: 'short',
         day: '2-digit',
@@ -1459,7 +1462,19 @@
       const dateMap = explodeByDate(list);
       const dates = Array.from(dateMap.keys()).sort();
 
+      // Collect films that have NO dated screenings at all
+      const undated = list
+        .filter((f) => !(f.screenings || []).some((s) => s.date))
+        // sort nicely: by localized title
+        .sort((a, b) => {
+          const at = pickLangVal(a.title) || '';
+          const bt = pickLangVal(b.title) || '';
+          return at.localeCompare(bt);
+        });
+
       let htmlStr = `<div class="uffb-groups">`;
+
+      // 1) Dated groups
       dates.forEach((d) => {
         const nice = isoToLabel(d);
         const entries = dateMap.get(d) || [];
@@ -1473,9 +1488,25 @@
         }
       </section>`;
       });
+
+      // 2) Undated group (only if there are any)
+      if (undated.length) {
+        const undatedLabel = '…' + t('noDates'); // three dots as requested
+        htmlStr += `
+      <section class="uffb-group" data-date="undated">
+        <h4 class="uffb-group-title">${undatedLabel}</h4>
+        ${
+          variant === 'row'
+            ? `<div class="uffb-list">${undated.map((film) => filmCard(film, { variant })).join('')}</div>`
+            : `<div class="uffb-grid">${undated.map((film) => filmCard(film, { variant })).join('')}</div>`
+        }
+      </section>`;
+      }
+
       htmlStr += `</div>`;
       outlet.innerHTML = htmlStr;
 
+      // re-bind trailer buttons
       const modal = mountModal();
       outlet.querySelectorAll('[data-trailer]').forEach((btn) => {
         btn.addEventListener('click', (e) => {
