@@ -581,8 +581,8 @@
       "de": "Kurzfilmwettbewerb"
     },
     "description": {
-      "en": "Short film program I",
-      "de": "Kurzfilmprogramm I"
+      "en": "UFFB Shorts: program I",
+      "de": "UFFB Shorts: Kurzfilmprogramm I"
     },
     "language": {
       "de": "Ukrainisch mit englischen Untertiteln (OmeU)",
@@ -704,13 +704,7 @@
         "trailer": ""
       }
     ],
-    "screenings": [],
-    "special": false,
-    "special_program_tag": {
-      "en": "UFFB Shorts",
-      "de": "UFFB Shorts"
-    },
-    "special_program": []
+    "screenings": []
   },
   {
     "id": "short-film-competition-program-2",
@@ -725,8 +719,8 @@
       "de": "Kurzfilmwettbewerb"
     },
     "description": {
-      "en": "Short film program II",
-      "de": "Kurzfilmprogramm II"
+      "en": "UFFB Shorts: program II",
+      "de": "UFFB Shorts: Kurzfilmprogramm II"
     },
     "language": {
       "de": "Original mit englischen Untertiteln (OmeU)",
@@ -825,12 +819,6 @@
         "trailer": "https://www.youtube.com/watch?v=a7f32SuZ1Z8"
       }
     ],
-    "screenings": [],
-    "special": false,
-    "special_program_tag": {
-      "en": "UFFB Shorts",
-      "de": "UFFB Shorts"
-    },
-    "special_program": []
+    "screenings": []
   }
 ]
