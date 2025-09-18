@@ -711,6 +711,8 @@
     .uffb-breadcrumb {
       margin-bottom: 6px;
       font-size: 13px;
+      display: block;
+      opacity: 1;
     }
     .uffb-breadcrumb ol {
       list-style: none;

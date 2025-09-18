@@ -192,6 +192,7 @@
       "de": "Ukrainisch mit englischen Untertiteln (OmeU)",
       "en": "Ukrainian with English subtitles"
     },
+    "published": true,
     "original_title": "Стрічка часу",
     "director": "Kateryna Gornostai",
     "genre": {
@@ -297,6 +298,7 @@
       "de": "My Dear Théo",
       "uk": "З любов'ю з фронту"
     },
+    "published": true,
     "language": {
       "de": "Ukrainisch mit englischen Untertiteln (OmeU)",
       "en": "Ukrainian with English subtitles"
@@ -316,7 +318,7 @@
       "de": ["Ukraine", "Dänemark", "Polen"]
     },
     "cast": {},
-    "duration": 98,
+    "duration": 97,
     "year": 2025,
     "short_description": {
       "en": "A personal video-letter from the frontline, showing war as both a collective reality and an individual experience—marked by danger, exhaustion, and fleeting tenderness.",
@@ -342,6 +344,7 @@
       "de": "Militantropos",
       "uk": "Мілітантропос"
     },
+    "published": true,
     "language": {
       "de": "Ukrainisch mit englischen Untertiteln (OmeU)",
       "en": "Ukrainian with English subtitles"
@@ -388,9 +391,10 @@
       "de": "Sanatorium",
       "uk": "Sanatorium"
     },
+    "published": true,
     "language": {
-      "de": "Ukrainisch mit englischen Untertiteln (OmeU)",
-      "en": "Ukrainian with English subtitles"
+      "de": "Ukrainisch/Russisch mit englischen Untertiteln (OmeU)",
+      "en": "Ukrainian/Russian with English subtitles"
     },
     "original_title": "Sanatorium",
     "director": {
@@ -410,8 +414,8 @@
     "duration": 95,
     "year": 2025,
     "short_description": {
-      "en": "A mysterious film about an institution where personal stories blur the line between reality and delusion, prompting reflection on the nature of healing.",
-      "de": "Ein rätselhafter Film über eine Institution, in der persönliche Geschichten Realität und Illusion verschwimmen lassen und die Frage nach dem Wesen von Heilung aufwerfen."
+      "en": "Despite a war close by, mud treatments and electro-therapies continue at Kuyalnik Sanatorium near Odesa in southern Ukraine, where a small group searches for love, healing & happiness.",
+      "de": "Trotz des nahen Krieges laufen im Sanatorium Kujalnyk bei Odesa im Süden der Ukraine weiterhin Schlammbäder und Elektrotherapien – während eine kleine Gruppe nach Liebe, Heilung und Glück sucht."
     },
     "detailed_description": {
       "en": "In Sanatorium, Gar O'Rourke explores the fragile line between reality and delusion within a mysterious institution. Set within the confines of a mysterious institution, the film follows its inhabitants’ personal histories. Through those, O'Rourke invites the audience to question the nature of healing.",
@@ -433,6 +437,7 @@
       "de": "Unter dem Vulkan",
       "uk": "Під вулканом"
     },
+    "published": true,
     "language": {
       "de": "Ukrainisch mit englischen Untertiteln (OmeU)",
       "en": "Ukrainian with English subtitles"
@@ -444,8 +449,8 @@
       "uk": ["Даміан Кочур"]
     },
     "genre": {
-      "en": ["Drama", "War"],
-      "de": ["Drama", "Krieg"]
+      "en": ["Feature", "Drama", "War"],
+      "de": ["Spielfilm", "Drama", "Krieg"]
     },
     "countries": {
       "en": ["Poland"],
@@ -478,6 +483,7 @@
       "de": "U Are the Universe",
       "uk": "Ти - коcмоc"
     },
+    "published": true,
     "language": {
       "de": "Ukrainisch mit englischen Untertiteln (OmeU)",
       "en": "Ukrainian with English subtitles"
@@ -489,8 +495,8 @@
       "uk": ["Павло Остріков"]
     },
     "genre": {
-      "en": ["Science-Fiction", "Comedy"],
-      "de": ["Science-Fiction", "Komödie"]
+      "en": ["Feature", "Science-Fiction"],
+      "de": ["Spielfilm", "Science-Fiction"]
     },
     "countries": {
       "en": ["Belgium", "Ukraine"],
@@ -523,6 +529,7 @@
       "de": "Honeymoon",
       "uk": "Медовий місяць"
     },
+    "published": true,
     "language": {
       "de": "Ukrainisch mit englischen Untertiteln (OmeU)",
       "en": "Ukrainian with English subtitles"
@@ -698,7 +705,7 @@
       }
     ],
     "screenings": [],
-    "special": true,
+    "special": false,
     "special_program_tag": {
       "en": "UFFB Shorts",
       "de": "UFFB Shorts"
@@ -819,7 +826,7 @@
       }
     ],
     "screenings": [],
-    "special": true,
+    "special": false,
     "special_program_tag": {
       "en": "UFFB Shorts",
       "de": "UFFB Shorts"
@@ -827,4 +834,3 @@
     "special_program": []
   }
 ]
-
