@@ -53,18 +53,7 @@
         "tickets": "https://uffb2025-opening.eventbrite.de/"
       }
     ],
-    "partners": [
-      {
-        "name": "Arte",
-        "url": "https://www.arte.de",
-        "logo": "https://images.squarespace-cdn.com/content/5f739670761e02764c54e1ca/1729454053831-H4HXV4A4Z9M68G196SDS/Arte.png"
-      },
-      {
-        "name": "Goethe-Institute in Exile",
-        "url": "https://www.goethe.de/prj/gex/en/index.html",
-        "logo": "https://images.squarespace-cdn.com/content/5f739670761e02764c54e1ca/a684ca66-8fb8-42b4-ba6d-92a88ed8d472/goethe_in_exile_logo_black_rgb_350.png"
-      }
-    ],
+    "partners": [],
 
     "special": true,
     "special_program_tag": {
@@ -143,18 +132,7 @@
         "tickets": "https://uffb2025-closing.eventbrite.de/"
       }
     ],
-    "partners": [
-      {
-        "name": "Arte",
-        "url": "https://www.arte.de",
-        "logo": "https://images.squarespace-cdn.com/content/5f739670761e02764c54e1ca/1729454053831-H4HXV4A4Z9M68G196SDS/Arte.png"
-      },
-      {
-        "name": "Goethe-Institute in Exile",
-        "url": "https://www.goethe.de/prj/gex/en/index.html",
-        "logo": "https://images.squarespace-cdn.com/content/5f739670761e02764c54e1ca/a684ca66-8fb8-42b4-ba6d-92a88ed8d472/goethe_in_exile_logo_black_rgb_350.png"
-      }
-    ],
+    "partners": [],
 
     "special": true,
     "special_program_tag": {
@@ -822,3 +800,4 @@
     "screenings": []
   }
 ]
+
