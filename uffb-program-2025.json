@@ -874,7 +874,7 @@
     "year": 2024,
     "short_description": {
       "en": "Nine Ukrainian teens and young women (15–20) film their own lives during wartime, offering intimate glimpses of fear, waiting, arrival, and resilience.",
-      "de": "Neun Ukrainerinnen (15–20) filmen ihr eigenes Leben im Krieg – intime Einblicke in Angst, Aushalten, Ankommen und Widerstandskraft."
+      "de": "Neun junge Ukrainerinnen (15–20) filmen ihr eigenes Leben im Krieg – intime Einblicke in Angst, Aushalten, Ankommen und Widerstandskraft."
     },
     "detailed_description": {
       "en": "Developed within the participatory project “Teen Angst,” the film assembles smartphone-shot diaries by nine Ukrainian girls and young women living in Ukraine and in the diaspora. Each co-author records a distinct perspective as an (internal) refugee, reflecting on family separation, trauma, and the fragile search for normality.",
@@ -938,7 +938,7 @@
     "id": "yaremchuk-matchless-world-of-beauty",
     "title": {
       "en": "Yaremchuk: Matchless World of Beauty",
-      "de": "Yaremchuk: Matchless World of Beauty",
+      "de": "Yaremchuk: Unvergleichbare Welt der Schönheit",
       "uk": "Яремчук: Незрівнянний світ краси"
     },
     "language": {
@@ -1025,7 +1025,7 @@
     "screenings": []
   },
   {
-    "id": "seventh-route-1997",
+    "id": "seventh-route",
     "title": {
       "en": "The Seventh Route",
       "de": "Der siebte Marschroute",
