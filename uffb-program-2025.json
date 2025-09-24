@@ -13,8 +13,8 @@
     "original_title": "Пісні землі, що повільно горить",
     "director": "Olha Zhurba",
     "genre": {
-      "en": ["Documentary", "War"],
-      "de": ["Dokumentarfilm", "Krieg"]
+      "en": ["Documentary"],
+      "de": ["Dokumentarfilm"]
     },
     "countries": {
       "en": ["Ukraine", "Denmark", "Sweden", "France"],
@@ -92,8 +92,8 @@
     "original_title": "Куба & Аляска",
     "director": "Yegor Troyanovsky",
     "genre": {
-      "en": ["Documentary", "War"],
-      "de": ["Dokumentarfilm", "Krieg"]
+      "en": ["Documentary"],
+      "de": ["Dokumentarfilm"]
     },
     "countries": {
       "en": ["Belgium", "Ukraine", "France"],
@@ -174,8 +174,8 @@
     "original_title": "Стрічка часу",
     "director": "Kateryna Gornostai",
     "genre": {
-      "en": ["Documentary", "Education", "War"],
-      "de": ["Dokumentarfilm", "Bildung", "Krieg"]
+      "en": ["Documentary"],
+      "de": ["Dokumentarfilm"]
     },
     "countries": {
       "en": ["Ukraine", "France", "Luxembourg", "Netherlands"],
@@ -220,8 +220,8 @@
       "uk": ["Мстислав Чернов"]
     },
     "genre": {
-      "en": ["Documentary", "War"],
-      "de": ["Dokumentarfilm", "Krieg"]
+      "en": ["Documentary"],
+      "de": ["Dokumentarfilm"]
     },
     "countries": {
       "en": ["Ukraine", "USA"],
@@ -288,8 +288,8 @@
       "uk": ["Аліса Коваленко"]
     },
     "genre": {
-      "en": ["Documentary", "War"],
-      "de": ["Dokumentarfilm", "Krieg"]
+      "en": ["Documentary"],
+      "de": ["Dokumentarfilm"]
     },
     "countries": {
       "en": ["Ukraine", "Denmark", "Poland"],
@@ -334,8 +334,8 @@
       "uk": ["Єлизавета Сміт, Аліна Горлова, Семен Мозговий"]
     },
     "genre": {
-      "en": ["Documentary", "War"],
-      "de": ["Dokumentarfilm", "Krieg"]
+      "en": ["Documentary"],
+      "de": ["Dokumentarfilm"]
     },
     "countries": {
       "en": ["France", "Austria", "Ukraine"],
@@ -381,8 +381,8 @@
       "uk": ["Гар О'Рурк"]
     },
     "genre": {
-      "en": ["Documentary", "Comedy"],
-      "de": ["Dokumentarfilm", "Komödie"]
+      "en": ["Documentary"],
+      "de": ["Dokumentarfilm"]
     },
     "countries": {
       "en": ["Ireland", "Ukraine", "France"],
@@ -427,8 +427,8 @@
       "uk": ["Даміан Кочур"]
     },
     "genre": {
-      "en": ["Feature", "Drama", "War"],
-      "de": ["Spielfilm", "Drama", "Krieg"]
+      "en": ["Feature", "Drama"],
+      "de": ["Spielfilm", "Drama"]
     },
     "countries": {
       "en": ["Poland"],
@@ -519,8 +519,8 @@
       "uk": ["Жанна Озірна"]
     },
     "genre": {
-      "en": ["Drama", "War"],
-      "de": ["Drama", "Krieg"]
+      "en": ["Feature", "Drama"],
+      "de": ["Spielfilm", "Drama"]
     },
     "countries": {
       "en": ["Ukraine"],
@@ -798,6 +798,275 @@
       }
     ],
     "screenings": []
+  },
+  {
+    "id": "when-lightning-flashes-over-the-sea",
+    "title": {
+      "en": "When Lightning Flashes Over the Sea",
+      "de": "When Lightning Flashes Over the Sea",
+      "uk": "Коли над морем спалахує блискавка"
+    },
+    "language": {
+      "de": "Ukrainisch, Russisch & Jiddisch mit englischen Untertiteln (OmeU)",
+      "en": "Ukrainian, Russian & Yiddish with English subtitles"
+    },
+    "original_title": "Коли над морем спалахує блискавка",
+    "director": {
+      "en": ["Eva Neymann"],
+      "de": ["Eva Neymann"],
+      "uk": ["Єва Нейман"]
+    },
+    "genre": {
+      "en": ["Documentary"],
+      "de": ["Dokumentarfilm"]
+    },
+    "countries": {
+      "en": ["Ukraine", "Germany"],
+      "de": ["Ukraine", "Deutschland"]
+    },
+    "cast": "Valeriy Bassel, Fadey Fadeev, Madona Hupenia",
+    "duration": 124,
+    "year": 2025,
+    "short_description": {
+      "en": "A poetic portrait of Odesa in wartime, following locals whose everyday lives, memories and dreams persist amid loss and uncertainty.",
+      "de": "Ein poetisches Porträt von Odesa im Krieg – über Menschen, deren Alltag, Erinnerungen und Träume trotz Verlust und Ungewissheit weiterbestehen."
+    },
+    "detailed_description": {
+      "en": "Neymann interweaves observational scenes and intimate interviews with Odesa’s residents — from a widow caring for stray cats to a sea-loving boy and a Holocaust survivor — revealing resilience and longing as air-raid alarms punctuate daily life. Shot in 2023–2024, the film world-premiered in the Berlinale Forum.",
+      "de": "Mit Feingefühl verbindet Neymann Beobachtungen und Gespräche mit Bewohner:innen von Odesa – von einer Witwe mit Straßenkatzen über einen meerverliebten Jungen bis zu einer Shoah-Überlebenden. Zwischen Stromausfällen und Alarmen zeigt der Film die Widerstandskraft und Sehnsüchte einer Stadt. Gedreht 2023–2024, Weltpremiere im Berlinale-Forum."
+    },
+    "category": {
+      "key": "special",
+      "en": "Special program",
+      "de": "Spezialprogramm"
+    },
+    "trailer": "https://www.youtube.com/watch?v=h9vkCntJY-8",
+    "image": "https://images.squarespace-cdn.com/content/5f739670761e02764c54e1ca/5c2a9370-c3ca-466c-9580-6df1759756ea/when-lightning-flashes-over-the-sea-eva-neymann.jpg",
+    "screenings": []
+  },
+  {
+    "id": "teen-angst",
+    "title": {
+      "en": "Teen Angst",
+      "de": "Teen Angst",
+      "uk": "Teen Angst"
+    },
+    "language": {
+      "de": "Ukrainisch mit englischen Untertiteln (OmeU)",
+      "en": "Ukrainian with English subtitles"
+    },
+    "original_title": "Teen Angst",
+    "director": {
+      "en": ["Inga Pylypchuk"],
+      "de": ["Inga Pylypchuk"],
+      "uk": ["Інга Пилипчук"]
+    },
+    "genre": {
+      "en": ["Documentary"],
+      "de": ["Dokumentarfilm"]
+    },
+    "countries": {
+      "en": ["Germany", "Ukraine"],
+      "de": ["Deutschland", "Ukraine"]
+    },
+    "cast": "Nastya Bebee, Yelyzaveta Chornomorets, Oleksandra Dolobovska, Ksenia Ilyina, Kamila Karpenko, Hanna Krutikova, Alieksandra (Alexa) Luchaieva, Sofiia Orudzheva, Anna Smyrnova",
+    "duration": 38,
+    "year": 2024,
+    "short_description": {
+      "en": "Nine Ukrainian teens and young women (15–20) film their own lives during wartime, offering intimate glimpses of fear, waiting, arrival, and resilience.",
+      "de": "Neun Ukrainerinnen (15–20) filmen ihr eigenes Leben im Krieg – intime Einblicke in Angst, Aushalten, Ankommen und Widerstandskraft."
+    },
+    "detailed_description": {
+      "en": "Developed within the participatory project “Teen Angst,” the film assembles smartphone-shot diaries by nine Ukrainian girls and young women living in Ukraine and in the diaspora. Each co-author records a distinct perspective as an (internal) refugee, reflecting on family separation, trauma, and the fragile search for normality.",
+      "de": "Entstanden im partizipativen Projekt „Teen Angst“ vereint der Film mit dem Smartphone gedrehte Tagebuch-Fragmente von neun ukrainischen Mädchen und jungen Frauen in der Ukraine und der Diaspora. Jede Co-Autorin hält ihre eigene Perspektive als (Binnen-)Geflüchtete fest – zwischen Familientrennung, Trauma und der Suche nach einem Stück Normalität."
+    },
+    "category": {
+      "key": "special",
+      "en": "Special program",
+      "de": "Spezialprogramm"
+    },
+    "trailer": "https://www.youtube.com/watch?v=BiF8Kxxguwo",
+    "image": "https://images.squarespace-cdn.com/content/5f739670761e02764c54e1ca/00ca74b3-9219-48f0-8fed-65aa19675d89/teen-angst-inga-pylypchuk.jpg",
+    "screenings": []
+  },
+  {
+    "id": "oxygen-station",
+    "title": {
+      "en": "Oxygen Station",
+      "de": "Oxygen Station",
+      "uk": "Киснева станція"
+    },
+    "language": {
+      "de": "Ukrainisch und Russisch mit englischen Untertiteln (OmeU)",
+      "en": "Ukrainian and Russian with English subtitles"
+    },
+    "original_title": "Киснева станція",
+    "director": {
+      "en": ["Ivan Tymchenko"],
+      "de": ["Ivan Tymchenko"],
+      "uk": ["Іван Тимченко"]
+    },
+    "genre": {
+      "en": ["Feature", "Drama", "Biography"],
+      "de": ["Spielfilm", "Drama", "Biografie"]
+    },
+    "countries": {
+      "en": ["Ukraine", "Czech Republic", "Sweden", "Slovakia"],
+      "de": ["Ukraine", "Tschechien", "Schweden", "Slowakei"]
+    },
+    "cast": "Borys Orlov, Khrystyna Deilyk, Viktor Poltoratskyi, Viacheslav Zhyla, Serhiy Petko, Vasyl Kukharskyi, Olena Vakhrameeva, Edem Ibadullaev, Beso Moistsrapishvili",
+    "duration": 106,
+    "year": 2023,
+    "short_description": {
+      "en": "1980, USSR. Crimean Tatar activist Mustafa Dzhemilev is exiled to a Siberian village to work at an oxygen station; three people set out across the country—one to meet him, one to destroy him, one to protect him.",
+      "de": "1980, UdSSR. Der krimtatarische Aktivist Mustafa Dschemilew wird in ein sibirisches Dorf verbannt, um in einer Sauerstoffstation zu arbeiten; drei Menschen machen sich auf den Weg – eine, um ihn zu treffen, einer, um ihn zu vernichten, einer, um ihn zu schützen."
+    },
+    "detailed_description": {
+      "en": "A poetic, true-story drama about resistance, love and freedom. After a 303-day hunger strike, Mustafa Dzhemilev is banished to Zyryanka, where routine and surveillance rule. As a zealous prosecutor seeks to crush him, Safinar—a young Crimean Tatar woman who knows him only through letters—travels to meet him, and a third figure enters with dangerous intent.",
+      "de": "Poetisches, auf einer wahren Geschichte basierendes Drama über Widerstand, Liebe und Freiheit. Nach 303 Tagen Hungerstreik wird Mustafa Dschemilew nach Syrjanka verbannt – Alltag und Überwachung bestimmen sein Leben. Während ein fanatischer Staatsanwalt ihn zu Fall bringen will, reist Safinar, die ihn nur aus Briefen kennt, zu ihm; eine dritte Figur verfolgt derweil gefährliche Absichten."
+    },
+    "category": {
+      "key": "special",
+      "en": "Special program",
+      "de": "Spezialprogramm"
+    },
+    "trailer": "https://www.youtube.com/watch?v=YgtgI7Ab1w4",
+    "image": "https://images.squarespace-cdn.com/content/5f739670761e02764c54e1ca/4df9fd6f-7a3e-46a3-ba8a-44695828cb25/Oxygen-station-dzhemilev-usfa-gov-ua.jpg",
+    "screenings": []
+  },
+  {
+    "id": "yaremchuk-matchless-world-of-beauty",
+    "title": {
+      "en": "Yaremchuk: Matchless World of Beauty",
+      "de": "Yaremchuk: Matchless World of Beauty",
+      "uk": "Яремчук: Незрівнянний світ краси"
+    },
+    "language": {
+      "de": "Ukrainisch mit englischen Untertiteln (OmeU)",
+      "en": "Ukrainian with English subtitles"
+    },
+    "original_title": "Яремчук: Незрівнянний світ краси",
+    "director": {
+      "en": ["Artem Hryhoryan"],
+      "de": ["Artem Hryhoryan"],
+      "uk": ["Артем Григорян"]
+    },
+    "genre": {
+      "en": ["Documentary", "Biography", "Music"],
+      "de": ["Dokumentarfilm", "Biografie", "Musik"]
+    },
+    "countries": {
+      "en": ["Ukraine"],
+      "de": ["Ukraine"]
+    },
+    "cast": "Nazariy Yaremchuk (archive), Mariya Yaremchuk",
+    "duration": 92,
+    "year": 2024,
+    "short_description": {
+      "en": "A biographical docu-drama about Nazariy Yaremchuk — Ukraine’s first pop star — tracing his rise and legacy through family memories, diaries, and rare archival footage.",
+      "de": "Biografische Dokudrama über Nazarij Jaremtschuk – die erste ukrainische Pop-Ikone – erzählt über Erinnerungen der Familie, Tagebücher und seltenes Archivmaterial."
+    },
+    "detailed_description": {
+      "en": "The film follows the life and music of Nazariy Yaremchuk: from the breakthrough of “Chervona Ruta” and years with VIA Smerichka to tours across continents and performances in Chornobyl. Built from intimate testimonies and extensive archives, it paints a portrait of an artist who helped make Ukrainian popular music a global presence.",
+      "de": "Der Film zeichnet Leben und Musik von Nazarij Jaremtschuk nach: vom Durchbruch mit „Tschervona Ruta“ und den Jahren mit VIA Smerichka über Tourneen auf mehreren Kontinenten bis zu Auftritten in Tschornobyl. Aus persönlichen Zeugnissen und umfangreichen Archiven entsteht das Porträt eines Künstlers, der ukrainische Popmusik weltweit sichtbar machte."
+    },
+    "category": {
+      "key": "special",
+      "en": "Special program",
+      "de": "Spezialprogramm"
+    },
+    "trailer": "https://vimeo.com/1057532050",
+    "image": "https://images.squarespace-cdn.com/content/5f739670761e02764c54e1ca/645da6c1-895a-4921-ad9d-f285b29a8343/yaremchuk-matchless-world-of-beauty.jpg",
+    "screenings": []
+  },
+  {
+    "id": "shamara",
+    "title": {
+      "en": "Shamara",
+      "de": "Shamara",
+      "uk": "Шамара"
+    },
+    "language": {
+      "de": "Russisch mit englischen Untertiteln (OmeU)",
+      "en": "Russian with English subtitles"
+    },
+    "original_title": "Шамара",
+    "director": {
+      "en": ["Natalya Andreychenko"],
+      "de": ["Natalya Andreychenko"],
+      "uk": ["Наталія Андрейченко"]
+    },
+    "genre": {
+      "en": ["Feature", "Drama", "Melodrama"],
+      "de": ["Spielfilm", "Drama", "Melodram"]
+    },
+    "countries": {
+      "en": ["Ukraine", "Germany"],
+      "de": ["Ukraine", "Deutschland"]
+    },
+    "cast": "Irina Tsymbal, Denis Karasyov, Anzhelika Nevolina, Sergey Ulashov, Tamara Plashenko, Tetyana Yurash",
+    "duration": 105,
+    "year": 1994,
+    "short_description": {
+      "en": "In a Soviet industrial town during a cholera outbreak (1973–74), Zina ‘Shamara’ Shamarina is torn between love and trauma after marrying the man who once assaulted her.",
+      "de": "In einer sowjetischen Industriestadt während einer Cholera-Epidemie (1973–74) ringt Zina „Shamara“ Shamarina zwischen Liebe und Trauma, nachdem sie den Mann heiratete, der sie einst misshandelte."
+    },
+    "detailed_description": {
+      "en": "Based on Svetlana Vasilenko’s 1990 novella, the film follows Zina Shamarina, a rebellious woman living in a factory dormitory whose obsessive love for her husband—who married her to avoid prosecution for a past rape—pushes her between noble gestures and reckless acts. Set against quarantines and fear, Shamara fights for dignity and a sense of self as betrayal and jealousy upend her fragile world.",
+      "de": "Nach der Novelle von Swetlana Wassilenko (1990) erzählt der Film von Zina Shamarina, einer rebellischen Frau im Fabrikwohnheim, deren obsessive Liebe zu ihrem Mann – er heiratete sie einst, um einer Strafverfolgung wegen Vergewaltigung zu entgehen – sie zwischen edlen Taten und unbedachten Ausbrüchen schwanken lässt. Vor dem Hintergrund von Quarantänen und Angst kämpft Shamara um Würde und Selbstbehauptung, während Verrat und Eifersucht ihre fragile Welt erschüttern."
+    },
+    "category": {
+      "key": "special",
+      "en": "Special program",
+      "de": "Spezialprogramm"
+    },
+    "trailer": "https://www.youtube.com/watch?v=H74shg3-EnY",
+    "image": "https://images.squarespace-cdn.com/content/5f739670761e02764c54e1ca/0486fe37-2716-433d-b7dd-5ea4d7bf8fe4/shamara-andreichenko.jpg",
+    "screenings": []
+  },
+  {
+    "id": "seventh-route-1997",
+    "title": {
+      "en": "The Seventh Route",
+      "de": "Der siebte Marschroute",
+      "uk": "Сьомий маршрут"
+    },
+    "language": {
+      "de": "Ukrainisch & Russisch mit englischen Untertiteln (OmeU)",
+      "en": "Ukrainian & Russian with English subtitles"
+    },
+    "original_title": "Сьомий маршрут",
+    "director": {
+      "en": ["Mykhailo Illienko"],
+      "de": ["Mychajlo Illjenko"],
+      "uk": ["Михайло Іллєнко"]
+    },
+    "genre": {
+      "en": ["Feature", "Drama", "Comedy"],
+      "de": ["Spielfilm", "Drama", "Komödie"]
+    },
+    "countries": {
+      "en": ["Ukraine"],
+      "de": ["Ukraine"]
+    },
+    "cast": "Viktoriya Malektorovych, Yurii Yevsiukov, Halyna Sulyma, Yevhen Pashin, Nina Sharolapova, Bohdan Benyuk, Larysa Nedin, Mykola Boklan",
+    "duration": 79,
+    "year": 1997,
+    "short_description": {
+      "en": "Kyiv in a single day: a tour guide improvises a new route for American visitors and secretly turns it into the life story of an ‘unknown’ poet — himself.",
+      "de": "Kyjiw an einem einzigen Tag: Ein Fremdenführer erfindet für US-Touristen eine neue Route und macht sie heimlich zur Lebensgeschichte eines „unbekannten“ Dichters – seiner eigenen."
+    },
+    "detailed_description": {
+      "en": "Set across 24 hours in mid-1990s Kyiv, Illienko’s film blends city portraiture, memory and playful meta-fiction. Guide Danylo Prytulyak spins an impromptu ‘seventh route’ dedicated to a little-known poet — gradually revealing that the myths, verses and detours are autobiographical confessions about unrealized talent and choices made.",
+      "de": "Über 24 Stunden im Kyjiw der 1990er verwebt Illjenko Stadtporträt, Erinnerung und verspielte Meta-Fiktion. Der Guide Danylo Prytuljak ersinnt einen improvisierten „siebten Marschroute“ über einen kaum bekannten Dichter – und legt nach und nach offen, dass Mythen, Verse und Umwege autobiografische Geständnisse über ungenutztes Talent und getroffene Entscheidungen sind."
+    },
+    "category": {
+      "key": "special",
+      "en": "Special program",
+      "de": "Spezialprogramm"
+    },
+    "trailer": "https://www.youtube.com/watch?v=RvjUd0_CnNA",
+    "image": "https://images.squarespace-cdn.com/content/5f739670761e02764c54e1ca/4a833b44-8358-45f7-9db8-060f970cd7af/seventh-route-illyenko.jpg",
+    "screenings": []
   }
 ]
-
