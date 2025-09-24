@@ -237,12 +237,12 @@
     return ld;
   }
 
-  function infoRow(label, valueHtml) {
+  function infoRow(label, valueHtml, additionalClass = '') {
     if (!valueHtml) return '';
     return `
       <div class="uffb-info-row">
         <div class="uffb-info-label">${label}</div>
-        <div class="uffb-info-value">${valueHtml}</div>
+        <div class="uffb-info-value ${additionalClass}">${valueHtml}</div>
       </div>
     `;
   }
@@ -268,7 +268,7 @@
         <h3 class="uffb-panel-title">${t('info')}</h3>
         <div class="uffb-info">
           ${infoRow(t('category'), cat)}
-          ${infoRow(t('originalTitle'), original)}
+          ${infoRow(t('originalTitle'), original, 'original-value')}
           ${infoRow(t('countries'), countriesTxt)}
           ${year ? infoRow(t('year'), year) : ''}
           ${languageTxt ? infoRow(t('language'), languageTxt) : ''}
