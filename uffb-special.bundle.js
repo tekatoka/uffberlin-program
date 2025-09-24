@@ -197,7 +197,7 @@
       text-transform: uppercase;
     }
 
-    .uffb-tickets a:hover {
+    .uffb-special-list .uffb-tickets a:hover {
       background-color: transparent !important;
     }
     .uffb-panel {
