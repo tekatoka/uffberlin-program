@@ -268,7 +268,7 @@
         <h3 class="uffb-panel-title">${t('info')}</h3>
         <div class="uffb-info">
           ${infoRow(t('category'), cat)}
-          ${infoRow(t('originalTitle'), original, 'original-value')}
+          ${infoRow(t('originalTitle'), original, 'original-title')}
           ${infoRow(t('countries'), countriesTxt)}
           ${year ? infoRow(t('year'), year) : ''}
           ${languageTxt ? infoRow(t('language'), languageTxt) : ''}
