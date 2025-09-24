@@ -149,8 +149,6 @@
       row-gap: 25px;
     }
     .uffb-screening {
-      display: grid;
-      grid-template-columns: 1fr auto;
       align-items: start;
       gap: 6px 12px;
       font-size: 1rem;
@@ -197,6 +195,10 @@
       border: 1.5px solid;
       border-radius: 0px;
       text-transform: uppercase;
+    }
+
+    .uffb-tickets a:hover {
+      backgrond-color: transparent !important;
     }
     .uffb-panel {
       padding: 0;
