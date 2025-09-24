@@ -148,12 +148,10 @@
       gap: 25px;
       row-gap: 25px;
     }
-    .uffb-screening {
+    .uffb-special-list .uffb-screening {
       align-items: start;
       gap: 6px 12px;
       font-size: 1rem;
-      display: flex;
-      flex-direction: column;
       gap: 4px;
     }
     .uffb-category {
