@@ -198,7 +198,7 @@
     }
 
     .uffb-tickets a:hover {
-      backgrond-color: transparent !important;
+      background-color: transparent !important;
     }
     .uffb-panel {
       padding: 0;
