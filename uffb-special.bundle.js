@@ -150,9 +150,11 @@
     }
     .uffb-special-list .uffb-screening {
       align-items: start;
-      gap: 6px 12px;
       font-size: 1rem;
-      gap: 4px;
+      display: flex;
+      flex-direction: column;
+      white-space: nowrap;
+      gap: 5px;
     }
     .uffb-category {
       font-size: 0.9rem;
