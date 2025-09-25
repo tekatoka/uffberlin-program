@@ -345,7 +345,7 @@
       gap: 0.8rem;
       /* 30% / 30% / 30% / 10% via fr units */
       grid-template-columns: 3fr 3fr 3fr 1fr;
-      align-items: end;          /* bottoms line up nicely */
+      align-items: end; /* bottoms line up nicely */
       border-radius: 0;
       margin: 0.5rem 0 1rem 0;
       backdrop-filter: saturate(120%) blur(4px);
@@ -358,11 +358,12 @@
 
     /* Make each grid item stack its label and input neatly */
     .uffb-filters label,
-    .uffb-filter-actions {       /* <-- fixed class name */
+    .uffb-filter-actions {
+      /* <-- fixed class name */
       display: flex;
       flex-direction: column;
       gap: 0.35rem;
-      min-width: 0;              /* prevents overflow in tight spaces */
+      min-width: 0; /* prevents overflow in tight spaces */
     }
 
     /* Make the button fill the 10% column */
@@ -377,17 +378,41 @@
       }
     }
 
+    :root {
+      --uffb-control-h: 42px;
+    }
+
     /* fields */
     .uffb-field {
-      width: 100%;
+      height: var(--uffb-control-h);
+      padding: 0 0.75rem;
+      box-sizing: border-box;
       font: inherit;
-      color: #333;
-      background: #fff;
-      padding: 0.55rem 0.65rem;
-      border: 1px solid #d7d7d7;
-      border-radius: 0px;
-      line-height: 1rem;/
     }
+
+    select.uffb-field {
+      appearance: none;
+      background-repeat: no-repeat;
+      background-position: right 0.6rem center;
+      padding-right: 2rem; /* room for chevron */
+    }
+
+    .uffb-search {
+      display: grid;
+      gap: 0.8rem;
+      grid-template-columns: 3fr; /* same unit as filters' columns */
+      width: 30%; /* ≈ width of one filter dropdown */
+      margin: 0.5rem 0 1rem 0;
+    }
+
+    /* Keep it nice on small screens */
+    @media (max-width: 800px) {
+      .uffb-search {
+        width: 100%;
+        grid-template-columns: 1fr;
+      }
+    }
+
     .uffb-field:focus {
       outline: 2px solid #bbb;
       outline-offset: 1px;
@@ -1257,7 +1282,7 @@
     const filters = document.createElement('form');
     filters.id = 'filters';
     filters.className = 'uffb-filters';
-    filters.setAttribute('hidden', '');
+    filters.setAttribute('hidden', ''); //default: hidden! TODO: change to visible
     filters.innerHTML = html`
       <label
         ><span>${t('category')}</span>
@@ -1289,7 +1314,7 @@
     const search = document.createElement('form');
     search.id = 'searchbar';
     search.className = 'uffb-search';
-    search.setAttribute('hidden', '');
+    search.setAttribute('hidden', ''); //default: hidden!
     search.innerHTML = html`
       <input
         type="search"
