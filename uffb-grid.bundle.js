@@ -338,32 +338,43 @@
       margin: 25px 0 !important;
     }
 
-    /* panels */
+    /* PANELS (updated) */
     .uffb-filters,
     .uffb-search {
       display: grid;
       gap: 0.8rem;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      padding: 0.8rem;
-      border: 1px solid rgba(255, 255, 255, 0.5);
-      border-radius: 0px;
+      /* 30% / 30% / 30% / 10% via fr units */
+      grid-template-columns: 3fr 3fr 3fr 1fr;
+      align-items: end;          /* bottoms line up nicely */
+      border-radius: 0;
       margin: 0.5rem 0 1rem 0;
-      background: rgba(255, 255, 255, 0.06);
       backdrop-filter: saturate(120%) blur(4px);
     }
+
     .uffb-filters[hidden],
     .uffb-search[hidden] {
       display: none;
     }
-    .uffb-filters label {
+
+    /* Make each grid item stack its label and input neatly */
+    .uffb-filters label,
+    .uffb-filter-actions {       /* <-- fixed class name */
       display: flex;
       flex-direction: column;
       gap: 0.35rem;
-      min-width: 0;
+      min-width: 0;              /* prevents overflow in tight spaces */
     }
-    .uffb-filter-actions {
-      display: flex;
-      gap: 0.5rem;
+
+    /* Make the button fill the 10% column */
+    #clearFilters {
+      width: 100%;
+    }
+
+    /* Optional: keep it usable on small screens by allowing wrap */
+    @media (max-width: 699px) {
+      .uffb-filters {
+        grid-template-columns: repeat(1, 1fr);
+      }
     }
 
     /* fields */
@@ -375,6 +386,7 @@
       padding: 0.55rem 0.65rem;
       border: 1px solid #d7d7d7;
       border-radius: 0px;
+      line-height: 1rem;/
     }
     .uffb-field:focus {
       outline: 2px solid #bbb;
