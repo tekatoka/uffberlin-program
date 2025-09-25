@@ -372,7 +372,7 @@
     }
 
     /* Optional: keep it usable on small screens by allowing wrap */
-    @media (max-width: 699px) {
+    @media (max-width: 899px) {
       .uffb-filters {
         grid-template-columns: repeat(1, 1fr);
       }
@@ -405,11 +405,19 @@
       margin: 0.5rem 0 1rem 0;
     }
 
+    .uffb-search input {
+      margin-right: 0.75rem;
+    }
+
     /* Keep it nice on small screens */
-    @media (max-width: 800px) {
+    @media (max-width: 899px) {
       .uffb-search {
         width: 100%;
         grid-template-columns: 1fr;
+      }
+
+      .uffb-search input {
+        margin-right: 0;
       }
     }
 
