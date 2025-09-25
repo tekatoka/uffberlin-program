@@ -390,13 +390,6 @@
       font: inherit;
     }
 
-    select.uffb-field {
-      appearance: none;
-      background-repeat: no-repeat;
-      background-position: right 0.6rem center;
-      padding-right: 2rem; /* room for chevron */
-    }
-
     .uffb-search {
       display: grid;
       gap: 0.8rem;
