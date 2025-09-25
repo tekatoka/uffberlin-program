@@ -267,6 +267,13 @@
         },
         "tickets": "https://2000-meters-to-andriivka.eventbrite.de/"
       }
+    ],
+    "partners": [
+      {
+        "name": "Vitsche e.V.",
+        "url": "https://vitsche.org/de/",
+        "logo": "https://images.squarespace-cdn.com/content/v1/5f739670761e02764c54e1ca/a5cc8c2a-d46f-40f4-84c7-f51ac7af516a/21_vitsche.png"
+      }
     ]
   },
   {
