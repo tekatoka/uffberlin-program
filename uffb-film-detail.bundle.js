@@ -670,21 +670,93 @@
     return Array.isArray(val) ? val.filter(Boolean) : val ? [val] : [];
   }
 
+  function escAttr(s = '') {
+    return String(s).replace(/"/g, '&quot;');
+  }
+
   // Bold director names inside bio (even if user didn’t add <b> in JSON)
-  function boldDirectorNamesIn(bioHtml, directors) {
+  /**
+   * Bold director names and (if available) attach data-photo="URL" for tooltip
+   * @param {string} bioHtml - sanitized bio (use sanitizeBio before this)
+   * @param {string[]} directors - array of names in current language
+   * @param {(name:string)=>string|undefined} photoFor - callback returning photo URL for a name
+   */
+  function boldDirectorNamesIn(bioHtml, directors, photoFor) {
     if (!bioHtml || !directors.length) return bioHtml;
     let out = bioHtml;
     directors.forEach((name) => {
-      // escape regex specials in name
+      if (!name) return;
       const escaped = name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-      // avoid double-wrapping already-bolded names
-      const re = new RegExp(
-        `(?!<(?:b|strong)[^>]*>)\\b(${escaped})\\b(?![^<]*</(?:b|strong)>)`,
-        'gi'
+
+      // don’t re-bold already bold text; unicode + global
+      const reAll = new RegExp(
+        `\\b(${escaped})\\b(?![^<]*</(?:b|strong)>)`,
+        'igu'
       );
-      out = out.replace(re, '<strong class="uffb-dir-name">$1</strong>');
+
+      const url = photoFor ? photoFor(name) : '';
+      const attr = url ? ` data-photo="${escAttr(url)}"` : '';
+
+      out = out.replace(
+        reAll,
+        `<strong class="uffb-dir-name"${attr}>$1</strong>`
+      );
     });
     return out;
+  }
+
+  function ensureDirTooltip() {
+    if (document.getElementById('uffb-dir-tooltip')) return;
+    const box = document.createElement('div');
+    box.id = 'uffb-dir-tooltip';
+    box.innerHTML = `<img alt="" loading="lazy">`;
+    document.body.appendChild(box);
+  }
+
+  function attachDirPhotoTooltips(root) {
+    ensureDirTooltip();
+    const tip = document.getElementById('uffb-dir-tooltip');
+    const img = tip.querySelector('img');
+
+    function show(e) {
+      const url = e.currentTarget.getAttribute('data-photo');
+      if (!url) return;
+      img.src = url;
+      tip.style.display = 'block';
+      move(e);
+    }
+    function move(e) {
+      // position near cursor but keep on-screen
+      const pad = 14;
+      const vw = window.innerWidth,
+        vh = window.innerHeight;
+      const tw = tip.offsetWidth || 220,
+        th = tip.offsetHeight || 140;
+      let x = e.clientX + pad,
+        y = e.clientY + pad;
+      if (x + tw + pad > vw) x = e.clientX - tw - pad;
+      if (y + th + pad > vh) y = e.clientY - th - pad;
+      tip.style.left = `${Math.max(0, x)}px`;
+      tip.style.top = `${Math.max(0, y)}px`;
+    }
+    function hide() {
+      tip.style.display = 'none';
+      img.src = '';
+    }
+
+    root.querySelectorAll('.uffb-dir-name[data-photo]').forEach((el) => {
+      el.addEventListener('mouseenter', show);
+      el.addEventListener('mousemove', move);
+      el.addEventListener('mouseleave', hide);
+      el.addEventListener(
+        'touchstart',
+        (e) => {
+          show(e.touches[0]);
+        },
+        { passive: true }
+      );
+      el.addEventListener('touchend', hide, { passive: true });
+    });
   }
 
   function buildShortsItemsSection(film) {
@@ -720,11 +792,19 @@
           '';
         const aboutSanitized = sanitizeBio(aboutRaw);
         const directorList = toDirectorList(sf.director, localized);
+
+        const directorLine = directorList.join(', ');
+
+        const photoMapShort = sf.director_photos || {};
+        const photoMapFilm = (film && film.director_photos) || {};
+        const photoFor = (name) =>
+          photoMapShort[name] || photoMapFilm[name] || '';
         const aboutWithBoldNames = boldDirectorNamesIn(
           aboutSanitized,
-          directorList
+          directorList,
+          photoFor
         );
-        const directorLine = directorList.join(', ');
+
         const aboutBlock = aboutWithBoldNames
           ? `<div class="uffb-short-about">
            <!--div class="ttl">${t('aboutDirector')}</div-->
@@ -1350,6 +1430,30 @@
       font-weight: 700;
     }
 
+    #uffb-dir-tooltip {
+      position: fixed;
+      z-index: 99999;
+      display: none;
+      pointer-events: none;
+      background: #fff;
+      color: #fff;
+      border-radius: 0px;
+      padding: 5px;
+      max-width: 260px;
+    }
+    #uffb-dir-tooltip img {
+      display: block;
+      max-width: 240px;
+      height: auto;
+      object-fit: cover;
+    }
+    .uffb-dir-name {
+      font-weight: 700; /* already bolded; keep class for targeting */
+      text-decoration: underline dotted rgba(255, 255, 255, 0.4);
+      text-underline-offset: 2px;
+      cursor: help;
+    }
+
     /* Partners */
     .uffb-partners {
       margin-top: 45px !important;
@@ -1478,6 +1582,8 @@
         <section class="uffb-actions"></section>
       </article>
     `;
+
+    attachDirPhotoTooltips(wrap);
 
     // trailer buttons → lightbox (topline + per-short)
     wrap.querySelectorAll('.uffb-trailer-btn').forEach((btn) => {
