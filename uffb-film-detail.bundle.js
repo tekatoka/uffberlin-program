@@ -1318,6 +1318,9 @@
     .uffb-short-meta3 {
       color: #fff;
     }
+    .uffb-short-meta2 {
+      line-height: 1.5rem;
+    }
     .uffb-short-desc {
       font-size: 1.03rem;
       line-height: 1.45;
