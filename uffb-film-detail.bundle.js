@@ -677,9 +677,7 @@
             ${imgHtml}
             <div class="right">
               <h2>${title}</h2>
-              ${metaBlock}${trailerBtn}
-              <br />
-              ${descBlock}
+              ${metaBlock}${trailerBtn} ${descBlock}
             </div>
             <!--div class="full-row">${descBlock}</div-->
           </li>
