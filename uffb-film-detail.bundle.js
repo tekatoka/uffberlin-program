@@ -817,7 +817,7 @@
 
     .uffb-topline {
       display: flex;
-      gap: 20px;
+      gap: 50px;
       align-items: flex-end;
       justify-content: space-between;
       background: #000;
@@ -994,6 +994,11 @@
       scroll-margin-top: 80px;
     }
 
+    .uffb-shorts-layout .uffb-screenings-block,
+    .uffb-shorts-layout .uffb-screenings-block .uffb-section-title {
+      margin-top: 0;
+    }
+
     .uffb-screenings-grid {
       display: grid;
       gap: 16px;
@@ -1125,7 +1130,6 @@
     @media (min-width: 1100px) {
       .uffb-shorts-right {
         padding-left: 20px;
-        border-left: 1px solid rgba(255, 255, 255, 0.1);
       }
     }
 
