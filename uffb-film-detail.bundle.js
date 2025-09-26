@@ -46,6 +46,7 @@
       language: 'Language',
       duration: 'Duration',
       director: 'Director',
+      directors: 'Directors',
       cast: 'Cast',
       shortDescLabel: 'Short description:',
       loadError: 'Film data could not be loaded.',
@@ -71,6 +72,7 @@
       language: 'Sprache',
       duration: 'Filmlänge',
       director: 'Regie',
+      directors: 'Regie',
       cast: 'Cast',
       shortDescLabel: 'Kurzbeschreibung:',
       loadError: 'Filmdaten konnten nicht geladen werden.',
@@ -96,6 +98,7 @@
       language: 'Мова',
       duration: 'Тривалість',
       director: 'Режисер',
+      directors: 'Режисери',
       cast: 'Акторський склад',
       shortDescLabel: 'Короткий опис:',
       loadError: 'Не вдалося завантажити дані про фільм.',
@@ -721,6 +724,7 @@
           aboutSanitized,
           directorList
         );
+        const directorLine = directorList.join(', ');
         const aboutBlock = aboutWithBoldNames
           ? `<div class="uffb-short-about">
            <!--div class="ttl">${t('aboutDirector')}</div-->
@@ -743,7 +747,7 @@
         const metaBlock = `
         <div class="uffb-short-metas">
           ${[countries, year].filter(Boolean).length ? `<div class="uffb-short-meta1"><em>${[countries, year].filter(Boolean).join(' | ')}</em></div>` : ''}
-          ${director ? `<div class="uffb-short-meta2"><strong>${t('director')}:</strong> ${director}</div>` : ''}
+          ${directorList ? `<div class="uffb-short-meta2"><strong>${directorList.length > 1 ? t('directors') : t('director')}:</strong> ${directorLine}</div>` : ''}
           ${durationTxt ? `<div class="uffb-short-meta3">${durationTxt}</div>` : ''}
         </div>
       `;
