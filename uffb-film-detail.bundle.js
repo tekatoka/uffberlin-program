@@ -52,6 +52,7 @@
       filmNotFound: 'Film not found.',
       collaboration: 'In collaboration with',
       warning: 'Warning',
+      aboutDirector: 'About the director(s)',
     },
     de: {
       home: 'Start',
@@ -76,6 +77,7 @@
       filmNotFound: 'Film nicht gefunden.',
       collaboration: 'In Kooperation mit',
       warning: 'Warnung',
+      aboutDirector: 'Über die Filmemacher',
     },
     uk: {
       home: 'Головна',
@@ -100,6 +102,7 @@
       filmNotFound: 'Фільм не знайдено.',
       collaboration: 'У співпраці з',
       warning: 'Попередження',
+      aboutDirector: 'Про режисера(-ів)',
     },
   };
   const t = (key) => I18N[lang]?.[key] ?? key;
@@ -618,6 +621,69 @@
   }
 
   /* --- SHORTS: centered list with bigger thumbs; screenings on right --- */
+
+  // allows minimal markup in bios; strips everything else
+  function sanitizeBio(htmlStr = '') {
+    const div = document.createElement('div');
+    div.innerHTML = htmlStr;
+
+    const allowed = new Set(['B', 'STRONG', 'EM', 'I', 'BR', 'P', 'A']);
+    const walker = document.createTreeWalker(
+      div,
+      NodeFilter.SHOW_ELEMENT,
+      null,
+      false
+    );
+
+    const toRemove = [];
+    let node;
+    while ((node = walker.nextNode())) {
+      if (!allowed.has(node.tagName)) {
+        // unwrap disallowed tags (keep text content)
+        const parent = node.parentNode;
+        while (node.firstChild) parent.insertBefore(node.firstChild, node);
+        toRemove.push(node);
+        continue;
+      }
+      if (node.tagName === 'A') {
+        // keep only safe href
+        const href = node.getAttribute('href') || '';
+        if (!/^https?:\/\//i.test(href)) {
+          node.removeAttribute('href');
+        }
+        node.removeAttribute('onclick');
+        node.removeAttribute('onmouseover');
+        node.removeAttribute('style');
+      }
+    }
+    toRemove.forEach((n) => n.remove());
+    return div.innerHTML;
+  }
+
+  // ensure director(s) is array of strings in current lang
+  function toDirectorList(director, localizedFn) {
+    if (!director) return [];
+    const val = typeof director === 'object' ? localizedFn(director) : director;
+    return Array.isArray(val) ? val.filter(Boolean) : val ? [val] : [];
+  }
+
+  // Bold director names inside bio (even if user didn’t add <b> in JSON)
+  function boldDirectorNamesIn(bioHtml, directors) {
+    if (!bioHtml || !directors.length) return bioHtml;
+    let out = bioHtml;
+    directors.forEach((name) => {
+      // escape regex specials in name
+      const escaped = name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      // avoid double-wrapping already-bolded names
+      const re = new RegExp(
+        `(?!<(?:b|strong)[^>]*>)\\b(${escaped})\\b(?![^<]*</(?:b|strong)>)`,
+        'gi'
+      );
+      out = out.replace(re, '<strong class="uffb-dir-name">$1</strong>');
+    });
+    return out;
+  }
+
   function buildShortsItemsSection(film) {
     const shorts = Array.isArray(film.films) ? film.films : [];
     if (!shorts.length) return '';
@@ -644,6 +710,24 @@
               ? localized(sf.description)
               : sf.description)) ||
           '';
+
+        const aboutRaw =
+          (sf.about &&
+            (typeof sf.about === 'object' ? localized(sf.about) : sf.about)) ||
+          '';
+        const aboutSanitized = sanitizeBio(aboutRaw);
+        const directorList = toDirectorList(sf.director, localized);
+        const aboutWithBoldNames = boldDirectorNamesIn(
+          aboutSanitized,
+          directorList
+        );
+        const aboutBlock = aboutWithBoldNames
+          ? `<div class="uffb-short-about">
+           <!--div class="ttl">${t('aboutDirector')}</div-->
+           <div class="txt">${aboutWithBoldNames}</div>
+         </div>`
+          : '';
+
         const img = sf.image || '';
         const trailer = sf.trailer || '';
         //const genreTxt = joinLocalized(sf.genre);
@@ -677,7 +761,7 @@
             ${imgHtml}
             <div class="right">
               <h2>${title}</h2>
-              ${metaBlock}${trailerBtn} ${descBlock}
+              ${metaBlock}${trailerBtn} ${descBlock} ${aboutBlock}
             </div>
             <!--div class="full-row">${descBlock}</div-->
           </li>
@@ -1238,6 +1322,26 @@
     .uffb-short-actions {
       margin-top: 6px;
     }
+
+    /* about directors section */
+    .uffb-short-about {
+      margin-top: 0.75rem;
+      padding-top: 0.75rem;
+      border-top: 1px dotted var(--hairline, #ddd);
+      font-size: 0.95em;
+      color: lightgray;
+    }
+    .uffb-short-about .ttl {
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+    .uffb-short-about p {
+      margin: 0.4rem 0;
+    }
+    .uffb-dir-name {
+      font-weight: 700;
+    }
+
     /* Partners */
     .uffb-partners {
       margin-top: 45px !important;

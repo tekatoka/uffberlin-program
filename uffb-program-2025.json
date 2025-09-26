@@ -581,7 +581,11 @@
           "en": "Off-time",
           "de": "Off-time"
         },
-        "director": "Nata Metlukh",
+        "director": { "en": ["Nata Metlukh"], "de": ["Nata Metlukh"] },
+        "about": {
+          "en": "Nata Metlukh is a Ukrainian-American animation artist based in California. With a background in applied mathematics and graphic design, she explores the absurdity of everyday life. Through exaggeration and deconstruction, she gives the familiar a slightly unusual twist. Her films have been showcased at international animation festivals, occasionally receiving recognition.",
+          "de": "Nata Metlukh ist eine ukrainisch-amerikanische Animationskünstlerin mit Sitz in Kalifornien. Mit einem Hintergrund in Angewandter Mathematik und Grafikdesign erforscht sie die Absurdität des Alltags. Durch Übertreibung und Dekonstruktion verleiht sie dem Bekannten einen leicht ungewohnten Dreh. Ihre Filme wurden auf internationalen Animationsfestivals gezeigt und bisweilen ausgezeichnet."
+        },
         "countries": {
           "en": ["USA", "Ukraine", "Japan"]
         },
@@ -603,7 +607,11 @@
           "en": "Prelude",
           "de": "Prelude"
         },
-        "director": "Alina Panasenko",
+        "director": { "en": ["Alina Panasenko"], "de": ["Alina Panasenko"] },
+        "about": {
+          "en": "Alina Panasenko is a director, screenwriter, b.2000 (Severodonetsk, Ukraine) and based in Kyiv, Ukraine. Member of Ukrainian Film Academy. Sarajevo Talents Alumna. In her practice she researches on the nature of image itself, as well as eroticism, political and social problematics within native Ukrainian context.",
+          "de": "Alina Panasenko ist Regisseurin und Drehbuchautorin, geb. 2000 (Sewerodonezk, Ukraine), lebt in Kyjiw, Ukraine. Mitglied der Ukrainischen Filmakademie. Sarajevo Talents Alumna. In ihrer Praxis erforscht sie das Bild an sich sowie Erotik, politische und soziale Problematiken im ukrainischen Kontext."
+        },
         "countries": {
           "en": ["Ukraine"]
         },
@@ -625,7 +633,11 @@
           "en": "Night Shift",
           "de": "Nachtschift"
         },
-        "director": "Megumi Lim",
+        "director": { "en": ["Megumi Lim"], "de": ["Megumi Lim"] },
+        "about": {
+          "en": "Megumi Lim is a Kyiv-based documentary filmmaker from Singapore. She began her career as a video journalist at the Reuters bureau in Tokyo, and over the past decade - based in Tokyo and then Beijing - she reported on major news stories across Asia. She relocated to Ukraine in 2023, where she transitioned to storytelling through documentary film. NIGHT SHIFT is her debut short film and marks her first entry into film festivals.",
+          "de": "Megumi Lim ist eine in Kyjiw lebende Dokumentarfilmerin aus Singapur. Ihre Laufbahn begann sie als Videojournalistin im Reuters-Büro in Tokio, und in den vergangenen zehn Jahren – zunächst in Tokio, später in Peking – berichtete sie über große Nachrichtengeschichten in Asien. 2023 zog sie in die Ukraine und wechselte dort zum dokumentarischen Erzählen. NIGHT SHIFT ist ihr Kurzfilmdebüt und markiert ihre erste Teilnahme an Filmfestivals."
+        },
         "countries": {
           "en": ["Ukraine"]
         },
@@ -647,7 +659,11 @@
           "en": "Walk",
           "de": "Spaziere"
         },
-        "director": "Daria Zhuravel",
+        "director": { "en": ["Daria Zhuravel"], "de": ["Daria Zhuravel"] },
+        "about": {
+          "en": "Daria Zhuravel (she/her) is an emerging Ukrainian director. She holds a BA in Performing Arts from the I. K. Karpenko-Karyi Kyiv National University of Theatre, Cinema and Television. Since 2022, she has been working in the film industry, participating in various programmes and workshops for filmmakers (Talents Nest at the Meeting Point Vilnius, Ji.hlava Academy, Visual Anthropology School, Caucasus Cinema Film Program, etc). She worked as an editor, assistant director, and researcher. In her artwork, she explores the themes of human vulnerability, the phenomenon of chance, and identity issues.",
+          "de": "Daria Zhuravel (sie/ihr) ist eine aufstrebende ukrainische Regisseurin. Sie hat einen BA in Darstellender Kunst von der I.-K.-Karpenko-Karyi Nationalen Universität für Theater, Film und Fernsehen in Kyjiw. Seit 2022 arbeitet sie in der Filmbranche und nimmt an verschiedenen Programmen und Workshops für Filmschaffende teil (Talents Nest bei Meeting Point Vilnius, Ji.hlava Academy, Visual Anthropology School, Caucasus Cinema Film Program u. a.). Sie arbeitete als Editorin, Regieassistentin und Researcherin. In ihrer künstlerischen Arbeit untersucht sie menschliche Verletzlichkeit, das Phänomen des Zufalls und Fragen der Identität."
+        },
         "countries": {
           "en": ["Ukraine", "Georgia"],
           "de": ["Ukraine", "Georgien"]
@@ -670,7 +686,14 @@
           "en": "Additional scenes",
           "de": "Zusätzliche Szenen"
         },
-        "director": "Roman Khimei, Yarema Malashchuk",
+        "director": {
+          "en": ["Roman Khimei", "Yarema Malashchuk"],
+          "de": ["Roman Khimei", "Yarema Malashchuk"]
+        },
+        "about": {
+          "en": "Collaborating at the edge of visual art and cinema since 2013, Kyiv-based artists and filmmakers, Roman Khimei and Yarema Malashchuk graduated as cinematographers from the Institute of Screen Arts in Kyiv, Ukraine. Focusing on the role of the extra, their works engage with imperialist mythologies. They were awarded the main award of the PinchukArtCentre Prize (2020) and VISIO Young Talent Acquisition Prize (2021). Their short film Explosion Near the Museum won the National Competition at the 15th Wiz-Art LIFF. The duo also participated in the Future Generation Art Prize 2021, in group exhibitions at Baltic Triennial 14, Gothenburg Biennial 2023, Kyiv Biennial, Haus der Kunst, Museum of Contemporary Art Antwerp, Albertinum and others. Their video works are in collections of the Museum of Contemporary Art Kiasma, Museum of Contemporary Art Antwerp, Fondazione In Between Art Film Rome, Kunstmuseum Liechtenstein and Frac Bretagne.",
+          "de": "Seit 2013 arbeiten die in Kyjiw ansässigen Künstler und Filmemacher Roman Khimei und Yarema Malashchuk an der Schnittstelle von Bildender Kunst und Kino. Beide schlossen als Kameraleute am Institut für Filmkunst in Kyjiw ab. Mit Fokus auf die Rolle der Statist*innen setzen sich ihre Arbeiten mit imperialistischen Mythologien auseinander. Sie wurden mit dem Hauptpreis des PinchukArtCentre Prize (2020) und dem VISIO Young Talent Acquisition Prize (2021) ausgezeichnet. Ihr Kurzfilm Explosion Near the Museum gewann den Nationalen Wettbewerb beim 15. Wiz-Art LIFF. Das Duo nahm außerdem am Future Generation Art Prize 2021 teil und war in Gruppenausstellungen u. a. bei der Baltic Triennial 14, der Göteborg Biennale 2023, der Kyjiw Biennale, im Haus der Kunst, im Museum für Zeitgenössische Kunst Antwerpen, im Albertinum und anderen vertreten. Ihre Videoarbeiten befinden sich in den Sammlungen des Museums für Zeitgenössische Kunst Kiasma, des Museums für Zeitgenössische Kunst Antwerpen, der Fondazione In Between Art Film Rom, des Kunstmuseum Liechtenstein und von Frac Bretagne."
+        },
         "countries": {
           "en": ["Ukraine"],
           "de": ["Ukraine"]
@@ -746,7 +769,14 @@
           "en": "Can you hear me?",
           "de": "Kannst du mich hören?"
         },
-        "director": "Anastazja Naumenko",
+        "director": {
+          "en": ["Anastazja Naumenko"],
+          "de": ["Anastazja Naumenko"]
+        },
+        "about": {
+          "en": "Anastazja Naumenko is a visual artist and director, whose main investigation focuses on intertwinement and co-relations between real and fictional worlds, hence most of their works are a mix of documentary and fiction. They are currently studying at die Angewandte in Vienna.",
+          "de": "Anastazja Naumenko ist bildender Künstlerin und Regisseur*in; der Schwerpunkt von Naumenkos Arbeit liegt auf den Verflechtungen und Beziehungen zwischen realen und fiktionalen Welten, weshalb die meisten Werke eine Mischung aus Dokumentarischem und Fiktion sind. Derzeit studiert Naumenko an der „Angewandten“ in Wien."
+        },
         "countries": {
           "en": ["Poland"]
         },
@@ -768,7 +798,14 @@
           "en": "Life begins",
           "de": "Das Leben beginnt"
         },
-        "director": "Oleksiy Taranenko",
+        "director": {
+          "en": ["Oleksiy Taranenko"],
+          "de": ["Oleksiy Taranenko"]
+        },
+        "about": {
+          "en": "Oleksiy Taranenko is a Ukrainian film director and screenwriter born in 1976 in Dnipro, Ukraine. He has been working as a director of commercials and films since 2003. He is the author of several scripts,commercials and features. In 2013, his documentary “Stylization of aftertaste” won a special mention at The Film Skillet Documentary Film Contest (USA). “I Work at the Cemetery” (2022) his feature debut as a director. This film has been selected and received several awards at national and international film festivals, including Warsaw FF, Molodist IFF, British Independent Film Festival.",
+          "de": "Oleksiy Taranenko ist ein ukrainischer Filmregisseur und Drehbuchautor, 1976 in Dnipro, Ukraine, geboren. Seit 2003 arbeitet er als Regisseur für Werbung und Spielfilm. Er ist Autor mehrerer Drehbücher, Werbespots und Langfilme. 2013 erhielt sein Dokumentarfilm „Stylization of aftertaste“ eine Special Mention beim The Film Skillet Documentary Film Contest (USA). I Work at the Cemetery (2022) ist sein Langfilmdebüt als Regisseur. Der Film wurde bei nationalen und internationalen Festivals ausgewählt und mehrfach ausgezeichnet, darunter Warsaw FF, Molodist IFF, British Independent Film Festival."
+        },
         "countries": {
           "en": ["Ukraine"]
         },
@@ -790,7 +827,14 @@
           "en": "Where is my body armor?",
           "de": "Wo ist meine Schutzweste?"
         },
-        "director": "Daria Penkova",
+        "director": {
+          "en": ["Daria Penkova"],
+          "de": ["Daria Penkova"]
+        },
+        "about": {
+          "en": "Daria Penkova is a Ukrainian director and cinematographer from Druzhkivka, Donetsk region. A graduate of Kyiv National University of Culture and Arts, she also studied at HFBK Hamburg, where she worked with film stock and co-organized Ukrainian student film screenings. Now based in Kyiv, she works at a production company, directing commercial projects that merge visual precision with a strong creative vision. Her short film «Where’s My Body Armor?» won the Main Prize of the Andriy Matrosov Award at Docudays UA 2025.",
+          "de": "Daria Penkova ist eine ukrainische Regisseurin und Kamerafrau aus Druschkiwka, Region Donezk. Sie schloss die Nationale Universität für Kultur und Kunst in Kyjiw ab und studierte zudem an der HFBK Hamburg, wo sie mit Filmmaterial arbeitete und ukrainische Studierenden-Filmscreenings mitorganisierte. Heute lebt sie in Kyjiw und arbeitet in einer Produktionsfirma, wo sie Werbeprojekte realisiert, die visuelle Präzision mit einer starken kreativen Vision verbinden. Ihr Kurzfilm «Where’s My Body Armor?» gewann den Hauptpreis des Andriy-Matrosov-Awards bei Docudays UA 2025."
+        },
         "countries": {
           "en": ["Ukraine"]
         },
@@ -812,7 +856,14 @@
           "en": "Critical Condition",
           "de": "Kritischer Zustand"
         },
-        "director": "Mila Zhluktenko",
+        "director": {
+          "en": ["Mila Zhluktenko"],
+          "de": ["Mila Zhluktenko"]
+        },
+        "about": {
+          "en": "Born in Kyiv, Ukraine, Mila Zhluktenko studied documentary filmmaking at HFF Munich. Her films have been screened at a number of international festivals including the Berlinale, IDFA, the San Sebastian Film Festival, MoMA’s Doc Fortnight and at Visions du Réel. Her current works co- directed with Daniel Asadi Faezi include „Aralkum“ (Juryprize Visions du Réel) and „Waking up in Silence“ (Jury Prize Berlinale Generation KPlus).",
+          "de": "Mila Zhluktenko, in Kyjiw (Ukraine) geboren, studierte Dokumentarfilm an der HFF München. Ihre Filme wurden auf zahlreichen internationalen Festivals gezeigt, darunter Berlinale, IDFA, San Sebastián Film Festival, MoMA’s Doc Fortnight und Visions du Réel. Ihre aktuellen, gemeinsam mit Daniel Asadi Faezi realisierten Arbeiten umfassen „Aralkum“ (Jury-Preis Visions du Réel) und „Waking up in Silence“ (Jury-Preis Berlinale Generation Kplus)."
+        },
         "countries": {
           "en": ["Germany"],
           "de": ["Deutschland"]
@@ -888,7 +939,14 @@
           "en": "Dreamtracks",
           "de": "Dreamtracks"
         },
-        "director": "Margaryta Winkler",
+        "director": {
+          "en": ["Margaryta Winkler"],
+          "de": ["Margaryta Winkler"]
+        },
+        "about": {
+          "en": "Margaryta Winkler is a Ukrainian visual artist working across illustration, book cover design, and animation. In 2023 she received a Fulbright grant to pursue a master’s degree in the US and in 2025 she graduated from Rhode Island School of Design with an MFA in Illustration. She began animating while at RISD and has been in love with the medium ever since.",
+          "de": "Margaryta Winkler ist eine ukrainische bildende Künstlerin, die in den Bereichen Illustration, Buchcover-Design und Animation arbeitet. 2023 erhielt sie ein Fulbright-Stipendium für einen Master in den USA und schloss 2025 das Rhode Island School of Design mit einem MFA in Illustration ab. Während ihrer Zeit am RISD begann sie mit Animation – und ist dem Medium seitdem verfallen."
+        },
         "countries": {
           "en": ["Ukraine"]
         },
@@ -906,7 +964,14 @@
           "en": "The Last (Final) Take",
           "de": "The Last (Final) Take"
         },
-        "director": "Oleh Kibalnyk",
+        "director": {
+          "en": ["Oleh Kibalnyk"],
+          "de": ["Oleh Kibalnyk"]
+        },
+        "about": {
+          "en": "Oleh Kibalnyk was born on 2 February 1997 in Poltava. In 2023, he graduated from the Kyiv National I. K. Karpenko-Kary Theatre, Cinema And Television University with a film and television drama degree. Workshop of Irene Rozdobudko.",
+          "de": "Oleh Kibalnyk wurde am 2. Februar 1997 in Poltawa geboren. 2023 schloss er die Nationale I.-K.-Karpenko-Karyi Universität für Theater, Kino und Fernsehen in Kyjiw mit einem Abschluss in Film- und TV-Dramaturgie ab. Werkstatt von Irene Rozdobudko."
+        },
         "countries": {
           "en": ["Ukraine"]
         },
@@ -924,7 +989,14 @@
           "en": "Life in between",
           "de": "Life in between"
         },
-        "director": "Iryna Lytvynova",
+        "director": {
+          "en": ["Iryna Lytvynova"],
+          "de": ["Iryna Lytvynova"]
+        },
+        "about": {
+          "en": "Iryna Lytvynova is an independent animator from Dnipro, Ukraine. Her passion for stop-motion ignited at the end of 2021, and it was an instant and enduring love affair. This unique form of animation has since become integral to her artistic journey. In 2023, the idea to create a film specifically for festivals captivated her — and that’s how her first large-scale project was born.",
+          "de": "Iryna Lytvynova ist eine unabhängige Animatorin aus Dnipro, Ukraine. Ihre Leidenschaft für Stop-Motion entflammte Ende 2021 – eine unmittelbare und anhaltende Liebesbeziehung. Diese besondere Animationsform ist seither integraler Bestandteil ihres künstlerischen Weges. 2023 faszinierte sie die Idee, einen Film speziell für Festivals zu schaffen – so entstand ihr erstes großes Projekt."
+        },
         "countries": {
           "en": ["Ukraine"]
         },
@@ -942,7 +1014,14 @@
           "en": "Lobbies` Idols",
           "de": "Lobbies` Idols"
         },
-        "director": "Severian Lazariev",
+        "director": {
+          "en": ["Severian Lazariev"],
+          "de": ["Severian Lazariev"]
+        },
+        "about": {
+          "en": "Severian Lazariev is an ancient name, and he was named after his great-grandfather. Severian lives and works in Kyiv. In 2016 he started studying fashion design. He loved looking at costumes in movies. And at the same moment, he became interested in cinema. Severian used to sit at home and watch movies, and in the evenings he liked to dress up and go to the film. In 2018, he first got on a movie set as an extra and soon decided that Severian needed to make his own movie. He started jotting down ideas and writing scripts. And now he creates films from time to time.",
+          "de": "Severian ist ein alter Name – er wurde nach seinem Urgroßvater benannt. Severian lebt und arbeitet in Kyjiw. 2016 begann er ein Studium im Modedesign. Er liebte es, Kostüme in Filmen zu betrachten – und zugleich erwachte sein Interesse am Kino. Severian saß früher zu Hause und schaute Filme; abends schickte er sich gern heraus und ging ins Kino. 2018 stand er erstmals als Statist am Set und beschloss bald, dass Severian seinen eigenen Film machen müsse. Er begann, Ideen zu notieren und Drehbücher zu schreiben. Und nun dreht er von Zeit zu Zeit Filme."
+        },
         "countries": {
           "en": ["Ukraine"],
           "de": ["Ukraine"]
@@ -961,7 +1040,14 @@
           "en": "The Story",
           "de": "The Story"
         },
-        "director": "Vadim Mochalov",
+        "director": {
+          "en": ["Vadim Mochalov"],
+          "de": ["Vadim Mochalov"]
+        },
+        "about": {
+          "en": "Vadim Mochalov began his studies at Kyiv National University of Culture and Arts in 2019. In 2023, he filmed his graduate work „The Return“ about the life of a queer boy with religious trauma amid a full-scale war in Ukraine. Vadim defended this short feature film at the university and acquired his bachelor's degree. „The Return“ had its premiere at Lviv International Short Film Festival Wiz-Art and later was shown at Sunny Bunny LGBTQ+ Film Festival, GAZE International LGBTQIA Film Festival and others. In 2025, Vadim got master's degree by defending his short feature film „The Story“ about a young queer writer working on his screenplay in the days of war in Kyiv. The film premiered in the International Short Film Competition of the Sunny Bunny LGBTQ+ Film Festival in 2025 and took part in a National Competition of Mykolaychuk OPEN International Audience Film Festival.",
+          "de": "Vadim Mochalov begann 2019 sein Studium an der Nationalen Universität für Kultur und Kunst in Kyjiw. 2023 drehte er seine Abschlussarbeit „The Return“ über das Leben eines queeren Jungen mit religiöser Traumatisierung während des vollumfänglichen Krieges in der Ukraine. Mit diesem Kurzspielfilm schloss er sein Bachelorstudium ab. „The Return“ feierte Premiere beim Lviv International Short Film Festival Wiz-Art und lief anschließend u. a. beim Sunny Bunny LGBTQ+ Film Festival und beim GAZE International LGBTQIA Film Festival. 2025 erwarb Vadim seinen Masterabschluss mit dem Kurzspielfilm The Story über einen jungen queeren Autor, der in Kyjiw in Kriegszeiten an seinem Drehbuch arbeitete. Der Film feierte die 2025 Premiere im Internationalen Kurzfilmwettbewerb des Sunny Bunny LGBTQ+ Film Festival und nahm am Nationalen Wettbewerb des Mykolaychuk OPEN International Audience Film Festival teil."
+        },
         "countries": {
           "en": ["Ukraine"],
           "de": ["Ukraine"]
@@ -980,7 +1066,14 @@
           "en": "Usual Day",
           "de": "Usual Day"
         },
-        "director": "Heorhii Blinov",
+        "director": {
+          "en": ["Heorhii Blinov"],
+          "de": ["Heorhii Blinov"]
+        },
+        "about": {
+          "en": "Heorhii Blinov is a young Ukrainian director and animator. He made his debut in 2024 with his own animated works. He works in stop-motion and 2D animation, exploring the dynamics of movement and the expressiveness of visual storytelling.",
+          "de": "Heorhii Blinov ist ein junger ukrainischer Regisseur und Animator. 2024 debütierte er mit eigenen Animationsarbeiten. Er arbeitet in Stop-Motion und 2D-Animation und erkundet die Dynamik von Bewegung sowie die Ausdruckskraft des visuellen Erzählens."
+        },
         "countries": {
           "en": ["Ukraine"],
           "de": ["Ukraine"]
@@ -999,7 +1092,11 @@
           "en": "Another Day",
           "de": "Another Day"
         },
-        "director": "Ivan Tsupka, Lera Fokina, Elena Sydorenko",
+        "director": {
+          "en": ["Ivan Tsupka", "Lera Fokina", "Elena Sydorenko"],
+          "de": ["Ivan Tsupka", "Lera Fokina", "Elena Sydorenko"]
+        },
+        "about": { "en": "", "de": "" },
         "countries": {
           "en": ["Ukraine"],
           "de": ["Ukraine"]
@@ -1018,7 +1115,14 @@
           "en": "Love with a Tail",
           "de": "Love with a Tail"
         },
-        "director": "Eduard Nechmohlod",
+        "director": {
+          "en": ["Eduard Nechmohlod"],
+          "de": ["Eduard Nechmohlod"]
+        },
+        "about": {
+          "en": "Eduard Nechmohlod (b. August 3, 1987, Kindrativka, Donetsk region) is a Ukrainian film director, screenwriter, and producer. Originally trained as a mechanical engineer, he later pursued filmmaking, earning a master’s degree in feature film directing from Kyiv National University of Theatre, Cinema and Television named after Ivan Karpenko-Karyi, where he is currently a Ph.D. candidate in Arts. His filmography includes the short The Situation Turned Out This Way (2021), the satirical mockumentary Captain Brovary (2023), and the comedy-musical 70,000 Years Ago (2023), which premiered at the Molodist Film Festival in Kyiv.",
+          "de": "Eduard Nechmohlod (geb. 3. August 1987, Kindratiwka, Region Donezk) ist ein ukrainischer Filmregisseur, Drehbuchautor und Produzent. Ursprünglich als Maschinenbauingenieur ausgebildet, wandte er sich später dem Film zu und erwarb einen Master in Spielfilmregie an der Nationalen Universität für Theater, Kino und Fernsehen Ivan Karpenko-Karyi in Kyjiw, wo er derzeit als Doktorand in den Künsten tätig ist. Zu seiner Filmografie gehören der Kurzfilm The Situation Turned Out This Way (2021), die satirische Mockumentary Captain Brovary (2023) und das Comedy-Musical 70,000 Years Ago (2023), das beim Molodist Film Festival in Kyjiw Premiere feierte."
+        },
         "countries": {
           "en": ["Ukraine"],
           "de": ["Ukraine"]
@@ -1037,7 +1141,14 @@
           "en": "Jarred",
           "de": "Jarred"
         },
-        "director": "Maryna Yanul",
+        "director": {
+          "en": ["Maryna Yanul"],
+          "de": ["Maryna Yanul"]
+        },
+        "about": {
+          "en": "Maryna Yanul is a Ukrainian animator and filmmaker, driven by a lifelong passion for bringing stories to life through animation. A software developer by profession, Maryna approaches filmmaking with a unique blend of technical skill and artistic vision. „Jarred“ is their first short film, born from a desire to explore the experience of living through challenging and repetitive times, and the importance of embracing change. Inspired by quiet observation and the nuances of everyday life, Maryna aims to create animations that resonate with audiences on a personal level.",
+          "de": "Maryna Yanul ist eine ukrainische Animatorin und Filmemacherin, angetrieben von der lebenslangen Leidenschaft, Geschichten durch Animation zum Leben zu erwecken. Beruflich Softwareentwicklerin, verbindet Maryna im Filmemachen technisches Können mit künstlerischer Vision. „Jarred“ ist ihr erster Kurzfilm, entstanden aus dem Wunsch, das Erleben herausfordernder, sich wiederholender Zeiten und die Bedeutung von Veränderung zu erkunden. Inspiriert von stiller Beobachtung und den Nuancen des Alltags möchte Maryna Animationen schaffen, die die Zuschauer*innen auf persönlicher Ebene berühren."
+        },
         "countries": {
           "en": ["Ukraine"],
           "de": ["Ukraine"]
