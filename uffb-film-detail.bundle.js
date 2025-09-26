@@ -401,7 +401,19 @@
         const venueName = localized(s.venue) || '';
         const addr = s.address || '';
         const mapsUrl = s.maps?.google || null;
-        const tixUrl = s.tickets || '#';
+
+        const tixUrl = (s.tickets || '').trim();
+        const hasTix = !!tixUrl;
+
+        const tixBtn = hasTix
+          ? `<div class="uffb-card-actions">
+           <a class="uffb-btn uffb-book-btn"
+              href="${tixUrl}" 
+              target="_blank"
+              rel="noopener">${t('bookTickets')}
+           </a>
+         </div>`
+          : '';
         const addrHtml = addr
           ? mapsUrl
             ? `<a class="uffb-addr" href="${mapsUrl}" target="_blank" rel="noopener">${addr}</a>`
@@ -413,16 +425,7 @@
             ${venueName
               ? `<div class="uffb-venue-title">${venueName}</div>`
               : ''}
-            ${addrHtml}
-            <div class="uffb-card-actions">
-              <a
-                class="uffb-btn uffb-book-btn"
-                href="${tixUrl}"
-                target="_blank"
-                rel="noopener"
-                >${t('bookTickets')}</a
-              >
-            </div>
+            ${addrHtml} ${tixBtn}
           </article>
         `;
       })
