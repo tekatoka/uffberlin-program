@@ -1287,7 +1287,7 @@
     const filters = document.createElement('form');
     filters.id = 'filters';
     filters.className = 'uffb-filters';
-    filters.setAttribute('hidden', ''); //default: hidden! TODO: change to visible
+    //filters.setAttribute('hidden', ''); //default: hidden! TODO: change to visible
     filters.innerHTML = html`
       <label
         ><span>${t('category')}</span>
