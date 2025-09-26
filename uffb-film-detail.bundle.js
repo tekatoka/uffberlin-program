@@ -1224,7 +1224,7 @@
       padding-left: 0;
       margin: 0;
       display: grid;
-      gap: 52px;
+      gap: 75px;
     }
 
     .uffb-short-item {
@@ -1330,6 +1330,7 @@
       border-top: 1px dotted var(--hairline, #ddd);
       font-size: 0.95em;
       color: lightgray;
+      line-height: 1.5rem;
     }
     .uffb-short-about .ttl {
       font-weight: 600;
