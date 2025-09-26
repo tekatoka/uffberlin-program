@@ -689,7 +689,34 @@
         "trailer": ""
       }
     ],
-    "screenings": []
+    "screenings": [
+      {
+        "date": "2025-10-23",
+        "time": "18:00",
+        "venue": {
+          "en": "Kino im Planetarium",
+          "de": "Kino im Planetarium"
+        },
+        "address": "Prenzlauer Allee 80, 10405 Berlin",
+        "maps": {
+          "google": "https://maps.app.goo.gl/KKq8AZhbtGosemPN6"
+        },
+        "tickets": ""
+      },
+      {
+        "date": "2025-10-24",
+        "time": "19:00",
+        "venue": {
+          "en": "IL Kino",
+          "de": "IL Kino"
+        },
+        "address": "Nansenstraße 22, 12047 Berlin",
+        "maps": {
+          "google": "https://maps.app.goo.gl/9QQ3Z9zBAukkdi648"
+        },
+        "tickets": ""
+      }
+    ]
   },
   {
     "id": "short-film-competition-program-2",
@@ -804,7 +831,34 @@
         "trailer": "https://www.youtube.com/watch?v=a7f32SuZ1Z8"
       }
     ],
-    "screenings": []
+    "screenings": [
+      {
+        "date": "2025-10-24",
+        "time": "20:30",
+        "venue": {
+          "en": "Kino im Planetarium",
+          "de": "Kino im Planetarium"
+        },
+        "address": "Prenzlauer Allee 80, 10405 Berlin",
+        "maps": {
+          "google": "https://maps.app.goo.gl/KKq8AZhbtGosemPN6"
+        },
+        "tickets": ""
+      },
+      {
+        "date": "2025-10-25",
+        "time": "19:00",
+        "venue": {
+          "en": "Sputnik Kino",
+          "de": "Sputnik Kino"
+        },
+        "address": "Hasenheide 54/5th, 10967 Berlin",
+        "maps": {
+          "google": "https://maps.app.goo.gl/xceHasJXgB6xREb7A"
+        },
+        "tickets": ""
+      }
+    ]
   },
   {
     "id": "what-the-short",
@@ -998,7 +1052,34 @@
         "trailer": ""
       }
     ],
-    "screenings": []
+    "screenings": [
+      {
+        "date": "2025-10-25",
+        "time": "21:00",
+        "venue": {
+          "en": "ACUD Kino",
+          "de": "ACUD Kino"
+        },
+        "address": "Veteranenstraße 21, 10119 Berlin",
+        "maps": {
+          "google": "https://maps.app.goo.gl/dpmqiMzp2YJum8Xx7"
+        },
+        "tickets": ""
+      },
+      {
+        "date": "2025-10-26",
+        "time": "16:00",
+        "venue": {
+          "en": "IL Kino",
+          "de": "IL Kino"
+        },
+        "address": "Nansenstraße 22, 12047 Berlin",
+        "maps": {
+          "google": "https://maps.app.goo.gl/9QQ3Z9zBAukkdi648"
+        },
+        "tickets": ""
+      }
+    ]
   },
   {
     "id": "when-lightning-flashes-over-the-sea",

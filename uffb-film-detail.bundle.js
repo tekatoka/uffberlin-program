@@ -678,8 +678,10 @@
             <div class="right">
               <h2>${title}</h2>
               ${metaBlock}${trailerBtn}
+              <br />
+              ${descBlock}
             </div>
-            <div class="full-row">${descBlock}</div>
+            <!--div class="full-row">${descBlock}</div-->
           </li>
       `;
       })
