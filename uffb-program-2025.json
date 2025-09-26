@@ -561,9 +561,9 @@
     },
     "published": true,
     "category": {
-      "key": "shorts_competition",
-      "en": "Short film – Competition",
-      "de": "Kurzfilmwettbewerb"
+      "key": "uffb_shorts",
+      "en": "UFFB Short",
+      "de": "UFFB Shorts"
     },
     "description": {
       "en": "UFFB Shorts: program I",
@@ -699,9 +699,9 @@
     },
     "published": true,
     "category": {
-      "key": "shorts_competition",
-      "en": "Short Film Competition",
-      "de": "Kurzfilmwettbewerb"
+      "key": "uffb_shorts",
+      "en": "UFFB Short",
+      "de": "UFFB Shorts"
     },
     "description": {
       "en": "UFFB Shorts: program II",
@@ -809,14 +809,14 @@
   {
     "id": "what-the-short",
     "title": {
-      "en": "WHAT THE SHORT? - YAKOGO SHORTA? - ЯКОГО ШОРТА? - Short film program out of competition",
+      "en": "WHAT THE SHORT? - YAKOGO SHORTA? - ЯКОГО ШОРТА? - Short Films out of competition",
       "de": "WHAT THE SHORT? - YAKOGO SHORTA? - ЯКОГО ШОРТА? - Kurzfilmprogramm außer Wettbewerb"
     },
     "published": true,
     "category": {
-      "key": "shorts_out_of_competition",
-      "en": "Short film program out of competition",
-      "de": "Kurzfilmprogramm außer Wettbewerb"
+      "key": "uffb_shorts",
+      "en": "UFFB Short",
+      "de": "UFFB Shorts"
     },
     "description": {
       "en": "UFFB Shorts: Out of Competition. This programme is a joyful collection of the unconventional, the funny, and the delightfully eccentric films our short film committee simply couldn’t let go. From handcrafted micro-shorts to polished genre pieces, it’s all here as long as it’s made with passion and talent. A little bit of everything, brought together for maximum delight.",
