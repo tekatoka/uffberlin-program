@@ -1121,7 +1121,9 @@
         <div class="uffb-body">
           <h3 class="uffb-title"><a href="${href}">${escapeHtml(title)}</a></h3>
           ${metaBlock}
-          <div class="uffb-desc">${escapeHtml(desc)}</div>
+          ${desc?.trim()
+            ? html`<div class="uffb-desc">${escapeHtml(desc)}</div>`
+            : ''}
           ${renderShortsList(it)}
           <div class="uffb-actions">
             ${trailer
@@ -1206,7 +1208,9 @@
                 <a href="${href}">${escapeHtml(title)}</a>
               </h3>
               ${metaBlock}
-              <div class="uffb-desc">${escapeHtml(desc)}</div>
+              ${desc?.trim()
+                ? html`<div class="uffb-desc">${escapeHtml(desc)}</div>`
+                : ''}
               ${renderShortsList(it)}
               <div class="uffb-actions">
                 ${trailer
