@@ -974,6 +974,12 @@
     return map;
   }
 
+  function toShortDirectorList(director, localizedFn) {
+    if (!director) return [];
+    const val = typeof director === 'object' ? localizedFn(director) : director;
+    return Array.isArray(val) ? val.filter(Boolean) : val ? [val] : [];
+  }
+
   function renderShortsList(item) {
     const list = Array.isArray(item.films) ? item.films : null;
     if (!list || !list.length) return '';
@@ -984,10 +990,13 @@
       item.description?.en ||
       item.description?.uk ||
       '';
+
     const li = list
       .map((sf) => {
         const t = pickLangVal(sf.title) || ''; // supports {en,de,uk} or string
-        const dir = sf.director ? ` by ${escapeHtml(sf.director)}` : '';
+        const directorList = toShortDirectorList(sf.director, pickLangVal);
+        const directorLine = directorList.join(', ');
+        const dir = sf.director ? ` by ${escapeHtml(directorLine)}` : '';
         let dur = '';
         if (sf.duration != null) {
           const d =
