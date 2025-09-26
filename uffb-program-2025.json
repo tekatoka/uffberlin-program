@@ -574,7 +574,7 @@
       "en": "Ukrainian with English subtitles"
     },
     "year": "2024/2025",
-    "image": "https://images.squarespace-cdn.com/content/5f739670761e02764c54e1ca/c8116141-69e6-4db1-8936-0e0287f648fb/Poster-Program-1.png",
+    "image": "https://images.squarespace-cdn.com/content/5f739670761e02764c54e1ca/a059cfaa-1caf-463b-ba9d-2179e6adc8e3/Poster-Program-1.png",
     "films": [
       {
         "title": {
@@ -807,6 +807,200 @@
     "screenings": []
   },
   {
+    "id": "what-the-short",
+    "title": {
+      "en": "WHAT THE SHORT? - YAKOGO SHORTA? - ЯКОГО ШОРТА? - Short film program out of competition",
+      "de": "WHAT THE SHORT? - YAKOGO SHORTA? - ЯКОГО ШОРТА? - Kurzfilmprogramm außer Wettbewerb"
+    },
+    "published": true,
+    "category": {
+      "key": "shorts_out_of_competition",
+      "en": "Short film program out of competition",
+      "de": "Kurzfilmprogramm außer Wettbewerb"
+    },
+    "description": {
+      "en": "UFFB Shorts: Out of Competition. This programme is a joyful collection of the unconventional, the funny, and the delightfully eccentric films our short film committee simply couldn’t let go. From handcrafted micro-shorts to polished genre pieces, it’s all here as long as it’s made with passion and talent. A little bit of everything, brought together for maximum delight.",
+      "de": "UFFB Shorts: außer Wettbewerb. Dieses Programm ist eine fröhliche Sammlung unkonventioneller, witziger und herrlich exzentrischer Filme, die unser Kurzfilmkomitee einfach nicht loslassen konnte. Von handgemachten Mikro-Kurzfilmen bis zu ausgereiften Genrearbeiten – alles ist dabei, solange es mit Leidenschaft und Talent gemacht ist. Ein bisschen von allem, für größtmögliche Freude zusammengestellt."
+    },
+    "language": {
+      "de": "Ukrainisch mit englischen Untertiteln (OmeU)",
+      "en": "Ukrainian with English subtitles"
+    },
+    "year": "2024/2025",
+    "image": "https://images.squarespace-cdn.com/content/5f739670761e02764c54e1ca/8a98e574-ab59-4c1b-a2b8-1a8a09c4b928/Poster-Program-3-yakogo-shorta.png",
+    "films": [
+      {
+        "title": {
+          "en": "Dreamtracks",
+          "de": "Dreamtracks"
+        },
+        "director": "Margaryta Winkler",
+        "countries": {
+          "en": ["Ukraine"]
+        },
+        "year": 2025,
+        "duration": 2,
+        "image": "https://images.squarespace-cdn.com/content/5f739670761e02764c54e1ca/67f6ca8d-c2b1-487b-881f-64fe392cddc2/Shorts-2025-what-the-short-1-Dreamtracks.jpg",
+        "description": {
+          "en": "A train hums along the tracks, a mind drifts off.",
+          "de": "Ein Zug summt über die Gleise, ein Geist driftet davon."
+        },
+        "trailer": ""
+      },
+      {
+        "title": {
+          "en": "The Last (Final) Take",
+          "de": "The Last (Final) Take"
+        },
+        "director": "Oleh Kibalnyk",
+        "countries": {
+          "en": ["Ukraine"]
+        },
+        "year": 2024,
+        "duration": 22,
+        "image": "https://images.squarespace-cdn.com/content/5f739670761e02764c54e1ca/f64921c1-a530-458f-9c50-f13b95628d77/Shorts-2025-what-the-short-2-The+last+%28final%29+take.jpg",
+        "description": {
+          "en": "In childhood parents predict a great future for us. But could anyone have imagined I would become a clapper?",
+          "de": "Als Kinder sagen die Eltern uns eine große Zukunft voraus. Aber hätte sich irgendwer vorstellen können, dass ich Klappehalter werde?"
+        },
+        "trailer": ""
+      },
+      {
+        "title": {
+          "en": "Life in between",
+          "de": "Life in between"
+        },
+        "director": "Iryna Lytvynova",
+        "countries": {
+          "en": ["Ukraine"]
+        },
+        "year": 2025,
+        "duration": 4,
+        "image": "https://images.squarespace-cdn.com/content/5f739670761e02764c54e1ca/c4c2baba-9627-4bb7-995a-52ba2df549b4/Shorts-2025-what-the-short-3-Life+in+between.jpg",
+        "description": {
+          "en": "A cheerful artist wakes up to the reality of war. She tries to escape to a quiet haven, only to be met by her own destructive emotions. This is a story about struggle — and strength.",
+          "de": "Eine heitere Künstlerin erwacht zur Realität des Krieges. Sie versucht in einen stillen Hafen zu fliehen, wird jedoch von ihren eigenen zerstörerischen Emotionen eingeholt. Eine Geschichte über Kampf – und Stärke."
+        },
+        "trailer": ""
+      },
+      {
+        "title": {
+          "en": "Lobbies` Idols",
+          "de": "Lobbies` Idols"
+        },
+        "director": "Severian Lazariev",
+        "countries": {
+          "en": ["Ukraine"],
+          "de": ["Ukraine"]
+        },
+        "year": 2024,
+        "duration": 7,
+        "image": "https://images.squarespace-cdn.com/content/5f739670761e02764c54e1ca/0d9486e4-b5ca-448a-9c43-73dc6df14868/Shorts-2025-what-the-short-4-Lobbies_+idols.jpg",
+        "description": {
+          "en": "A reclusive young man encountered mysticism in his entrance - suddenly the phone, which has not worked for many years, rang. Now the whole house lives in fear. Will the young man be able to find out who is calling?",
+          "de": "Ein zurückgezogener junger Mann stößt in seinem Hauseingang auf Mystik – plötzlich klingelt das Telefon, das seit vielen Jahren nicht funktioniert hat. Nun lebt das ganze Haus in Angst. Wird der junge Mann herausfinden können, wer anruft?"
+        },
+        "trailer": ""
+      },
+      {
+        "title": {
+          "en": "The Story",
+          "de": "The Story"
+        },
+        "director": "Vadim Mochalov",
+        "countries": {
+          "en": ["Ukraine"],
+          "de": ["Ukraine"]
+        },
+        "year": 2025,
+        "duration": 30,
+        "image": "https://images.squarespace-cdn.com/content/5f739670761e02764c54e1ca/f2bf46e9-6144-47c0-acbc-71def234ddfb/Shorts-2025-what-the-short-5-The+story.jpg",
+        "description": {
+          "en": "Working on his screenplay about two guys admitting their feelings for each other, a film directing major from Kyiv Lyonya asks his classmate Andriy, with whom he’s secretly in love, to help with the script editing.",
+          "de": "Der Regiestudent Lyonya aus Kyjiw arbeitet an einem Drehbuch über zwei Jungs, die sich ihre Gefühle gestehen. Er bittet seinen Kommilitonen Andriy, in den er heimlich verliebt ist, um Hilfe beim Überarbeiten."
+        },
+        "trailer": ""
+      },
+      {
+        "title": {
+          "en": "Usual Day",
+          "de": "Usual Day"
+        },
+        "director": "Heorhii Blinov",
+        "countries": {
+          "en": ["Ukraine"],
+          "de": ["Ukraine"]
+        },
+        "year": 2024,
+        "duration": 1,
+        "image": "https://images.squarespace-cdn.com/content/5f739670761e02764c54e1ca/20981898-785b-496f-8322-c78f5e2a77b3/Shorts-2025-what-the-short-6-Usual+day.jpg",
+        "description": {
+          "en": "After staying in the basement of a high-rise building until the last explosion, the friends go home to continue their usual day. This movie is about what has already been experienced and continues to be lived every day.",
+          "de": "Nachdem sie bis zur letzten Explosion im Keller eines Hochhauses ausgeharrt haben, gehen die Freunde nach Hause, um ihren gewöhnlichen Tag fortzusetzen. Ein Film über das schon Erlebte – und das täglich weiter Gelebte."
+        },
+        "trailer": ""
+      },
+      {
+        "title": {
+          "en": "Another Day",
+          "de": "Another Day"
+        },
+        "director": "Ivan Tsupka, Lera Fokina, Elena Sydorenko",
+        "countries": {
+          "en": ["Ukraine"],
+          "de": ["Ukraine"]
+        },
+        "year": 2024,
+        "duration": 4,
+        "image": "https://images.squarespace-cdn.com/content/5f739670761e02764c54e1ca/bacc977d-7f8d-4af6-ba06-6544547900bd/Shorts-2025-what-the-short-7-Another+day.png",
+        "description": {
+          "en": "Ukrainian woman tries to preserve a sense of normalcy while living under constant threat of Russian missile strikes. A series of short stories about everyday resilience amidst war.",
+          "de": "Eine Ukrainerin versucht, unter ständiger Bedrohung durch russische Raketenangriffe ein Gefühl von Normalität zu bewahren. Eine Reihe kurzer Geschichten über alltägliche Resilienz im Krieg."
+        },
+        "trailer": ""
+      },
+      {
+        "title": {
+          "en": "Love with a Tail",
+          "de": "Love with a Tail"
+        },
+        "director": "Eduard Nechmohlod",
+        "countries": {
+          "en": ["Ukraine"],
+          "de": ["Ukraine"]
+        },
+        "year": 2024,
+        "duration": 15,
+        "image": "https://images.squarespace-cdn.com/content/5f739670761e02764c54e1ca/2a1990d3-1812-426e-ac64-d865f1014b89/Shorts-2025-what-the-short-8-Love+with+a+tail.jpg",
+        "description": {
+          "en": "Behind the facade of a perfect marriage, a devoted wife struggles to keep afloat with her unusual husband.",
+          "de": "Hinter der Fassade einer perfekten Ehe kämpft eine hingebungsvolle Ehefrau darum, mit ihrem ungewöhnlichen Ehemann über Wasser zu bleiben."
+        },
+        "trailer": ""
+      },
+      {
+        "title": {
+          "en": "Jarred",
+          "de": "Jarred"
+        },
+        "director": "Maryna Yanul",
+        "countries": {
+          "en": ["Ukraine"],
+          "de": ["Ukraine"]
+        },
+        "year": 2025,
+        "duration": 5,
+        "image": "https://images.squarespace-cdn.com/content/5f739670761e02764c54e1ca/a13b5216-387b-41ff-967b-e9e6369ef8fb/Shorts-2025-what-the-short-9-Jarred.jpg",
+        "description": {
+          "en": "A peculiar creature’s quiet routine is disrupted by an unexpected visitor, pulling her toward a new and uncertain world.",
+          "de": "Die ruhige Routine einer eigentümlichen Kreatur wird durch einen unerwarteten Besucher gestört – und zieht sie in eine neue, ungewisse Welt."
+        },
+        "trailer": ""
+      }
+    ],
+    "screenings": []
+  },
+  {
     "id": "when-lightning-flashes-over-the-sea",
     "title": {
       "en": "When Lightning Flashes Over the Sea",
@@ -1023,9 +1217,9 @@
       "de": "Nach der Novelle von Swetlana Wassilenko (1990) erzählt der Film von Zina Shamarina, einer rebellischen Frau im Fabrikwohnheim, deren obsessive Liebe zu ihrem Mann – er heiratete sie einst, um einer Strafverfolgung wegen Vergewaltigung zu entgehen – sie zwischen edlen Taten und unbedachten Ausbrüchen schwanken lässt. Vor dem Hintergrund von Quarantänen und Angst kämpft Shamara um Würde und Selbstbehauptung, während Verrat und Eifersucht ihre fragile Welt erschüttern."
     },
     "category": {
-      "key": "special",
-      "en": "Special program",
-      "de": "Spezialprogramm"
+      "key": "retrospective",
+      "en": "Retrospective",
+      "de": "Retrospektive"
     },
     "trailer": "https://www.youtube.com/watch?v=H74shg3-EnY",
     "image": "https://images.squarespace-cdn.com/content/5f739670761e02764c54e1ca/0486fe37-2716-433d-b7dd-5ea4d7bf8fe4/shamara-andreichenko.jpg",
@@ -1068,9 +1262,9 @@
       "de": "Über 24 Stunden im Kyjiw der 1990er verwebt Illjenko Stadtporträt, Erinnerung und verspielte Meta-Fiktion. Der Guide Danylo Prytuljak ersinnt einen improvisierten „siebten Marschroute“ über einen kaum bekannten Dichter – und legt nach und nach offen, dass Mythen, Verse und Umwege autobiografische Geständnisse über ungenutztes Talent und getroffene Entscheidungen sind."
     },
     "category": {
-      "key": "special",
-      "en": "Special program",
-      "de": "Spezialprogramm"
+      "key": "retrospective",
+      "en": "Retrospective",
+      "de": "Retrospektive"
     },
     "trailer": "https://www.youtube.com/watch?v=RvjUd0_CnNA",
     "image": "https://images.squarespace-cdn.com/content/5f739670761e02764c54e1ca/4a833b44-8358-45f7-9db8-060f970cd7af/seventh-route-illyenko.jpg",

@@ -1189,11 +1189,17 @@
       border-radius: 0px;
       overflow: hidden;
     }
+
     .uffb-short-img img {
       width: 100%;
       height: 100%;
       display: block;
       object-fit: cover;
+      transition: transform 0.35s ease;
+    }
+
+    .uffb-short-item:hover .uffb-short-img img {
+      transform: scale(1.03);
     }
 
     .uffb-short-body {
