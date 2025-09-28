@@ -831,7 +831,7 @@
         out = out.replace(
           re,
           `<span class="uffb-dir" role="button" tabindex="0" aria-haspopup="true" aria-expanded="false" data-photo="${photo}" data-name="${name}">
-           <strong>$1</strong>
+           <strong><u>$1</u></strong>
            <span class="dir-tooltip" aria-hidden="true">
              <img src="${photo}" alt="${name}">
            </span>
