@@ -762,6 +762,158 @@
     });
   }
 
+  // Flexible resolver: tries several places to find a photo for a given director name
+  function resolveDirectorPhoto(name, idx, shortFilm, fullFilm) {
+    const n = (name || '').trim().toLowerCase();
+    const tryUrl = (u) => (typeof u === 'string' && u.trim() ? u.trim() : null);
+
+    // 1) Per-short: director_photo can be string (single dir) or array aligned with directors
+    if (shortFilm && shortFilm.director_photo) {
+      if (Array.isArray(shortFilm.director_photo)) {
+        const u = shortFilm.director_photo[idx];
+        if (tryUrl(u)) return u;
+      } else if (!Array.isArray(shortFilm.director)) {
+        const u = shortFilm.director_photo;
+        if (tryUrl(u)) return u;
+      }
+    }
+    // 2) Per-short: map by name: director_photos: { "Name": "url", ... }
+    if (
+      shortFilm &&
+      shortFilm.director_photos &&
+      typeof shortFilm.director_photos === 'object'
+    ) {
+      for (const [k, v] of Object.entries(shortFilm.director_photos)) {
+        if (k.trim().toLowerCase() === n && tryUrl(v)) return v;
+      }
+    }
+    // 3) Film-level map: director_photos: { "Name": "url", ... }
+    if (
+      fullFilm &&
+      fullFilm.director_photos &&
+      typeof fullFilm.director_photos === 'object'
+    ) {
+      for (const [k, v] of Object.entries(fullFilm.director_photos)) {
+        if (k.trim().toLowerCase() === n && tryUrl(v)) return v;
+      }
+    }
+    // 4) Per-short: people: [{name, photo}]
+    if (shortFilm && Array.isArray(shortFilm.people)) {
+      const hit = shortFilm.people.find(
+        (p) => (p.name || '').trim().toLowerCase() === n && tryUrl(p.photo)
+      );
+      if (hit) return hit.photo;
+    }
+    return null;
+  }
+
+  // Wrap director names with a clickable/hoverable span carrying the photo
+  function wrapDirectorNamesWithPhoto(
+    aboutHtml,
+    directors,
+    shortFilm,
+    fullFilm
+  ) {
+    if (!aboutHtml || !directors?.length) return aboutHtml;
+
+    let out = aboutHtml;
+    directors.forEach((name, idx) => {
+      if (!name) return;
+      const photo = resolveDirectorPhoto(name, idx, shortFilm, fullFilm);
+      const escaped = name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      const re = new RegExp(
+        `(?!<(?:b|strong)[^>]*>)\\b(${escaped})\\b(?![^<]*</(?:b|strong)>)`,
+        'gi'
+      );
+
+      // If we have a photo, include the tooltip markup and make it interactive
+      if (photo) {
+        out = out.replace(
+          re,
+          `<span class="uffb-dir" role="button" tabindex="0" aria-haspopup="true" aria-expanded="false" data-photo="${photo}" data-name="${name}">
+           <strong>$1</strong>
+           <span class="dir-tooltip" aria-hidden="true">
+             <img src="${photo}" alt="${name}">
+           </span>
+         </span>`
+        );
+      } else {
+        // No photo: still make it bold, keep simple wrapper for consistent styling
+        out = out.replace(
+          re,
+          `<span class="uffb-dir no-photo"><strong>$1</strong></span>`
+        );
+      }
+    });
+
+    return out;
+  }
+
+  // Preload all director photos found in DOM (tooltip <img> won't wait)
+  function preloadDirectorPhotosFrom(root) {
+    const urls = new Set();
+    root.querySelectorAll('.uffb-dir[data-photo]').forEach((el) => {
+      const u = el.getAttribute('data-photo');
+      if (u) urls.add(u);
+    });
+    urls.forEach((u) => {
+      // 1) Hint browser
+      const link = document.createElement('link');
+      link.rel = 'preload';
+      link.as = 'image';
+      link.href = u;
+      document.head.appendChild(link);
+      // 2) Force into memory cache
+      const img = new Image();
+      img.src = u;
+    });
+  }
+
+  // Hover & click behavior for tooltips; one open at a time; ESC/outside closes.
+  function initDirectorPopups(root) {
+    const closeAll = () => {
+      root.querySelectorAll('.uffb-dir.is-open').forEach((el) => {
+        el.classList.remove('is-open');
+        el.setAttribute('aria-expanded', 'false');
+      });
+    };
+
+    // Toggle on click/keyboard
+    root.addEventListener('click', (e) => {
+      const t = e.target.closest('.uffb-dir[data-photo]');
+      if (!t) {
+        // click outside
+        closeAll();
+        return;
+      }
+      // toggle
+      const isOpen = t.classList.contains('is-open');
+      closeAll();
+      if (!isOpen) {
+        t.classList.add('is-open');
+        t.setAttribute('aria-expanded', 'true');
+      }
+    });
+
+    root.addEventListener('keydown', (e) => {
+      const t = e.target.closest('.uffb-dir[data-photo]');
+      if (e.key === 'Escape') {
+        closeAll();
+      } else if (t && (e.key === 'Enter' || e.key === ' ')) {
+        e.preventDefault();
+        const isOpen = t.classList.contains('is-open');
+        closeAll();
+        if (!isOpen) {
+          t.classList.add('is-open');
+          t.setAttribute('aria-expanded', 'true');
+        }
+      }
+    });
+
+    // Optional: close when scrolling a lot (mobile safety)
+    window.addEventListener('scroll', () => closeAll(), { passive: true });
+  }
+
   function buildShortsItemsSection(film) {
     const shorts = Array.isArray(film.films) ? film.films : [];
     if (!shorts.length) return '';
@@ -793,6 +945,7 @@
           (sf.about &&
             (typeof sf.about === 'object' ? localized(sf.about) : sf.about)) ||
           '';
+
         const aboutSanitized = sanitizeBio(aboutRaw);
         const directorList = toDirectorList(sf.director, localized);
 
@@ -802,16 +955,18 @@
         const photoMapFilm = (film && film.director_photos) || {};
         const photoFor = (name) =>
           photoMapShort[name] || photoMapFilm[name] || '';
-        const aboutWithBoldNames = boldDirectorNamesIn(
+
+        const aboutEnhanced = wrapDirectorNamesWithPhoto(
           aboutSanitized,
           directorList,
-          photoFor
+          sf,
+          film
         );
 
-        const aboutBlock = aboutWithBoldNames
+        const aboutBlock = aboutEnhanced
           ? `<div class="uffb-short-about">
            <!--div class="ttl">${t('aboutDirector')}</div-->
-           <div class="txt">${aboutWithBoldNames}</div>
+           <div class="txt">${aboutEnhanced}</div>
          </div>`
           : '';
 
@@ -1431,6 +1586,7 @@
     }
     .uffb-dir-name {
       font-weight: 700;
+      text-decoration: underline;
     }
 
     #uffb-dir-tooltip {
@@ -1455,6 +1611,69 @@
       text-decoration: underline dotted rgba(255, 255, 255, 0.4);
       text-underline-offset: 2px;
       cursor: help;
+    }
+
+    /* Director name wrapper */
+    .uffb-short-about .txt .uffb-dir {
+      position: relative;
+      cursor: pointer;
+      font-weight: 700; /* keeps names bold */
+      outline: none;
+      color: inherit;
+      text-decoration: none;
+      border-radius: 4px;
+    }
+    .uffb-short-about .txt .uffb-dir:focus-visible {
+      box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.9);
+    }
+
+    /* Tooltip panel */
+    .uffb-short-about .txt .uffb-dir .dir-tooltip {
+      position: absolute;
+      left: 0;
+      top: calc(100% + 8px);
+      z-index: 3000;
+      display: none; /* hidden by default */
+      background: #000;
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      border-radius: 6px;
+      padding: 6px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+      width: 220px;
+      max-width: min(64vw, 280px);
+    }
+    .uffb-short-about .txt .uffb-dir .dir-tooltip::before {
+      content: '';
+      position: absolute;
+      left: 12px;
+      top: -6px;
+      width: 10px;
+      height: 10px;
+      background: #000;
+      border-left: 1px solid rgba(255, 255, 255, 0.25);
+      border-top: 1px solid rgba(255, 255, 255, 0.25);
+      transform: rotate(45deg);
+    }
+
+    .uffb-short-about .txt .uffb-dir .dir-tooltip img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    /* Show on hover OR when toggled open */
+    .uffb-short-about .txt .uffb-dir:hover .dir-tooltip,
+    .uffb-short-about .txt .uffb-dir.is-open .dir-tooltip {
+      display: block;
+    }
+
+    /* If no photo: disable pointer affordance and tooltip */
+    .uffb-short-about .txt .uffb-dir.no-photo {
+      cursor: default;
+    }
+    .uffb-short-about .txt .uffb-dir.no-photo .dir-tooltip {
+      display: none !important;
     }
 
     /* Partners */
@@ -1587,6 +1806,8 @@
     `;
 
     attachDirPhotoTooltips(wrap);
+    preloadDirectorPhotosFrom(wrap);
+    initDirectorPopups(wrap);
 
     // trailer buttons → lightbox (topline + per-short)
     wrap.querySelectorAll('.uffb-trailer-btn').forEach((btn) => {
