@@ -370,7 +370,7 @@
       display: grid;
       gap: 0.8rem;
       /* 30% / 30% / 30% / 10% via fr units */
-      grid-template-columns: 3fr 3fr 3fr 3fr 1fr;
+      grid-template-columns: 2.75fr 2.75fr 2.75fr 2.75fr 1.25fr;
       align-items: end; /* bottoms line up nicely */
       border-radius: 0;
       margin: 0.5rem 0 1rem 0;
