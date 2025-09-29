@@ -803,8 +803,8 @@
     "published": true,
     "category": {
       "key": "uffb_shorts",
-      "en": "Short Films: Competition & Out of Competition",
-      "de": "Kurzfilme: Wettbewerb & außer Wettbewerb"
+      "en": "Short Films",
+      "de": "Kurzfilme"
     },
     "description": {
       "en": "UFFB Shorts: program I",
@@ -1009,8 +1009,8 @@
     "published": true,
     "category": {
       "key": "uffb_shorts",
-      "en": "Short Films: Competition & Out of Competition",
-      "de": "Kurzfilme: Wettbewerb & außer Wettbewerb"
+      "en": "Short Films",
+      "de": "Kurzfilme"
     },
     "description": {
       "en": "UFFB Shorts: program II",
@@ -1193,8 +1193,8 @@
     "published": true,
     "category": {
       "key": "uffb_shorts",
-      "en": "Short Films: Competition & Out of Competition",
-      "de": "Kurzfilme: Wettbewerb & außer Wettbewerb"
+      "en": "Short Films",
+      "de": "Kurzfilme"
     },
     "description": {
       "en": "UFFB Shorts: Out of Competition. This programme is a joyful collection of the unconventional, the funny, and the delightfully eccentric films our short film committee simply couldn’t let go. From handcrafted micro-shorts to polished genre pieces, it’s all here as long as it’s made with passion and talent. A little bit of everything, brought together for maximum delight.",
