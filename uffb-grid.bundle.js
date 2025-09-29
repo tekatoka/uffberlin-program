@@ -24,6 +24,7 @@
       director: 'Directed by',
       venue: 'Venue',
       date: 'Date',
+      title: 'Film title',
       all: 'All',
       groupBy: 'Group by',
       none: 'None',
@@ -52,6 +53,7 @@
       director: 'Regie',
       venue: 'Spielort',
       date: 'Datum',
+      title: 'Filmtitel',
       all: 'Alle',
       groupBy: 'Gruppierung',
       none: 'Keine',
@@ -79,6 +81,7 @@
       director: 'Режисер',
       venue: 'Майданчик',
       date: 'Дата',
+      title: 'Назва фільму',
       all: 'Усі',
       groupBy: 'Групувати',
       none: 'Усі разом',
@@ -358,7 +361,7 @@
       display: grid;
       gap: 0.8rem;
       /* 30% / 30% / 30% / 10% via fr units */
-      grid-template-columns: 3fr 3fr 3fr 1fr;
+      grid-template-columns: 3fr 3fr 3fr 3fr 1fr;
       align-items: end; /* bottoms line up nicely */
       border-radius: 0;
       margin: 0.5rem 0 1rem 0;
@@ -394,6 +397,44 @@
 
     :root {
       --uffb-control-h: 42px;
+    }
+
+    /* put this near your filters CSS */
+    .uffb-filters label {
+      position: relative; /* anchor for the clear button */
+    }
+
+    /* the tiny clear (×) button */
+    .uffb-clear {
+      position: absolute;
+      right: 8px;
+      bottom: 8px; /* aligns within 42px-high control */
+      width: 24px;
+      height: 24px;
+      border: 0;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.16);
+      color: #111;
+      font-size: 16px;
+      line-height: 1;
+      display: none; /* shown only when select has value */
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+
+    .uffb-clear:hover {
+      background: rgba(255, 255, 255, 0.28);
+    }
+
+    /* when the select is non-empty, show its clear button */
+    .uffb-filters label.is-filled .uffb-clear {
+      display: inline-flex;
+    }
+
+    /* give selects a bit of right padding so the × doesn’t overlap text */
+    .uffb-field.has-clear {
+      padding-right: 2rem;
     }
 
     /* fields */
@@ -891,7 +932,7 @@
   };
 
   // --- Rendering pieces (localized) ---
-  const safeTxt = (x) => (x || '').toString().toLowerCase();
+  const safeTxt = (x) => (x == null ? '' : String(x).trim().toLowerCase());
   const earliestDate = (film) => {
     const ds = (film.screenings || [])
       .map((s) => s.date)
@@ -1102,10 +1143,13 @@
     const trailer = it.trailer;
 
     const onlyDate = opts.onlyDate || null;
+    const onlyVenue = opts.onlyVenue || null;
 
-    const screeningsList = (it.screenings || []).filter(
-      (s) => !opts?.onlyDate || s.date === opts.onlyDate
-    );
+    const screeningsList = (it.screenings || []).filter((s) => {
+      if (onlyDate && s.date !== onlyDate) return false;
+      if (onlyVenue && safeTxt(getVenueName(s)) !== onlyVenue) return false;
+      return true;
+    });
     const screenings = screeningsList.map(screeningLine).join('');
 
     // --- NEW: meta values ---
@@ -1165,8 +1209,9 @@
   }
 
   function filmCard(it, opts = {}) {
-    const variant = opts.variant || 'grid'; // 'grid' | 'row'
+    const variant = opts.variant || 'grid'; //grid or row
     const onlyDate = opts.onlyDate || null;
+    const onlyVenue = opts.onlyVenue || null;
 
     const href = `${basePath}/${encodeURIComponent(it.id)}`;
     const title =
@@ -1211,9 +1256,11 @@
       ${durationTxt ? `<div class="uffb-meta3">${escapeHtml(durationTxt)}</div>` : ''}
     </div>`;
 
-    const screeningsList = (it.screenings || []).filter(
-      (s) => !onlyDate || s.date === onlyDate
-    );
+    const screeningsList = (it.screenings || []).filter((s) => {
+      if (onlyDate && s.date !== onlyDate) return false;
+      if (onlyVenue && safeTxt(getVenueName(s)) !== onlyVenue) return false;
+      return true;
+    });
     const screenings = screeningsList.map(screeningLine).join('');
 
     if (variant === 'row') {
@@ -1251,7 +1298,7 @@
     }
 
     // fallback: original grid card
-    return card(it, { onlyDate });
+    return card(it, { onlyDate, onlyVenue });
   }
 
   function mountModal() {
@@ -1291,6 +1338,43 @@
     };
   }
 
+  function attachClearButton(selectEl) {
+    if (!selectEl) return;
+    const label = selectEl.closest('label');
+    if (!label) return;
+
+    // mark the field so it has extra right padding
+    selectEl.classList.add('has-clear');
+
+    // add button
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'uffb-clear';
+    const labelTxt =
+      label.querySelector('span')?.textContent?.trim() || 'filter';
+    btn.setAttribute('aria-label', `Clear ${labelTxt}`);
+    btn.innerHTML = '×';
+    label.appendChild(btn);
+
+    const sync = () => {
+      label.classList.toggle('is-filled', !!selectEl.value);
+    };
+
+    // clear on click + re-run filtering
+    btn.addEventListener('click', () => {
+      if (selectEl.value !== '') {
+        selectEl.value = '';
+        // trigger the same code path as user change
+        selectEl.dispatchEvent(new Event('change', { bubbles: true }));
+      }
+      sync();
+    });
+
+    // keep visibility in sync when user picks from dropdown
+    selectEl.addEventListener('change', sync);
+    sync();
+  }
+
   // --- Build controls (localized labels) ---
   function buildControls(container) {
     const controls = document.createElement('div');
@@ -1314,6 +1398,12 @@
     filters.className = 'uffb-filters';
     //filters.setAttribute('hidden', ''); //default: hidden! TODO: change to visible
     filters.innerHTML = html`
+      <label
+        ><span>${t('title')}</span>
+        <select id="filterTitle" class="uffb-field">
+          <option value="">${t('all')}</option>
+        </select>
+      </label>
       <label
         ><span>${t('category')}</span>
         <select id="filterCategory" class="uffb-field">
@@ -1389,6 +1479,7 @@
       filters: {
         root: filters,
         cat: filters.querySelector('#filterCategory'),
+        title: filters.querySelector('#filterTitle'),
         venue: filters.querySelector('#filterVenue'),
         date: filters.querySelector('#filterDate'),
         clear: filters.querySelector('#clearFilters'),
@@ -1436,6 +1527,7 @@
     const state = {
       category: '',
       venue: '',
+      title: '',
       date: '',
       q: '',
       groupBy: defaultGroup,
@@ -1461,9 +1553,25 @@
 
     function renderUngrouped(list, variant) {
       if (variant === 'row') {
-        outlet.innerHTML = `<div class="uffb-list">${list.map((f) => filmCard(f, { variant })).join('')}</div>`;
+        outlet.innerHTML = `<div class="uffb-list">${list
+          .map((f) =>
+            filmCard(f, {
+              variant,
+              onlyDate: state.date || null,
+              onlyVenue: state.venue || null,
+            })
+          )
+          .join('')}</div>`;
       } else {
-        outlet.innerHTML = `<div class="uffb-grid">${list.map((f) => filmCard(f, { variant })).join('')}</div>`;
+        outlet.innerHTML = `<div class="uffb-grid">${list
+          .map((f) =>
+            filmCard(f, {
+              variant,
+              onlyDate: state.date || null,
+              onlyVenue: state.venue || null,
+            })
+          )
+          .join('')}</div>`;
       }
       const modal = mountModal();
       outlet.querySelectorAll('[data-trailer]').forEach((btn) => {
@@ -1508,8 +1616,24 @@
         <h4 class="uffb-group-title">#${escapeHtml(g.label)}</h4>
         ${
           variant === 'row'
-            ? `<div class="uffb-list">${g.films.map((f) => filmCard(f, { variant })).join('')}</div>`
-            : `<div class="uffb-grid">${g.films.map((f) => filmCard(f, { variant })).join('')}</div>`
+            ? `<div class="uffb-list">${g.films
+                .map((f) =>
+                  filmCard(f, {
+                    variant,
+                    onlyDate: state.date || null,
+                    onlyVenue: state.venue || null,
+                  })
+                )
+                .join('')}</div>`
+            : `<div class="uffb-grid">${g.films
+                .map((f) =>
+                  filmCard(f, {
+                    variant,
+                    onlyDate: state.date || null,
+                    onlyVenue: state.venue || null,
+                  })
+                )
+                .join('')}</div>`
         }
       </section>`;
       });
@@ -1552,8 +1676,24 @@
         <h4 class="uffb-group-title">${escapeHtml(nice)}</h4>
         ${
           variant === 'row'
-            ? `<div class="uffb-list">${entries.map(({ film, date }) => filmCard(film, { variant, onlyDate: date })).join('')}</div>`
-            : `<div class="uffb-grid">${entries.map(({ film, date }) => filmCard(film, { variant, onlyDate: date })).join('')}</div>`
+            ? `<div class="uffb-list">${entries
+                .map(({ film, date }) =>
+                  filmCard(film, {
+                    variant,
+                    onlyDate: date,
+                    onlyVenue: state.venue || null,
+                  })
+                )
+                .join('')}</div>`
+            : `<div class="uffb-grid">${entries
+                .map(({ film, date }) =>
+                  filmCard(film, {
+                    variant,
+                    onlyDate: date,
+                    onlyVenue: state.venue || null,
+                  })
+                )
+                .join('')}</div>`
         }
       </section>`;
       });
@@ -1599,6 +1739,9 @@
     // --- filtering + apply ---
     function applyAll() {
       filtered = items.filter((f) => {
+        if (state.title) {
+          if (f.id !== state.title) return false;
+        }
         if (state.category) {
           const key =
             (f.category &&
@@ -1749,6 +1892,26 @@
           ui.filters.cat.appendChild(opt);
         });
 
+      // --- TITLE OPTIONS ---
+      while (ui.filters.title.options.length > 1) ui.filters.title.remove(1);
+
+      const pairs = [];
+      data.forEach((f) => {
+        const localized = (f.title && f.title[lang]) || ''; // STRICT: only current language
+        if (!localized) return; // skip if no title for this lang
+        pairs.push({ id: f.id, label: String(localized).trim() });
+      });
+
+      // sort by label with current locale for proper A→Z
+      pairs
+        .sort((a, b) => a.label.localeCompare(b.label, locale))
+        .forEach(({ id, label }) => {
+          const opt = document.createElement('option');
+          opt.value = id; // filter by film id
+          opt.textContent = label; // show localized title
+          ui.filters.title.appendChild(opt);
+        });
+
       // --- VENUE OPTIONS ---
       while (ui.filters.venue.options.length > 1) ui.filters.venue.remove(1);
 
@@ -1805,19 +1968,30 @@
       state.venue = ui.filters.venue.value;
       applyAll();
     });
+    ui.filters.title.addEventListener('change', () => {
+      state.title = ui.filters.title.value; // film id or ''
+      applyAll();
+    });
     ui.filters.date.addEventListener('change', () => {
       state.date = ui.filters.date.value;
       applyAll();
     });
     ui.filters.clear.addEventListener('click', () => {
       ui.filters.cat.value = '';
+      ui.filters.title.value = '';
       ui.filters.venue.value = '';
       ui.filters.date.value = '';
       state.category = '';
+      state.title = '';
       state.venue = '';
       state.date = '';
       applyAll();
     });
+
+    attachClearButton(ui.filters.cat);
+    attachClearButton(ui.filters.title);
+    attachClearButton(ui.filters.venue);
+    attachClearButton(ui.filters.date);
 
     // instant search (debounced) + native clear
     let searchTimer = null;
