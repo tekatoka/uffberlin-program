@@ -108,7 +108,20 @@
       display: grid;
       grid-template-columns: 1fr;
       gap: 20px;
+
+      box-sizing: border-box !important;
+      height: 100% !important;
+      padding: 5% 5% 5% 5% !important;
+      border-radius: 6px !important;
+      background-color: #111111 !important;
+      width: 100%;
+      color: #fff;
     }
+
+    .uffb-grid .uffb-card {
+      background-color: #111;
+    }
+
     @media (min-width: 700px) {
       .uffb-grid {
         grid-template-columns: repeat(2, 1fr);
