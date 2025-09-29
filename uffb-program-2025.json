@@ -1587,12 +1587,12 @@
     "duration": 38,
     "year": 2024,
     "short_description": {
-      "en": "Nine Ukrainian teens and young women (15–20) film their own lives during wartime, offering intimate glimpses of fear, waiting, arrival, and resilience.",
-      "de": "Neun junge Ukrainerinnen (15–20) filmen ihr eigenes Leben im Krieg – intime Einblicke in Angst, Aushalten, Ankommen und Widerstandskraft."
+      "en": "How does it feel to grow up in times of war? In a self-made collaborative documentary, nine young Ukrainians provide a unique insight into their lives – into a daily routine in a state of emergency.",
+      "de": "Wie fühlt es sich an, in Zeiten des Krieges erwachsen zu werden? In einem von ihnen selbst entwickelten kollaborativen Dokumentarfilm gewähren neun junge Ukrainerinnen einen einzigartigen Einblick in ihre Leben – in einen Alltag im Ausnahmezustand."
     },
     "detailed_description": {
-      "en": "Developed within the participatory project “Teen Angst,” the film assembles smartphone-shot diaries by nine Ukrainian girls and young women living in Ukraine and in the diaspora. Each co-author records a distinct perspective as an (internal) refugee, reflecting on family separation, trauma, and the fragile search for normality.",
-      "de": "Entstanden im partizipativen Projekt „Teen Angst“ vereint der Film mit dem Smartphone gedrehte Tagebuch-Fragmente von neun ukrainischen Mädchen und jungen Frauen in der Ukraine und der Diaspora. Jede Co-Autorin hält ihre eigene Perspektive als (Binnen-)Geflüchtete fest – zwischen Familientrennung, Trauma und der Suche nach einem Stück Normalität."
+      "en": "The film, which was made as part of the “Teen Angst” project, tells personal, honest and radical stories of a search for security and contentment. The young women, some of whom live in Ukraine and some of whom have fled to Germany, are co-authors of the film: How much is left for oneself when fear for family and fellow human beings, when death, separation and trauma are omnipresent?",
+      "de": "Der im Rahmen des Projekts „Teen Angst“ entstandene Film erzählt persönliche, ehrliche und radikale Geschichten von einer Suche nach Geborgenheit und Zufriedenheit. Die teils in der Ukraine lebenden, teils nach Deutschland geflüchteten jungen Frauen sind Ko-Autorinnen des Films: Wie viel bleibt für einen selbst, wenn die Angst um Familie und Mitmenschen, wenn Tod, Trennung und Trauma allgegenwärtig sind?"
     },
     "category": {
       "key": "special",
@@ -1700,7 +1700,7 @@
       "de": "Yaremchuk: Unvergleichbare Welt der Schönheit",
       "uk": "Яремчук: Незрівнянний світ краси"
     },
-    "published": false,
+    "published": true,
     "language": {
       "de": "Ukrainisch mit englischen Untertiteln (OmeU)",
       "en": "Ukrainian with English subtitles"
@@ -1720,7 +1720,7 @@
       "de": ["Ukraine"]
     },
     "cast": "Nazariy Yaremchuk (archive), Mariya Yaremchuk",
-    "duration": 92,
+    "duration": 93,
     "year": 2024,
     "short_description": {
       "en": "A biographical docu-drama about Nazariy Yaremchuk — Ukraine’s first pop star — tracing his rise and legacy through family memories, diaries, and rare archival footage.",
@@ -1737,7 +1737,36 @@
     },
     "trailer": "https://vimeo.com/1057532050",
     "image": "https://images.squarespace-cdn.com/content/5f739670761e02764c54e1ca/645da6c1-895a-4921-ad9d-f285b29a8343/yaremchuk-matchless-world-of-beauty.jpg",
-    "screenings": []
+    "screenings": [
+      {
+        "date": "2025-10-23",
+        "time": "21:00",
+        "venue": {
+          "en": "Kino in der Königstadt",
+          "de": "Kino in der Königstadt"
+        },
+        "address": "Straßburger Str. 55, 10405 Berlin",
+        "website": "https://www.kino-bar.berlin/monats%C3%BCbersicht",
+        "maps": {
+          "google": "https://maps.app.goo.gl/TD4MXHJESpDMg32q8"
+        },
+        "tickets": ""
+      },
+      {
+        "date": "2025-10-25",
+        "time": "19:15",
+        "venue": {
+          "en": "Kino im Planetarium",
+          "de": "Kino im Planetarium"
+        },
+        "address": "Prenzlauer Allee 80, 10405 Berlin",
+        "website": "https://www.planetarium.berlin/veranstaltungsart/kino",
+        "maps": {
+          "google": "https://maps.app.goo.gl/KKq8AZhbtGosemPN6"
+        },
+        "tickets": ""
+      }
+    ]
   },
   {
     "id": "shamara",
