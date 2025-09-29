@@ -171,6 +171,7 @@
     }
     .uffb-venue {
       margin-top: 2px;
+      font-weight: 600;
     }
     .uffb-address a {
       font-size: 0.92rem;
@@ -345,8 +346,9 @@
         : s.address?.[lang] || s.address?.de || s.address?.en || '';
     const mapsUrl = s.maps?.google || mapsUrlFor(venueName, addressTxt);
 
+    const website = s.website || '';
     const venueLine = venueName
-      ? `<div class="uffb-venue">${escapeHtml(venueName)}</div>`
+      ? `<div class="uffb-venue"><a href="${website}" target="_blank">${escapeHtml(venueName)}</a></div>`
       : '';
     const addressLine = addressTxt
       ? `<div class="uffb-address"><a href="${mapsUrl}" target="_blank" rel="noopener">${escapeHtml(addressTxt)}</a></div>`

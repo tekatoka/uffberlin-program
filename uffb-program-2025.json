@@ -47,10 +47,25 @@
           "de": "silent green Kulturquartier"
         },
         "address": "Gerichtstraße 35, 13347 Berlin",
+        "website": "https://www.silent-green.net/",
         "maps": {
           "google": "https://www.google.com/maps/search/?api=1&query=silent%20green%20Kulturquartier%2C%20Gerichtstrasse%2035%2C%2013347%20Berlin"
         },
         "tickets": "https://uffb2025-opening.eventbrite.de/"
+      },
+      {
+        "date": "2025-10-23",
+        "time": "19:00",
+        "venue": {
+          "en": "ACUD Kino",
+          "de": "ACUD Kino"
+        },
+        "address": "Veteranenstraße 21, 10119 Berlin",
+        "website": "https://acudkino.de/",
+        "maps": {
+          "google": "https://maps.app.goo.gl/dpmqiMzp2YJum8Xx7"
+        },
+        "tickets": ""
       }
     ],
     "partners": [],
@@ -126,10 +141,25 @@
           "de": "silent green Kulturquartier"
         },
         "address": "Gerichtstraße 35, 13347 Berlin",
+        "website": "https://www.silent-green.net/",
         "maps": {
           "google": "https://www.google.com/maps/search/?api=1&query=silent%20green%20Kulturquartier%2C%20Gerichtstrasse%2035%2C%2013347%20Berlin"
         },
         "tickets": "https://uffb2025-closing.eventbrite.de/"
+      },
+      {
+        "date": "2025-10-26",
+        "time": "19:00",
+        "venue": {
+          "en": "Sputnik Kino",
+          "de": "Sputnik Kino"
+        },
+        "address": "Hasenheide 54/5th, 10967 Berlin",
+        "website": "https://www.sputnik-kino.com/program/featured",
+        "maps": {
+          "google": "https://maps.app.goo.gl/xceHasJXgB6xREb7A"
+        },
+        "tickets": ""
       }
     ],
     "partners": [],
@@ -199,7 +229,36 @@
     },
     "trailer": "https://www.youtube.com/watch?v=5xPjzNrPsRg",
     "image": "https://images.squarespace-cdn.com/content/5f739670761e02764c54e1ca/12f53cc1-1c44-405d-86aa-99d344d7dcaa/main-program-timestamp.jpg",
-    "screenings": []
+    "screenings": [
+      {
+        "date": "2025-10-24",
+        "time": "21:00",
+        "venue": {
+          "en": "ACUD Kino",
+          "de": "ACUD Kino"
+        },
+        "address": "Veteranenstraße 21, 10119 Berlin",
+        "website": "https://acudkino.de/",
+        "maps": {
+          "google": "https://maps.app.goo.gl/dpmqiMzp2YJum8Xx7"
+        },
+        "tickets": ""
+      },
+      {
+        "date": "2025-10-26",
+        "time": "18:30",
+        "venue": {
+          "en": "Filmkunst 66",
+          "de": "Filmkunst 66"
+        },
+        "address": "Bleibtreustraße 12, 10623 Berlin",
+        "website": "https://www.filmkunst66.de/",
+        "maps": {
+          "google": "https://maps.app.goo.gl/3cHayGJf6htU6hfz7"
+        },
+        "tickets": ""
+      }
+    ]
   },
   {
     "id": "2000-meters-to-andriivka",
@@ -262,10 +321,25 @@
           "de": "CineStar Kino in der Kulturbrauerei - Kino 4"
         },
         "address": "Schönhauser Allee 36, 10435 Berlin",
+        "website": "https://www.cinestar.de/berlin-kino-in-der-kulturbrauerei",
         "maps": {
           "google": "https://maps.app.goo.gl/pfeW6Uaa5jAY6fdP6"
         },
         "tickets": "https://2000-meters-to-andriivka.eventbrite.de/"
+      },
+      {
+        "date": "2025-10-26",
+        "time": "18:00",
+        "venue": {
+          "en": "City Kino Wedding",
+          "de": "City Kino Wedding"
+        },
+        "address": "Müllerstraße 74, 13349 Berlin",
+        "website": "https://citykinowedding.de/programm/",
+        "maps": {
+          "google": "https://maps.app.goo.gl/2ad8dcwoMaciPWuX8"
+        },
+        "tickets": ""
       }
     ],
     "partners": [
@@ -320,7 +394,36 @@
     },
     "trailer": "https://vimeo.com/1074242026",
     "image": "https://images.squarespace-cdn.com/content/5f739670761e02764c54e1ca/9b39b354-8500-4c1d-a5b6-9a8aaf4bc8e0/main-program-my-dear-theo.jpeg",
-    "screenings": []
+    "screenings": [
+      {
+        "date": "2025-10-23",
+        "time": "20:30",
+        "venue": {
+          "en": "Kino im Planetarium",
+          "de": "Kino im Planetarium"
+        },
+        "address": "Prenzlauer Allee 80, 10405 Berlin",
+        "website": "https://www.planetarium.berlin/veranstaltungsart/kino",
+        "maps": {
+          "google": "https://maps.app.goo.gl/KKq8AZhbtGosemPN6"
+        },
+        "tickets": ""
+      },
+      {
+        "date": "2025-10-25",
+        "time": "19:00",
+        "venue": {
+          "en": "IL Kino",
+          "de": "IL Kino"
+        },
+        "address": "Nansenstraße 22, 12047 Berlin",
+        "website": "https://ilkino.de/",
+        "maps": {
+          "google": "https://maps.app.goo.gl/9QQ3Z9zBAukkdi648"
+        },
+        "tickets": ""
+      }
+    ]
   },
   {
     "id": "militantropos",
@@ -367,7 +470,29 @@
     },
     "trailer": "https://www.youtube.com/watch?v=iozKw9blaTI",
     "image": "https://images.squarespace-cdn.com/content/5f739670761e02764c54e1ca/9519c623-1ac4-4fda-912b-b43d74168c89/main-program-militantropos.webp",
-    "screenings": []
+    "screenings": [
+      {
+        "date": "2025-10-25",
+        "time": "16:00",
+        "venue": {
+          "en": "Kino im Planetarium",
+          "de": "Kino im Planetarium"
+        },
+        "address": "Prenzlauer Allee 80, 10405 Berlin",
+        "website": "https://www.planetarium.berlin/veranstaltungsart/kino",
+        "maps": {
+          "google": "https://maps.app.goo.gl/KKq8AZhbtGosemPN6"
+        },
+        "tickets": ""
+      }
+    ],
+    "partners": [
+      {
+        "name": "Bundeszentrale für politische Bildung",
+        "url": "https://www.bpb.de/",
+        "logo": "https://images.squarespace-cdn.com/content/5f739670761e02764c54e1ca/38a744a5-9f27-46f2-8765-9e558f306006/BPB.png"
+      }
+    ]
   },
   {
     "id": "sanatorium",
@@ -413,7 +538,36 @@
     },
     "trailer": "https://www.youtube.com/watch?v=AUiGagXfQO0",
     "image": "https://images.squarespace-cdn.com/content/5f739670761e02764c54e1ca/e04b1ef6-83ef-442f-aa3e-9dd3dca816b6/main-program-sanatorium.jpeg",
-    "screenings": []
+    "screenings": [
+      {
+        "date": "2025-10-25",
+        "time": "19:00",
+        "venue": {
+          "en": "City Kino Wedding",
+          "de": "City Kino Wedding"
+        },
+        "address": "Müllerstraße 74, 13349 Berlin",
+        "website": "https://citykinowedding.de/programm/",
+        "maps": {
+          "google": "https://maps.app.goo.gl/2ad8dcwoMaciPWuX8"
+        },
+        "tickets": ""
+      },
+      {
+        "date": "2025-10-26",
+        "time": "16:30",
+        "venue": {
+          "en": "Kino in der Königstadt",
+          "de": "Kino in der Königstadt"
+        },
+        "address": "Straßburger Str. 55, 10405 Berlin",
+        "website": "https://www.kino-bar.berlin/monats%C3%BCbersicht",
+        "maps": {
+          "google": "https://maps.app.goo.gl/TD4MXHJESpDMg32q8"
+        },
+        "tickets": ""
+      }
+    ]
   },
   {
     "id": "under-the-volcano",
@@ -459,7 +613,36 @@
     },
     "trailer": "https://www.youtube.com/watch?v=1d6acIy5dWs",
     "image": "https://images.squarespace-cdn.com/content/5f739670761e02764c54e1ca/08ca1605-9022-4caf-ba9e-842182b26651/main-program-under-the-volcano.png",
-    "screenings": []
+    "screenings": [
+      {
+        "date": "2025-10-23",
+        "time": "19:00",
+        "venue": {
+          "en": "Sputnik Kino",
+          "de": "Sputnik Kino"
+        },
+        "address": "Hasenheide 54/5th, 10967 Berlin",
+        "website": "https://www.sputnik-kino.com/program/featured",
+        "maps": {
+          "google": "https://maps.app.goo.gl/xceHasJXgB6xREb7A"
+        },
+        "tickets": ""
+      },
+      {
+        "date": "2025-10-24",
+        "time": "18:30",
+        "venue": {
+          "en": "Kino in der Königstadt",
+          "de": "Kino in der Königstadt"
+        },
+        "address": "Straßburger Str. 55, 10405 Berlin",
+        "website": "https://www.kino-bar.berlin/monats%C3%BCbersicht",
+        "maps": {
+          "google": "https://maps.app.goo.gl/TD4MXHJESpDMg32q8"
+        },
+        "tickets": ""
+      }
+    ]
   },
   {
     "id": "u-are-the-universe",
@@ -505,7 +688,36 @@
     },
     "trailer": "https://www.youtube.com/watch?v=I6MjF1cb2SE",
     "image": "https://images.squarespace-cdn.com/content/5f739670761e02764c54e1ca/01b56058-c190-4e96-b07d-525ae43abf8e/main-program-uaretheuniverse.jpg",
-    "screenings": []
+    "screenings": [
+      {
+        "date": "2025-10-24",
+        "time": "18:30",
+        "venue": {
+          "en": "Filmkunst 66",
+          "de": "Filmkunst 66"
+        },
+        "address": "Bleibtreustraße 12, 10623 Berlin",
+        "website": "https://www.filmkunst66.de/",
+        "maps": {
+          "google": "https://maps.app.goo.gl/3cHayGJf6htU6hfz7"
+        },
+        "tickets": ""
+      },
+      {
+        "date": "2025-10-25",
+        "time": "20:30",
+        "venue": {
+          "en": "Kino in der Königstadt",
+          "de": "Kino in der Königstadt"
+        },
+        "address": "Straßburger Str. 55, 10405 Berlin",
+        "website": "https://www.kino-bar.berlin/monats%C3%BCbersicht",
+        "maps": {
+          "google": "https://maps.app.goo.gl/TD4MXHJESpDMg32q8"
+        },
+        "tickets": ""
+      }
+    ]
   },
   {
     "id": "honeymoon",
@@ -551,7 +763,36 @@
     },
     "trailer": "https://www.youtube.com/watch?v=RCQEO1l0xpY",
     "image": "https://images.squarespace-cdn.com/content/5f739670761e02764c54e1ca/e623deaf-0246-49d8-a149-ebbc725c1292/main-program-honeymoon.jpeg",
-    "screenings": []
+    "screenings": [
+      {
+        "date": "2025-10-24",
+        "time": "19:00",
+        "venue": {
+          "en": "ACUD Kino",
+          "de": "ACUD Kino"
+        },
+        "address": "Veteranenstraße 21, 10119 Berlin",
+        "website": "https://acudkino.de/",
+        "maps": {
+          "google": "https://maps.app.goo.gl/dpmqiMzp2YJum8Xx7"
+        },
+        "tickets": ""
+      },
+      {
+        "date": "2025-10-25",
+        "time": "18:30",
+        "venue": {
+          "en": "Kino in der Königstadt",
+          "de": "Kino in der Königstadt"
+        },
+        "address": "Straßburger Str. 55, 10405 Berlin",
+        "website": "https://www.kino-bar.berlin/monats%C3%BCbersicht",
+        "maps": {
+          "google": "https://maps.app.goo.gl/TD4MXHJESpDMg32q8"
+        },
+        "tickets": ""
+      }
+    ]
   },
   {
     "id": "short-film-competition-program-1",
@@ -737,6 +978,7 @@
           "de": "Kino im Planetarium"
         },
         "address": "Prenzlauer Allee 80, 10405 Berlin",
+        "website": "https://www.planetarium.berlin/veranstaltungsart/kino",
         "maps": {
           "google": "https://maps.app.goo.gl/KKq8AZhbtGosemPN6"
         },
@@ -750,6 +992,7 @@
           "de": "IL Kino"
         },
         "address": "Nansenstraße 22, 12047 Berlin",
+        "website": "https://ilkino.de/",
         "maps": {
           "google": "https://maps.app.goo.gl/9QQ3Z9zBAukkdi648"
         },
@@ -919,6 +1162,7 @@
           "de": "Kino im Planetarium"
         },
         "address": "Prenzlauer Allee 80, 10405 Berlin",
+        "website": "https://www.planetarium.berlin/veranstaltungsart/kino",
         "maps": {
           "google": "https://maps.app.goo.gl/KKq8AZhbtGosemPN6"
         },
@@ -932,6 +1176,7 @@
           "de": "Sputnik Kino"
         },
         "address": "Hasenheide 54/5th, 10967 Berlin",
+        "website": "https://www.sputnik-kino.com/program/featured",
         "maps": {
           "google": "https://maps.app.goo.gl/xceHasJXgB6xREb7A"
         },
@@ -1060,7 +1305,7 @@
         },
         "about": {
           "en": "Severian is an ancient name, and he was named after his great-grandfather. Severian Lazariev lives and works in Kyiv. In 2016 he started studying fashion design. He loved looking at costumes in movies. And at the same moment, he became interested in cinema. Severian used to sit at home and watch movies, and in the evenings he liked to dress up and go to the film. In 2018, he first got on a movie set as an extra and soon decided that Severian needed to make his own movie. He started jotting down ideas and writing scripts. And now he creates films from time to time.",
-          "de": "Severian ist ein alter Name – er wurde nach seinem Urgroßvater benannt. Severian lebt und arbeitet in Kyjiw. 2016 begann er ein Studium im Modedesign. Er liebte es, Kostüme in Filmen zu betrachten – und zugleich erwachte sein Interesse am Kino. Severian saß früher zu Hause und schaute Filme; abends schickte er sich gern heraus und ging ins Kino. 2018 stand er erstmals als Statist am Set und beschloss bald, dass Severian seinen eigenen Film machen müsse. Er begann, Ideen zu notieren und Drehbücher zu schreiben. Und nun dreht er von Zeit zu Zeit Filme."
+          "de": "Severian ist ein alter Name – er wurde nach seinem Urgroßvater benannt. Severian Lazariev lebt und arbeitet in Kyjiw. 2016 begann er ein Studium im Modedesign. Er liebte es, Kostüme in Filmen zu betrachten – und zugleich erwachte sein Interesse am Kino. Severian saß früher zu Hause und schaute Filme; abends schickte er sich gern heraus und ging ins Kino. 2018 stand er erstmals als Statist am Set und beschloss bald, dass Severian seinen eigenen Film machen müsse. Er begann, Ideen zu notieren und Drehbücher zu schreiben. Und nun dreht er von Zeit zu Zeit Filme."
         },
         "countries": {
           "en": ["Ukraine"],
@@ -1229,6 +1474,7 @@
           "de": "ACUD Kino"
         },
         "address": "Veteranenstraße 21, 10119 Berlin",
+        "website": "https://acudkino.de/",
         "maps": {
           "google": "https://maps.app.goo.gl/dpmqiMzp2YJum8Xx7"
         },
@@ -1242,6 +1488,7 @@
           "de": "IL Kino"
         },
         "address": "Nansenstraße 22, 12047 Berlin",
+        "website": "https://ilkino.de/",
         "maps": {
           "google": "https://maps.app.goo.gl/9QQ3Z9zBAukkdi648"
         },
@@ -1256,6 +1503,7 @@
       "de": "When Lightning Flashes Over the Sea",
       "uk": "Коли над морем спалахує блискавка"
     },
+    "published": true,
     "language": {
       "de": "Ukrainisch, Russisch & Jiddisch mit englischen Untertiteln (OmeU)",
       "en": "Ukrainian, Russian & Yiddish with English subtitles"
@@ -1292,7 +1540,22 @@
     },
     "trailer": "https://www.youtube.com/watch?v=h9vkCntJY-8",
     "image": "https://images.squarespace-cdn.com/content/5f739670761e02764c54e1ca/5c2a9370-c3ca-466c-9580-6df1759756ea/when-lightning-flashes-over-the-sea-eva-neymann.jpg",
-    "screenings": []
+    "screenings": [
+      {
+        "date": "2025-10-26",
+        "time": "16:00",
+        "venue": {
+          "en": "Kino im Planetarium",
+          "de": "Kino im Planetarium"
+        },
+        "address": "Prenzlauer Allee 80, 10405 Berlin",
+        "website": "https://www.planetarium.berlin/veranstaltungsart/kino",
+        "maps": {
+          "google": "https://maps.app.goo.gl/KKq8AZhbtGosemPN6"
+        },
+        "tickets": ""
+      }
+    ]
   },
   {
     "id": "teen-angst",
@@ -1301,6 +1564,7 @@
       "de": "Teen Angst",
       "uk": "Teen Angst"
     },
+    "published": true,
     "language": {
       "de": "Ukrainisch mit englischen Untertiteln (OmeU)",
       "en": "Ukrainian with English subtitles"
@@ -1337,7 +1601,22 @@
     },
     "trailer": "https://www.youtube.com/watch?v=BiF8Kxxguwo",
     "image": "https://images.squarespace-cdn.com/content/5f739670761e02764c54e1ca/00ca74b3-9219-48f0-8fed-65aa19675d89/teen-angst-inga-pylypchuk.jpg",
-    "screenings": []
+    "screenings": [
+      {
+        "date": "2025-10-24",
+        "time": "20:30",
+        "venue": {
+          "en": "Kino in der Königstadt",
+          "de": "Kino in der Königstadt"
+        },
+        "address": "Straßburger Str. 55, 10405 Berlin",
+        "website": "https://www.kino-bar.berlin/monats%C3%BCbersicht",
+        "maps": {
+          "google": "https://maps.app.goo.gl/TD4MXHJESpDMg32q8"
+        },
+        "tickets": ""
+      }
+    ]
   },
   {
     "id": "oxygen-station",
@@ -1346,6 +1625,7 @@
       "de": "Oxygen Station",
       "uk": "Киснева станція"
     },
+    "published": true,
     "language": {
       "de": "Ukrainisch und Russisch mit englischen Untertiteln (OmeU)",
       "en": "Ukrainian and Russian with English subtitles"
@@ -1382,7 +1662,36 @@
     },
     "trailer": "https://www.youtube.com/watch?v=YgtgI7Ab1w4",
     "image": "https://images.squarespace-cdn.com/content/5f739670761e02764c54e1ca/4df9fd6f-7a3e-46a3-ba8a-44695828cb25/Oxygen-station-dzhemilev-usfa-gov-ua.jpg",
-    "screenings": []
+    "screenings": [
+      {
+        "date": "2025-10-23",
+        "time": "19:00",
+        "venue": {
+          "en": "Kino in der Königstadt",
+          "de": "Kino in der Königstadt"
+        },
+        "address": "Straßburger Str. 55, 10405 Berlin",
+        "website": "https://www.kino-bar.berlin/monats%C3%BCbersicht",
+        "maps": {
+          "google": "https://maps.app.goo.gl/TD4MXHJESpDMg32q8"
+        },
+        "tickets": ""
+      },
+      {
+        "date": "2025-10-25",
+        "time": "19:00",
+        "venue": {
+          "en": "ACUD Kino",
+          "de": "ACUD Kino"
+        },
+        "address": "Veteranenstraße 21, 10119 Berlin",
+        "website": "https://acudkino.de/",
+        "maps": {
+          "google": "https://maps.app.goo.gl/dpmqiMzp2YJum8Xx7"
+        },
+        "tickets": ""
+      }
+    ]
   },
   {
     "id": "yaremchuk-matchless-world-of-beauty",
@@ -1391,6 +1700,7 @@
       "de": "Yaremchuk: Unvergleichbare Welt der Schönheit",
       "uk": "Яремчук: Незрівнянний світ краси"
     },
+    "published": false,
     "language": {
       "de": "Ukrainisch mit englischen Untertiteln (OmeU)",
       "en": "Ukrainian with English subtitles"
@@ -1436,6 +1746,7 @@
       "de": "Shamara",
       "uk": "Шамара"
     },
+    "published": true,
     "language": {
       "de": "Russisch mit englischen Untertiteln (OmeU)",
       "en": "Russian with English subtitles"
@@ -1472,7 +1783,22 @@
     },
     "trailer": "https://www.youtube.com/watch?v=H74shg3-EnY",
     "image": "https://images.squarespace-cdn.com/content/5f739670761e02764c54e1ca/0486fe37-2716-433d-b7dd-5ea4d7bf8fe4/shamara-andreichenko.jpg",
-    "screenings": []
+    "screenings": [
+      {
+        "date": "2025-10-24",
+        "time": "18:00",
+        "venue": {
+          "en": "Kino im Planetarium",
+          "de": "Kino im Planetarium"
+        },
+        "address": "Prenzlauer Allee 80, 10405 Berlin",
+        "website": "https://www.planetarium.berlin/veranstaltungsart/kino",
+        "maps": {
+          "google": "https://maps.app.goo.gl/KKq8AZhbtGosemPN6"
+        },
+        "tickets": ""
+      }
+    ]
   },
   {
     "id": "seventh-route",
@@ -1481,6 +1807,7 @@
       "de": "Die siebte Route",
       "uk": "Сьомий маршрут"
     },
+    "published": true,
     "language": {
       "de": "Ukrainisch & Russisch mit englischen Untertiteln (OmeU)",
       "en": "Ukrainian & Russian with English subtitles"
@@ -1500,7 +1827,7 @@
       "de": ["Ukraine"]
     },
     "cast": "Viktoriya Malektorovych, Yurii Yevsiukov, Halyna Sulyma, Yevhen Pashin, Nina Sharolapova, Bohdan Benyuk, Larysa Nedin, Mykola Boklan",
-    "duration": 79,
+    "duration": 75,
     "year": 1997,
     "short_description": {
       "en": "Kyiv in a single day: a tour guide improvises a new route for American visitors and secretly turns it into the life story of an ‘unknown’ poet — himself.",
@@ -1517,6 +1844,21 @@
     },
     "trailer": "https://www.youtube.com/watch?v=RvjUd0_CnNA",
     "image": "https://images.squarespace-cdn.com/content/5f739670761e02764c54e1ca/4a833b44-8358-45f7-9db8-060f970cd7af/seventh-route-illyenko.jpg",
-    "screenings": []
+    "screenings": [
+      {
+        "date": "2025-10-23",
+        "time": "21:00",
+        "venue": {
+          "en": "ACUD Kino",
+          "de": "ACUD Kino"
+        },
+        "address": "Veteranenstraße 21, 10119 Berlin",
+        "website": "https://acudkino.de/",
+        "maps": {
+          "google": "https://maps.app.goo.gl/dpmqiMzp2YJum8Xx7"
+        },
+        "tickets": ""
+      }
+    ]
   }
 ]

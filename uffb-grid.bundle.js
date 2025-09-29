@@ -212,6 +212,7 @@
     }
     .uffb-venue {
       margin-top: 2px;
+      font-weight: 600;
     }
     .uffb-address a {
       font-size: 0.92rem;
@@ -593,6 +594,7 @@
     /* keep inner text spacing tidy (doesn't affect grid view) */
     .uffb-list .uffb-venue {
       margin-top: 2px;
+      font-weight: 600;
     }
     .uffb-list .uffb-address a {
       margin-top: 0;
@@ -1026,6 +1028,7 @@
       typeof s.address === 'string'
         ? s.address
         : s.address?.[lang] || s.address?.de || s.address?.en || '';
+    const website = s.website || '';
 
     let mapsUrl = s.maps?.google || '';
     if (!mapsUrl && (venueName || addressTxt)) {
@@ -1036,7 +1039,7 @@
     }
 
     const venueLine = venueName
-      ? `<div class="uffb-venue">${escapeHtml(venueName)}</div>`
+      ? `<div class="uffb-venue"><a href="${website}" target="_blank">${escapeHtml(venueName)}</a></div>`
       : '';
     const addressLine = addressTxt
       ? `<div class="uffb-address"><a href="${mapsUrl}" target="_blank" rel="noopener">${escapeHtml(

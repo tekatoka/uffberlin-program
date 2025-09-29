@@ -401,6 +401,7 @@
         const venueName = localized(s.venue) || '';
         const addr = s.address || '';
         const mapsUrl = s.maps?.google || null;
+        const website = s.website || '';
 
         const tixUrl = (s.tickets || '').trim();
         const hasTix = !!tixUrl;
@@ -423,7 +424,7 @@
           <article class="uffb-screening-card">
             <div class="uffb-whenline">${when}</div>
             ${venueName
-              ? `<div class="uffb-venue-title">${venueName}</div>`
+              ? `<div class="uffb-venue-title"><a href="${website}" target="_blank">${venueName}</a></div>`
               : ''}
             ${addrHtml} ${tixBtn}
           </article>
@@ -1353,6 +1354,7 @@
     .uffb-screening-card .uffb-whenline,
     .uffb-screening-card .uffb-venue-title {
       color: #333;
+      font-weight: 600;
     }
     .uffb-whenline {
       font-weight: 700;
