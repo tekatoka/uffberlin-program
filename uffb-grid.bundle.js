@@ -34,6 +34,9 @@
       tickets: 'Tickets',
       loadError: 'Program could not be loaded.',
       noDates: 'Screening dates to be updated soon',
+      noResultsTitle: 'No films match your filters.',
+      noResultsHint: 'Try changing or clearing the filters.',
+      resetFiltersBtn: 'Reset filters',
       // date labels
       weekdayDayMonthYear: {
         weekday: 'short',
@@ -63,6 +66,9 @@
       tickets: 'Tickets',
       loadError: 'Programm konnte nicht geladen werden.',
       noDates: 'Vorführtermine folgen in Kürze',
+      noResultsTitle: 'Keine Filme entsprechen Ihren Filtern.',
+      noResultsHint: 'Versuchen Sie, die Filter zu ändern oder zurückzusetzen.',
+      resetFiltersBtn: 'Filter zurücksetzen',
       weekdayDayMonthYear: {
         weekday: 'short',
         day: '2-digit',
@@ -91,6 +97,9 @@
       tickets: 'Квитки',
       loadError: 'Не вдалося завантажити програму фестивалю.',
       noDates: 'Дати показів буде оновлено найближчим часом',
+      noResultsTitle: 'Жоден фільм не відповідає фільтрам.',
+      noResultsHint: 'Спробуйте змінити або скинути фільтри.',
+      resetFiltersBtn: 'Скинути фільтри',
       weekdayDayMonthYear: {
         weekday: 'short',
         day: '2-digit',
@@ -806,6 +815,25 @@
       border-color: #fff;
     }
 
+    .uffb-empty {
+      padding: 28px;
+      border: 1px dashed rgba(255, 255, 255, 0.25);
+      background: rgba(255, 255, 255, 0.04);
+      border-radius: 0;
+      color: #fff;
+    }
+    .uffb-empty h4 {
+      margin: 0 0 6px;
+      font-size: 1.25rem;
+    }
+    .uffb-empty p {
+      margin: 0 0 14px;
+      opacity: 0.9;
+    }
+    .uffb-empty .uffb-empty-actions {
+      margin-top: 8px;
+    }
+
     .uffb-shorts {
       margin: 8px 0 0;
       padding-left: 1.25rem; /* ordered list indent */
@@ -1008,11 +1036,13 @@
   }
 
   // Build a map: ISO date -> array of { film, date }
-  function explodeByDate(list) {
+  // Build a map: ISO date -> array of { film, date }
+  function explodeByDate(list, onlyDate = null) {
     const map = new Map();
     list.forEach((f) => {
       (f.screenings || []).forEach((s) => {
         if (!s.date) return;
+        if (onlyDate && s.date !== onlyDate) return; // ⬅️ NEW: keep only selected date
         if (!map.has(s.date)) map.set(s.date, []);
         map.get(s.date).push({ film: f, date: s.date });
       });
@@ -1652,22 +1682,24 @@
     }
 
     function renderGroupedByDate(list, variant) {
-      const dateMap = explodeByDate(list);
+      const only = state.date || null;
+      const dateMap = explodeByDate(list, only); // ⬅️ pass selected date
       const dates = Array.from(dateMap.keys()).sort();
 
-      // Collect films that have NO dated screenings at all
-      const undated = list
-        .filter((f) => !(f.screenings || []).some((s) => s.date))
-        // sort nicely: by localized title
-        .sort((a, b) => {
-          const at = pickLangVal(a.title) || '';
-          const bt = pickLangVal(b.title) || '';
-          return at.localeCompare(bt);
-        });
+      // Undated group: only show when NO date filter is active
+      const undated = !only
+        ? list
+            .filter((f) => !(f.screenings || []).some((s) => s.date))
+            .sort((a, b) => {
+              const at = pickLangVal(a.title) || '';
+              const bt = pickLangVal(b.title) || '';
+              return at.localeCompare(bt);
+            })
+        : [];
 
       let htmlStr = `<div class="uffb-groups">`;
 
-      // 1) Dated groups
+      // Dated groups (now only the selected date when set)
       dates.forEach((d) => {
         const nice = isoToLabel(d);
         const entries = dateMap.get(d) || [];
@@ -1698,9 +1730,8 @@
       </section>`;
       });
 
-      // 2) Undated group (only if there are any)
       if (undated.length) {
-        const undatedLabel = '…' + t('noDates'); // three dots as requested
+        const undatedLabel = '…' + t('noDates');
         htmlStr += `
       <section class="uffb-group" data-date="undated">
         <h4 class="uffb-group-title">${undatedLabel}</h4>
@@ -1715,7 +1746,6 @@
       htmlStr += `</div>`;
       outlet.innerHTML = htmlStr;
 
-      // re-bind trailer buttons
       const modal = mountModal();
       outlet.querySelectorAll('[data-trailer]').forEach((btn) => {
         btn.addEventListener('click', (e) => {
@@ -1755,17 +1785,26 @@
           const catNorm = safeTxt(state.category);
           if (keyNorm !== state.category && keyNorm !== catNorm) return false;
         }
-        if (state.venue) {
-          const hasVenue = (f.screenings || []).some(
-            (s) => safeTxt(getVenueName(s)) === state.venue
+        if (state.venue && state.date) {
+          // require a single screening that matches BOTH
+          const hasBoth = (f.screenings || []).some(
+            (s) =>
+              safeTxt(getVenueName(s)) === state.venue && s.date === state.date
           );
-          if (!hasVenue) return false;
-        }
-        if (state.date) {
-          const hasDate = (f.screenings || []).some(
-            (s) => s.date === state.date
-          );
-          if (!hasDate) return false;
+          if (!hasBoth) return false;
+        } else {
+          if (state.venue) {
+            const hasVenue = (f.screenings || []).some(
+              (s) => safeTxt(getVenueName(s)) === state.venue
+            );
+            if (!hasVenue) return false;
+          }
+          if (state.date) {
+            const hasDate = (f.screenings || []).some(
+              (s) => s.date === state.date
+            );
+            if (!hasDate) return false;
+          }
         }
         if (state.q) {
           const q = state.q.toLowerCase();
@@ -1839,6 +1878,35 @@
         renderGroupedByDate(filtered, layoutVariant);
       } else {
         renderUngrouped(filtered, layoutVariant);
+      }
+
+      // --- empty state ---
+      if (filtered.length === 0) {
+        outlet.innerHTML = html`
+          <div class="uffb-empty">
+            <h4>${t('noResultsTitle')}</h4>
+            <p>${t('noResultsHint')}</p>
+            <div class="uffb-empty-actions">
+              <button
+                type="button"
+                class="uffb-chip uffb-chip-btn"
+                id="resetAllFilters"
+              >
+                <span class="chip-icon" aria-hidden="true">✕</span>
+                <span class="chip-label">${t('clearFilters')}</span>
+              </button>
+            </div>
+          </div>
+        `;
+        // wire the reset to your existing Clear Filters logic
+        const resetBtn = outlet.querySelector('#resetAllFilters');
+        if (resetBtn) {
+          resetBtn.addEventListener('click', () => {
+            // triggers your UI reset + state reset + applyAll()
+            ui.filters.clear.click();
+          });
+        }
+        return; // stop here; don’t render lists/groups
       }
     }
 
