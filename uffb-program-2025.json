@@ -1187,8 +1187,8 @@
   {
     "id": "what-the-short",
     "title": {
-      "en": "WHAT THE SHORT? - YAKOGO SHORTA? - ЯКОГО ШОРТА? - Short Films out of competition",
-      "de": "WHAT THE SHORT? - YAKOGO SHORTA? - ЯКОГО ШОРТА? - Kurzfilmprogramm außer Wettbewerb"
+      "en": "WHAT THE SHORT? - ЯКОГО ШОРТА? - Short Films out of competition",
+      "de": "WHAT THE SHORT? - ЯКОГО ШОРТА? - Kurzfilmprogramm außer Wettbewerb"
     },
     "published": true,
     "category": {
@@ -1892,6 +1892,98 @@
         "website": "https://acudkino.de/",
         "maps": {
           "google": "https://maps.app.goo.gl/dpmqiMzp2YJum8Xx7"
+        },
+        "tickets": ""
+      }
+    ]
+  },
+  {
+    "id": "georgian-film-focus",
+    "title": {
+      "en": "Protest(s) Continues. Georgian Documentary Cinema Against the Authoritarian Regime",
+      "de": "Protest(e) gehen weiter. Georgisches Dokumentarkino gegen das autoritäre Regime"
+    },
+    "published": true,
+    "category": {
+      "key": "special_georgian_focus",
+      "en": "Special program: Georgian Film Focus",
+      "de": "Spezialprogramm: Fokus Georgien"
+    },
+    "short_description": {
+      "en": "For three years, over 450 Georgian filmmakers and cultural workers have protested the authoritarian control of Bidzina Ivanishvili’s government over the country’s cultural institutions, including the National Film Center.",
+      "de": "Seit drei Jahren protestieren über 450 georgische Filmschaffende und Kulturtätige gegen die autoritäre Kontrolle der Regierung von Bidzina Iwanischwili über die kulturellen Institutionen des Landes, darunter auch das Nationale Filmzentrum."
+    },
+    "description": {
+      "en": "The program “Protest(s) continues – Georgian documentary cinema against the authoritarian regime” presents films from the series Stories of Political Prisoners, featuring works by leading directors such as Salomé Jashi, Anna Dziapshipa, and Tiku Kobiashvili. These portraits highlight Georgia’s “prisoners of conscience” (სინდისის პატიმრები) and their personal struggles under repression. \n\nThe program concludes with Niniko Lekishvili’s documentary CHASE (დევნა, 2025), following a Georgian cinema star navigating activism, protest, and private life. A final discussion with cultural scientist Irine Beridze and film scholar Nino Dzandzawa will close the event.\n\n<strong>Curator:</strong> Irine Beridze\n<strong>Guest:</strong> Georgian film scholar and curator Nino Dzandzawa",
+      "de": "Das Programm „Protest(e) gehen weiter – Georgisches Dokumentarkino gegen das autoritäre Regime“ zeigt Filme aus der Reihe Stories of Political Prisoners und versammelt Arbeiten führender Regisseur*innen wie Salomé Jashi, Anna Dziapshipa und Tiku Kobiashvili. Diese Porträts rücken Georgiens „Gewissensgefangene“ (სინდისის პატიმრები) und ihre persönlichen Kämpfe unter Repression in den Mittelpunkt. \n\nDen Abschluss bildet Niniko Lekishvilis Dokumentarfilm CHASE (დევნა, 2025), der einem georgischen Filmstar zwischen Aktivismus, Protest und Privatleben folgt. Eine abschließende Diskussion mit der Kulturwissenschaftlerin Irine Beridze und der Filmwissenschaftlerin Nino Dzandzawa beschließt die Veranstaltung.\n\n<strong>Kuratiert von</strong> Irine Beridze\n<strong>Gast:</strong> Georgische Filmwissenschaftlerin und Kuratorin Nino Dzandzawa"
+    },
+    "language": {
+      "de": "",
+      "en": ""
+    },
+    "curator": "Irine Beridze",
+    "duration": 70,
+    "year": "",
+    "image": "https://images.squarespace-cdn.com/content/v1/5f739670761e02764c54e1ca/1727124052218-9HAFIHE8THUC98V48K9K/Logo-600x600.jpg",
+    "films": [],
+    "screenings": [
+      {
+        "date": "2025-10-24",
+        "time": "19:00",
+        "venue": {
+          "en": "Sputnik Kino",
+          "de": "Sputnik Kino"
+        },
+        "address": "Hasenheide 54/5th, 10967 Berlin",
+        "website": "https://www.sputnik-kino.com/program/featured",
+        "maps": {
+          "google": "https://maps.app.goo.gl/xceHasJXgB6xREb7A"
+        },
+        "tickets": ""
+      }
+    ]
+  },
+  {
+    "id": "land-labor-legacy",
+    "title": {
+      "en": "Land, Labor and Legacy: Short Films on (Soviet) Extractivism in Central Asia",
+      "de": "Land, Arbeit und Erbe: Kurzfilme über (sowjetischen) Extraktivismus in Zentralasien"
+    },
+    "published": true,
+    "category": {
+      "key": "special_central_asia",
+      "en": "Special program: Central Asia",
+      "de": "Spezialprogramm: Zentralasien"
+    },
+    "short_description": {
+      "en": "This curated short film program explores the environmental, social, and cultural consequences of Soviet-era extractivism in Central Asia.",
+      "de": "Dieses kuratierte Kurzfilmprogramm untersucht die ökologischen, sozialen und kulturellen Folgen des sowjetischen Extraktivismus in Zentralasien."
+    },
+    "description": {
+      "en": "<strong>Curated by</strong> art historian and film curator Azem Bekturova.\n<strong>Guest:</strong> Nikolaos Olma",
+      "de": "<strong>Kuratiert von</strong> der Kunsthistorikerin und Filmkuratorin Azem Bekturova.\n<strong>Gast:</strong> Nikolaos Olma"
+    },
+    "language": {
+      "de": "",
+      "en": ""
+    },
+    "curator": "Azem Bekturova",
+    "duration": 85,
+    "year": "",
+    "image": "https://images.squarespace-cdn.com/content/v1/5f739670761e02764c54e1ca/1727124052218-9HAFIHE8THUC98V48K9K/Logo-600x600.jpg",
+    "films": [],
+    "screenings": [
+      {
+        "date": "2025-10-23",
+        "time": "19:00",
+        "venue": {
+          "en": "IL Kino",
+          "de": "IL Kino"
+        },
+        "address": "Nansenstraße 22, 12047 Berlin",
+        "website": "https://ilkino.de/",
+        "maps": {
+          "google": "https://maps.app.goo.gl/9QQ3Z9zBAukkdi648"
         },
         "tickets": ""
       }

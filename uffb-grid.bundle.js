@@ -22,6 +22,7 @@
       searchBtn: 'Search',
       category: 'Category',
       director: 'Directed by',
+      curator: 'Curated by',
       venue: 'Venue',
       date: 'Date',
       title: 'Film title',
@@ -54,6 +55,7 @@
       searchBtn: 'Suche',
       category: 'Kategorie',
       director: 'Regie',
+      curator: 'Kuratiert von',
       venue: 'Spielort',
       date: 'Datum',
       title: 'Filmtitel',
@@ -85,6 +87,7 @@
       searchBtn: 'Пошук',
       category: 'Категорія',
       director: 'Режисер',
+      curator: 'Куратор',
       venue: 'Майданчик',
       date: 'Дата',
       title: 'Назва фільму',
@@ -995,7 +998,12 @@
   }
 
   // Priority: 0 = main, 1 = shorts-competition, 2 = others
-  const CATEGORY_ORDER = ['main', 'shorts_competition'];
+  const CATEGORY_ORDER = [
+    'main',
+    'uffb_shorts',
+    'special',
+    'ukraine-known-unknown',
+  ];
 
   function categoryRank(key, label) {
     const k = (key || '').toLowerCase();
@@ -1187,6 +1195,7 @@
     const countriesTxt = joinVals(it.countries); // supports "Ukraine, Germany" or ["Ukraine","Germany"] or i18n objects
     const yearTxt = it.year ? String(it.year) : '';
     const directorTxt = joinVals(it.director); // supports string or i18n object
+    const curatorTxt = joinVals(it.curator); // supports string or i18n object
     let durationTxt = it.duration != null ? it.duration : ''; // number (min) or string
     if (typeof durationTxt === 'number') durationTxt = `${durationTxt}'`;
     else durationTxt = pickLangVal(durationTxt);
@@ -1204,6 +1213,11 @@
         ${directorTxt
           ? `<div class="uffb-meta2" style="margin-top: 10px">${t('director')}: ${escapeHtml(
               directorTxt
+            )}</div>`
+          : ''}
+        ${curatorTxt
+          ? `<div class="uffb-meta2" style="margin-top: 10px">${t('curator')}: ${escapeHtml(
+              curatorTxt
             )}</div>`
           : ''}
         ${durationTxt

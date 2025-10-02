@@ -916,11 +916,13 @@
   }
 
   function buildShortsItemsSection(film) {
+    const shortDesc = localized(film.short_description);
+    const longDesc = localized(film.description);
     const shorts = Array.isArray(film.films) ? film.films : [];
-    if (!shorts.length) return '';
+    if (!shorts.length && !shortDesc && !longDesc) return '';
 
     const items = shorts
-      .map((sf) => {
+      ?.map((sf) => {
         const title =
           (typeof sf.title === 'object' ? localized(sf.title) : sf.title) || '';
         const director =
@@ -1012,9 +1014,19 @@
       })
       .join('');
 
-    return `
+    return html`
       <section class="uffb-panel uffb-shorts-block">
-        <ol class="uffb-shorts-list">${items}</ol>
+        <div class="uffb-synopsis2">
+          ${shortDesc
+            ? `<p class="uffb-lead"><strong>${shortDesc}</strong></p>`
+            : ''}
+          ${longDesc ? `<div class="uffb-bodytext">${longDesc}</div>` : ''}
+        </div>
+      </section>
+      <section class="uffb-panel uffb-shorts-block">
+        <ol class="uffb-shorts-list">
+          ${items}
+        </ol>
       </section>
     `;
   }
@@ -1760,7 +1772,7 @@
       return;
     }
 
-    const isShortsProgram = Array.isArray(film.films) && film.films.length > 0;
+    const isShortsProgram = Array.isArray(film.films);
 
     const title = localized(film.title) || film.original_title || '';
     const screeningsBlock = buildScreeningsSection(film);
