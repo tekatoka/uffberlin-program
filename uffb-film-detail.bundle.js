@@ -53,8 +53,13 @@
       loadError: 'Film data could not be loaded.',
       filmNotFound: 'Film not found.',
       collaboration: 'In collaboration with',
+      partners: 'Partners',
       warning: 'Warning',
       aboutDirector: 'About the director(s)',
+      panelDiscussion: 'Panel discussion',
+      moderator: 'Moderator',
+      guests: 'Guests',
+      inPartnershipWith: 'In partnership with',
     },
     de: {
       home: 'Start',
@@ -81,8 +86,13 @@
       loadError: 'Filmdaten konnten nicht geladen werden.',
       filmNotFound: 'Film nicht gefunden.',
       collaboration: 'In Kooperation mit',
+      partners: 'Partner',
       warning: 'Warnung',
       aboutDirector: 'Über die Filmemacher',
+      panelDiscussion: 'Podiumsdiskussion',
+      moderator: 'Moderation',
+      guests: 'Gäste',
+      inPartnershipWith: 'In Partnerschaft mit',
     },
     uk: {
       home: 'Головна',
@@ -108,8 +118,13 @@
       loadError: 'Не вдалося завантажити дані про фільм.',
       filmNotFound: 'Фільм не знайдено.',
       collaboration: 'У співпраці з',
+      partners: 'Партнери',
       warning: 'Попередження',
       aboutDirector: 'Про режисера(-ів)',
+      panelDiscussion: 'Панельна дискусія',
+      moderator: 'Модератор',
+      guests: 'Гості',
+      inPartnershipWith: 'У співпраці з',
     },
   };
   const t = (key) => I18N[lang]?.[key] ?? key;
@@ -312,6 +327,52 @@
     `;
   }
 
+  function buildPanelDiscussionBlock(film) {
+    const pd = film && film.panel_discussion;
+    if (!pd) return '';
+
+    // description can be localized object or plain string
+    const desc = pd.description ? localized(pd.description) : '';
+    // allow strings or localized objects just in case
+    const mod = pd.moderation
+      ? typeof pd.moderation === 'object'
+        ? localized(pd.moderation)
+        : pd.moderation
+      : '';
+    const gs = pd.guests
+      ? typeof pd.guests === 'object'
+        ? localized(pd.guests)
+        : pd.guests
+      : '';
+    const part = pd.partners
+      ? typeof pd.partners === 'object'
+        ? localized(pd.partners)
+        : pd.partners
+      : '';
+
+    // nothing meaningful? skip
+    if (!desc && !mod && !gs && !part) return '';
+
+    // Bold description, then bold labels with values
+    const lines = [
+      desc ? `<p class="uffb-pd-desc"><strong>${desc}</strong></p>` : '',
+      mod ? `<p><strong>${t('moderator')}:</strong> ${mod}</p>` : '',
+      gs ? `<p><strong>${t('guests')}:</strong> ${gs}</p>` : '',
+      part ? `<p><strong>${t('inPartnershipWith')}:</strong> ${part}</p>` : '',
+    ]
+      .filter(Boolean)
+      .join('\n');
+
+    return `
+    <section class="uffb-panel uffb-panel-discussion">
+      <h3 class="uffb-panel-title">${t('panelDiscussion')}</h3>
+      <div class="uffb-panel-discussion-body">
+        ${lines}
+      </div>
+    </section>
+  `;
+  }
+
   function buildCreditsBlock(film) {
     const director = localized(film.director) || '';
     const cast = Array.isArray(localized(film.cast))
@@ -379,7 +440,7 @@
       .join('');
     return html`
     <section class="uffb-panel uffb-partners">
-        <h3 class="uffb-panel-title">${t('collaboration')}</h3>
+        <h3 class="uffb-panel-title">${t('partners')}</h3>
         <div class="uffb-partner-grid">${items}</div>
       </section>
   `;
@@ -1843,6 +1904,7 @@
               <section class="uffb-shorts-layout">
                 <div class="uffb-shorts-left">
                   ${buildShortsItemsSection(film)}
+                  ${buildPanelDiscussionBlock(film)}
                   ${buildPartnersSection(film)}
                 </div>
                 <aside class="uffb-shorts-right">
@@ -1858,6 +1920,7 @@
                 </div>
                 <div class="uffb-col-right">
                   ${buildSynopsisBlock(film)}
+                  ${buildPanelDiscussionBlock(film)}
                   ${buildPartnersSection(film)}
                 </div>
               </section>

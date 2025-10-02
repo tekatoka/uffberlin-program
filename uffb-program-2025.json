@@ -468,6 +468,15 @@
       "en": "Main program",
       "de": "Hauptprogramm"
     },
+    "panel_discussion": {
+      "description": {
+        "de": "Am 25. Oktober: Podiumsdiskussion nach dem Film „Creative Loop and War Documentaries: How Can We Move Beyond the Expected?“",
+        "en": "On 25th of October: Panel discussion after the screening “Creative Loop and War Documentaries: How Can We Move Beyond the Expected?”"
+      },
+      "moderation": "Inga Pylypchuk",
+      "guests": "tba",
+      "partners": "Bundeszentrale für politische Bildung"
+    },
     "trailer": "https://www.youtube.com/watch?v=iozKw9blaTI",
     "image": "https://images.squarespace-cdn.com/content/5f739670761e02764c54e1ca/9519c623-1ac4-4fda-912b-b43d74168c89/main-program-militantropos.webp",
     "screenings": [
@@ -482,6 +491,20 @@
         "website": "https://www.planetarium.berlin/veranstaltungsart/kino",
         "maps": {
           "google": "https://maps.app.goo.gl/KKq8AZhbtGosemPN6"
+        },
+        "tickets": ""
+      },
+      {
+        "date": "2025-10-26",
+        "time": "17:00",
+        "venue": {
+          "en": "ACUD Kino",
+          "de": "ACUD Kino"
+        },
+        "address": "Veteranenstraße 21, 10119 Berlin",
+        "website": "https://acudkino.de/",
+        "maps": {
+          "google": "https://maps.app.goo.gl/dpmqiMzp2YJum8Xx7"
         },
         "tickets": ""
       }
@@ -1556,6 +1579,15 @@
         "tickets": ""
       }
     ],
+    "panel_discussion": {
+      "description": {
+        "de": "Nach dem Film: Podiumsdiskussion „Dekoloniale Perspektiven: Lokale Geschichten und Stimmen“",
+        "en": "After the screening: panel discussion “Decolonial Perspectives: Local Histories and Voices”"
+      },
+      "moderation": "Daria Buteiko",
+      "guests": "Eva Neymann, Konstanty Kuzma",
+      "partners": "Bundeszentrale für politische Bildung"
+    },
     "partners": [
       {
         "name": "Bundeszentrale für politische Bildung",
