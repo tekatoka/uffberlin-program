@@ -421,7 +421,7 @@
         "maps": {
           "google": "https://maps.app.goo.gl/9QQ3Z9zBAukkdi648"
         },
-        "tickets": ""
+        "tickets": "https://ilkino.de/shows/2025-10-25-1900"
       }
     ]
   },
@@ -996,7 +996,7 @@
         "maps": {
           "google": "https://maps.app.goo.gl/9QQ3Z9zBAukkdi648"
         },
-        "tickets": ""
+        "tickets": "https://ilkino.de/shows/2025-10-24-1900"
       }
     ]
   },
@@ -1187,8 +1187,8 @@
   {
     "id": "what-the-short",
     "title": {
-      "en": "WHAT THE SHORT? - ЯКОГО ШОРТА? - Short Films out of competition",
-      "de": "WHAT THE SHORT? - ЯКОГО ШОРТА? - Kurzfilmprogramm außer Wettbewerb"
+      "en": "WHAT THE SHORT? - YAKOGO SHORTA? - ЯКОГО ШОРТА? - Short Films out of competition",
+      "de": "WHAT THE SHORT? - YAKOGO SHORTA? - ЯКОГО ШОРТА? - Kurzfilmprogramm außer Wettbewerb"
     },
     "published": true,
     "category": {
@@ -1492,7 +1492,7 @@
         "maps": {
           "google": "https://maps.app.goo.gl/9QQ3Z9zBAukkdi648"
         },
-        "tickets": ""
+        "tickets": "https://ilkino.de/shows/2025-10-26-1600"
       }
     ]
   },
@@ -1985,7 +1985,7 @@
         "maps": {
           "google": "https://maps.app.goo.gl/9QQ3Z9zBAukkdi648"
         },
-        "tickets": ""
+        "tickets": "https://ilkino.de/shows/2025-10-23-1900"
       }
     ]
   }
