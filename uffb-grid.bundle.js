@@ -33,6 +33,7 @@
       searchPh: 'Search title, description, venue…',
       watchTrailer: 'Watch trailer',
       tickets: 'Tickets',
+      bookTicketsSoon: 'Tickets will be available soon via the cinema website',
       loadError: 'Program could not be loaded.',
       noDates: 'Screening dates to be updated soon',
       noResultsTitle: 'No films match your filters.',
@@ -66,6 +67,8 @@
       searchPh: 'Suche in Titel, Beschreibung, Ort…',
       watchTrailer: 'Trailer ansehen',
       tickets: 'Tickets',
+      bookTicketsSoon:
+        'Tickets sind in Kürze über die Website des Kinos erhältlich',
       loadError: 'Programm konnte nicht geladen werden.',
       noDates: 'Vorführtermine folgen in Kürze',
       noResultsTitle: 'Keine Filme entsprechen Ihren Filtern.',
@@ -98,6 +101,7 @@
       searchPh: 'Пошук назви, опису, майданчика…',
       watchTrailer: 'Дивитися трейлер',
       tickets: 'Квитки',
+      bookTicketsSoon: 'Квитки незабаром будуть доступні на сайті кінотеатру',
       loadError: 'Не вдалося завантажити програму фестивалю.',
       noDates: 'Дати показів буде оновлено найближчим часом',
       noResultsTitle: 'Жоден фільм не відповідає фільтрам.',
@@ -265,6 +269,11 @@
       border: 1.5px solid;
       border-radius: 0px;
       text-transform: uppercase;
+    }
+
+    .uffb-no-tickets {
+      margin-top: 10px;
+      font-style: italic;
     }
 
     /* Icon buttons */
@@ -1143,7 +1152,7 @@
       ? `<span class="uffb-tickets"><a href="${
           s.tickets
         }" target="_blank" rel="noopener">${t('tickets')}</a></span>`
-      : '';
+      : ``;
 
     return `
       <li class="uffb-screening">
@@ -1151,6 +1160,7 @@
           <div class="uffb-when"><strong>${when}</strong></div>
           ${venueLine}
           ${addressLine}
+          ${!ticketHtml ? `<div class="uffb-no-tickets">${t('bookTicketsSoon')}</div>` : ''}
         </div>
         ${ticketHtml}
       </li>

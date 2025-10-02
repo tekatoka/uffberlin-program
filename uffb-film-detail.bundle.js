@@ -36,6 +36,7 @@
       tickets: 'TICKETS',
       screenings: 'Screenings',
       bookTickets: 'Book tickets',
+      bookTicketsSoon: 'Tickets will be available soon via the cinema website',
       info: 'Info',
       credits: 'Credits',
       synopsis: 'Synopsis',
@@ -62,6 +63,8 @@
       tickets: 'TICKETS',
       screenings: 'Vorführungen',
       bookTickets: 'Tickets kaufen',
+      bookTicketsSoon:
+        'Tickets sind in Kürze über die Website des Kinos erhältlich',
       info: 'Info',
       credits: 'Credits',
       synopsis: 'Über den Film',
@@ -88,6 +91,7 @@
       tickets: 'КВИТКИ',
       screenings: 'Покази',
       bookTickets: 'Купити квитки',
+      bookTicketsSoon: 'Квитки незабаром будуть доступні на сайті кінотеатру',
       info: 'Інфо',
       credits: 'Знімальна група',
       synopsis: 'Синопсис',
@@ -414,7 +418,7 @@
               rel="noopener">${t('bookTickets')}
            </a>
          </div>`
-          : '';
+          : `<div class="uffb-card-actions"><i>${t('bookTicketsSoon')}</i></div>`;
         const addrHtml = addr
           ? mapsUrl
             ? `<a class="uffb-addr" href="${mapsUrl}" target="_blank" rel="noopener">${addr}</a>`
@@ -1296,7 +1300,7 @@
 
     .uffb-two-col {
       display: grid;
-      gap: 28px;
+      gap: 105px;
       margin-top: 32px;
     }
     @media (min-width: 960px) {
@@ -1393,6 +1397,7 @@
     }
     .uffb-card-actions {
       margin-top: 6px;
+      color: #333;
     }
 
     .uffb-noscroll {
