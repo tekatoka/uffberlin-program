@@ -399,6 +399,9 @@
   function buildScreeningsSection(film) {
     const list = Array.isArray(film.screenings) ? film.screenings : [];
     if (!list.length) return '';
+
+    const perDateNotes = parsePerDateLanguageNotes(film);
+
     const cards = list
       .map((s) => {
         const when = `${fmtWhen(s.date, s.time)}`;
@@ -410,15 +413,23 @@
         const tixUrl = (s.tickets || '').trim();
         const hasTix = !!tixUrl;
 
+        const noteKey = dateToDM(s.date);
+        const langNote = perDateNotes[noteKey] || '';
+
+        const noteHtml = langNote
+          ? `<div class="uffb-lang-note"><em>${langNote}</em></div>`
+          : '';
+
         const tixBtn = hasTix
           ? `<div class="uffb-card-actions">
+           ${noteHtml}
            <a class="uffb-btn uffb-book-btn"
               href="${tixUrl}" 
               target="_blank"
               rel="noopener">${t('bookTickets')}
            </a>
          </div>`
-          : `<div class="uffb-card-actions"><i>${t('bookTicketsSoon')}</i></div>`;
+          : `<div class="uffb-card-actions">${noteHtml}<br /><i>${t('bookTicketsSoon')}</i></div>`;
         const addrHtml = addr
           ? mapsUrl
             ? `<a class="uffb-addr" href="${mapsUrl}" target="_blank" rel="noopener">${addr}</a>`
@@ -442,6 +453,41 @@
         <div class="uffb-screenings-grid">${cards}</div>
       </section>
     `;
+  }
+
+  function pad2(n) {
+    return String(n).padStart(2, '0');
+  }
+  function dateToDM(iso) {
+    const d = new Date(iso + 'T00:00:00');
+    return pad2(d.getMonth() + 1) + '-' + pad2(d.getDate());
+  }
+
+  /** Build map like { "10-24": "German dubbed version with English subtitles", ... } */
+  function parsePerDateLanguageNotes(film) {
+    const raw =
+      (film.language &&
+        (film.language[lang] || film.language.en || film.language.de)) ||
+      '';
+    if (!raw || typeof raw !== 'string') return {};
+
+    // Split by pipes and newlines; trim pieces
+    const parts = raw
+      .split('|')
+      .flatMap((p) => String(p).split('\n'))
+      .map((s) => s.trim())
+      .filter(Boolean);
+    const map = {};
+    const re = /^\s*(\d{1,2})\.(\d{1,2})\.?\s*:?\s*(.+?)\s*$/; // dd.mm.: note
+    for (const p of parts) {
+      const m = p.match(re);
+      if (!m) continue;
+      const dd = pad2(m[1]),
+        mm = pad2(m[2]);
+      const note = m[3]; // already without date/colon
+      map[mm + '-' + dd] = note;
+    }
+    return map;
   }
 
   /* --- hero carousel (kept for regular films only) --- */
