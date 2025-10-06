@@ -1640,6 +1640,14 @@
     },
     "trailer": "https://www.youtube.com/watch?v=WrsyQUHXgiA",
     "image": "https://images.squarespace-cdn.com/content/5f739670761e02764c54e1ca/00ca74b3-9219-48f0-8fed-65aa19675d89/teen-angst-inga-pylypchuk.jpg",
+    "panel_discussion": {
+      "description": {
+        "en": "Talk after the screening (in English): Following the film, we invite you to a conversation with director <strong>Inga Pylypchuk</strong>, editor <strong>Marharyta Hasanova</strong>, and three of the film’s co-authors and protagonists: <strong>Kamila Karpenko</strong>, <strong>Hanna Krutikova</strong>, and <strong>Sofiia Orudzheva</strong>. </br></br>Together, they will not only reflect on the collaborative process of creating a film shaped by multiple perspectives, but also share their views on the current situation of young people in Ukraine and Europe, and their visions for the future.</br></br>The discussion will be moderated by <strong>Daria Buteiko</strong> and will last approximately 45 minutes.",
+        "de": "Gespräch nach der Vorführung (auf Englisch): Im Anschluss an den Film laden wir Sie zu einem Gespräch mit der Regisseurin <strong>Inga Pylypchuk</strong>, der Editorin <strong>Marharyta Hasanova</strong> und drei der Co-Autorinnen und Protagonistinnen des Films: <strong>Kamila Karpenko</strong>, <strong>Hanna Krutikova</strong> und <strong>Sofiia Orudzheva</strong>. </br></br>Gemeinsam reflektieren sie nicht nur den kollaborativen Prozess der Entstehung eines Films, der von mehreren Perspektiven geprägt ist, sondern teilen auch ihre Sicht auf die aktuelle Situation junger Menschen in der Ukraine und in Europa sowie ihre Visionen für die Zukunft.</br></br>Das Gespräch wird von <strong>Daria Buteiko</strong> moderiert und dauert ca. 45 Minuten."
+      },
+      "moderation": "Daria Buteiko",
+      "guests": "Inga Pylypchuk, Marharyta Hasanova, Kamila Karpenko, Hanna Krutikova, Sofiia Orudzheva"
+    },
     "screenings": [
       {
         "date": "2025-10-24",
@@ -1946,8 +1954,8 @@
       "de": "Seit drei Jahren protestieren über 450 georgische Filmschaffende und Kulturtätige gegen die autoritäre Kontrolle der Regierung von Bidzina Iwanischwili über die kulturellen Institutionen des Landes, darunter auch das Nationale Filmzentrum."
     },
     "description": {
-      "en": "The program “Protest(s) continues – Georgian documentary cinema against the authoritarian regime” presents films from the series Stories of Political Prisoners, featuring works by leading directors such as Salomé Jashi, Anna Dziapshipa, and Tiku Kobiashvili. These portraits highlight Georgia’s “prisoners of conscience” (სინდისის პატიმრები) and their personal struggles under repression. \n\nThe program concludes with Niniko Lekishvili’s documentary CHASE (დევნა, 2025), following a Georgian cinema star navigating activism, protest, and private life. A final discussion with cultural scientist Irine Beridze and film scholar Nino Dzandzawa will close the event.\n\n<strong>Curator:</strong> Irine Beridze\n<strong>Guest:</strong> Georgian film scholar and curator Nino Dzandzawa",
-      "de": "Das Programm „Protest(e) gehen weiter – Georgisches Dokumentarkino gegen das autoritäre Regime“ zeigt Filme aus der Reihe Stories of Political Prisoners und versammelt Arbeiten führender Regisseur*innen wie Salomé Jashi, Anna Dziapshipa und Tiku Kobiashvili. Diese Porträts rücken Georgiens „Gewissensgefangene“ (სინდისის პატიმრები) und ihre persönlichen Kämpfe unter Repression in den Mittelpunkt. \n\nDen Abschluss bildet Niniko Lekishvilis Dokumentarfilm CHASE (დევნა, 2025), der einem georgischen Filmstar zwischen Aktivismus, Protest und Privatleben folgt. Eine abschließende Diskussion mit der Kulturwissenschaftlerin Irine Beridze und der Filmwissenschaftlerin Nino Dzandzawa beschließt die Veranstaltung.\n\n<strong>Kuratiert von</strong> Irine Beridze\n<strong>Gast:</strong> Georgische Filmwissenschaftlerin und Kuratorin Nino Dzandzawa"
+      "en": "The program “Protest(s) continues – Georgian documentary cinema against the authoritarian regime” presents films from the series Stories of Political Prisoners, featuring works by leading directors such as Salomé Jashi, Anna Dziapshipa, and Tiku Kobiashvili. These portraits highlight Georgia’s “prisoners of conscience” (სინდისის პატიმრები) and their personal struggles under repression. </br></br>The program concludes with Niniko Lekishvili’s documentary CHASE (დევნა, 2025), following a Georgian cinema star navigating activism, protest, and private life. A final discussion with cultural scientist Irine Beridze and film scholar Nino Dzandzawa will close the event.</br></br><strong>Curator:</strong> Irine Beridze</br><strong>Guest:</strong> Georgian film scholar and curator Nino Dzandzawa",
+      "de": "Das Programm „Protest(e) gehen weiter – Georgisches Dokumentarkino gegen das autoritäre Regime“ zeigt Filme aus der Reihe Stories of Political Prisoners und versammelt Arbeiten führender Regisseur*innen wie Salomé Jashi, Anna Dziapshipa und Tiku Kobiashvili. Diese Porträts rücken Georgiens „Gewissensgefangene“ (სინდისის პატიმრები) und ihre persönlichen Kämpfe unter Repression in den Mittelpunkt. </br></br>Den Abschluss bildet Niniko Lekishvilis Dokumentarfilm CHASE (დევნა, 2025), der einem georgischen Filmstar zwischen Aktivismus, Protest und Privatleben folgt. Eine abschließende Diskussion mit der Kulturwissenschaftlerin Irine Beridze und der Filmwissenschaftlerin Nino Dzandzawa beschließt die Veranstaltung.</br></br><strong>Kuratiert von</strong> Irine Beridze</br><strong>Gast:</strong> Georgische Filmwissenschaftlerin und Kuratorin Nino Dzandzawa"
     },
     "language": {
       "de": "",
@@ -1992,8 +2000,8 @@
       "de": "Dieses kuratierte Kurzfilmprogramm untersucht die ökologischen, sozialen und kulturellen Folgen des sowjetischen Extraktivismus in Zentralasien."
     },
     "description": {
-      "en": "<strong>Curated by</strong> art historian and film curator Azem Bekturova.\n<strong>Guest:</strong> Nikolaos Olma",
-      "de": "<strong>Kuratiert von</strong> der Kunsthistorikerin und Filmkuratorin Azem Bekturova.\n<strong>Gast:</strong> Nikolaos Olma"
+      "en": "<strong>Curated by</strong> art historian and film curator Azem Bekturova.</br><strong>Guest:</strong> Nikolaos Olma",
+      "de": "<strong>Kuratiert von</strong> der Kunsthistorikerin und Filmkuratorin Azem Bekturova.</br><strong>Gast:</strong> Nikolaos Olma"
     },
     "language": {
       "de": "",

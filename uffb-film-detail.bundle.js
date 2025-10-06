@@ -355,7 +355,7 @@
 
     // Bold description, then bold labels with values
     const lines = [
-      desc ? `<p class="uffb-pd-desc"><strong>${desc}</strong></p>` : '',
+      desc ? `<p class="uffb-pd-desc">${desc}</p>` : '',
       mod ? `<p><strong>${t('moderator')}:</strong> ${mod}</p>` : '',
       gs ? `<p><strong>${t('guests')}:</strong> ${gs}</p>` : '',
       part ? `<p><strong>${t('inPartnershipWith')}:</strong> ${part}</p>` : '',
