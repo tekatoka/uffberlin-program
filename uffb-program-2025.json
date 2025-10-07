@@ -1944,6 +1944,7 @@
       "de": "Protest(e) gehen weiter. Georgisches Dokumentarkino gegen das autoritäre Regime"
     },
     "published": true,
+    "display_image": true,
     "category": {
       "key": "special_georgian_focus",
       "en": "Special program: Georgian Film Focus",

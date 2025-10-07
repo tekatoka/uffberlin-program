@@ -1030,6 +1030,7 @@
     const shortDesc = localized(film.short_description);
     const longDesc = localized(film.description);
     const shorts = Array.isArray(film.films) ? film.films : [];
+    const image = film.display_image ? film.image : '';
     if (!shorts.length && !shortDesc && !longDesc) return '';
 
     const items = shorts
@@ -1114,7 +1115,6 @@
 
         return html`
         <li class="uffb-short-item">
-            ${imgHtml}
             <div class="right">
               <h2>${title}</h2>
               ${metaBlock}${trailerBtn} ${descBlock} ${aboutBlock}
@@ -1128,6 +1128,7 @@
     return html`
       <section class="uffb-panel uffb-shorts-block">
         <div class="uffb-synopsis2">
+          ${image ? `<img src="${image}"` : ''}
           ${shortDesc
             ? `<p class="uffb-lead"><strong>${shortDesc}</strong></p>`
             : ''}
@@ -1398,6 +1399,9 @@
     .uffb-synopsis2 .uffb-bodytext {
       white-space: pre-wrap;
       font-size: 1.15rem;
+    }
+    .uffb-synopsis2 > img {
+      max-width: 100%;
     }
 
     .uffb-warning {
