@@ -991,7 +991,7 @@
     ).toString();
   const isoToLabel = (iso) => I18N[lang].isoDateLabel(iso);
 
-  function pickLangVal(v) {
+  function localized(v) {
     if (v == null) return '';
     if (typeof v === 'string' || typeof v === 'number') return String(v);
     // object with languages
@@ -999,9 +999,9 @@
   }
 
   function joinVals(v) {
-    var val = pickLangVal(v);
+    var val = localized(v);
     if (Array.isArray(val)) {
-      return val.map(pickLangVal).filter(Boolean).join(', ');
+      return val.map(localized).filter(Boolean).join(', ');
     }
     return val;
   }
@@ -1069,8 +1069,8 @@
       arr.sort((a, b) => {
         const d = earliestDate(a.film).localeCompare(earliestDate(b.film));
         if (d !== 0) return d;
-        const at = pickLangVal(a.film.title) || '';
-        const bt = pickLangVal(b.film.title) || '';
+        const at = localized(a.film.title) || '';
+        const bt = localized(b.film.title) || '';
         return at.localeCompare(bt);
       })
     );
@@ -1096,8 +1096,8 @@
 
     const li = list
       .map((sf) => {
-        const title = pickLangVal(sf.title) || ''; // supports {en,de,uk} or string
-        const directorList = toShortDirectorList(sf.director, pickLangVal);
+        const title = localized(sf.title) || ''; // supports {en,de,uk} or string
+        const directorList = toShortDirectorList(sf.director, localized);
         const directorLine = directorList.join(', ');
         const dir = sf.director ? ` by ${escapeHtml(directorLine)}` : '';
         let dur = '';
@@ -1105,7 +1105,7 @@
           const d =
             typeof sf.duration === 'number'
               ? `${sf.duration}’`
-              : pickLangVal(sf.duration);
+              : localized(sf.duration);
           dur = d ? ` | ${escapeHtml(d)}` : '';
         }
         return `<li><strong>${escapeHtml(title?.replace('• ', ''))}</strong>${dir}${dur}</li>`;
@@ -1119,10 +1119,17 @@
   `;
   }
 
-  function screeningLine(s) {
+  function screeningLine(s, film) {
     const dtISO = `${s.date}T${s.time || '00:00'}:00${offsetFor()}`;
     const d = new Date(dtISO);
     const when = `${fmt.format(d)}${s.time ? `, ${s.time}` : ''}`;
+
+    const perDateNotes = parsePerDateLanguageNotes(film);
+
+    const noteKey = dateToDM(s.date);
+    const langNote = perDateNotes[noteKey] || '';
+
+    const noteHtml = `<div class="uffb-lang-note"><em>${langNote ? langNote : localized(film.language)}</em></div>`;
 
     const venueName = getVenueName(s);
     const addressTxt =
@@ -1154,17 +1161,52 @@
         }" target="_blank" rel="noopener">${t('tickets')}</a></span>`
       : ``;
 
-    return `
+    return html`
       <li class="uffb-screening">
         <div class="uffb-left">
           <div class="uffb-when"><strong>${when}</strong></div>
-          ${venueLine}
-          ${addressLine}
-          ${!ticketHtml ? `<div class="uffb-no-tickets">${t('bookTicketsSoon')}</div>` : ''}
+          ${venueLine} ${addressLine} ${noteHtml}
+          ${!ticketHtml
+            ? `<div class="uffb-no-tickets">${t('bookTicketsSoon')}</div>`
+            : ''}
         </div>
         ${ticketHtml}
       </li>
     `;
+  }
+
+  function pad2(n) {
+    return String(n).padStart(2, '0');
+  }
+  function dateToDM(iso) {
+    const d = new Date(iso + 'T00:00:00');
+    return pad2(d.getMonth() + 1) + '-' + pad2(d.getDate());
+  }
+  /** Build map like { "10-24": "German dubbed version with English subtitles", ... } */
+  function parsePerDateLanguageNotes(film) {
+    const raw =
+      (film.language &&
+        (film.language[lang] || film.language.en || film.language.de)) ||
+      film.language;
+    if (!raw || typeof raw !== 'string') return {};
+
+    // Split by pipes and newlines; trim pieces
+    const parts = raw
+      .split('|')
+      .flatMap((p) => String(p).split('\n'))
+      .map((s) => s.trim())
+      .filter(Boolean);
+    const map = {};
+    const re = /^\s*(\d{1,2})\.(\d{1,2})\.?\s*:?\s*(.+?)\s*$/; // dd.mm.: note
+    for (const p of parts) {
+      const m = p.match(re);
+      if (!m) continue;
+      const dd = pad2(m[1]),
+        mm = pad2(m[2]);
+      const note = m[3]; // already without date/colon
+      map[mm + '-' + dd] = note;
+    }
+    return map;
   }
 
   function card(it, opts = {}) {
@@ -1198,7 +1240,7 @@
       if (onlyVenue && safeTxt(getVenueName(s)) !== onlyVenue) return false;
       return true;
     });
-    const screenings = screeningsList.map(screeningLine).join('');
+    const screenings = screeningsList.map((s) => screeningLine(s, it)).join('');
 
     // --- NEW: meta values ---
     const genreTxt = joinVals(it.genre); // supports "Drama" or {en:"Drama",de:"Drama"} or ["Drama","War"]
@@ -1208,7 +1250,7 @@
     const curatorTxt = joinVals(it.curator); // supports string or i18n object
     let durationTxt = it.duration != null ? it.duration : ''; // number (min) or string
     if (typeof durationTxt === 'number') durationTxt = `${durationTxt}'`;
-    else durationTxt = pickLangVal(durationTxt);
+    else durationTxt = localized(durationTxt);
 
     const metaLine1 = genreTxt;
     const metaLine2 = [countriesTxt, yearTxt].filter(Boolean).join(' | ');
@@ -1296,7 +1338,7 @@
     const directorTxt = joinVals(it.director);
     let durationTxt = it.duration != null ? it.duration : '';
     if (typeof durationTxt === 'number') durationTxt = `${durationTxt}'`;
-    else durationTxt = pickLangVal(durationTxt);
+    else durationTxt = localized(durationTxt);
 
     const metaBlock = `
     <div class="uffb-meta">
@@ -1715,8 +1757,8 @@
         ? list
             .filter((f) => !(f.screenings || []).some((s) => s.date))
             .sort((a, b) => {
-              const at = pickLangVal(a.title) || '';
-              const bt = pickLangVal(b.title) || '';
+              const at = localized(a.title) || '';
+              const bt = localized(b.title) || '';
               return at.localeCompare(bt);
             })
         : [];
@@ -1784,8 +1826,8 @@
     // normalize i18n/arrays/strings → single lowercase-ready string
     const langTxt = (v) => {
       if (!v) return '';
-      // pickLangVal can return string OR array (e.g., director: {en: ["Name"]})
-      const val = Array.isArray(v) ? v.map(pickLangVal) : [pickLangVal(v)];
+      // localized can return string OR array (e.g., director: {en: ["Name"]})
+      const val = Array.isArray(v) ? v.map(localized) : [localized(v)];
       const flat = (Array.isArray(val) ? val.flat() : [val]).filter(Boolean);
       return flat.join(' ');
     };
@@ -1891,8 +1933,8 @@
         if (ra !== rb) return ra - rb;
 
         // final tie-breaker by localized title
-        const at = pickLangVal(a.title) || '';
-        const bt = pickLangVal(b.title) || '';
+        const at = localized(a.title) || '';
+        const bt = localized(b.title) || '';
         return at.localeCompare(bt);
       });
 

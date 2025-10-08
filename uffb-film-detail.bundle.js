@@ -533,7 +533,6 @@
     if (!list.length) return '';
 
     const perDateNotes = parsePerDateLanguageNotes(film);
-
     const cards = list
       .map((s) => {
         const when = `${fmtWhen(s.date, s.time)}`;
@@ -548,9 +547,7 @@
         const noteKey = dateToDM(s.date);
         const langNote = perDateNotes[noteKey] || '';
 
-        const noteHtml = langNote
-          ? `<div class="uffb-lang-note"><em>${langNote}</em></div>`
-          : '';
+        const noteHtml = `<div class="uffb-lang-note"><em>${langNote ? langNote : localized(film.language)}</em></div>`;
 
         const tixBtn = hasTix
           ? `<div class="uffb-card-actions">
@@ -600,7 +597,7 @@
     const raw =
       (film.language &&
         (film.language[lang] || film.language.en || film.language.de)) ||
-      '';
+      film.language;
     if (!raw || typeof raw !== 'string') return {};
 
     // Split by pipes and newlines; trim pieces
