@@ -1096,7 +1096,7 @@
 
     const li = list
       .map((sf) => {
-        const t = pickLangVal(sf.title) || ''; // supports {en,de,uk} or string
+        const title = pickLangVal(sf.title) || ''; // supports {en,de,uk} or string
         const directorList = toShortDirectorList(sf.director, pickLangVal);
         const directorLine = directorList.join(', ');
         const dir = sf.director ? ` by ${escapeHtml(directorLine)}` : '';
@@ -1108,7 +1108,7 @@
               : pickLangVal(sf.duration);
           dur = d ? ` | ${escapeHtml(d)}` : '';
         }
-        return `<li><strong>${escapeHtml(t)}</strong>${dir}${dur}</li>`;
+        return `<li><strong>${escapeHtml(title?.replace('• ', ''))}</strong>${dir}${dur}</li>`;
       })
       .join('');
 
