@@ -1186,6 +1186,7 @@
 
         return html`
         <li class="uffb-short-item">
+            ${imgHtml}
             <div class="right">
               <h2>${title}</h2>
               ${metaBlock}${trailerBtn} ${descBlock} ${aboutBlock}
