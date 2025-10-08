@@ -1357,7 +1357,7 @@
       if (onlyVenue && safeTxt(getVenueName(s)) !== onlyVenue) return false;
       return true;
     });
-    const screenings = screeningsList.map(screeningLine).join('');
+    const screenings = screeningsList.map((s) => screeningLine(s, it)).join('');
 
     if (variant === 'row') {
       return html`
