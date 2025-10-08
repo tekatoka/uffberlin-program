@@ -446,6 +446,77 @@
   `;
   }
 
+  function buildSpecialProgramSection(film) {
+    const tag =
+      film?.special_program_tag &&
+      (film.special_program_tag[lang] ||
+        film.special_program_tag.en ||
+        film.special_program_tag.de);
+
+    // ---- location right under the tag
+    const loc = film?.special_program_location || null;
+    let locationBlock = '';
+    if (loc) {
+      const venueName =
+        (typeof loc.venue === 'object'
+          ? loc.venue[lang] || loc.venue.en || loc.venue.de
+          : loc.venue) || '';
+
+      const website = (loc.website || '').trim();
+      const mapsUrl = loc.maps?.google || '';
+      const address = (loc.address || '').trim();
+
+      const venueHtml = venueName
+        ? website
+          ? `<a href="${website}" target="_blank" rel="noopener">${venueName}</a>`
+          : `<span>${venueName}</span>`
+        : '';
+
+      const addrHtml = address
+        ? mapsUrl
+          ? `<a href="${mapsUrl}" target="_blank" rel="noopener">${address}</a>`
+          : `<span>${address}</span>`
+        : '';
+
+      if (venueHtml || addrHtml) {
+        locationBlock = `
+        <div class="uffb-sp-location">
+          ${venueHtml}${venueHtml && addrHtml ? ' · ' : ''}${addrHtml}
+        </div>`;
+      }
+    }
+
+    // ---- items list (time + text)
+    const items = Array.isArray(film?.special_program)
+      ? film.special_program
+          .map((sp) => {
+            const time = (sp.time || '').trim();
+            const txt =
+              sp.text &&
+              (typeof sp.text === 'object'
+                ? sp.text[lang] || sp.text.en || sp.text.de || ''
+                : sp.text);
+            if (!time && !txt) return '';
+            return `
+            <li class="uffb-sp-item">
+              <span class="time">${time}</span>
+              ${txt ? `<span class="txt">${txt}</span>` : ''}
+            </li>`;
+          })
+          .filter(Boolean)
+          .join('')
+      : '';
+
+    if (!tag && !items && !locationBlock) return '';
+    return html`
+    <section class="uffb-panel uffb-special">
+        ${tag ? `<h3 class="uffb-panel-title">${tag}</h3>` : ''}
+        ${locationBlock}
+        ${items ? `<ul class="uffb-sp-list">${items}</ul>` : ''}
+      </section>
+  `;
+  }
+
   function fmtWhen(isoDate, timeHHMM) {
     const d = new Date(`${isoDate}T00:00:00`);
     const fmt = new Intl.DateTimeFormat(locale, {
@@ -1846,6 +1917,36 @@
         max-height: 95px;
       }
     }
+
+    /* Special program */
+    .uffb-special {
+      margin-top: 18px;
+    }
+    .uffb-sp-list {
+      list-style: none;
+      padding: 0;
+      margin: 8px 0 0 0;
+      display: grid;
+      gap: 8px;
+    }
+    .uffb-sp-item {
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      gap: 10px;
+      align-items: baseline;
+    }
+    .uffb-sp-item .time {
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+    .uffb-sp-item .txt {
+      line-height: 1.45;
+    }
+    @media (max-width: 520px) {
+      .uffb-sp-item {
+        grid-template-columns: 70px 1fr;
+      }
+    }
   `;
 
   function injectCSS() {
@@ -1904,32 +2005,30 @@
 
         ${
           isShortsProgram
-            ? `
+            ? html`
               <section class="uffb-shorts-layout">
-                <div class="uffb-shorts-left">
-                  ${buildShortsItemsSection(film)}
-                  ${buildPanelDiscussionBlock(film)}
-                  ${buildPartnersSection(film)}
-                </div>
-                <aside class="uffb-shorts-right">
-                  ${screeningsBlock}
-                </aside>
-              </section>
+                  <div class="uffb-shorts-left">
+                    ${buildShortsItemsSection(film)}
+                    ${buildPanelDiscussionBlock(film)}
+                    ${buildPartnersSection(film)}
+                  </div>
+                  <aside class="uffb-shorts-right">${screeningsBlock}</aside>
+                </section>
             `
-            : `
+            : html`
               <section class="uffb-two-col">
-                <div class="uffb-col-left">
-                  ${buildInfoBlock(film)}
-                  ${buildCreditsBlock(film)}
-                </div>
-                <div class="uffb-col-right">
-                  ${buildSynopsisBlock(film)}
-                  ${buildPanelDiscussionBlock(film)}
-                  ${buildPartnersSection(film)}
-                </div>
-              </section>
+                  <div class="uffb-col-left">
+                    ${buildInfoBlock(film)} ${buildCreditsBlock(film)}
+                  </div>
+                  <div class="uffb-col-right">
+                    ${buildSynopsisBlock(film)}
+                    ${buildPanelDiscussionBlock(film)}
+                    ${buildPartnersSection(film)}
+                    ${buildSpecialProgramSection(film)}
+                  </div>
+                </section>
 
-              ${screeningsBlock}
+                ${screeningsBlock}
             `
         }
 
