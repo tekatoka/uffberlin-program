@@ -1166,12 +1166,12 @@
 
         const imgHtml = img
           ? `<div class="uffb-short-img"><img loading="lazy" src="${img}" alt="${title}"></div>`
-          : `<div class="uffb-short-img" aria-hidden="true"></div>`;
+          : ``;
 
         const metaBlock = `
         <div class="uffb-short-metas">
           ${[countries, year].filter(Boolean).length ? `<div class="uffb-short-meta1"><em>${[countries, year].filter(Boolean).join(' | ')}</em></div>` : ''}
-          ${directorList ? `<div class="uffb-short-meta2"><strong>${directorList.length > 1 ? t('directors') : t('director')}:</strong> ${directorLine}</div>` : ''}
+          ${directorList && directorLine ? `<div class="uffb-short-meta2"><strong>${directorList.length > 1 ? t('directors') : t('director')}:</strong> ${directorLine}</div>` : ''}
           ${durationTxt ? `<div class="uffb-short-meta3">${durationTxt}</div>` : ''}
         </div>
       `;

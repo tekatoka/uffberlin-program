@@ -1976,12 +1976,12 @@
       "de": "Spezialprogramm: Fokus Georgien"
     },
     "short_description": {
-      "en": "For three years, over 450 Georgian filmmakers and cultural workers have protested the authoritarian control of Bidzina Ivanishvili’s government over the country’s cultural institutions, including the National Film Center.",
-      "de": "Seit drei Jahren protestieren über 450 georgische Filmschaffende und Kulturtätige gegen die autoritäre Kontrolle der Regierung von Bidzina Iwanischwili über die kulturellen Institutionen des Landes, darunter auch das Nationale Filmzentrum."
+      "en": "<strong>Georgian Filmmakers for Prisoners of Conscience</strong><br /><br />For three years, over 450 Georgian filmmakers and cultural workers have protested the authoritarian control of Bidzina Ivanishvili’s government over the country’s cultural institutions, including the National Film Center.",
+      "de": "<strong>Georgische Filmschaffende für Gewissensgefangene</strong><br /><br />Seit drei Jahren protestieren über 450 georgische Filmschaffende und Kulturtätige gegen die autoritäre Kontrolle der Regierung von Bidzina Iwanischwili über die kulturellen Institutionen des Landes, darunter auch das Nationale Filmzentrum."
     },
     "description": {
-      "en": "The program “Protest(s) continues – Georgian documentary cinema against the authoritarian regime” presents films from the series Stories of Political Prisoners, featuring works by leading directors such as Salomé Jashi, Anna Dziapshipa, and Tiku Kobiashvili. These portraits highlight Georgia’s “prisoners of conscience” (სინდისის პატიმრები) and their personal struggles under repression. </br></br>The program concludes with Niniko Lekishvili’s documentary CHASE (დევნა, 2025), following a Georgian cinema star navigating activism, protest, and private life. A final discussion with cultural scientist Irine Beridze and film scholar Nino Dzandzawa will close the event.</br></br><strong>Curator:</strong> Irine Beridze</br><strong>Guest:</strong> Georgian film scholar and curator Nino Dzandzawa",
-      "de": "Das Programm „Protest(e) gehen weiter – Georgisches Dokumentarkino gegen das autoritäre Regime“ zeigt Filme aus der Reihe Stories of Political Prisoners und versammelt Arbeiten führender Regisseur*innen wie Salomé Jashi, Anna Dziapshipa und Tiku Kobiashvili. Diese Porträts rücken Georgiens „Gewissensgefangene“ (სინდისის პატიმრები) und ihre persönlichen Kämpfe unter Repression in den Mittelpunkt. </br></br>Den Abschluss bildet Niniko Lekishvilis Dokumentarfilm CHASE (დევნა, 2025), der einem georgischen Filmstar zwischen Aktivismus, Protest und Privatleben folgt. Eine abschließende Diskussion mit der Kulturwissenschaftlerin Irine Beridze und der Filmwissenschaftlerin Nino Dzandzawa beschließt die Veranstaltung.</br></br><strong>Kuratiert von</strong> Irine Beridze</br><strong>Gast:</strong> Georgische Filmwissenschaftlerin und Kuratorin Nino Dzandzawa"
+      "en": "Over the past few months, Georgian directors have created films about people who have found themselves imprisoned by the authoritarian regime. Fortunately, some of them are now free. However, most remain in prison, serving unjust sentences.<br /><br />We continue to fight for their freedom and to make new films so that their stories reach as many people as possible, both in Georgia and abroad. <br /><br />These few films are part of a series created by Georgian filmmakers in support of prisoners of conscience.",
+      "de": "In den vergangenen Monaten haben georgische Regisseur*innen Filme über Menschen gedreht, die vom autoritären Regime ins Gefängnis gebracht wurden. Glücklicherweise sind einige von ihnen inzwischen frei. Die meisten sitzen jedoch weiterhin ungerechte Haftstrafen ab.<br /><br />Wir kämpfen weiter für ihre Freiheit und produzieren neue Filme, damit ihre Geschichten so viele Menschen wie möglich erreichen – in Georgien und im Ausland. <br /><br />Diese wenigen Filme sind Teil einer Reihe, die von georgischen Filmschaffenden zur Unterstützung von Gewissensgefangenen geschaffen wurde."
     },
     "language": {
       "de": "",
@@ -1991,7 +1991,141 @@
     "duration": 70,
     "year": "",
     "image": "https://images.squarespace-cdn.com/content/v1/5f739670761e02764c54e1ca/d8b2e377-dc95-4723-8445-9552137bb278/georgian-focus-still-2025.jpeg",
-    "films": [],
+    "films": [
+      {
+        "title": {
+          "en": "Tiku Kobiashvili about Zviad Tsetskhladze",
+          "de": "Tiku Kobiashvili über Zviad Tsetskhladze"
+        },
+        "countries": {
+          "en": ["Georgia"],
+          "de": ["Georgien"]
+        },
+        "genre": {
+          "en": ["Documentary"],
+          "de": ["Dokumentarfilm"]
+        },
+        "year": 2025,
+        "duration": 5.04,
+        "image": "",
+        "description": {
+          "en": "Zviad Tsetskhladze, a 20-year-old student, was an active member and one of the leaders of the youth protest movements. He was arrested during the 2024 protest demonstrations and charged with co-organizing group violence. The court sentenced him to 4.5 years in prison.",
+          "de": "Zviad Tsetskhladze, ein 20-jähriger Student, war aktives Mitglied und einer der Anführer der Jugendprotestbewegungen. Er wurde während der Protestdemonstrationen 2024 festgenommen und wegen Mitorganisierung gemeinschaftlicher Gewalt angeklagt. Das Gericht verurteilte ihn zu 4,5 Jahren Haft."
+        },
+        "trailer": ""
+      },
+      {
+        "title": {
+          "en": "Vajiko Chachkhiani about Giorgi Akhobadze",
+          "de": "Vajiko Chachkhiani über Giorgi Akhobadze"
+        },
+        "countries": {
+          "en": ["Georgia"],
+          "de": ["Georgien"]
+        },
+        "genre": {
+          "en": ["Documentary"],
+          "de": ["Dokumentarfilm"]
+        },
+        "year": 2025,
+        "duration": 4.3,
+        "image": "",
+        "description": {
+          "en": "Giorgi Akhobadze, a doctor and active participant in the anti-government protests, was also arrested during the demonstrations. He was accused of illegal possession of narcotic substances, a charge that carries a sentence of 8 to 20 years or life imprisonment. At the time of his arrest, Giorgi Akhobadze declared that the drugs had been planted on him by the police. His guilt could not be proven, and the judge released him directly from the courtroom.",
+          "de": "Giorgi Akhobadze, Arzt und aktiver Teilnehmer der regierungsfeindlichen Proteste, wurde ebenfalls während der Demonstrationen festgenommen. Ihm wurde der unerlaubte Besitz von Betäubungsmitteln vorgeworfen – ein Tatbestand, der mit 8 bis 20 Jahren oder lebenslanger Freiheitsstrafe geahndet werden kann. Zum Zeitpunkt seiner Festnahme erklärte Giorgi Akhobadze, die Drogen seien ihm von der Polizei untergeschoben worden. Seine Schuld konnte nicht nachgewiesen werden, und der Richter entließ ihn direkt aus dem Gerichtssaal."
+        },
+        "trailer": ""
+      },
+      {
+        "title": {
+          "en": "Anna Dziapshipa about Temur Katamadze",
+          "de": "Anna Dziapshipa über Temur Katamadze"
+        },
+
+        "countries": {
+          "en": ["Georgia"],
+          "de": ["Georgien"]
+        },
+        "genre": {
+          "en": ["Documentary"],
+          "de": ["Dokumentarfilm"]
+        },
+        "year": 2025,
+        "duration": 4.33,
+        "image": "",
+        "description": {
+          "en": "Temur Katamadze had lived in Georgia for 13 years and was fighting to obtain Georgian citizenship. He was arrested in Batumi during a protest. The investigation claimed he had no legal right to reside in Georgia. On June 11, 2025, Temur Katamadze was deported from Georgia to Turkey.",
+          "de": "Temur Katamadze lebte 13 Jahre in Georgien und kämpfte darum, die georgische Staatsbürgerschaft zu erhalten. Er wurde während eines Protests in Batumi festgenommen. Die Ermittlungen behaupteten, er habe kein rechtmäßiges Aufenthaltsrecht in Georgien. Am 11. Juni 2025 wurde Temur Katamadze aus Georgien in die Türkei abgeschoben."
+        },
+        "trailer": ""
+      },
+      {
+        "title": {
+          "en": "Salome Jashi about Mzia Amaghlobeli",
+          "de": "Salome Jashi über Mzia Amaghlobeli"
+        },
+        "countries": {
+          "en": ["Georgia"],
+          "de": ["Georgien"]
+        },
+        "genre": {
+          "en": ["Documentary"],
+          "de": ["Dokumentarfilm"]
+        },
+        "year": 2025,
+        "duration": 5.55,
+        "image": "",
+        "description": {
+          "en": "Mzia Amaghlobeli, a journalist and founder of two media platforms, was charged with slapping a police officer, a crime punishable by up to 9 years in prison. Her case attracted wide international attention and protest. The judge was eventually forced to reduce the charge, sentencing her to 2 years in prison.",
+          "de": "Mzia Amaghlobeli, Journalistin und Gründerin zweier Medienplattformen, wurde beschuldigt, einem Polizisten eine Ohrfeige gegeben zu haben – ein Delikt, das mit bis zu 9 Jahren Haft bestraft werden kann. Ihr Fall erregte breite internationale Aufmerksamkeit und Proteste. Der Richter sah sich schließlich gezwungen, die Anklage herabzustufen und verurteilte sie zu 2 Jahren Haft."
+        },
+        "trailer": ""
+      },
+      {
+        "title": {
+          "en": "Elene Naveriani about Irakli Kerashvili",
+          "de": "Elene Naveriani über Irakli Kerashvili"
+        },
+        "countries": {
+          "en": ["Georgia"],
+          "de": ["Georgien"]
+        },
+        "genre": {
+          "en": ["Documentary"],
+          "de": ["Dokumentarfilm"]
+        },
+        "year": 2025,
+        "duration": 5.45,
+        "image": "",
+        "description": {
+          "en": "A doctor and participant in the anti-government protests in Tbilisi in 2024, Irakli Kerashvili was arrested and charged with group violence. The court sentenced him to 2 years in prison.",
+          "de": "Als Arzt und Teilnehmer der regierungsfeindlichen Proteste in Tbilisi im Jahr 2024 wurde Irakli Kerashvili festgenommen und wegen gemeinschaftlicher Gewalt angeklagt. Das Gericht verurteilte ihn zu 2 Jahren Haft."
+        },
+        "trailer": ""
+      },
+      {
+        "title": {
+          "en": "Giorgi Varsimashvili about Insaf Aliev",
+          "de": "Giorgi Varsimashvili über Insaf Aliev"
+        },
+        "countries": {
+          "en": ["Georgia"],
+          "de": ["Georgien"]
+        },
+        "genre": {
+          "en": ["Documentary"],
+          "de": ["Dokumentarfilm"]
+        },
+        "year": 2025,
+        "duration": 4.32,
+        "image": "",
+        "description": {
+          "en": "Insaf Aliev, a Georgian of Azerbaijani descent, is being punished for caring about the fate of Georgia. There is no evidence against him, yet he remains in detention.",
+          "de": "Insaf Aliev, ein Georgier aserbaidschanischer Herkunft, wird dafür bestraft, dass ihm das Schicksal Georgiens am Herzen liegt. Es gibt keine Beweise gegen ihn, dennoch bleibt er in Haft."
+        },
+        "trailer": ""
+      }
+    ],
     "screenings": [
       {
         "date": "2025-10-24",
