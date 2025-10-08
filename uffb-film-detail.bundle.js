@@ -1947,6 +1947,15 @@
         grid-template-columns: 70px 1fr;
       }
     }
+    /* Special program location under the title */
+    .uffb-sp-location {
+      margin: 4px 0 8px 0;
+      font-size: 0.95rem;
+      opacity: 0.95;
+    }
+    .uffb-sp-location a {
+      text-decoration: underline;
+    }
   `;
 
   function injectCSS() {
