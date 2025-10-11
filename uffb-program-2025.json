@@ -495,7 +495,7 @@
     },
     "panel_discussion": {
       "description": {
-        "de": "Am 25. Oktober, nach dem Film: Podiumdiskussion „Creative Loop and War Documentaries: How Can We Move Beyond the Expected?“",
+        "de": "Am 25. Oktober, nach dem Film: Podiumsdiskussion „Creative Loop and War Documentaries: How Can We Move Beyond the Expected?“",
         "en": "On 25th of October, after the screening: Panel discussion “Creative Loop and War Documentaries: How Can We Move Beyond the Expected?”"
       },
       "moderation": "Inga Pylypchuk",
@@ -1665,10 +1665,10 @@
     },
     "trailer": "https://www.youtube.com/watch?v=WrsyQUHXgiA",
     "image": "https://images.squarespace-cdn.com/content/5f739670761e02764c54e1ca/00ca74b3-9219-48f0-8fed-65aa19675d89/teen-angst-inga-pylypchuk.jpg",
-    "panel_discussion": {
+    "film_talk": {
       "description": {
-        "en": "After the screening: panel discussion with director <strong>Inga Pylypchuk</strong>, editor <strong>Marharyta Hasanova</strong>, and three of the film’s co-authors and protagonists: <strong>Kamila Karpenko</strong>, <strong>Hanna Krutikova</strong>, and <strong>Sofiia Orudzheva</strong>. </br></br>Together, they will not only reflect on the collaborative process of creating a film shaped by multiple perspectives, but also share their views on the current situation of young people in Ukraine and Europe, and their visions for the future.</br></br>The discussion will be moderated by <strong>Daria Buteiko</strong> and will last approximately 45 minutes.",
-        "de": "Nach dem Film: Podiumdiskussion mit der Regisseurin <strong>Inga Pylypchuk</strong>, der Editorin <strong>Marharyta Hasanova</strong> und drei der Co-Autorinnen und Protagonistinnen des Films: <strong>Kamila Karpenko</strong>, <strong>Hanna Krutikova</strong> und <strong>Sofiia Orudzheva</strong>. </br></br>Gemeinsam reflektieren sie nicht nur den kollaborativen Prozess der Entstehung eines Films, der von mehreren Perspektiven geprägt ist, sondern teilen auch ihre Sicht auf die aktuelle Situation junger Menschen in der Ukraine und in Europa sowie ihre Visionen für die Zukunft.</br></br>Das Gespräch wird von <strong>Daria Buteiko</strong> moderiert und dauert ca. 45 Minuten."
+        "en": "Following the film, we invite you to a conversation with director <strong>Inga Pylypchuk</strong>, editor <strong>Marharyta Hasanova</strong>, and three of the film’s co-authors and protagonists: <strong>Kamila Karpenko</strong>, <strong>Hanna Krutikova</strong>, and <strong>Sofiia Orudzheva</strong>. </br></br>Together, they will not only reflect on the collaborative process of creating a film shaped by multiple perspectives, but also share their views on the current situation of young people in Ukraine and Europe, and their visions for the future.</br></br>The discussion will be moderated by <strong>Daria Buteiko</strong> and will last approximately 45 minutes.",
+        "de": "Nach dem Film laden wir Sie zu einem Gespräch mit der Regisseurin <strong>Inga Pylypchuk</strong>, der Editorin <strong>Marharyta Hasanova</strong> und drei der Co-Autorinnen und Protagonistinnen des Films: <strong>Kamila Karpenko</strong>, <strong>Hanna Krutikova</strong> und <strong>Sofiia Orudzheva</strong>. </br></br>Gemeinsam reflektieren sie nicht nur den kollaborativen Prozess der Entstehung eines Films, der von mehreren Perspektiven geprägt ist, sondern teilen auch ihre Sicht auf die aktuelle Situation junger Menschen in der Ukraine und in Europa sowie ihre Visionen für die Zukunft.</br></br>Das Gespräch wird von <strong>Daria Buteiko</strong> moderiert und dauert ca. 45 Minuten."
       },
       "moderation": "Daria Buteiko",
       "guests": "Inga Pylypchuk, Marharyta Hasanova, Kamila Karpenko, Hanna Krutikova, Sofiia Orudzheva"

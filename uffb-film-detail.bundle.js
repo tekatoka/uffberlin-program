@@ -57,6 +57,7 @@
       warning: 'Warning',
       aboutDirector: 'About the director(s)',
       panelDiscussion: 'Panel discussion',
+      postScreeningTalk: 'Post-screening conversation',
       moderator: 'Moderator',
       guests: 'Guests',
       inPartnershipWith: 'In partnership with',
@@ -90,6 +91,7 @@
       warning: 'Warnung',
       aboutDirector: 'Über die Filmemacher',
       panelDiscussion: 'Podiumsdiskussion',
+      postScreeningTalk: 'Filmgespräch',
       moderator: 'Moderation',
       guests: 'Gäste',
       inPartnershipWith: 'In Partnerschaft mit',
@@ -122,6 +124,7 @@
       warning: 'Попередження',
       aboutDirector: 'Про режисера(-ів)',
       panelDiscussion: 'Панельна дискусія',
+      postScreeningTalk: 'Післяфільмове обговорення',
       moderator: 'Модератор',
       guests: 'Гості',
       inPartnershipWith: 'У співпраці з',
@@ -328,8 +331,12 @@
   }
 
   function buildPanelDiscussionBlock(film) {
-    const pd = film && film.panel_discussion;
+    const pd = film && (film.panel_discussion || film.film_talk);
     if (!pd) return '';
+
+    const discussionTitle = film.panel_discussion
+      ? 'panelDiscussion'
+      : 'postScreeningTalk';
 
     // description can be localized object or plain string
     const desc = pd.description ? localized(pd.description) : '';
@@ -363,13 +370,11 @@
       .filter(Boolean)
       .join('\n');
 
-    return `
+    return html`
     <section class="uffb-panel uffb-panel-discussion">
-      <h3 class="uffb-panel-title">${t('panelDiscussion')}</h3>
-      <div class="uffb-panel-discussion-body">
-        ${lines}
-      </div>
-    </section>
+        <h3 class="uffb-panel-title">${t(discussionTitle)}</h3>
+        <div class="uffb-panel-discussion-body">${lines}</div>
+      </section>
   `;
   }
 
