@@ -21,6 +21,7 @@
         year: 'numeric',
       },
       collaboration: 'In collaboration with',
+      by: 'by',
     },
     de: {
       director: 'Regie',
@@ -32,6 +33,7 @@
         year: 'numeric',
       },
       collaboration: 'In Kooperation mit',
+      by: 'von',
     },
   };
   const t = (k) => I18N[lang][k];
@@ -413,7 +415,7 @@
         // Genre in parentheses right after title (if present)
         //if (genreTxt) bits.push(` (${escapeHtml(genreTxt)})`);
         // As in your grid script: " by Director"
-        if (dirTxt) bits.push(` by ${escapeHtml(dirTxt)}`);
+        if (dirTxt) bits.push(` ${t('by')} ${escapeHtml(dirTxt)}`);
         // And " | 11’" duration suffix (if present)
         if (durTxt) bits.push(` | ${escapeHtml(durTxt)}`);
 

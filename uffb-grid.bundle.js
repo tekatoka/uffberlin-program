@@ -40,6 +40,7 @@
       noResultsHint: 'Try changing or clearing the filters.',
       resetFiltersBtn: 'Reset filters',
       loading: 'Loading program',
+      by: 'by',
       // date labels
       weekdayDayMonthYear: {
         weekday: 'short',
@@ -76,6 +77,7 @@
       noResultsHint: 'Versuchen Sie, die Filter zu ändern oder zurückzusetzen.',
       resetFiltersBtn: 'Filter zurücksetzen',
       loading: 'Programm wird geladen',
+      by: 'von',
       weekdayDayMonthYear: {
         weekday: 'short',
         day: '2-digit',
@@ -110,6 +112,7 @@
       noResultsHint: 'Спробуйте змінити або скинути фільтри.',
       resetFiltersBtn: 'Скинути фільтри',
       loading: 'Завантажуємо програму',
+      by: 'реж.',
       weekdayDayMonthYear: {
         weekday: 'short',
         day: '2-digit',
@@ -1194,7 +1197,9 @@
         const title = localized(sf.title) || ''; // supports {en,de,uk} or string
         const directorList = toShortDirectorList(sf.director, localized);
         const directorLine = directorList.join(', ');
-        const dir = sf.director ? ` by ${escapeHtml(directorLine)}` : '';
+        const dir = sf.director
+          ? ` ${t('by')} ${escapeHtml(directorLine)}`
+          : '';
         let dur = '';
         if (sf.duration != null) {
           const d =
