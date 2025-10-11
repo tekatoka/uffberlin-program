@@ -495,7 +495,7 @@
       display: grid;
       gap: 0.8rem;
       grid-template-columns: 3fr; /* same unit as filters' columns */
-      width: 30%; /* ≈ width of one filter dropdown */
+      width: 29.5%; /* ≈ width of one filter dropdown */
       margin: 0.5rem 0 1rem 0;
     }
 
