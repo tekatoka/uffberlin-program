@@ -1647,7 +1647,6 @@
       }
     }
     .uffb-shorts-left {
-      max-width: 960px;
       margin: 0 auto;
     }
     .uffb-shorts-right {
