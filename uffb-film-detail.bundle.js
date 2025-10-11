@@ -1214,6 +1214,9 @@
 
   /* ---------- CSS ---------- */
   const CSS = css`
+    p {
+      margin: 2rem 0;
+    }
     .uffb-film {
       display: grid;
       gap: 24px;
