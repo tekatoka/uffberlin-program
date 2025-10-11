@@ -158,7 +158,7 @@
 
     /* add anywhere after your existing grid rules */
     .uffb-grid.two-cols {
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(1, 1fr);
     }
 
     @media (min-width: 700px) {
