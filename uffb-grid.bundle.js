@@ -407,7 +407,7 @@
       display: grid;
       gap: 0.8rem;
       /* 30% / 30% / 30% / 10% via fr units */
-      grid-template-columns: 2.75fr 2.75fr 2.75fr 2.75fr 1.25fr;
+      grid-template-columns: 3fr 3fr 3fr 1.25fr;
       align-items: end; /* bottoms line up nicely */
       border-radius: 0;
       margin: 0.5rem 0 1rem 0;
@@ -1603,12 +1603,6 @@
     //filters.setAttribute('hidden', ''); //default: hidden! TODO: change to visible
     filters.innerHTML = html`
       <label
-        ><span>${t('title')}</span>
-        <select id="filterTitle" class="uffb-field">
-          <option value="">${t('all')}</option>
-        </select>
-      </label>
-      <label
         ><span>${t('category')}</span>
         <select id="filterCategory" class="uffb-field">
           <option value="">${t('all')}</option>
@@ -1683,7 +1677,7 @@
       filters: {
         root: filters,
         cat: filters.querySelector('#filterCategory'),
-        title: filters.querySelector('#filterTitle'),
+        // title: filters.querySelector('#filterTitle'),
         venue: filters.querySelector('#filterVenue'),
         date: filters.querySelector('#filterDate'),
         clear: filters.querySelector('#clearFilters'),
@@ -2147,7 +2141,7 @@
         });
 
       // --- TITLE OPTIONS ---
-      while (ui.filters.title.options.length > 1) ui.filters.title.remove(1);
+      while (ui.filters.title?.options.length > 1) ui.filters.title?.remove(1);
 
       const pairs = [];
       data.forEach((f) => {
@@ -2163,7 +2157,7 @@
           const opt = document.createElement('option');
           opt.value = id; // filter by film id
           opt.textContent = label; // show localized title
-          ui.filters.title.appendChild(opt);
+          ui.filters.title?.appendChild(opt);
         });
 
       // --- VENUE OPTIONS ---
@@ -2222,8 +2216,8 @@
       state.venue = ui.filters.venue.value;
       applyAll();
     });
-    ui.filters.title.addEventListener('change', () => {
-      state.title = ui.filters.title.value; // film id or ''
+    ui.filters.title?.addEventListener('change', () => {
+      state.title = ui.filters.title?.value; // film id or ''
       applyAll();
     });
     ui.filters.date.addEventListener('change', () => {
@@ -2232,7 +2226,6 @@
     });
     ui.filters.clear.addEventListener('click', () => {
       ui.filters.cat.value = '';
-      ui.filters.title.value = '';
       ui.filters.venue.value = '';
       ui.filters.date.value = '';
       state.category = '';
