@@ -149,9 +149,28 @@
     }
     @media (min-width: 1024px) {
       .uffb-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    /* add anywhere after your existing grid rules */
+    .uffb-grid.two-cols {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media (min-width: 700px) {
+      .uffb-grid.two-cols {
         grid-template-columns: repeat(2, 1fr);
       }
     }
+
+    @media (min-width: 1024px) {
+      /* override the default 3 columns on desktop */
+      .uffb-grid.two-cols {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
     .uffb-card {
       display: flex;
       flex-direction: column;
@@ -1762,7 +1781,7 @@
                   })
                 )
                 .join('')}</div>`
-            : `<div class="uffb-grid">${g.films
+            : `<div class="uffb-grid two-cols">${g.films
                 .map((f) =>
                   filmCard(f, {
                     variant,
