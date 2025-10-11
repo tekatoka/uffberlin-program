@@ -318,7 +318,7 @@
           ${shortDesc
             ? `<p class="uffb-lead"><strong>${shortDesc}</strong></p>`
             : ''}
-          ${longDesc ? `<div class="uffb-bodytext">${longDesc}</div>` : ''}
+          ${longDesc ? `<p class="uffb-bodytext">${longDesc}</p>` : ''}
           ${warning
             ? `<div class="uffb-warning"><strong>${t('warning')}</strong>: ${warning}</div>`
             : ''}
@@ -1201,7 +1201,7 @@
           ${shortDesc
             ? `<p class="uffb-lead"><strong>${shortDesc}</strong></p>`
             : ''}
-          ${longDesc ? `<div class="uffb-bodytext">${longDesc}</div>` : ''}
+          ${longDesc ? `<p class="uffb-bodytext">${longDesc}</p>` : ''}
         </div>
       </section>
       <section class="uffb-panel uffb-shorts-block">
