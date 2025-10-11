@@ -1971,9 +1971,9 @@
     "published": true,
     "display_image": true,
     "category": {
-      "key": "special_georgian_focus",
-      "en": "Special program: Georgian Film Focus",
-      "de": "Spezialprogramm: Fokus Georgien"
+      "key": "film_fokus",
+      "en": "Film Focus: Georgia",
+      "de": "Film Fokus: Georgien"
     },
     "short_description": {
       "en": "For three years, over 450 Georgian filmmakers and cultural workers have protested the authoritarian control of Bidzina Ivanishvili’s government over the country’s cultural institutions, including the National Film Center.",
@@ -2174,9 +2174,9 @@
     },
     "published": true,
     "category": {
-      "key": "special_central_asia",
-      "en": "Special program: Central Asia",
-      "de": "Spezialprogramm: Zentralasien"
+      "key": "film_focus",
+      "en": "Film Focus: Central Asia",
+      "de": "Film Fokus: Zentralasien"
     },
     "short_description": {
       "en": "This curated short film program explores the environmental, social, and cultural consequences of Soviet-era extractivism in Central Asia.",

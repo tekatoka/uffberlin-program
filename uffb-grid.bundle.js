@@ -149,7 +149,7 @@
     }
     @media (min-width: 1024px) {
       .uffb-grid {
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(2, 1fr);
       }
     }
     .uffb-card {
@@ -971,6 +971,37 @@
     </svg>`,
   };
 
+  // --- Film Focus merge helpers ---
+  const MERGED_FOCUS_KEYS = new Set(['film_focus', 'film_fokus']);
+  const mergedFocusLabel = () => (lang === 'de' ? 'Film Fokus' : 'Film Focus');
+
+  // For grouping purposes only (not filtering)
+  // Returns { key, label } where both film_focus & film_fokus collapse into one group
+  function getGroupingKeyAndLabel(film) {
+    const rawKey =
+      (film.category && film.category.key) ||
+      safeTxt(
+        film.category?.[lang] ||
+          film.category?.de ||
+          film.category?.en ||
+          film.category?.uk ||
+          ''
+      );
+
+    const rawLabel =
+      (film.category &&
+        (film.category[lang] ||
+          film.category.de ||
+          film.category.en ||
+          film.category.uk)) ||
+      '';
+
+    if (MERGED_FOCUS_KEYS.has(rawKey)) {
+      return { key: 'film_focus_all', label: mergedFocusLabel() };
+    }
+    return { key: rawKey || '', label: rawLabel || '' };
+  }
+
   // --- Rendering pieces (localized) ---
   const safeTxt = (x) => (x == null ? '' : String(x).trim().toLowerCase());
   const earliestDate = (film) => {
@@ -1011,23 +1042,25 @@
     'main',
     'uffb_shorts',
     'special',
+    'film_focus',
     'ukraine-known-unknown',
+    'retrospective',
   ];
 
   function categoryRank(key, label) {
+    // normalize merged focus
+    if (key === 'film_focus_all' || key === 'film_fokus') key = 'film_focus';
+
     const k = (key || '').toLowerCase();
     const l = (label || '').toLowerCase();
 
-    // exact key match first
     const idx = CATEGORY_ORDER.indexOf(k);
     if (idx !== -1) return idx;
 
-    // label fallbacks (multi-language friendly)
     if (l.includes('main')) return 0;
-    // match things like: "Short films – Competition", "Kurzfilmwettbewerb"
     if (/(short|kurz).*?(comp|wettbewerb)/.test(l)) return 1;
 
-    return CATEGORY_ORDER.length; // 2 = others
+    return CATEGORY_ORDER.length;
   }
 
   function getCategoryKeyAndLabel(film) {
@@ -1052,7 +1085,6 @@
     return { key, label };
   }
 
-  // Build a map: ISO date -> array of { film, date }
   // Build a map: ISO date -> array of { film, date }
   function explodeByDate(list, onlyDate = null) {
     const map = new Map();
@@ -1235,6 +1267,14 @@
     const onlyDate = opts.onlyDate || null;
     const onlyVenue = opts.onlyVenue || null;
 
+    const specificTag =
+      (it.category &&
+        (it.category[lang] ||
+          it.category.de ||
+          it.category.en ||
+          it.category.uk)) ||
+      '';
+
     const screeningsList = (it.screenings || []).filter((s) => {
       if (onlyDate && s.date !== onlyDate) return false;
       if (onlyVenue && safeTxt(getVenueName(s)) !== onlyVenue) return false;
@@ -1279,7 +1319,7 @@
   `;
 
     return html`<article class="uffb-card" data-id="${it.id}">
-        <div class="uffb-category">#${escapeHtml(category)}</div>
+        <div class="uffb-category">#${escapeHtml(specificTag)}</div>
         <a class="uffb-media" href="${href}" aria-label="${escapeHtml(title)}"
           ><img src="${img}" alt="${escapeHtml(title)}"
         /></a>
@@ -1614,7 +1654,7 @@
       (el.dataset.layout || el.dataset.view || '').toLowerCase() === 'row'
         ? 'row'
         : 'grid';
-    const defaultGroup = el.dataset.defaultGroup || ''; // '', 'category', 'date'
+    const defaultGroup = (el.dataset.defaultGroup || 'category').toLowerCase();
 
     const jsonUrl = el.dataset.json;
 
@@ -1681,10 +1721,11 @@
     }
 
     function renderGroupedByCategory(list, variant) {
-      // category key -> {label, films[]}
+      // grouping key -> {label, films[]}
       const catMap = new Map();
       list.forEach((f) => {
-        const { key, label } = getCategoryKeyAndLabel(f);
+        // merged Film Focus group for grouping only
+        const { key, label } = getGroupingKeyAndLabel(f);
         const k = key || '_uncat';
         const lbl = label || t('category');
         if (!catMap.has(k)) catMap.set(k, { label: lbl, films: [] });
@@ -1701,8 +1742,8 @@
           rank: categoryRank(k, v.label),
         }))
         .sort((a, b) => {
-          if (a.rank !== b.rank) return a.rank - b.rank; // our custom order first
-          return a.label.localeCompare(b.label); // then alphabetically
+          if (a.rank !== b.rank) return a.rank - b.rank;
+          return a.label.localeCompare(b.label);
         });
 
       let htmlStr = `<div class="uffb-groups">`;
