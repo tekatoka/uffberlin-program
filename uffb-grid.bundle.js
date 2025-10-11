@@ -39,6 +39,7 @@
       noResultsTitle: 'No films match your filters.',
       noResultsHint: 'Try changing or clearing the filters.',
       resetFiltersBtn: 'Reset filters',
+      loading: 'Loading program',
       // date labels
       weekdayDayMonthYear: {
         weekday: 'short',
@@ -74,6 +75,7 @@
       noResultsTitle: 'Keine Filme entsprechen Ihren Filtern.',
       noResultsHint: 'Versuchen Sie, die Filter zu ändern oder zurückzusetzen.',
       resetFiltersBtn: 'Filter zurücksetzen',
+      loading: 'Programm wird geladen',
       weekdayDayMonthYear: {
         weekday: 'short',
         day: '2-digit',
@@ -107,6 +109,7 @@
       noResultsTitle: 'Жоден фільм не відповідає фільтрам.',
       noResultsHint: 'Спробуйте змінити або скинути фільтри.',
       resetFiltersBtn: 'Скинути фільтри',
+      loading: 'Завантажуємо програму',
       weekdayDayMonthYear: {
         weekday: 'short',
         day: '2-digit',
@@ -884,6 +887,47 @@
 
     .uffb-shorts li + li {
       margin-top: 6px;
+    }
+    /* Loader */
+    .uffb-loader {
+      display: none;
+      width: 100%;
+      align-items: center;
+      justify-content: center; /* ⬅️ center horizontally */
+      gap: 10px;
+      padding: 24px 0;
+      color: #fff;
+    }
+    .uffb-loader.is-active {
+      display: flex;
+    }
+
+    .uffb-outlet {
+      min-height: 140px;
+    }
+
+    .uffb-loader .dot {
+      width: 18px;
+      height: 18px;
+      border-radius: 999px;
+      background: #f0e53c; /* your yellow */
+      animation: uffb-pulse 1.1s infinite; /* subtle pulse */
+      box-shadow: 0 0 0 0 rgba(240, 229, 60, 0.8);
+    }
+
+    @keyframes uffb-pulse {
+      0% {
+        transform: scale(0.88);
+        box-shadow: 0 0 0 0 rgba(240, 229, 60, 0.7);
+      }
+      70% {
+        transform: scale(1);
+        box-shadow: 0 0 0 10px rgba(240, 229, 60, 0);
+      }
+      100% {
+        transform: scale(0.88);
+        box-shadow: 0 0 0 0 rgba(240, 229, 60, 0);
+      }
     }
   `;
 
@@ -1668,6 +1712,17 @@
     outlet.className = 'uffb-outlet';
     wrap.appendChild(outlet);
 
+    // Loader
+    const loader = document.createElement('div');
+    loader.className = 'uffb-loader';
+    loader.setAttribute('role', 'status');
+    loader.setAttribute('aria-live', 'polite');
+    loader.innerHTML = `<span class="dot" aria-hidden="true"></span><span class="sr-only">${t('loading')}…</span>`;
+    wrap.insertBefore(loader, outlet); // show above the results
+
+    const showLoader = () => loader.classList.add('is-active');
+    const hideLoader = () => loader.classList.remove('is-active');
+
     // READ PAGE OPTIONS
     const layoutVariant =
       (el.dataset.layout || el.dataset.view || '').toLowerCase() === 'row'
@@ -2200,6 +2255,7 @@
     ui.search.input.addEventListener('search', doSearch);
 
     // --- fetch + initial render ---
+    showLoader();
     fetch(jsonUrl, { cache: 'no-cache' })
       .then((r) => {
         if (!r.ok) throw new Error('load fail');
@@ -2208,7 +2264,7 @@
       .then((data) => {
         items = data
           .slice()
-          .filter((f) => f.published === true) //remove after all films are published!
+          .filter((f) => f.published === true)
           .sort((a, b) => earliestDate(a).localeCompare(earliestDate(b)));
         initFilterOptions(items);
         applyAll();
@@ -2216,6 +2272,9 @@
       .catch((err) => {
         outlet.innerHTML = `<p>${t('loadError')}</p>`;
         console.error('[UFFB] JSON fetch error', err);
+      })
+      .finally(() => {
+        hideLoader();
       });
   }
 
