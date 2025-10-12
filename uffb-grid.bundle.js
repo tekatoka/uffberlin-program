@@ -687,7 +687,7 @@
       flex-wrap: wrap;
     }
     .uffb-row .uffb-screenings {
-      margin-top: 4px;
+      margin-top: 15px;
     }
 
     .uffb-row .uffb-body,
