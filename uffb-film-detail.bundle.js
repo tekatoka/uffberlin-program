@@ -718,33 +718,54 @@
 
   // --- PANEL HELPERS (do not replace existing film helpers) ---
 
-  // Grab quoted title after "Panel discussion" / "Podiumsdiskussion" (keep quotes)
-  function extractPanelQuotedTitle(descByLang) {
-    const OPEN_CLOSE = [
-      { o: '“', c: '”' },
-      { o: '„', c: '“' },
-      { o: '«', c: '»' },
-      { o: '‚', c: '’' },
-      { o: '‘', c: '’' },
-      { o: '"', c: '"' },
+  // Grab quoted title after "Panel discussion" / "Podiumsdiskussion" (no quotes)
+  function extractPanelTitle(descByLang) {
+    // Return title text that follows "Panel discussion" / "Podiumsdiskussion",
+    // without surrounding quotation marks.
+    const OPEN_CLOSE_PAIRS = [
+      { open: '“', close: '”' },
+      { open: '„', close: '“' },
+      { open: '«', close: '»' },
+      { open: '‚', close: '’' },
+      { open: '‘', close: '’' },
+      { open: '"', close: '"' }, // ASCII fallback
     ];
-    function find(text) {
+
+    // for extra safety: strip any quotes that might remain at the ends
+    const STRIP_EDGE_QUOTES_RE = /^[“”„«»‚‘’"]+|[“”„«»‚‘’"]+$/g;
+
+    function findAfterKeyword(text) {
       if (!text) return '';
       const m = text.match(/(panel\s*discussion|podiumsdiskussion)/i);
       if (!m) return '';
-      const tail = text.slice(m.index + m[0].length);
-      for (const { o, c } of OPEN_CLOSE) {
-        const i = tail.indexOf(o);
-        if (i < 0) continue;
-        const j = tail.indexOf(c, i + o.length);
-        if (j < 0) continue;
-        return tail.slice(i, j + c.length).trim();
+
+      // Start searching quotes *after* the keyword
+      const startIdx = m.index + m[0].length;
+      const tail = text.slice(startIdx);
+
+      // Look for first matching quote pair in the tail
+      for (const { open, close } of OPEN_CLOSE_PAIRS) {
+        const o = tail.indexOf(open);
+        if (o === -1) continue;
+        const c = tail.indexOf(close, o + open.length);
+        if (c === -1) continue;
+
+        // Return the INNER content (no quotes)
+        const inner = tail.slice(o + open.length, c).trim();
+        return inner.replace(STRIP_EDGE_QUOTES_RE, '').trim();
       }
+
+      // No quote pair found → nothing to extract
       return '';
     }
+
     const enSrc = (descByLang?.en || descByLang?.de || '').trim();
     const deSrc = (descByLang?.de || descByLang?.en || '').trim();
-    return { en: find(enSrc), de: find(deSrc) };
+
+    return {
+      en: findAfterKeyword(enSrc),
+      de: findAfterKeyword(deSrc),
+    };
   }
 
   function hasAny(obj, keys) {
@@ -2522,9 +2543,7 @@
         const pd = parent.panel_discussion;
 
         // Title: quoted after keyword; fallback to "Panel discussion – {FilmTitle}"
-        const { en: qEn, de: qDe } = extractPanelQuotedTitle(
-          pd.description || {}
-        );
+        const { en: qEn, de: qDe } = extractPanelTitle(pd.description || {});
         const title = {
           en:
             qEn ||

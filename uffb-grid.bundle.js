@@ -1361,9 +1361,8 @@
   }
 
   function extractPanelTitle(descByLang) {
-    // Return quoted title (including quotes) that follows
-    // "Panel discussion" or "Podiumsdiskussion" — robust to extra prefixes like
-    // "On 25th of October, after the screening:" etc.
+    // Return title text that follows "Panel discussion" / "Podiumsdiskussion",
+    // without surrounding quotation marks.
     const OPEN_CLOSE_PAIRS = [
       { open: '“', close: '”' },
       { open: '„', close: '“' },
@@ -1373,7 +1372,10 @@
       { open: '"', close: '"' }, // ASCII fallback
     ];
 
-    function findQuotedAfterKeyword(text) {
+    // for extra safety: strip any quotes that might remain at the ends
+    const STRIP_EDGE_QUOTES_RE = /^[“”„«»‚‘’"]+|[“”„«»‚‘’"]+$/g;
+
+    function findAfterKeyword(text) {
       if (!text) return '';
       const m = text.match(/(panel\s*discussion|podiumsdiskussion)/i);
       if (!m) return '';
@@ -1388,9 +1390,13 @@
         if (o === -1) continue;
         const c = tail.indexOf(close, o + open.length);
         if (c === -1) continue;
-        // return including the quotes
-        return tail.slice(o, c + close.length).trim();
+
+        // Return the INNER content (no quotes)
+        const inner = tail.slice(o + open.length, c).trim();
+        return inner.replace(STRIP_EDGE_QUOTES_RE, '').trim();
       }
+
+      // No quote pair found → nothing to extract
       return '';
     }
 
@@ -1398,8 +1404,8 @@
     const deSrc = (descByLang?.de || descByLang?.en || '').trim();
 
     return {
-      en: findQuotedAfterKeyword(enSrc),
-      de: findQuotedAfterKeyword(deSrc),
+      en: findAfterKeyword(enSrc),
+      de: findAfterKeyword(deSrc),
     };
   }
 
