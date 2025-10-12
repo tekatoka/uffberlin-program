@@ -259,7 +259,6 @@
     .uffb-desc {
       color: #fff;
       opacity: 0.9;
-      display: -webkit-box;
       -webkit-line-clamp: 3;
       -webkit-box-orient: vertical;
       overflow: hidden;
