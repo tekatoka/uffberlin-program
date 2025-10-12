@@ -2314,6 +2314,7 @@
       margin-top: 6px;
       font-style: italic;
       opacity: 0.85;
+      font-size: 0.85rem;
     }
     @media (max-width: 640px) {
       .uffb-participant {
