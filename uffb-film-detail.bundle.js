@@ -54,6 +54,7 @@
       filmNotFound: 'Film not found.',
       collaboration: 'In collaboration with',
       partners: 'Partners',
+      partner: 'Partner',
       warning: 'Warning',
       aboutDirector: 'About the director(s)',
       panelDiscussion: 'Panel discussion',
@@ -89,6 +90,7 @@
       filmNotFound: 'Film nicht gefunden.',
       collaboration: 'In Kooperation mit',
       partners: 'Partner',
+      partner: 'Partner',
       warning: 'Warnung',
       aboutDirector: 'Über die Filmemacher',
       panelDiscussion: 'Podiumsdiskussion',
@@ -123,6 +125,7 @@
       filmNotFound: 'Фільм не знайдено.',
       collaboration: 'У співпраці з',
       partners: 'Партнери',
+      partner: 'Партнер',
       warning: 'Попередження',
       aboutDirector: 'Про режисера(-ів)',
       panelDiscussion: 'Панельна дискусія',
@@ -393,11 +396,16 @@
     const shortDesc =
       (panelFilm.short_description && localized(panelFilm.short_description)) ||
       '';
+    const longDesc =
+      (panelFilm.detailed_description &&
+        localized(panelFilm.detailed_description)) ||
+      '';
     if (!shortDesc && !partnersInlineHtml) return '';
     return `
     <section class="uffb-panel">
       <div class="uffb-synopsis2">
         ${shortDesc ? `<p class="uffb-lead" style="white-space:pre-line">${shortDesc}</p>` : ''}
+        <p>${longDesc ? `<p class="uffb-lead" style="white-space:pre-line">${longDesc}</p>` : ''}</p>
         ${partnersInlineHtml || ''}
       </div>
     </section>
@@ -469,9 +477,12 @@
               </div>`;
       })
       .join('');
+    debugger;
     return html`
     <section class="uffb-panel uffb-partner">
-        <h3 class="uffb-panel-title">${t('partners')}</h3>
+        <h3 class="uffb-panel-title">
+          ${partners?.length > 1 ? t('partners') : t('partner')}
+        </h3>
         <div class="uffb-partner-grid">${items}</div>
       </section>
   `;
@@ -499,7 +510,7 @@
     if (!logos) return '';
     return `
     <div class="uffb-panel uffb-partners">
-    <div class="uffb-partner-head">${labelText}:</div>
+    <h3 class='uffb-panel-title'>${t('partner')}</h3>
     <div class="uffb-partner-grid">
       <div class="uffb-partner-logo">${logos}</div>
     </div>
@@ -2168,7 +2179,7 @@
 
     /* Partners */
     .uffb-partners {
-      margin: 45px 0 55px !important;
+      margin: 45px 0 35px !important;
     }
 
     .uffb-partner-grid {
@@ -2538,16 +2549,19 @@
         const progHref = lang === 'de' ? '/de/uffb2025' : '/uffb2025';
         const parentId = parent.id;
         const short_description = {
-          en: `Panel discussion after the screening <a href="${progHref}/${parentId}">“${filmTitleEn}”</a>.\n${t('moderator')}: ${mod || 'tba'}.\n${t('guests')}: ${gs || 'tba'}.`,
-          de: `Podiumsdiskussion im Anschluss an die Vorführung „${filmTitleDe}“.\n${t('moderator')}: ${mod || 'tba'}.\n${t('guests')}: ${gs || 'tba'}.`,
-          uk: `Дискусія після показу “${parent.title?.uk || filmTitleEn}”.\n${t('moderator')}: ${mod || 'tba'}.\n${t('guests')}: ${gs || 'tba'}.`,
+          en: `<strong>Panel discussion after the screening <a href="${progHref}/${parentId}">“${filmTitleEn}”</strong></a>\n<strong>${t('moderator')}:</strong> ${mod || 'tba'}\n<strong>${t('guests')}:</strong> ${gs || 'tba'}.`,
+          de: `<strong>Podiumsdiskussion im Anschluss an die Vorführung <a href="${progHref}/${parentId}">“${filmTitleDe}”</strong></a>.\n<strong>${t('moderator')}:</strong> ${mod || 'tba'}.\n<strong>${t('guests')}:</strong> ${gs || 'tba'}.`,
+          uk: `<strong>Дискусія після показу <a href="${progHref}/${parentId}">“${parent.title?.uk || filmTitleEn}”</strong></a>.\n<strong>${t('moderator')}:</strong> ${mod || 'tba'}.\n<strong>${t('guests')}:</strong> ${gs || 'tba'}.`,
         };
+
+        const detailed_description = localized(pd.long_description);
 
         // Build the synthetic “panel film”
         film = {
           id: pd.id, // EXACTLY the panel id
           title,
           short_description,
+          detailed_description,
           category: {
             key: 'panel_discussion',
             en: t('panelDiscussion'),

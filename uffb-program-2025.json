@@ -496,8 +496,12 @@
     "panel_discussion": {
       "id": "panel-war-documentaries",
       "description": {
-        "de": "Am 25. Oktober, nach dem Film: Podiumsdiskussion „Creative Loop and War Documentaries: How Can We Move Beyond the Expected?“",
-        "en": "On 25th of October, after the screening: Panel discussion “Creative Loop and War Documentaries: How Can We Move Beyond the Expected?”"
+        "de": "Am 25. Oktober, nach dem Film: Podiumsdiskussion <a href='/de/uffb2025/panel-war-documentaries'>„Creative  Loop: How Can Ukrainian War Documentarians Move Beyond the Expected?“</a>",
+        "en": "On 25th of October, after the screening: Panel discussion <a href='/uffb2025/panel-war-documentaries'>“Creative Loop: How Can Ukrainian War Documentarians Move Beyond the Expected?”</a>"
+      },
+      "long_description": {
+        "en": "The panel discussion „Creative Loop: How Can Ukrainian War Documentarians Move Beyond the Expected?“ will take place on Saturday, October 25, as part of the UFFB program. Together with the <a href='https://bpb.de' target='_blank'>Federal Agency for Civic Education (Bundeszentrale für politische Bildung / bpb)</a>, we are organizing a conversation on Ukrainian documentaries about the war — their evolution, perception, and future directions. <br /><br />The panel will focus primarily on exchange and reflection. The film we’ll screen before — Militantropos, made by a collective of filmmakers — will serve as a point of departure and a visual reference. We thought it would open a relevant conversation not only about individual works but also about broader tendencies in Ukrainian documentary filmmaking.<br /><br />The starting point of this panel was our observation of a certain fatigue around Ukrainian war documentaries internationally — they no longer receive the same curatorial and audience attention as they did in 2022, perhaps because viewers feel they already know what to expect. This makes the discussion about new approaches — in narrative, genre, editing, and festival positioning, as well as media attention — especially timely and meaningful.",
+        "de": "Die Podiumsdiskussion „Creative Loop: How Can Ukrainian War Documentarians Move Beyond the Expected?“ findet am Samstag, dem 25. Oktober, im Rahmen des UFFB-Programms statt. Gemeinsam mit der <a href='https://bpb.de' target='_blank'>Bundeszentrale für politische Bildung (bpb)</a> organisieren wir ein Gespräch über ukrainische Dokumentarfilme zum Krieg – ihre Entwicklung, Wahrnehmung und zukünftige Ausrichtungen. <br /><br />Der Schwerpunkt des Panels liegt vor allem auf Austausch und Reflexion. Der zuvor gezeigte Film – Militantropos, realisiert von einem Kollektiv von Filmschaffenden – dient als Ausgangspunkt und visuelle Referenz. Wir sind der Ansicht, dass er eine relevante Diskussion eröffnet, die nicht nur einzelne Werke, sondern auch breitere Tendenzen im ukrainischen Dokumentarfilmschaffen in den Blick nimmt. <br /><br />Ausgangspunkt dieses Panels war unsere Beobachtung einer gewissen Ermüdung gegenüber ukrainischen Kriegsdokumentarfilmen auf internationaler Ebene – sie erhalten nicht mehr die gleiche kuratorische und publikumseitige Aufmerksamkeit wie 2022, vielleicht weil Zuschauer*innen meinen, bereits zu wissen, was sie erwartet. Umso zeitgemäßer und bedeutender ist daher die Diskussion über neue Ansätze – in Narration, Genre, Montage und Festivalpositionierung sowie hinsichtlich der medialen Aufmerksamkeit."
       },
       "category": {
         "key": "panel_discussion",
@@ -1669,13 +1673,17 @@
         "de": "Nach dem Film: Podiumsdiskussion „Dekoloniale Perspektiven: Lokale Geschichten und Stimmen“",
         "en": "After the screening: Panel discussion “Decolonial Perspectives: Local Histories and Voices”"
       },
+      "long_description": {
+        "en": "The panel discussion <a href='/uffb2025/panel-decolonial-perspectives'>„Decolonial Perspectives: Local Histories and Voices“</a> will take place in cooperation with the <a href='https://bpb.de' target='_blank'>Federal Agency for Civic Education (bpb)</a>. Before the discussion, we will screen the film When Lightning Flashes over the Sea (directed by Eva Neymann), which offers insight into local stories, images, and practices in the shaping of a multilayered urban space.<br /><br />In the discussion, we would like to explore questions such as: <ul><li>How can invisible or repressed histories be made visible?</li><li>In what ways can audiovisual media become a tool of narrative sovereignty and cultural memory?</li><li>Which aesthetic and narrative strategies within a decolonial framework—such as fragmentary, essayistic, or multi-perspective forms of storytelling—can open new ways of seeing history, space, and experience?</li></ul>",
+        "de": "Die Podiumsdiskussion <a href='/de/uffb2025/panel-decolonial-perspectives'>„Decolonial Perspectives: Local Histories and Voices“</a> findet in Kooperation mit der <a href='https://bpb.de' target='_blank'>Bundeszentrale für politische Bildung (bpb) statt</a>. Vor dem Gespräch zeigen wir den Film When Lightning Flashes over the Sea (Regie: Eva Neymann), der Einblicke in lokale Geschichten, Bilder und Praktiken bei der Gestaltung eines vielschichtigen urbanen Raums bietet.<br /><br />In der Diskussion möchten wir unter anderem folgende Fragen beleuchten: <ul><li>Wie lassen sich unsichtbare oder verdrängte Geschichten sichtbar machen?</li><li>Inwiefern können audiovisuelle Medien zu einem Instrument narrativer Souveränität und des kulturellen Gedächtnisses werden?</li><li>Welche ästhetischen und narrativen Strategien innerhalb eines dekolonialen Rahmens – etwa fragmentarische, essayistische oder multiperspektivische Erzählweisen – können neue Sichtweisen auf Geschichte, Raum und Erfahrung eröffnen?</li></ul>"
+      },
       "category": {
         "key": "panel_discussion",
         "en": "Panel discussion",
         "de": "Podiumsdiskussion"
       },
       "moderation": "Konstanty Kuzma",
-      "guests": "Eva Neymann, Carla J. Maier, Olha Bregmann",
+      "guests": "Eva Neymann, Carla J. Maier, Olha Bregman",
       "partners": "Bundeszentrale für politische Bildung",
       "participants": [
         {
