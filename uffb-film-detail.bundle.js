@@ -867,20 +867,38 @@
           const roleHtml = localized(p.role || '');
           const photo = p.photo || '';
           const credit = p.photoCredit ? `photo &copy; ${p.photoCredit}` : '';
-          return `
-        <li class="uffb-participant">
-          ${photo ? `<div class="ph"><img loading="lazy" src="${photo}" alt="${name}"></div>` : `<div class="ph ph-empty"></div>`}
-          <div class="txt">
-            <div class="name">${name}</div>
-             ${roleHtml ? `<div class="role"><em>${roleHtml}</em></div>` : ''}
-            ${bioHtml ? `<div class="bio">${bioHtml}</div>` : ''}
-            ${credit ? `<div class="credit text-sm">${credit}</div>` : ''}
-          </div>
-        </li>
-      `;
+
+          return html`
+            <li class="uffb-participant">
+              ${photo
+                ? `<div class="ph">
+               <img
+                 loading="lazy"
+                 src="${photo}"
+                 alt="${name}"
+                 class="uffb-participant-thumb"
+                 data-photo="${photo}"
+                 role="button"
+                 tabindex="0"
+                 aria-label="${escAttr(name)}"
+               >
+             </div>`
+                : `<div class="ph ph-empty"></div>`}
+              <div class="txt">
+                <div class="name">${name}</div>
+                ${roleHtml
+                  ? `<div class="role"><em>${roleHtml}</em></div>`
+                  : ''}
+                ${bioHtml ? `<div class="bio">${bioHtml}</div>` : ''}
+                ${credit ? `<div class="credit text-sm">${credit}</div>` : ''}
+              </div>
+            </li>
+          `;
         })
         .join('');
-      return `<ul class="uffb-participants">${items}</ul>`;
+      return html`<ul class="uffb-participants">
+          ${items}
+        </ul>`;
     };
 
     const modSection = moderators.length
@@ -1259,6 +1277,69 @@
         { passive: true }
       );
       el.addEventListener('touchend', hide, { passive: true });
+    });
+  }
+
+  function attachGenericPhotoTooltips(root, selector) {
+    ensureDirTooltip();
+    const tip = document.getElementById('uffb-dir-tooltip');
+    const img = tip.querySelector('img');
+
+    function showLike(e, node) {
+      const url = node.getAttribute('data-photo');
+      if (!url) return;
+      img.src = url;
+      tip.style.display = 'block';
+      moveLike(e);
+    }
+    function moveLike(e) {
+      const pad = 14;
+      const vw = window.innerWidth,
+        vh = window.innerHeight;
+      const tw = tip.offsetWidth || 260,
+        th = tip.offsetHeight || 160;
+      let x = (e.clientX ?? (e.touches && e.touches[0]?.clientX) ?? 0) + pad;
+      let y = (e.clientY ?? (e.touches && e.touches[0]?.clientY) ?? 0) + pad;
+      if (x + tw + pad > vw) x = x - tw - pad * 2;
+      if (y + th + pad > vh) y = y - th - pad * 2;
+      tip.style.left = `${Math.max(0, x)}px`;
+      tip.style.top = `${Math.max(0, y)}px`;
+    }
+    function hideLike() {
+      tip.style.display = 'none';
+      img.src = '';
+    }
+
+    root.querySelectorAll(selector).forEach((el) => {
+      // hover
+      el.addEventListener('mouseenter', (e) => showLike(e, el));
+      el.addEventListener('mousemove', moveLike);
+      el.addEventListener('mouseleave', hideLike);
+      // click toggles (desktop)
+      el.addEventListener('click', (e) => {
+        if (tip.style.display === 'block') hideLike();
+        else showLike(e, el);
+      });
+      // keyboard accessibility
+      el.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          if (tip.style.display === 'block') hideLike();
+          else showLike(e, el);
+        } else if (e.key === 'Escape') {
+          hideLike();
+        }
+      });
+      // touch
+      el.addEventListener('touchstart', (e) => showLike(e, el), {
+        passive: true,
+      });
+      el.addEventListener('touchend', hideLike, { passive: true });
+    });
+
+    // click anywhere else closes
+    document.addEventListener('click', (e) => {
+      if (!e.target.closest(selector)) hideLike();
     });
   }
 
@@ -2624,28 +2705,28 @@
       ? buildPanelDescriptionBlock(film, partnersInline)
       : '';
 
-    wrap.innerHTML = `
-  <article class="uffb-film">
-    ${buildBreadcrumb(film)}
-    <header class="uffb-film-header">
-      ${buildTopLine(film)}
-      <h1 class="uffb-title visually-hidden">${title}</h1>
-      ${!isShortsProgram && !isPanel ? buildMediaCarousel(film) : ''} <!-- no hero for panels -->
-    </header>
+    wrap.innerHTML = html`
+      <article class="uffb-film">
+        ${buildBreadcrumb(film)}
+        <header class="uffb-film-header">
+          ${buildTopLine(film)}
+          <h1 class="uffb-title visually-hidden">${title}</h1>
+          ${!isShortsProgram && !isPanel ? buildMediaCarousel(film) : ''}
+          <!-- no hero for panels -->
+        </header>
 
-    ${
-      isPanel
-        ? html`
+        ${isPanel
+          ? html`
           <!-- PANEL DETAIL: mirror shorts layout -->
-            <section class="uffb-shorts-layout">
-              <div class="uffb-shorts-left">
-                ${panelDescBlock} ${participantsBlock}
-              </div>
-              <aside class="uffb-shorts-right">${screeningsBlock}</aside>
-            </section>
+              <section class="uffb-shorts-layout">
+                <div class="uffb-shorts-left">
+                  ${panelDescBlock} ${participantsBlock}
+                </div>
+                <aside class="uffb-shorts-right">${screeningsBlock}</aside>
+              </section>
         `
-        : isShortsProgram
-          ? `
+          : isShortsProgram
+            ? html`
                 <section class="uffb-shorts-layout">
                   <div class="uffb-shorts-left">
                     ${buildShortsItemsSection(film)}
@@ -2655,7 +2736,7 @@
                   <aside class="uffb-shorts-right">${screeningsBlock}</aside>
                 </section>
               `
-          : `
+            : html`
                 <section class="uffb-two-col">
                   <div class="uffb-col-left">
                     ${buildInfoBlock(film)} ${buildCreditsBlock(film)}
@@ -2668,16 +2749,16 @@
                   </div>
                 </section>
                 ${screeningsBlock}
-              `
-    }
+              `}
 
-    <section class="uffb-actions"></section>
-  </article>
-`;
+        <section class="uffb-actions"></section>
+      </article>
+    `;
 
     attachDirPhotoTooltips(wrap);
     preloadDirectorPhotosFrom(wrap);
     initDirectorPopups(wrap);
+    attachGenericPhotoTooltips(wrap, '.uffb-participant .ph img[data-photo]');
 
     // trailer buttons → lightbox (topline + per-short)
     wrap.querySelectorAll('.uffb-trailer-btn').forEach((btn) => {
