@@ -477,7 +477,6 @@
               </div>`;
       })
       .join('');
-    debugger;
     return html`
     <section class="uffb-panel uffb-partner">
         <h3 class="uffb-panel-title">
