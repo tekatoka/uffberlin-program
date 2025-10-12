@@ -2394,6 +2394,9 @@
       color: inherit;
       text-decoration: underline;
     }
+    .uffb-lang-note {
+      margin-bottom: 1rem;
+    }
 
     /* partner logos inside screening cards */
     .uffb-partner-row {
