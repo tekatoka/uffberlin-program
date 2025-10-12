@@ -494,13 +494,43 @@
       "de": "Hauptprogramm"
     },
     "panel_discussion": {
+      "id": "panel-war-documentaries",
       "description": {
         "de": "Am 25. Oktober, nach dem Film: Podiumsdiskussion „Creative Loop and War Documentaries: How Can We Move Beyond the Expected?“",
         "en": "On 25th of October, after the screening: Panel discussion “Creative Loop and War Documentaries: How Can We Move Beyond the Expected?”"
       },
+      "category": {
+        "key": "panel_discussion",
+        "en": "Panel discussion",
+        "de": "Podiumsdiskussion"
+      },
       "moderation": "Inga Pylypchuk",
       "guests": "tba",
-      "partners": "Bundeszentrale für politische Bildung"
+      "partners": "Bundeszentrale für politische Bildung",
+      "participants": [
+        {
+          "isModerator": true,
+          "name": "Inga Pylypchuk",
+          "bio": {
+            "de": "Inga Pylypchuk (geb. 1986, Ukraine) ist eine in Berlin lebende Filmemacherin und Autorin. Nach einem Studium der Philologie und Literatur in Kyjiw und Berlin sowie mehreren Jahren Tätigkeit im Journalismus und in der Filmkritik verlegte sie ihren Schwerpunkt auf den Dokumentarfilm. Ihre mittellangen Filme How Far Is Close (2023) und Teen Angst (2024) feierten Premiere beim FilmFestival Cottbus und wurden europaweit gezeigt. Ihre Arbeit schlägt Brücken zwischen Kulturen und erkundet intime, autobiografische Erzählungen.",
+            "en": "Inga Pylypchuk (b. 1986, Ukraine) is a Berlin-based filmmaker and author. After studying philology and literature in Kyiv and Berlin, and working for several years in journalism and film criticism, she shifted her focus to documentary filmmaking. Her mid-length films How Far Is Close (2023) and Teen Angst (2024) premiered at FilmFestival Cottbus and have screened across Europe. Her work bridges cultures and explores intimate autobiographical narratives."
+          },
+          "photo": "https://images.squarespace-cdn.com/content/5f739670761e02764c54e1ca/52ef7ce9-1265-44ec-82b7-44fb883ba5bc/Pylypchuk+Foto+by+Olena+Kosovych.jpg",
+          "photoCredit": "Olena Kosovych"
+        }
+      ],
+      "date": "2025-10-25",
+      "time": "16:00",
+      "venue": {
+        "en": "Kino im Planetarium",
+        "de": "Kino im Planetarium"
+      },
+      "address": "Prenzlauer Allee 80, 10405 Berlin",
+      "website": "https://www.planetarium.berlin/veranstaltungsart/kino",
+      "maps": {
+        "google": "https://maps.app.goo.gl/KKq8AZhbtGosemPN6"
+      },
+      "tickets": "https://planetarium-berlintop3.ticketfritz.de/Event/Detail?Event=9849"
     },
     "trailer": "https://www.youtube.com/watch?v=iozKw9blaTI",
     "image": "https://images.squarespace-cdn.com/content/5f739670761e02764c54e1ca/9519c623-1ac4-4fda-912b-b43d74168c89/main-program-militantropos.webp",
@@ -1605,13 +1635,39 @@
       }
     ],
     "panel_discussion": {
+      "id": "panel-decolonial-perspectives",
       "description": {
         "de": "Nach dem Film: Podiumsdiskussion „Dekoloniale Perspektiven: Lokale Geschichten und Stimmen“",
         "en": "After the screening: Panel discussion “Decolonial Perspectives: Local Histories and Voices”"
       },
+      "category": {
+        "key": "panel_discussion",
+        "en": "Panel discussion",
+        "de": "Podiumsdiskussion"
+      },
       "moderation": "Konstanty Kuzma",
       "guests": "Eva Neymann",
-      "partners": "Bundeszentrale für politische Bildung"
+      "partners": "Bundeszentrale für politische Bildung",
+      "participants": [
+        {
+          "isModerator": true,
+          "name": "Konstanty Kuzma",
+          "bio": {
+            "de": "Konstanty Kuzma ist Mitbegründer und Mitherausgeber des East European Film Bulletin, eines Online-Journals über das mittel-, ost- und südosteuropäische Kino. Er hat Philosophie in Berlin, Berkeley und München studiert und ist 2024 als Postdoktorand am Institut für Philosophie der Universität Stuttgart eingestiegen. <br />Derzeit gibt er ein Buch über Film und urbane Räume in Belarus, Polen und der Ukraine heraus (unter Vertrag bei Routledge) und produziert einen Archivfilm über Zwangsarbeit während des Zweiten Weltkriegs.",
+            "en": "Konstanty Kuzma is the co-founder and co-editor of the East European Film Bulletin, an online journal on Central, Eastern, and South-Eastern European cinema. He studied philosophy in Berlin, Berkeley, and Munich, and joined the Philosophy Institute at the University of Stuttgart as a post-doctoral researcher in 2024. <br />He is currently editing a book on film and urban spaces in Belarus, Poland, and Ukraine under contract with Routledge, and producing an archival film on forced labor during World War Two."
+          },
+          "photo": "https://images.squarespace-cdn.com/content/5f739670761e02764c54e1ca/7c697b01-1894-414a-b406-0b08ced8bbe5/KonstantyKuzma_by+Sebastian+%C5%A0imek.JPG",
+          "photoCredit": "Sebastian Šimek"
+        },
+        {
+          "name": "Eva Neymann",
+          "bio": {
+            "de": "Eva Neymann (geb. 1974, Saporischschja, Ukraine) studierte Rechtswissenschaften an der Philipps-Universität Marburg und Filmregie an der Deutschen Film- und Fernsehakademie Berlin (dffb). Nach ihrem erfolgreichen Dokumentarfilm GOD’S WAYS (2007), der im selben Jahr den deutschen Nachwuchspreis First Steps erhielt, drehte sie mehrere Dokumentarfilme, die auf diversen internationalen Festivals gezeigt wurden (JUST LIKE OLD TIMES, 2004; DAS MEER SEHEN, 2005; GOD'S WAYS, 2007). <br />2007 erschien ihr Spielfilmdebüt AT THE RIVER (2007), das seine internationale Premiere beim Internationalen Filmfestival Rotterdam feierte. Ihr zweiter Spielfilm, HOUSE WITH A TURRET (2012), wurde in Karlovy Vary mit dem East of the West Award ausgezeichnet. SONG OF SONGS (2015) lief im offiziellen Wettbewerb von Karlovy Vary und gewann den Preis für die Beste Regie beim Odessa International Film Festival sowie den FIPRESCI-Preis in Fribourg (Schweiz). <br />Ihr nächster Dokumentarfilm, PRYVOZ (2021), wurde für das Doclisboa International Film Festival 2021 ausgewählt und auf zahlreichen renommierten Festivals gezeigt, darunter Sheffield DocFest 2022, DOK Leipzig 2022 und das Krakow Film Festival 2022. Ihr jüngster Spielfilm, WHEN LIGHTNING FLASHES OVER THE SEA (2025), wurde für die Internationalen Filmfestspiele Berlin (Berlinale) ausgewählt.",
+            "en": "Eva Neymann (b. 1974, Zaporizhzhia, Ukraine) studied law at the University of Marburg in Germany and film direction at the German Film and Television Academy in Berlin. After her successful documentary film GOD’S WAYS (2007), which received the German talent prize First Steps in 2007, she made several documentaries that were screened at various international film festivals (JUST LIKE OLD TIMES, 2004; DAS MEER SEHEN, 2005; GOD'S WAYS, 2007). In 2007, she released her feature film debut AT THE RIVER (2007), which had its international premiere at the Rotterdam International Film Festival. Her second feature film, HOUSE WITH A TURRET (2012), received the Karlovy Vary East of the West Award. Her film SONG OF SONGS (2015) premiered in the official competition at Karlovy Vary and won the Best Director award at the Odessa International Film Festival, as well as the FIPRESCI award in Fribourg, Switzerland. Her next documentary, PRYVOZ (2021), was selected for the Doclisboa International Film Festival in 2021 and showcased at many renowned film festivals, including Sheffield DocFest 2022, DokLeipzig 2022, and the Krakow Film Festival 2022. Her latest feature film, WHEN LIGHTNING FLASHES OVER THE SEA (2025), has been selected for the Berlin IFF."
+          },
+          "photo": "https://images.squarespace-cdn.com/content/5f739670761e02764c54e1ca/097fc471-d5d8-45e4-9fe0-a23f9b822eab/Eva+Neymann.jpg?content-type=image%2Fjpeg"
+        }
+      ]
     },
     "partners": [
       {

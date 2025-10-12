@@ -127,6 +127,40 @@
   };
   const t = (key) => I18N[lang][key];
 
+  // Put this right after I18N (or near your other constants)
+  const PANEL_IMG_URL =
+    'https://images.squarespace-cdn.com/content/v1/5f739670761e02764c54e1ca/1727124052218-9HAFIHE8THUC98V48K9K/Logo-600x600.jpg';
+
+  const PANEL_TEXT = {
+    en: {
+      label: 'Panel discussions',
+      labelSingle: 'Panel discussion',
+      after: 'Panel discussion after the screening',
+      moderator: 'Moderator',
+      guests: 'Guests',
+      tba: 'tba',
+      inPartnershipWith: 'In partnership with',
+    },
+    de: {
+      label: 'Podiumsdiskussionen',
+      labelSingle: 'Podiumsdiskussion',
+      after: 'Podiumsdiskussion im Anschluss an den Film',
+      moderator: 'Moderation',
+      guests: 'Gäste',
+      tba: 'tba',
+      inPartnershipWith: 'In Partnerschaft mit',
+    },
+    uk: {
+      // optional, fallback to EN/DE otherwise
+      label: 'Панельна дискусія',
+      after: 'Дискусія після показу',
+      moderator: 'Модератор',
+      guests: 'Гості',
+      tba: 'tba',
+      inPartnershipWith: 'У співпраці з',
+    },
+  };
+
   // --- Existing CSS (unchanged) ---
   const CSS = css`
     .uffb-grid {
@@ -231,6 +265,7 @@
       overflow: hidden;
       min-height: 3.6em;
       font-size: 1rem;
+      white-space: pre-line;
     }
     .uffb-actions {
       display: flex;
@@ -932,6 +967,22 @@
         box-shadow: 0 0 0 0 rgba(240, 229, 60, 0);
       }
     }
+    /* partners block */
+    .uffb-panel-extra {
+      margin: 14px 0 12px;
+    }
+    .uffb-panel-extra .uffb-partner-head {
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+    .uffb-panel-extra a {
+      color: var(--paragraphLinkColor);
+      text-decoration: none;
+      font-weight: 700;
+    }
+    .uffb-panel-extra a:hover {
+      text-decoration: underline !important;
+    }
   `;
 
   function injectCSS() {
@@ -1111,6 +1162,7 @@
     'film_focus',
     'ukraine-known-unknown',
     'retrospective',
+    'panel_discussion',
   ];
 
   function categoryRank(key, label) {
@@ -1309,6 +1361,229 @@
     return map;
   }
 
+  function extractPanelTitle(descByLang) {
+    // Return quoted title (including quotes) that follows
+    // "Panel discussion" or "Podiumsdiskussion" — robust to extra prefixes like
+    // "On 25th of October, after the screening:" etc.
+    const OPEN_CLOSE_PAIRS = [
+      { open: '“', close: '”' },
+      { open: '„', close: '“' },
+      { open: '«', close: '»' },
+      { open: '‚', close: '’' },
+      { open: '‘', close: '’' },
+      { open: '"', close: '"' }, // ASCII fallback
+    ];
+
+    function findQuotedAfterKeyword(text) {
+      if (!text) return '';
+      const m = text.match(/(panel\s*discussion|podiumsdiskussion)/i);
+      if (!m) return '';
+
+      // Start searching quotes *after* the keyword
+      const startIdx = m.index + m[0].length;
+      const tail = text.slice(startIdx);
+
+      // Look for first matching quote pair in the tail
+      for (const { open, close } of OPEN_CLOSE_PAIRS) {
+        const o = tail.indexOf(open);
+        if (o === -1) continue;
+        const c = tail.indexOf(close, o + open.length);
+        if (c === -1) continue;
+        // return including the quotes
+        return tail.slice(o, c + close.length).trim();
+      }
+      return '';
+    }
+
+    const enSrc = (descByLang?.en || descByLang?.de || '').trim();
+    const deSrc = (descByLang?.de || descByLang?.en || '').trim();
+
+    return {
+      en: findQuotedAfterKeyword(enSrc),
+      de: findQuotedAfterKeyword(deSrc),
+    };
+  }
+
+  function cloneScreeningForPanel(s) {
+    return {
+      date: s.date,
+      time: s.time || '',
+      venue: s.venue,
+      address: s.address,
+      website: s.website,
+      maps: s.maps,
+      tickets: s.tickets || '', // ⬅️ keep parent ticket link when used
+    };
+  }
+
+  function hasAny(obj, keys) {
+    return !!obj && keys.some((k) => obj[k] != null && obj[k] !== '');
+  }
+
+  /**
+   * Decide which screenings a panel should use:
+   * 1) If panel_discussion.screenings[] exists → use those (one card per panel screening).
+   * 2) Else if panel_discussion has any of date/time/venue/address/website/maps/tickets
+   *    → build a single screening from those, falling back to the FIRST film screening for any missing field.
+   * 3) Else → one panel per parent film screening (inherit ALL fields incl. tickets).
+   */
+  function resolvePanelScreenings(film) {
+    const pd = film.panel_discussion || {};
+    const parentList = Array.isArray(film.screenings) ? film.screenings : [];
+    const firstParent = parentList[0] || {};
+
+    // Case 1: explicit array of panel screenings
+    if (Array.isArray(pd.screenings) && pd.screenings.length > 0) {
+      return pd.screenings.map((ps) => ({
+        date: ps.date || firstParent.date || '',
+        time: (ps.time ?? firstParent.time) || '',
+        venue: ps.venue || firstParent.venue,
+        address: ps.address || firstParent.address,
+        website: ps.website || firstParent.website,
+        maps: ps.maps || firstParent.maps,
+        tickets: ps.tickets || firstParent.tickets || '',
+      }));
+    }
+
+    // Case 2: single panel fields provided on the object
+    if (
+      hasAny(pd, [
+        'date',
+        'time',
+        'venue',
+        'address',
+        'website',
+        'maps',
+        'tickets',
+      ])
+    ) {
+      return [
+        {
+          date: pd.date || firstParent.date || '',
+          time: (pd.time ?? firstParent.time) || '',
+          venue: pd.venue || firstParent.venue,
+          address: pd.address || firstParent.address,
+          website: pd.website || firstParent.website,
+          maps: pd.maps || firstParent.maps,
+          tickets: pd.tickets || firstParent.tickets || '',
+        },
+      ];
+    }
+
+    // Case 3: mirror every parent screening (inherit tickets too)
+    return parentList.map((s) => cloneScreeningForPanel(s));
+  }
+
+  /**
+   * For every film with panel_discussion, create a separate “panel” item per screening.
+   * - title: taken from description after "Nach dem Film:" / "After the screening:"
+   * - description: "Panel discussion after the screening {FilmTitle}. Moderator: … Guests: …"
+   * - date/time/venue: from the parent screening
+   * - image: PANEL_IMG_URL (grid/row only)
+   * - category: key 'panel_discussion' with localized labels
+   */
+  function makePanelItemsFromFilm(film) {
+    const pd = film.panel_discussion;
+    if (!pd) return [];
+
+    const { en: pTitleEn, de: pTitleDe } = extractPanelTitle(
+      pd.description || {}
+    );
+    const filmTitleEn =
+      film.title?.en || film.title?.de || film.title?.uk || '';
+    const filmTitleDe =
+      film.title?.de || film.title?.en || film.title?.uk || filmTitleEn;
+
+    const mod = pd.moderation || '';
+    const guests = pd.guests || '';
+    const txt = PANEL_TEXT[lang] || PANEL_TEXT.en;
+
+    const panel_extra_html = buildPartnersHtml(film);
+
+    // Decide which screenings (and tickets) to use for this panel:
+    const panelScreenings = resolvePanelScreenings(film);
+
+    return panelScreenings.map((s, idx) => {
+      const timePart = s.time ? '-' + String(s.time).replace(':', '') : '';
+      const id = `${pd.id}`;
+
+      const short_description = {
+        en: `${PANEL_TEXT.en.after} “${filmTitleEn}”.\n${PANEL_TEXT.en.moderator}: ${mod || PANEL_TEXT.en.tba}.\n${PANEL_TEXT.en.guests}: ${guests || PANEL_TEXT.en.tba}.`,
+        de: `${PANEL_TEXT.de.after} „${filmTitleDe}“.\n${PANEL_TEXT.de.moderator}: ${mod || PANEL_TEXT.de.tba}.\n${PANEL_TEXT.de.guests}: ${guests || PANEL_TEXT.de.tba}.`,
+        uk: `${PANEL_TEXT.uk?.after || PANEL_TEXT.en.after} “${film.title?.uk || filmTitleEn}”.\n${PANEL_TEXT.uk?.moderator || PANEL_TEXT.en.moderator}: ${mod || PANEL_TEXT.uk?.tba || PANEL_TEXT.en.tba}.\n${PANEL_TEXT.uk?.guests || PANEL_TEXT.en.guests}: ${guests || PANEL_TEXT.uk?.tba || PANEL_TEXT.en.tba}.`,
+      };
+
+      const title = {
+        en: pTitleEn || PANEL_TEXT.en.label + ` – ${filmTitleEn}`,
+        de: pTitleDe || PANEL_TEXT.de.label + ` – ${filmTitleDe}`,
+        uk:
+          (PANEL_TEXT.uk?.label || PANEL_TEXT.en.label) +
+          ` – ${film.title?.uk || filmTitleEn}`,
+      };
+
+      return {
+        id,
+        panel_discussion: pd,
+        related_film_id: film.id,
+
+        title,
+        short_description,
+        image: PANEL_IMG_URL,
+        category: {
+          key: 'panel_discussion',
+          en: PANEL_TEXT.en.label,
+          de: PANEL_TEXT.de.label,
+          uk: PANEL_TEXT.uk?.label || PANEL_TEXT.en.label,
+        },
+        screenings: [
+          {
+            date: s.date,
+            time: s.time || '',
+            venue: s.venue,
+            address: s.address,
+            website: s.website,
+            maps: s.maps,
+            tickets: s.tickets || '', // ⬅️ now shown when present (panel- or parent-provided)
+          },
+        ],
+        panel_extra_html,
+        published: true,
+      };
+    });
+  }
+
+  function buildPartnersHtml(film) {
+    const partners = Array.isArray(film.partners) ? film.partners : [];
+    if (!partners.length) return '';
+    const txt = PANEL_TEXT[lang] || PANEL_TEXT.en;
+
+    const items = partners
+      .map((p) => {
+        const name = p && p.name ? String(p.name).trim() : '';
+        if (!name) return '';
+        if (p.url) {
+          return html`<strong
+              ><a href="${p.url}" target="_blank" rel="noopener"
+                >${escapeHtml(name)}</a
+              ></strong
+            >`;
+        }
+        return html`<strong>${escapeHtml(name)}</strong>`;
+      })
+      .filter(Boolean)
+      .join(', ');
+
+    if (!items) return '';
+    return html`
+    <div class="uffb-panel-extra">
+        <div class="uffb-partner-head">
+          <strong>${escapeHtml(txt.inPartnershipWith)}:</strong>
+          <span class="uffb-partners">${items}</span>
+        </div>
+      </div>
+  `;
+  }
+
   function card(it, opts = {}) {
     const href = `${basePath}/${encodeURIComponent(it.id)}`; // localized film page
     const title =
@@ -1396,6 +1671,9 @@
           ${metaBlock}
           ${desc?.trim()
             ? html`<div class="uffb-desc">${escapeHtml(desc)}</div>`
+            : ''}
+          ${it.category?.key === 'panel_discussion' && it.panel_extra_html
+            ? it.panel_extra_html // trusted snippet we just built (includes link + bold)
             : ''}
           ${renderShortsList(it)}
           <div class="uffb-actions">
@@ -1486,6 +1764,9 @@
               ${metaBlock}
               ${desc?.trim()
                 ? html`<div class="uffb-desc">${escapeHtml(desc)}</div>`
+                : ''}
+              ${it.category?.key === 'panel_discussion' && it.panel_extra_html
+                ? it.panel_extra_html // trusted snippet we just built (includes link + bold)
                 : ''}
               ${renderShortsList(it)}
               <div class="uffb-actions">
@@ -2260,10 +2541,16 @@
         return r.json();
       })
       .then((data) => {
-        items = data
-          .slice()
-          .filter((f) => f.published === true)
-          .sort((a, b) => earliestDate(a).localeCompare(earliestDate(b)));
+        const baseFilms = data.slice().filter((f) => f.published === true);
+
+        // build panel items from each film that has a panel section
+        const panelItems = baseFilms.flatMap(makePanelItemsFromFilm);
+
+        // merge + sort by earliest date
+        items = [...baseFilms, ...panelItems].sort((a, b) =>
+          earliestDate(a).localeCompare(earliestDate(b))
+        );
+
         initFilterOptions(items);
         applyAll();
       })
