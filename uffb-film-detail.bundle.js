@@ -57,6 +57,7 @@
       warning: 'Warning',
       aboutDirector: 'About the director(s)',
       panelDiscussion: 'Panel discussion',
+      english: 'English',
       postScreeningTalk: 'Post-screening conversation',
       moderator: 'Moderator',
       guests: 'Guests',
@@ -91,6 +92,7 @@
       warning: 'Warnung',
       aboutDirector: 'Über die Filmemacher',
       panelDiscussion: 'Podiumsdiskussion',
+      english: 'Englisch',
       postScreeningTalk: 'Filmgespräch',
       moderator: 'Moderation',
       guests: 'Gäste',
@@ -124,6 +126,7 @@
       warning: 'Попередження',
       aboutDirector: 'Про режисера(-ів)',
       panelDiscussion: 'Панельна дискусія',
+      english: 'англійська',
       postScreeningTalk: 'Післяфільмове обговорення',
       moderator: 'Модератор',
       guests: 'Гості',
@@ -630,7 +633,7 @@
 
         const noteKey = dateToDM(s.date);
         const langNote = perDateNotes[noteKey] || '';
-        const noteHtml = `<div class="uffb-lang-note"><em>${langNote ? langNote : localized(film.language)}</em></div>`;
+        const noteHtml = `<div class="uffb-lang-note"><em>${isPanel ? '<strong>Film: </strong>' : ''}${langNote ? langNote : localized(film.language)}${isPanel ? '<br /><strong>' + t('panelDiscussion') + ': </strong>' + t('english') : ''}</em></div>`;
 
         const tixUrl = (s.tickets || '').trim();
         const hasTix = !!tixUrl;
@@ -830,6 +833,7 @@
         .map((p) => {
           const name = p.name || '';
           const bioHtml = sanitizeBio(localized(p.bio || ''));
+          const roleHtml = localized(p.role || '');
           const photo = p.photo || '';
           const credit = p.photoCredit ? `photo &copy; ${p.photoCredit}` : '';
           return `
@@ -837,6 +841,7 @@
           ${photo ? `<div class="ph"><img loading="lazy" src="${photo}" alt="${name}"></div>` : `<div class="ph ph-empty"></div>`}
           <div class="txt">
             <div class="name">${name}</div>
+             ${roleHtml ? `<div class="role"><em>${roleHtml}</em></div>` : ''}
             ${bioHtml ? `<div class="bio">${bioHtml}</div>` : ''}
             ${credit ? `<div class="credit text-sm">${credit}</div>` : ''}
           </div>
