@@ -1925,7 +1925,7 @@
     "screenings": [
       {
         "date": "2025-10-23",
-        "time": "20:30",
+        "time": "21:00",
         "venue": {
           "en": "Kino in der Königstadt",
           "de": "Kino in der Königstadt"
@@ -2296,14 +2296,15 @@
       "de": "Dieses kuratierte Kurzfilmprogramm untersucht die ökologischen, sozialen und kulturellen Folgen des sowjetischen Extraktivismus in Zentralasien."
     },
     "description": {
-      "en": "<strong>Curated by</strong> art historian and film curator Azem Bekturova.",
-      "de": "<strong>Kuratiert von</strong> der Kunsthistorikerin und Filmkuratorin Azem Bekturova."
+      "en": "</br></br><strong>Curator:</strong> Azem Bekturova, art historian and film curator</br><strong>Guest:</strong> Mila Zhluktenko, Filmmaker<br />",
+      "de": "</br></br><strong>Kuratiert von </strong> Azem Bekturova, Kunsthistorikerin und Filmkuratorin </br><strong>Gast:</strong> Mila Zhluktenko, Filmregisseurin<br />"
     },
     "language": {
       "en": "Original with English subtitles (OmeU)",
       "de": "Originalsprache mit Englischen Untertiteln (OmeU)"
     },
     "curator": "Azem Bekturova",
+    "guests": "Mila Zhluktenko",
     "duration": 85,
     "year": "",
     "image": "https://images.squarespace-cdn.com/content/v1/5f739670761e02764c54e1ca/1727124052218-9HAFIHE8THUC98V48K9K/Logo-600x600.jpg",
