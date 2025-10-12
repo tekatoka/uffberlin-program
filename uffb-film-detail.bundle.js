@@ -63,6 +63,7 @@
       moderator: 'Moderator',
       guests: 'Guests',
       inPartnershipWith: 'In partnership with',
+      filmStills: 'Film stills',
     },
     de: {
       home: 'Start',
@@ -99,6 +100,7 @@
       moderator: 'Moderation',
       guests: 'Gäste',
       inPartnershipWith: 'In Partnerschaft mit',
+      filmStills: 'Filmstills',
     },
     uk: {
       home: 'Головна',
@@ -134,6 +136,7 @@
       moderator: 'Модератор',
       guests: 'Гості',
       inPartnershipWith: 'У співпраці з',
+      filmStills: 'Кадри з фільму',
     },
   };
   const t = (key) => I18N[lang]?.[key] ?? key;
@@ -426,6 +429,40 @@
         </div>
       </section>
     `;
+  }
+
+  function buildGallerySection(film) {
+    const imgs = Array.isArray(film.gallery)
+      ? film.gallery.filter(Boolean)
+      : [];
+    if (!imgs.length) return '';
+
+    const tiles = imgs
+      .map(
+        (src, i) => html`
+    <button
+            class="uffb-gal-tile"
+            data-gal-idx="${i}"
+            aria-label="Open still ${i + 1}"
+          >
+            <img loading="lazy" src="${src}" alt="" />
+          </button>
+  `
+      )
+      .join('');
+
+    // Store full list as json on container for easy access in JS
+    const data = encodeURIComponent(JSON.stringify(imgs));
+
+    return html`
+    <section
+        class="uffb-panel uffb-gallery"
+        data-gallery="${data}"
+      >
+        <h3 class="uffb-panel-title">${t('filmStills')}</h3>
+        <div class="uffb-gallery-grid">${tiles}</div>
+      </section>
+  `;
   }
 
   function collectPartners(film) {
@@ -1045,6 +1082,102 @@
     iframe.src = '';
     lb.classList.remove('open');
     document.documentElement.classList.remove('uffb-noscroll');
+  }
+
+  function ensureImgLightbox() {
+    if (document.getElementById('uffb-imgbox')) return;
+    const box = document.createElement('div');
+    box.id = 'uffb-imgbox';
+    box.innerHTML = html`
+    <div class="uffb-lb-backdrop" data-close="1"></div>
+      <div
+        class="uffb-lb-dialog uffb-img-dialog"
+        role="dialog"
+        aria-modal="true"
+        aria-label="Gallery"
+      >
+        <button class="uffb-lb-close" aria-label="Close">×</button>
+        <button class="uffb-lb-nav prev" aria-label="Previous">‹</button>
+        <button class="uffb-lb-nav next" aria-label="Next">›</button>
+        <div class="uffb-lb-viewport">
+          <img id="uffb-imgbox-img" alt="" />
+        </div>
+      </div>
+  `;
+    document.body.appendChild(box);
+
+    box.addEventListener('click', (e) => {
+      if (
+        e.target.dataset.close === '1' ||
+        e.target.classList.contains('uffb-lb-close')
+      )
+        closeImgLightbox();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (!box.classList.contains('open')) return;
+      if (e.key === 'Escape') closeImgLightbox();
+      if (e.key === 'ArrowLeft') navImgLightbox(-1);
+      if (e.key === 'ArrowRight') navImgLightbox(1);
+    });
+  }
+
+  let _imgGal = { list: [], index: 0 };
+  function openImgLightbox(list, startIndex = 0) {
+    ensureImgLightbox();
+    _imgGal.list = list;
+    _imgGal.index = Math.max(0, Math.min(startIndex, list.length - 1));
+    updateImgLightbox();
+
+    const lb = document.getElementById('uffb-imgbox');
+    lb.classList.add('open');
+    document.documentElement.classList.add('uffb-noscroll');
+
+    // wire nav buttons
+    lb.querySelector('.uffb-lb-nav.prev').onclick = () => navImgLightbox(-1);
+    lb.querySelector('.uffb-lb-nav.next').onclick = () => navImgLightbox(1);
+  }
+  function updateImgLightbox() {
+    const img = document.getElementById('uffb-imgbox-img');
+    const src = _imgGal.list[_imgGal.index];
+    img.src = src;
+  }
+  function navImgLightbox(step) {
+    if (!_imgGal.list.length) return;
+    _imgGal.index =
+      (_imgGal.index + step + _imgGal.list.length) % _imgGal.list.length;
+    updateImgLightbox();
+  }
+  function closeImgLightbox() {
+    const lb = document.getElementById('uffb-imgbox');
+    if (!lb) return;
+    lb.classList.remove('open');
+    document.documentElement.classList.remove('uffb-noscroll');
+    const img = document.getElementById('uffb-imgbox-img');
+    if (img) img.src = '';
+  }
+
+  // Hook tiles
+  function initGallery(root) {
+    root.querySelectorAll('.uffb-gallery').forEach((block) => {
+      let list = [];
+      try {
+        list = JSON.parse(
+          decodeURIComponent(block.getAttribute('data-gallery') || '[]')
+        );
+      } catch {}
+      if (!Array.isArray(list) || !list.length) return;
+
+      block.querySelectorAll('.uffb-gal-tile').forEach((btn) => {
+        btn.addEventListener(
+          'click',
+          () => {
+            const idx = parseInt(btn.getAttribute('data-gal-idx') || '0', 10);
+            openImgLightbox(list, idx);
+          },
+          { passive: true }
+        );
+      });
+    });
   }
 
   /* --- carousel wiring --- */
@@ -2572,6 +2705,93 @@
         height: 30px;
       }
     }
+    /* --- Film stills gallery --- */
+    .uffb-gallery {
+      margin-top: 12px;
+    }
+    .uffb-gallery-grid {
+      display: grid;
+      gap: 8px;
+      grid-template-columns: repeat(2, 1fr);
+    }
+    @media (min-width: 700px) {
+      .uffb-gallery-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+    @media (min-width: 1100px) {
+      .uffb-gallery-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+    .uffb-gal-tile {
+      display: block;
+      padding: 0;
+      border: 0;
+      background: none;
+      cursor: pointer;
+      width: 100%;
+      aspect-ratio: 16/9;
+      overflow: hidden;
+    }
+    .uffb-gal-tile img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.25s ease;
+    }
+    .uffb-gal-tile:hover img {
+      transform: scale(1.03);
+    }
+
+    /* Image lightbox */
+    #uffb-imgbox {
+      position: fixed;
+      inset: 0;
+      display: none;
+      z-index: 9999;
+    }
+    #uffb-imgbox.open {
+      display: block;
+    }
+    .uffb-img-dialog {
+      width: min(92vw, 1200px);
+      aspect-ratio: 16/10;
+      background: #000;
+    }
+    #uffb-imgbox .uffb-lb-viewport {
+      width: 100%;
+      height: 100%;
+      display: grid;
+      place-items: center;
+      background: #000;
+    }
+    #uffb-imgbox-img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+    #uffb-imgbox .uffb-lb-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 44px;
+      height: 44px;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      background: rgba(255, 255, 255, 0.9);
+      font-size: 24px;
+      line-height: 1;
+    }
+    #uffb-imgbox .uffb-lb-nav.prev {
+      left: 10px;
+    }
+    #uffb-imgbox .uffb-lb-nav.next {
+      right: 10px;
+    }
   `;
 
   function injectCSS() {
@@ -2742,7 +2962,7 @@
                     ${buildInfoBlock(film)} ${buildCreditsBlock(film)}
                   </div>
                   <div class="uffb-col-right">
-                    ${buildSynopsisBlock(film)}
+                    ${buildSynopsisBlock(film)} ${buildGallerySection(film)}
                     ${buildPanelDiscussionBlock(film)}
                     ${buildPartnersSection(film)}
                     ${buildSpecialProgramSection(film)}
@@ -2759,6 +2979,7 @@
     preloadDirectorPhotosFrom(wrap);
     initDirectorPopups(wrap);
     attachGenericPhotoTooltips(wrap, '.uffb-participant .ph img[data-photo]');
+    initGallery(wrap);
 
     // trailer buttons → lightbox (topline + per-short)
     wrap.querySelectorAll('.uffb-trailer-btn').forEach((btn) => {
