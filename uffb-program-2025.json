@@ -7,8 +7,8 @@
     },
     "published": true,
     "language": {
-      "de": "Ukrainisch mit englischen Untertiteln (OmeU)",
-      "en": "Ukrainian with English subtitles (OmeU)"
+      "de": "Ukrainisch mit englischen und deutschen Untertiteln (OmeU + OmdU)",
+      "en": "Ukrainian with English and German subtitles (OmeU + OmdU)"
     },
     "original_title": "Пісні землі, що повільно горить",
     "director": "Olha Zhurba",
@@ -239,8 +239,8 @@
       "de": "Timestamp"
     },
     "language": {
-      "de": "24.10.: Ukrainisch mit englischen Untertiteln (OmeU) | 26.10.: Ukrainisch mit deutschen Untertiteln (OmdU)",
-      "en": "24.10.: Ukrainian with English subtitles (OmeU) | 26.10.: Ukrainian with German subtitles (OmdU)"
+      "de": "24.10.: Ukrainisch mit englischen Untertiteln (OmeU) | 26.10.: Ukrainisch mit englischen und deutschen Untertiteln (OmeU + OmdU)",
+      "en": "24.10.: Ukrainian with English subtitles (OmeU) | 26.10.: Ukrainian with English and German subtitles (OmeU + OmdU)"
     },
     "published": true,
     "original_title": "Стрічка часу",
@@ -781,8 +781,8 @@
     },
     "published": true,
     "language": {
-      "de": "24.10.: Deutsche Synchronfassung mit englischen Untertiteln (DF) | 25.10.: Ukrainisch mit englischen Untertiteln (OmeU)",
-      "en": "24.10.: German dubbed version with English subtitles (DF) | 25.10.: Ukrainian with English subtitles (OmeU)"
+      "de": "24.10.: Deutsche Synchronfassung mit englischen Untertiteln (DF) | 25.10.: Ukrainisch mit englischen und deutschen Untertiteln (OmeU + OmdU)",
+      "en": "24.10.: German dubbed version with English subtitles (DF) | 25.10.: Ukrainian with English and German subtitles (OmeU + OmdU)"
     },
     "original_title": "Ти - коcмоc",
     "director": {
@@ -1633,8 +1633,8 @@
     },
     "published": true,
     "language": {
-      "de": "Ukrainisch, Russisch & Jiddisch mit englischen Untertiteln (OmeU)",
-      "en": "Ukrainian, Russian & Yiddish with English subtitles (OmeU)"
+      "de": "Ukrainisch, Russisch & Jiddisch mit englischen und deutschen Untertiteln (OmeU + OmdU)",
+      "en": "Ukrainian, Russian & Yiddish with English and German subtitles (OmeU + OmdU)"
     },
     "original_title": "Коли над морем спалахує блискавка",
     "director": {
