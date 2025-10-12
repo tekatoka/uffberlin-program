@@ -2163,8 +2163,9 @@
 
     /* Partners */
     .uffb-partners {
-      margin-top: 45px !important;
+      margin: 45px 0 55px !important;
     }
+
     .uffb-partner-grid {
       display: flex;
       flex-wrap: wrap;
@@ -2386,6 +2387,8 @@
     .uffb-parent-film {
       margin: 2px 0 6px;
       font-weight: 600;
+      color: black;
+      font-size: 2rem;
     }
     .uffb-parent-film a {
       color: inherit;
