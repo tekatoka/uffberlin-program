@@ -95,13 +95,30 @@
         }
       },
       {
-        "time": "19:30",
-        "text": { "en": "Start of the screening", "de": "Filmbeginn" }
+        "time": "19:00",
+        "text": {
+          "en": "Opening ceremony:",
+          "de": "Eröffnungszeremonie:"
+        }
       },
       {
         "time": "",
         "text": {
-          "en": "Afterwards: Q&A with film producer Darya Bassel",
+          "en": "Musical performance: DONBASGRL (avant-pop).",
+          "de": "Musikalischer Beitrag: DONBASGRL (Avant-Pop)"
+        }
+      },
+      {
+        "time": "",
+        "text": {
+          "en": "Screening of Songs of „Slow Burning Earth“ (2024) by Olha Zhurba",
+          "de": "Vorführung Songs of „Slow Burning Earth“ (2024) von Olha Zhurba"
+        }
+      },
+      {
+        "time": "",
+        "text": {
+          "en": "Followed by Q&A with film producer Darya Bassel",
           "de": "Im Anschluss: Q&A mit der Produzentin Darya Bassel"
         }
       }
