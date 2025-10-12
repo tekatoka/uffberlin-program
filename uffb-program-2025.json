@@ -2296,8 +2296,8 @@
       "de": "Dieses kuratierte Kurzfilmprogramm untersucht die ökologischen, sozialen und kulturellen Folgen des sowjetischen Extraktivismus in Zentralasien."
     },
     "description": {
-      "en": "</br></br><strong>Curator:</strong> Azem Bekturova, art historian and film curator</br><strong>Guest:</strong> Mila Zhluktenko, Filmmaker<br />",
-      "de": "</br></br><strong>Kuratiert von </strong> Azem Bekturova, Kunsthistorikerin und Filmkuratorin </br><strong>Gast:</strong> Mila Zhluktenko, Filmregisseurin<br />"
+      "en": "Under Soviet rule, Central Asia functioned primarily as a vast source of raw materials. For decades, cotton, coal, uranium, oil, and gas were systematically extracted for export, with devastating consequences for local populations and the environment. The planned economy followed a clear division of labor: while key industries remained concentrated in the European part of the USSR, entire Eastern regions were reduced to resource extraction and the cultivation of monocultures. Uzbekistan and Turkmenistan were turned into sprawling cotton plantations, their rivers artificially redirected to irrigate the fields - a policy that led to the catastrophic drying up of the Aral Sea, one of the worst ecological disasters in history. Kazakhstan became the main uranium supplier for the Soviet atomic program. The landscape still bears the scars of radioactive contamination, most dramatically around Semey (formerly Semipalatinsk). In Kyrgyzstan, mining boomed under Soviet rule and entire towns were built for the extractive industries, many of them falling into decay after the USSR's collapse. Yet even in the post-Soviet era, mining remains one of Kyrgyzstan's most important economic sectors, now largely privatised and employing many day labourers.<br /><br />The history of resource extractivism in Central Asia, profoundly shaped by Soviet policy, still remains little known in global discourse. This program presents four contemporary short films from and about the region that engage with this legacy from ecological and postcolonial perspectives. The films examine not only environmental issues but also the human dimension regarding land and labor, raising urgent questions about the region's (ecological) future.</br></br><strong>Curator:</strong> Azem Bekturova, art historian and film curator</br><strong>Guest:</strong> Mila Zhluktenko, filmmaker<br />",
+      "de": "Unter sowjetischer Herrschaft fungierte Zentralasien vor allem als riesige Rohstoffquelle. Über Jahrzehnte wurden Baumwolle, Kohle, Uran, Öl und Gas systematisch für den Export gefördert – mit verheerenden Folgen für die lokale Bevölkerung und die Umwelt. Die Planwirtschaft folgte einer klaren Arbeitsteilung: Während Schlüsselindustrien im europäischen Teil der UdSSR konzentriert blieben, wurden ganze Regionen im Osten auf Rohstoffabbau und den Anbau von Monokulturen reduziert. Usbekistan und Turkmenistan wurden in weitläufige Baumwollplantagen verwandelt; ihre Flüsse wurden künstlich umgeleitet, um die Felder zu bewässern – eine Politik, die zur katastrophalen Austrocknung des Aralsees führte, einem der schlimmsten ökologischen Desaster der Geschichte. Kasachstan wurde zum wichtigsten Uranlieferanten für das sowjetische Atomprogramm. Die Landschaft trägt bis heute die Spuren radioaktiver Belastung, am drastischsten rund um Semey (ehemals Semipalatinsk). In Kirgisistan erlebte der Bergbau unter sowjetischer Herrschaft einen Boom, ganze Städte wurden für die Extraktivindustrien erbaut – viele verfielen nach dem Zusammenbruch der UdSSR. Und doch bleibt der Bergbau auch in der postsowjetischen Ära einer der wichtigsten Wirtschaftssektoren Kirgisistans, heute weitgehend privatisiert und mit vielen Tagelöhnern. <br /><br />Die Geschichte des Ressourcen-Extraktivismus in Zentralasien, die maßgeblich von der sowjetischen Politik geprägt wurde, ist im globalen Diskurs noch immer wenig bekannt. Dieses Programm präsentiert vier zeitgenössische Kurzfilme aus und über die Region, die sich aus ökologischer und postkolonialer Perspektive mit diesem Erbe auseinandersetzen. Die Filme untersuchen nicht nur Umweltfragen, sondern auch die menschliche Dimension von Land und Arbeit und stellen drängende Fragen zur (ökologischen) Zukunft der Region.</br></br><strong>Kuratiert von </strong> Azem Bekturova, Kunsthistorikerin und Filmkuratorin </br><strong>Gast:</strong> Mila Zhluktenko, Filmregisseurin<br />"
     },
     "language": {
       "en": "Original with English subtitles (OmeU)",
@@ -2307,8 +2307,112 @@
     "guests": "Mila Zhluktenko",
     "duration": 85,
     "year": "",
-    "image": "https://images.squarespace-cdn.com/content/v1/5f739670761e02764c54e1ca/1727124052218-9HAFIHE8THUC98V48K9K/Logo-600x600.jpg",
-    "films": [],
+    "image": "https://images.squarespace-cdn.com/content/5f739670761e02764c54e1ca/710cbb1f-a633-43ab-81c4-697475044f13/CentralAsian_Collage.png",
+    "films": [
+      {
+        "title": {
+          "en": "Balqaş Jyry | The Song of Lake Balkhash",
+          "de": "Balqaş Jyry | Das Lied des Balchaschsees"
+        },
+        "director": {
+          "en": ["Artcom Platform"],
+          "de": ["Artcom Platform"]
+        },
+        "countries": {
+          "en": ["Kazakhstan"],
+          "de": ["Kazakhstan"]
+        },
+        "year": 2025,
+        "duration": 21,
+        "image": "https://images.squarespace-cdn.com/content/5f739670761e02764c54e1ca/4c5bbafc-41fd-40fd-8fdc-d118ddaa674d/CentralAsian_BalqasJyry.PNG",
+        "description": {
+          "en": "Balqaş Jyry is a film by the women’s collective Artcom, created as a continuation of the long-term practices of care for the Lake Balkhash initiative. Through the movement of water, the breath of wind, and the rhythm of the steppe, Balkhash tells its story — a story of the profound bond between nature and humans, ruptured by colonialism, industrialization, and ecological violence. <br />Inspired by the poetic tradition of jyr and the steppe philosophy of qazaqliq, the film restores the lake’s agency — its ability to resist, its right to recover, and its future.",
+          "de": "Balqaş Jyry ist ein Film des Frauenkollektivs Artcom, entstanden als Fortführung der langfristigen Fürsorgepraktiken der Initiative für den Balchaschsee. Durch die Bewegung des Wassers, den Atem des Windes und den Rhythmus der Steppe erzählt der Balchaschsee seine Geschichte – die Geschichte einer tiefen Verbindung zwischen Natur und Mensch, die durch Kolonialismus, Industrialisierung und ökologische Gewalt zerbrochen ist. <br />Inspiriert von der poetischen Tradition des jyr und der Steppenphilosophie des qazaqliq stellt der Film die Handlungsfähigkeit des Sees wieder her – seine Fähigkeit zum Widerstand, sein Recht auf Regeneration und seine Zukunft."
+        },
+        "trailer": "https://www.youtube.com/watch?v=6eY43ohLJHk"
+      },
+      {
+        "title": {
+          "en": "Black Wagon",
+          "de": "Black Wagon"
+        },
+        "director": {
+          "en": ["Adilet Karzhoev"],
+          "de": ["Adilet Karzhoev"]
+        },
+        "about": {
+          "en": "Adilet Karzhoev, with over a decade of experience in both documentary and fiction filmmaking. His films, including Black Wagon(2019), Burul(2024), and Thank You, Doctor(2016), have been screened and awarded at international film festivals. He is an alumnus of IDFA Academy and the Berlinale Co-Production Market. Adilet currently serves as Head of the Department of Film, TV, and Media Arts at the American University of Central Asia and is the founder of the Bishkek Documentary Laboratory, which supports emerging documentary filmmakers in Kyrgyzstan.",
+          "de": "Adilet Karzhoev verfügt über mehr als zehn Jahre Erfahrung im Dokumentar- und Spielfilm. Seine Filme, darunter Black Wagon (2019), Burul (2024) und Thank You, Doctor (2016), wurden auf internationalen Filmfestivals gezeigt und ausgezeichnet. Er ist Alumnus der IDFA Academy und des Berlinale Co-Production Market. Derzeit leitet Adilet das Department of Film, TV, and Media Arts an der American University of Central Asia und ist Gründer des Bishkek Documentary Laboratory, das aufstrebende Dokumentarfilmer*innen in Kirgisistan unterstützt."
+        },
+        "countries": {
+          "en": ["Kyrgyzstan"],
+          "de": ["Kyrgyzstan"]
+        },
+        "year": 2021,
+        "duration": 24,
+        "image": "https://images.squarespace-cdn.com/content/5f739670761e02764c54e1ca/8667bb35-257b-47be-a7a1-52e3806c618e/CentralAsian_BlackWagon.jpg",
+        "description": {
+          "en": "There are more than 300 coal mines around the town of Sülüktü in Kyrgyzstan. 500 metres below the surface, light and air are scarce, and the coal beds grow thinner, too. We meet a group of miners who share labour and thoughts in their confined and unsafe underground workplace. Physical exertion and breaks alternate. In order to achieve the daily target, one must be both prudent and willing to take risks.",
+          "de": "Rund um die Stadt Sülüktü in Kyrgyzstan gibt es mehr als 300 Kohleminen. 500 Meter unter der Erde sind Licht und Luft knapp – und auch die Flöze werden dünner. Wir begegnen einer Gruppe von Bergleuten, die in ihrem beengten und unsicheren Arbeitsplatz unter Tage Arbeit und Gedanken teilen. Körperliche Anstrengung und Pausen wechseln sich ab. Um das Tagesziel zu erreichen, muss man zugleich umsichtig und risikobereit sein."
+        },
+        "trailer": "https://www.youtube.com/watch?v=t7MYo_-sr78"
+      },
+      {
+        "title": {
+          "en": "Aralkum",
+          "de": "Aralkum"
+        },
+        "director": {
+          "en": ["Mila Zhluktenko", "Daniel Asadi Faezi"],
+          "de": ["Mila Zhluktenko", "Daniel Asadi Faezi"]
+        },
+        "about": {
+          "en": "Mila Zhluktenko, born in Kyiv, Ukraine, studied documentary filmmaking at HFF Munich. Her films have been screened at a number of international festivals including the Berlinale, IDFA, the San Sebastian Film Festival, MoMA’s Doc Fortnight and at Visions du Réel. Her current works co- directed with Daniel Asadi Faezi include „Aralkum“ (Juryprize Visions du Réel) and „Waking up in Silence“ (Jury Prize Berlinale Generation KPlus). Daniel Asadi Faezi is a filmmaker based in Munich. He studied directing at University of Television and Film Munich and National College of Arts Lahore, Pakistan. His films have been screened and awarded at numerous filmfestivals, including Berlinale, Locarno, IDFA, Visions du Réel, DOK Leipzig and BFI London. He is an alumni of DAAD, Heinrich-Böll-Stiftung and Berlinale Talents.",
+          "de": "Mila Zhluktenko, in Kyjiw (Ukraine) geboren, studierte Dokumentarfilm an der HFF München. Ihre Filme wurden auf zahlreichen internationalen Festivals gezeigt, darunter Berlinale, IDFA, San Sebastián Film Festival, MoMA’s Doc Fortnight und Visions du Réel. Ihre aktuellen, gemeinsam mit Daniel Asadi Faezi realisierten Arbeiten umfassen „Aralkum“ (Jury-Preis Visions du Réel) und „Waking up in Silence“ (Jury-Preis Berlinale Generation Kplus). Daniel Asadi Faezi ist ein in München lebender Filmemacher. Er studierte Regie an der Hochschule für Fernsehen und Film München sowie am National College of Arts in Lahore, Pakistan. Seine Filme wurden auf zahlreichen Filmfestivals gezeigt und ausgezeichnet, darunter Berlinale, Locarno, IDFA, Visions du Réel, DOK Leipzig und BFI London. Er ist Alumnus des DAAD, der Heinrich-Böll-Stiftung und von Berlinale Talents."
+        },
+        "countries": {
+          "en": ["Uzbekistan, Germany"],
+          "de": ["Uzbekistan, Deutschland"]
+        },
+        "year": 2022,
+        "duration": 14,
+        "image": "https://images.squarespace-cdn.com/content/5f739670761e02764c54e1ca/12b8bde3-02f1-4ac3-bf99-afe24a7629d1/CentralAsian_Aralkum_Still2.jpg",
+        "description": {
+          "en": "A desert landscape, as if from another planet. A few lonely, rusty shipwrecks. Low desert scrub grows around them to hold the sand together during the merciless storms. Aralkum, the Aral Desert, is the bare seabed, the last thing left of the Aral Sea. By weaving together different cinematic textures, the short film Aralkum re-imagines the dried-up Aral Sea, allowing an old fisherman to set sail one last time.",
+          "de": "Eine Wüstenlandschaft wie von einem anderen Planeten. Ein paar einsame, rostige Schiffswracks. Niedriger Wüstenbewuchs wächst um sie herum, um den Sand während der gnadenlosen Stürme zu halten. Aralkum, die Aralwüste, ist der blanke Meeresgrund – das Letzte, was vom Aralsee geblieben ist. Indem der Kurzfilm Aralkum verschiedene filmische Texturen miteinander verwebt, entwirft er den ausgetrockneten Aralsee neu und ermöglicht es einem alten Fischer, ein letztes Mal in See zu stechen."
+        },
+        "trailer": "https://www.youtube.com/watch?v=3DT4BAklbaM"
+      },
+      {
+        "title": {
+          "en": "The Night Shift",
+          "de": "The Night Shift"
+        },
+        "director": {
+          "en": ["Assem Sultanova"],
+          "de": ["Assem Sultanova"]
+        },
+        "director_photos": {
+          "Assem Sultanova": "https://images.squarespace-cdn.com/content/5f739670761e02764c54e1ca/2f2611fb-4b0c-4e55-972b-823f53d28cb8/CentralAsianFocus_AssemSultanova.JPG"
+        },
+        "about": {
+          "en": "Born in Karaganda, Kazakhstan in 1996, Assem Sultanova studied history, religion, and philosophy. She is an alumnus of the Moscow School of New Cinema, where she studied directing and cinematography under Fred Kelemen.",
+          "de": "Geboren 1996 in Karaganda, Kasachstan, studierte Assem Sultanova Geschichte, Religion und Philosophie. Sie ist Alumna der Moscow School of New Cinema, wo sie bei Fred Kelemen Regie und Kamera studierte."
+        },
+        "countries": {
+          "en": ["Kazakhstan"],
+          "de": ["Kazakhstan"]
+        },
+        "year": 2024,
+        "duration": 16,
+        "image": "https://images.squarespace-cdn.com/content/5f739670761e02764c54e1ca/84658a86-0d8a-4429-bfab-43e3a82f59e6/CentralAsian_NightShift.png",
+        "description": {
+          "en": "Due to the short dry season, farmers In the Qostanay region need ripened grain to be harvested as soon as possible. Both machines and people go out harvest grain on the night shift.",
+          "de": "Aufgrund der kurzen Trockenzeit muss in der Region Qostanai reifes Getreide so schnell wie möglich geerntet werden. Sowohl Maschinen als auch Menschen gehen in der Nachtschicht auf die Felder, um das Getreide einzubringen."
+        },
+        "trailer": ""
+      }
+    ],
     "screenings": [
       {
         "date": "2025-10-23",
