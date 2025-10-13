@@ -387,14 +387,22 @@
         sans-serif;
       color: #fff;
     }
+    /* Compressible columns via CSS variables */
     .uffb-table {
+      --venue-w: 260px; /* default desktop */
+      --day-min: 220px; /* minimum width per day column */
+
       display: grid;
-      grid-template-columns: 260px repeat(var(--days, 5), 1fr);
+      grid-template-columns: var(--venue-w) repeat(
+          var(--days, 5),
+          minmax(var(--day-min), 1fr)
+        );
       gap: 0;
       border: 1px solid #2a2a2a;
       border-right: none;
       background: #000;
     }
+
     .uffb-head,
     .uffb-row {
       display: contents;
@@ -578,6 +586,102 @@
       font-size: 12px;
       letter-spacing: 0.04em;
       text-transform: uppercase;
+    }
+    /* Tablet: keep desktop layout but tighten spacing/fonts so it fits */
+    @media (min-width: 901px) and (max-width: 1180px) {
+      .uffb-table {
+        --venue-w: 200px;
+        --day-min: 160px;
+      }
+
+      .uffb-head .c {
+        padding: 10px 8px;
+      }
+      .uffb-venue {
+        padding: 10px 10px;
+        font-weight: 700;
+      }
+      .uffb-cell {
+        padding: 8px;
+      }
+
+      .slot {
+        gap: 8px;
+        min-width: 0;
+      } /* prevent overflow from flex children */
+      .time {
+        width: 40px;
+        font-size: 14px;
+      }
+
+      .card {
+        padding: 6px 8px;
+        border-radius: 6px;
+        min-width: 0;
+        max-width: 100%;
+      }
+      .title {
+        font-size: 12px;
+        line-height: 1.2;
+        white-space: normal;
+        overflow-wrap: anywhere;
+        hyphens: auto;
+      }
+      .meta,
+      .chip,
+      .note {
+        font-size: 10px;
+      }
+      .links {
+        gap: 8px;
+      }
+    }
+    .slot,
+    .card {
+      min-width: 0;
+    }
+    /* Base: desktop fluid between 12–16px */
+    .title-link {
+      font-size: clamp(12px, 1.2vw + 0.25rem, 16px);
+      line-height: 1.2;
+    }
+
+    /* iPad/tablet squeeze (keeps desktop layout but a tad smaller) */
+    @media (min-width: 901px) and (max-width: 1180px) {
+      .title-link {
+        font-size: clamp(12px, 1vw + 0.15rem, 14px);
+      }
+    }
+
+    /* Mobile stack: a bit larger for readability */
+    @media (max-width: 900px) {
+      .title-link {
+        font-size: clamp(14px, 4vw, 18px);
+      }
+    }
+    /* Make flex children shrinkable */
+    .card,
+    .title {
+      min-width: 0; /* critical in flex layouts */
+    }
+
+    /* Let the link wrap & hyphenate inside the title box */
+    .title-link {
+      display: inline-block; /* so max-width applies */
+      max-width: 100%;
+      overflow-wrap: anywhere; /* modern, breaks long words/URLs */
+      word-break: break-word; /* fallback for older engines */
+      hyphens: auto; /* soft hyphenation when available */
+      line-height: 1.2;
+    }
+
+    /* (Optional) if you want a max height with graceful fade/ellipsis: */
+    .title {
+      position: relative;
+      display: -webkit-box;
+      -webkit-line-clamp: 3; // number of lines to show
+      -webkit-box-orient: vertical;
+      overflow: hidden;
     }
   `;
   function injectCSS() {
