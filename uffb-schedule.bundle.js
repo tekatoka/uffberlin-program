@@ -388,6 +388,7 @@
       font-weight: 800;
       color: #fff;
       opacity: 0.95;
+      font-size: 15px;
     }
     .card {
       border: 1px solid;
