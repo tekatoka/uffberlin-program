@@ -458,9 +458,9 @@
       text-decoration: underline !important;
     }
     .title-link {
-      color: var(--paragraphLinkColor, #0bb);
       text-decoration: none;
       font-weight: 700;
+      font-size: 16px;
     }
     .title-link:hover {
       text-decoration: underline !important;
