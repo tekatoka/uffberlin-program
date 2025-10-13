@@ -396,6 +396,11 @@
       padding: 8px 10px;
       line-height: 1.2;
     }
+
+    .uffb-cell .card {
+      width: 100%;
+    }
+
     .title {
       font-weight: 800;
       font-size: 13px;
