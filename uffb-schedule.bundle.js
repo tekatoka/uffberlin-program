@@ -243,6 +243,11 @@
     if (lang === 'uk') return ` «${escapeHtml(txt)}»`;
     return ` “${escapeHtml(txt)}”`;
   }
+
+  function qandaSuffixHTML(entry) {
+    return entry.qanda ? ' <span class="qanda-suffix">+ Q&amp;A</span>' : '';
+  }
+
   function panelSuffixForScreeningHTML(film, entryDate, entryVenuePretty) {
     const pd = film.panel_discussion;
     if (!pd) return '';
@@ -287,6 +292,7 @@
           },
           langNoteByDate: parsePerDateLanguageNotes(f),
           specialPrefix: s.special_program_prefix,
+          qanda: !!s.qanda,
         });
       });
     });
@@ -456,6 +462,9 @@
         box-sizing: border-box;
       }
     }
+    .qanda-suffix {
+      font-weight: 700;
+    }
   `;
   function injectCSS() {
     if (document.getElementById('uffb-schedule-style')) return;
@@ -548,7 +557,7 @@
             it.date,
             it.venuePretty
           );
-          a.innerHTML = baseTitle + suffixHTML; // keep HTML so <span class="panel-suffix"> renders
+          a.innerHTML = baseTitle + suffixHTML + qandaSuffixHTML(it); // keep HTML so <span class="panel-suffix"> renders
           a.setAttribute(
             'aria-label',
             (prefix ? prefix + ' ' : '') +
@@ -679,7 +688,7 @@
           it.date,
           it.venuePretty
         );
-        title.innerHTML = baseTitle + suffixHTML;
+        title.innerHTML = baseTitle + suffixHTML + qandaSuffixHTML(it);
         title.setAttribute(
           'aria-label',
           (prefix ? prefix + ' ' : '') +
