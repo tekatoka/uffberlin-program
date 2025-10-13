@@ -30,7 +30,7 @@
       tickets: 'Tickets',
       legend: {
         main: 'MAIN PROGRAM',
-        shorts: 'SHORTS COMPETITION',
+        shorts: 'SHORT FILMS',
         special: 'SPECIAL PROGRAM',
         qa: 'Q&A: FILMMAKER OR FILM TEAM PRESENT',
       },
@@ -42,7 +42,7 @@
       tickets: 'Tickets',
       legend: {
         main: 'HAUPTPROGRAMM',
-        shorts: 'KURZFILMWETTBEWERB',
+        shorts: 'KURZFILME',
         special: 'SPEZIALPROGRAMM',
         qa: 'Q&A: FILMEMACHER:IN ODER FILMTEAM SIND ZU GAST',
       },
@@ -54,7 +54,7 @@
       tickets: 'Квитки',
       legend: {
         main: 'ГОЛОВНА ПРОГРАМА',
-        shorts: 'КОНКУРС КОРОТКОГО МЕТРА',
+        shorts: 'КОРОТКИЙ МЕТР',
         special: 'СПЕЦІАЛЬНА ПРОГРАМА',
         qa: 'Q&A: ПРИСУТНІ РЕЖИСЕР/КА АБО ЗНІМАЛЬНА ГРУПА',
       },
