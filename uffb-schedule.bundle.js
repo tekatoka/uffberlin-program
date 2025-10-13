@@ -395,6 +395,7 @@
       border-radius: 8px;
       padding: 8px 10px;
       line-height: 1.2;
+      width: 100%;
     }
     .title {
       font-weight: 800;
