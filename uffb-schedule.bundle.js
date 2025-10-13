@@ -579,34 +579,6 @@
       letter-spacing: 0.04em;
       text-transform: uppercase;
     }
-    /* NEW: a scroll container around the table */
-    .uffb-scroller {
-      overflow-x: auto;
-      -webkit-overflow-scrolling: touch; /* smooth on iOS */
-    }
-
-    /* Make day columns have a minimum width so the table can grow wider than the viewport */
-    .uffb-table {
-      display: grid;
-      grid-template-columns: 240px repeat(var(--days, 5), minmax(220px, 1fr));
-      gap: 0;
-      border: 1px solid #2a2a2a;
-      border-right: none;
-      background: #000;
-    }
-
-    /* Keep sticky cells above the scrolling content */
-    .uffb-head .c {
-      position: sticky;
-      top: 0;
-      z-index: 3;
-    }
-    .uffb-venue {
-      position: sticky;
-      left: 0;
-      z-index: 2;
-      background: #0a0a0a;
-    }
   `;
   function injectCSS() {
     if (document.getElementById('uffb-schedule-style')) return;
@@ -635,10 +607,6 @@
 
     const root = document.createElement('div');
     root.className = 'uffb-schedule-wrap';
-
-    const scroller = document.createElement('div'); // ⬅️ NEW
-    scroller.className = 'uffb-scroller'; // ⬅️ NEW
-
     const table = document.createElement('div');
     table.className = 'uffb-table';
     table.style.setProperty('--days', String(days.length));
@@ -776,9 +744,7 @@
       });
     });
 
-    scroller.appendChild(table); // ⬅️ NEW
-    root.appendChild(scroller); // ⬅️ NEW
-
+    root.appendChild(table);
     root.appendChild(buildLegend(entries)); // ⬅️ add this line
     container.innerHTML = '';
     container.appendChild(root);
