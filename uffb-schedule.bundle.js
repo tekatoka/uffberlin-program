@@ -12,12 +12,15 @@
     ? 'de'
     : location.pathname.startsWith('/uk/')
       ? 'uk'
-      : (document.documentElement.lang || '').toLowerCase().startsWith('de')
+      : htmlLang.startsWith('de')
         ? 'de'
-        : (document.documentElement.lang || '').toLowerCase().startsWith('uk')
+        : htmlLang.startsWith('uk')
           ? 'uk'
           : 'en';
+
+  const basePath = lang === 'de' ? '/de/uffb2025' : '/uffb2025';
   const locale = lang === 'de' ? 'de-DE' : lang === 'uk' ? 'uk-UA' : 'en-GB';
+  const filmHref = (id) => `${basePath}/${encodeURIComponent(id)}`;
 
   const I18N = {
     en: {
@@ -445,6 +448,14 @@
         margin-bottom: 6px;
       }
     }
+    .uffb-sch-title a {
+      color: var(--paragraphLinkColor, #0bb);
+      text-decoration: none;
+      font-weight: 700;
+    }
+    .uffb-sch-title a:hover {
+      text-decoration: underline !important;
+    }
   `;
 
   function injectCSS() {
@@ -523,7 +534,16 @@
 
           const title = document.createElement('div');
           title.className = 'title';
-          title.textContent = localized(it.film.title) || 'Untitled';
+
+          const a = document.createElement('a');
+          a.className = 'title-link';
+          a.href = filmHref(it.film.id || it.id); // use film id
+          const titleText = localized(it.film.title) || 'Untitled';
+          a.textContent = titleText;
+          a.setAttribute('aria-label', titleText);
+
+          title.appendChild(a);
+
           const meta = document.createElement('div');
           meta.className = 'meta';
           const cat = it.film.category ? localized(it.film.category) || '' : '';
