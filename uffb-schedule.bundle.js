@@ -8,7 +8,6 @@
 
   // --------- Language / locale ----------
   const htmlLang = (document.documentElement.lang || '').toLowerCase();
-  // replace the "lang" line near the top with this:
   const lang = location.pathname.startsWith('/de/')
     ? 'de'
     : location.pathname.startsWith('/uk/')
@@ -18,6 +17,7 @@
         : (document.documentElement.lang || '').toLowerCase().startsWith('uk')
           ? 'uk'
           : 'en';
+  const locale = lang === 'de' ? 'de-DE' : lang === 'uk' ? 'uk-UA' : 'en-GB';
 
   const I18N = {
     en: {
