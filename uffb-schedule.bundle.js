@@ -388,26 +388,40 @@
       color: #fff;
     }
 
-    /* Compressible columns via CSS variables */
+    /* Fit-first columns: venue shrinks on tablets, day columns divide remaining space */
     .uffb-table {
       display: grid;
-      grid-template-columns: clamp(140px, 22vw, 260px) repeat(var(--days, 5), minmax(0, 1fr));
+      grid-template-columns: clamp(140px, 22vw, 260px) repeat(
+          var(--days, 5),
+          minmax(0, 1fr)
+        );
       gap: 0;
       border: 1px solid #2a2a2a;
       border-right: none;
       background: #000;
     }
 
+    /* Ensure grid/flex children can shrink */
+    .uffb-venue,
+    .uffb-cell,
+    .slot,
+    .card,
+    .title {
+      min-width: 0;
+    }
+
     .uffb-head,
     .uffb-row {
       display: contents;
     }
+
     .uffb-head .c,
     .uffb-venue,
     .uffb-cell {
       border-right: 1px solid #2a2a2a;
       border-bottom: 1px solid #2a2a2a;
     }
+
     .uffb-head .c {
       padding: 14px 10px;
       background: #0d0d0d;
@@ -431,6 +445,7 @@
     .uffb-head .num {
       font-size: 20px;
     }
+
     .uffb-venue {
       padding: 14px 12px;
       position: sticky;
@@ -439,17 +454,21 @@
       background: #0a0a0a;
       font-weight: 700;
     }
+
     .uffb-cell {
       min-height: 96px;
       padding: 10px;
       background: #000;
     }
+
     .slot {
       display: flex;
       gap: 10px;
       align-items: flex-start;
       margin-bottom: 10px;
+      min-width: 0; /* important */
     }
+
     .time {
       width: 46px;
       flex: 0 0 auto;
@@ -458,6 +477,7 @@
       opacity: 0.95;
       font-size: 15px;
     }
+
     .card {
       border: 1px solid;
       border-radius: 8px;
@@ -466,11 +486,41 @@
       width: 100%;
       max-width: 100%;
       box-sizing: border-box;
+      flex: 1 1 0; /* ⬅ allows the card to shrink within the slot */
+      overflow: hidden; /* safety */
     }
+
     .title {
       font-weight: 800;
       font-size: 13px;
+      position: relative;
+      display: -webkit-box;
+      -webkit-line-clamp: 3; /* number of lines to show */
+      -webkit-box-orient: vertical;
+      overflow: hidden;
     }
+
+    .title-link {
+      text-decoration: none;
+      font-weight: 700;
+      font-size: clamp(12px, 1.2vw + 0.25rem, 16px); /* responsive */
+      line-height: 1.2;
+      display: inline-block;
+      max-width: 100%;
+      overflow-wrap: anywhere; /* wrap long words */
+      word-break: break-word;
+      hyphens: auto;
+    }
+    .title-link:hover {
+      text-decoration: underline !important;
+    }
+
+    .panel-suffix {
+      font-weight: 700;
+      white-space: normal;
+      font-size: clamp(12px, 1.1vw + 0.2rem, 15px);
+    }
+
     .meta {
       margin-top: 4px;
       font-size: 11px;
@@ -493,64 +543,15 @@
       font-size: 11px;
       color: #bbb;
     }
-
-    .title-link {
-      text-decoration: none;
-      font-weight: 700;
-      font-size: 16px;
-    }
-    .title-link:hover {
-      text-decoration: underline !important;
-    }
-    .panel-suffix {
-      font-weight: 700;
-      white-space: normal;
-      font-size: 15px;
-    }
-
-    /* mobile: per day stacks */
-    @media (max-width: 900px) {
-      .uffb-table {
-        display: block;
-        border: none;
-      }
-      .mobile-day {
-        border-top: 2px solid #222;
-        padding-top: 12px;
-        margin-top: 14px;
-      }
-      .mobile-day h3 {
-        margin: 0 0 8px;
-        font-size: 18px;
-        letter-spacing: 0.04em;
-      }
-      .mobile-item {
-        border-top: 1px solid #222;
-        padding: 12px 0;
-      }
-      .mobile-when {
-        font-size: 12px;
-        color: #bbb;
-        margin-bottom: 6px;
-      }
-      .card {
-        width: 100%;
-        max-width: 100%;
-        box-sizing: border-box;
-      }
-    }
     .qanda-suffix {
       font-weight: 700;
     }
+
+    /* Legend */
     .uffb-legend {
       margin: 25px 0;
       color: #fff;
       max-width: 25%;
-    }
-    @media (max-width: 900px) {
-      .uffb-legend {
-        max-width: 100%;
-      }
     }
     .uffb-legend .legend-list {
       display: grid;
@@ -582,90 +583,87 @@
       letter-spacing: 0.04em;
       text-transform: uppercase;
     }
-    /* Tablet: keep desktop layout but tighten spacing/fonts so it fits */
-    @media (min-width: 700px) and (max-width: 1024px) {
-  .uffb-head .c {
-    padding: 10px 8px;
-  }
-  .uffb-venue {
-    padding: 10px 10px;
-  }
-  .uffb-cell {
-    padding: 8px;
-  }
-  .time {
-    width: 40px;      /* slimmer time column inside cell */
-    font-size: 14px;
-  }
-  .card {
-    padding: 6px 8px; /* tighter cards fit better */
-  }
-  .title-link {
-    font-size: clamp(13px, 1.7vw, 16px);
-  }
-  .meta,
-  .links .chip,
-  .note {
-    font-size: 10.5px;
-  }
-    .slot,
-    .card {
-      min-width: 0;
-    }
-    /* Base: desktop fluid between 12–16px */
-    .title-link {
-      font-size: clamp(12px, 1.2vw + 0.25rem, 16px);
-      line-height: 1.2;
-    }
 
-    /* iPad/tablet squeeze (keeps desktop layout but a tad smaller) */
-    @media (min-width: 901px) and (max-width: 1180px) {
+    /* Tablet: keep desktop layout, tighten spacing so nothing cuts off */
+    @media (min-width: 700px) and (max-width: 1024px) {
+      .uffb-head .c {
+        padding: 10px 8px;
+      }
+      .uffb-venue {
+        padding: 10px 10px;
+      }
+      .uffb-cell {
+        padding: 8px;
+      }
+      .slot {
+        gap: 8px;
+      }
+      .time {
+        width: 40px;
+        font-size: 14px;
+      }
+      .card {
+        padding: 6px 8px;
+      }
       .title-link {
-        font-size: clamp(12px, 1vw + 0.15rem, 14px);
+        font-size: clamp(13px, 1.7vw, 16px);
+      }
+      .meta,
+      .links .chip,
+      .note {
+        font-size: 10.5px;
       }
     }
 
-    /* Mobile stack: a bit larger for readability */
+    /* Mobile: stacked list view */
     @media (max-width: 900px) {
+      .uffb-table {
+        display: block;
+        border: none;
+      }
+      .mobile-day {
+        border-top: 2px solid #222;
+        padding-top: 12px;
+        margin-top: 14px;
+      }
+      .mobile-day h3 {
+        margin: 0 0 8px;
+        font-size: 18px;
+        letter-spacing: 0.04em;
+      }
+      .mobile-item {
+        border-top: 1px solid #222;
+        padding: 12px 0;
+      }
+      .mobile-when {
+        font-size: 12px;
+        color: #bbb;
+        margin-bottom: 6px;
+      }
+      .card {
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+      }
       .title-link {
         font-size: clamp(14px, 4vw, 18px);
       }
-    }
-    /* Make flex children shrinkable */
-    .card,
-    .title {
-      min-width: 0; /* critical in flex layouts */
+      .uffb-legend {
+        max-width: 100%;
+      }
     }
 
-    /* Let the link wrap & hyphenate inside the title box */
-    .title-link {
-      display: inline-block; /* so max-width applies */
-      max-width: 100%;
-      overflow-wrap: anywhere; /* modern, breaks long words/URLs */
-      word-break: break-word; /* fallback for older engines */
-      hyphens: auto; /* soft hyphenation when available */
-      line-height: 1.2;
-    }
-
-    /* (Optional) if you want a max height with graceful fade/ellipsis: */
-    .title {
-      position: relative;
-      display: -webkit-box;
-      -webkit-line-clamp: 3; // number of lines to show
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-    }
-
-    /* Outer scroller – kicks in only if content overflows */
+    /* Optional outer scroller (kept minimal; only appears if needed) */
     .uffb-schedule-outer {
       overflow-x: auto;
       -webkit-overflow-scrolling: touch;
-    }
-
-    /* Subtle edge fade hint so it’s clear there’s more to the right */
-    .uffb-schedule-outer {
-      --edge-fade: linear-gradient(90deg, rgba(0,0,0,1), rgba(0,0,0,0));
-      mask-image: linear-gradient(90deg, rgba(0,0,0,1) 10px, rgba(0,0,0,1) calc(100% - 10px));
+      /* Subtle edge fade hint */
+      --edge-fade: linear-gradient(90deg, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
+      mask-image: linear-gradient(
+        90deg,
+        rgba(0, 0, 0, 1) 10px,
+        rgba(0, 0, 0, 1) calc(100% - 10px)
+      );
     }
   `;
   function injectCSS() {
