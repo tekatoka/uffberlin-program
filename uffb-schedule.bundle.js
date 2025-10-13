@@ -28,14 +28,37 @@
       maps: 'Maps',
       cinema: 'Cinema',
       tickets: 'Tickets',
+      legend: {
+        main: 'MAIN PROGRAM',
+        shorts: 'SHORTS COMPETITION',
+        special: 'SPECIAL PROGRAM',
+        qa: 'Q&A: FILMMAKER OR FILM TEAM PRESENT',
+      },
     },
     de: {
       monthShort: 'OKT',
       maps: 'Karte',
       cinema: 'Kino',
       tickets: 'Tickets',
+      legend: {
+        main: 'HAUPTPROGRAMM',
+        shorts: 'KURZFILMWETTBEWERB',
+        special: 'SPEZIALPROGRAMM',
+        qa: 'Q&A: FILMEMACHER:IN ODER FILMTEAM SIND ZU GAST',
+      },
     },
-    uk: { monthShort: 'ЖОВ', maps: 'Карти', cinema: 'Кіно', tickets: 'Квитки' },
+    uk: {
+      monthShort: 'ЖОВ',
+      maps: 'Карти',
+      cinema: 'Кіно',
+      tickets: 'Квитки',
+      legend: {
+        main: 'ГОЛОВНА ПРОГРАМА',
+        shorts: 'КОНКУРС КОРОТКОГО МЕТРА',
+        special: 'СПЕЦІАЛЬНА ПРОГРАМА',
+        qa: 'Q&A: ПРИСУТНІ РЕЖИСЕР/КА АБО ЗНІМАЛЬНА ГРУПА',
+      },
+    },
   };
   const t = (k) => (I18N[lang] || I18N.en)[k];
 
@@ -149,6 +172,57 @@
       m.get(k).push(x);
     });
     return m;
+  }
+
+  // Build a small legend under the table (localized)
+  function buildLegend(entries) {
+    // Show only these three categories, in poster order, if present:
+    const ORDER = ['main', 'uffb_shorts', 'special'];
+
+    // Which categories are present in the schedule?
+    const present = new Set(
+      entries.map((e) => (e.film?.category?.key || 'main').toString())
+    );
+
+    // Prepare labels
+    const L = (I18N[lang] && I18N[lang].legend) || I18N.en.legend;
+
+    const root = document.createElement('div');
+    root.className = 'uffb-legend';
+
+    const list = document.createElement('div');
+    list.className = 'legend-list';
+
+    ORDER.filter((k) => present.has(k)).forEach((k) => {
+      const item = document.createElement('div');
+      item.className = 'legend-item';
+
+      const label = document.createElement('div');
+      label.className = 'legend-label';
+      label.textContent =
+        k === 'main' ? L.main : k === 'uffb_shorts' ? L.shorts : L.special;
+
+      const chip = document.createElement('span');
+      chip.className = 'legend-chip';
+      const c = CATEGORY_COLORS[k] || CATEGORY_COLORS.main;
+      chip.style.background = c.bg;
+      chip.style.borderColor = c.stroke;
+
+      item.appendChild(label);
+      item.appendChild(chip);
+      list.appendChild(item);
+    });
+
+    // Add Q&A note if any entry has qanda
+    if (entries.some((e) => e.qanda)) {
+      const qa = document.createElement('div');
+      qa.className = 'legend-note';
+      qa.textContent = L.qa;
+      list.appendChild(qa);
+    }
+
+    root.appendChild(list);
+    return root;
   }
 
   // ------- Per-date language note parsing -------
@@ -465,6 +539,46 @@
     .qanda-suffix {
       font-weight: 700;
     }
+    .uffb-legend {
+      margin: 25px 0;
+      color: #fff;
+      max-width: 25%;
+    }
+    @media (max-width: 900px) {
+      .uffb-legend {
+        max-width: 100%;
+      }
+    }
+    .uffb-legend .legend-list {
+      display: grid;
+      gap: 6px;
+    }
+    .uffb-legend .legend-item,
+    .uffb-legend .legend-note {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #0b0b0b;
+      border: 1px solid #2a2a2a;
+      padding: 8px 10px;
+    }
+    .uffb-legend .legend-label {
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+    .uffb-legend .legend-chip {
+      width: 86px;
+      height: 14px;
+      border: 1px solid;
+      border-radius: 2px;
+    }
+    .uffb-legend .legend-note {
+      font-size: 12px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
   `;
   function injectCSS() {
     if (document.getElementById('uffb-schedule-style')) return;
@@ -631,6 +745,7 @@
     });
 
     root.appendChild(table);
+    root.appendChild(buildLegend(entries)); // ⬅️ add this line
     container.innerHTML = '';
     container.appendChild(root);
   }
@@ -750,6 +865,7 @@
 
     container.innerHTML = '';
     container.appendChild(root);
+    root.appendChild(buildLegend(entries)); // ⬅️ add this line
   }
 
   function render(el) {
