@@ -507,9 +507,9 @@
       line-height: 1.2;
       display: inline-block;
       max-width: 100%;
-      overflow-wrap: anywhere; /* wrap long words */
+      overflow-wrap: break-word;
       word-break: break-word;
-      hyphens: auto;
+      hyphens: manual;
     }
     .title-link:hover {
       text-decoration: underline !important;
@@ -519,6 +519,7 @@
       font-weight: 700;
       white-space: normal;
       font-size: clamp(12px, 1.1vw + 0.2rem, 15px);
+      display: inline-block;
     }
 
     .meta {
