@@ -474,7 +474,7 @@
       width: 100%;
       max-width: 100%;
       box-sizing: border-box;
-      flex: 1 1 0; /* ⬅ allows the card to shrink within the slot */
+      flex: 1 1 0; /* allows the card to shrink within the slot */
       overflow: hidden; /* safety */
     }
 
@@ -483,7 +483,7 @@
       font-size: 13px;
       position: relative;
       display: -webkit-box;
-      -webkit-line-clamp: 3; /* number of lines to show */
+      -webkit-line-clamp: 3;
       -webkit-box-orient: vertical;
       overflow: hidden;
     }
@@ -491,7 +491,7 @@
     .title-link {
       text-decoration: none;
       font-weight: 700;
-      font-size: clamp(12px, 1.2vw + 0.25rem, 16px); /* responsive */
+      font-size: clamp(12px, 1.2vw + 0.25rem, 16px);
       line-height: 1.2;
       display: inline-block;
       max-width: 100%;
@@ -644,11 +644,11 @@
 
     /* ---------- SCROLL + STICKY (consolidated) ---------- */
 
-    /* Outer scroll container (wrap your .uffb-table inside this) */
+    /* Outer scroll container (already in your buildDesktop as .uffb-schedule-outer) */
     .uffb-schedule-outer {
       position: relative;
       overflow-x: auto; /* horizontal scroll if needed */
-      overflow-y: visible; /* grid grows with page */
+      overflow-y: visible; /* vertical scroll is the page */
       -webkit-overflow-scrolling: touch;
       /* Subtle edge fade hint (optional) */
       --edge-fade: linear-gradient(90deg, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
@@ -673,7 +673,7 @@
       position: sticky;
       left: 0;
       z-index: 5; /* under the corner, above body */
-      background: #0a0a0a; /* opaque */
+      background: #0a0a0a;
       box-shadow: 1px 0 0 #2a2a2a; /* divider to the right */
     }
 
