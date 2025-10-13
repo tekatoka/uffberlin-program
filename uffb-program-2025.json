@@ -512,6 +512,10 @@
     },
     "panel_discussion": {
       "id": "panel-war-documentaries",
+      "title": {
+        "en": "Creative  Loop: How Can Ukrainian War Documentarians Move Beyond the Expected?",
+        "de": "Creative  Loop: How Can Ukrainian War Documentarians Move Beyond the Expected?"
+      },
       "description": {
         "de": "Am 25. Oktober, nach dem Film: Podiumsdiskussion <a href='/de/uffb2025/panel-war-documentaries'>„Creative  Loop: How Can Ukrainian War Documentarians Move Beyond the Expected?“</a>",
         "en": "On 25th of October, after the screening: Panel discussion <a href='/uffb2025/panel-war-documentaries'>“Creative Loop: How Can Ukrainian War Documentarians Move Beyond the Expected?”</a>"
@@ -1686,6 +1690,10 @@
     ],
     "panel_discussion": {
       "id": "panel-decolonial-perspectives",
+      "title": {
+        "en": "Decolonial Perspectives: Local Histories and Voices",
+        "de": "Decolonial Perspectives: Local Histories and Voices"
+      },
       "description": {
         "de": "Nach dem Film: Podiumsdiskussion <a href='/de/uffb2025/panel-decolonial-perspectives'>„Decolonial Perspectives: Local Histories and Voices“</a>",
         "en": "After the screening: Panel discussion <a href='/de/uffb2025/panel-decolonial-perspectives'>“Decolonial Perspectives: Local Histories and Voices”</a>"

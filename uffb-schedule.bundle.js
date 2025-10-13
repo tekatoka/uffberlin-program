@@ -84,33 +84,49 @@
     for (const v of VENUE_ORDER) if (n.includes(v.toLowerCase())) return v;
     for (const set of VENUE_ALIASES)
       for (const a of set) if (n.includes(a.toLowerCase())) return set[0];
-    return name; // fallback as-is
+    return name;
   }
 
-  // --------- Colors per category (soft poster-ish) ----------
+  // --------- Colors per category ----------
   const CATEGORY_COLORS = {
-    main: { bg: '#2a0f16', stroke: '#f3a6ba', text: '#ffdbe6' }, // pink-ish
-    uffb_shorts: { bg: '#27220a', stroke: '#ffe37a', text: '#fff3b5' }, // yellow
-    special: { bg: '#1c1c1f', stroke: '#cfd3da', text: '#e7eaf0' }, // gray
+    main: { bg: '#2a0f16', stroke: '#f3a6ba', text: '#ffdbe6' },
+    uffb_shorts: { bg: '#27220a', stroke: '#ffe37a', text: '#fff3b5' },
+    special: { bg: '#1c1c1f', stroke: '#cfd3da', text: '#e7eaf0' },
     retrospective: { bg: '#1c1c1f', stroke: '#cfd3da', text: '#e7eaf0' },
-    film_focus: { bg: '#0f2016', stroke: '#a7f3d0', text: '#c9ffe6' }, // green
+    film_focus: { bg: '#0f2016', stroke: '#a7f3d0', text: '#c9ffe6' },
     film_fokus: { bg: '#0f2016', stroke: '#a7f3d0', text: '#c9ffe6' },
     'ukraine-known-unknown': {
       bg: '#131735',
       stroke: '#c7d2fe',
       text: '#dfe4ff',
-    }, // indigo
-    panel_discussion: { bg: '#2a2308', stroke: '#fcd34d', text: '#ffe69b' }, // amber
+    },
+    panel_discussion: { bg: '#2a2308', stroke: '#fcd34d', text: '#ffe69b' },
   };
-  const PANEL_IMG_URL =
-    'https://images.squarespace-cdn.com/content/v1/5f739670761e02764c54e1ca/1727124052218-9HAFIHE8THUC98V48K9K/Logo-600x600.jpg';
+  function categoryKey(item) {
+    return (item.category && (item.category.key || '').toString()) || 'main';
+  }
+  function colorFor(item) {
+    const c = CATEGORY_COLORS[categoryKey(item)];
+    return c || CATEGORY_COLORS.main;
+  }
 
   // --------- Helpers ----------
+  const PANEL_LABEL = {
+    en: 'Panel discussion',
+    de: 'Podiumsdiskussion',
+    uk: 'Панельна дискусія',
+  };
   const safeTxt = (x) => (x == null ? '' : String(x));
   function localized(v) {
     if (v == null) return '';
     if (typeof v === 'string' || typeof v === 'number') return String(v);
     return v[lang] || v.de || v.en || v.uk || '';
+  }
+  function escapeHtml(s) {
+    return String(s)
+      .replaceAll('&', '&amp;')
+      .replaceAll('<', '&lt;')
+      .replaceAll('>', '&gt;');
   }
   const getVenueName = (s) =>
     localized(s.venue || '') || localized((s.venue || {}).name || '');
@@ -135,15 +151,7 @@
     return m;
   }
 
-  function categoryKey(item) {
-    return (item.category && (item.category.key || '').toString()) || 'main';
-  }
-  function colorFor(item) {
-    const c = CATEGORY_COLORS[categoryKey(item)];
-    return c || CATEGORY_COLORS.main;
-  }
-
-  // ------- Panels: reuse logic close to your grid bundle -------
+  // ------- Per-date language note parsing -------
   function pad2(n) {
     return String(n).padStart(2, '0');
   }
@@ -172,6 +180,7 @@
     return map;
   }
 
+  // ------- Panel-screening resolution (match to film screening) -------
   function cloneScreeningForPanel(s) {
     return {
       date: s.date,
@@ -183,11 +192,9 @@
       tickets: s.tickets || '',
     };
   }
-
   function hasAny(obj, keys) {
     return !!obj && keys.some((k) => obj[k] != null && obj[k] !== '');
   }
-
   function resolvePanelScreenings(film) {
     const pd = film.panel_discussion || {};
     const parent = Array.isArray(film.screenings) ? film.screenings : [];
@@ -229,42 +236,39 @@
     return parent.map(cloneScreeningForPanel);
   }
 
-  function makePanelItemsFromFilm(film) {
+  // ------- Build the “ & Panel discussion … ” suffix as HTML -------
+  function quoteByLang(txt) {
+    if (!txt) return '';
+    if (lang === 'de') return ` „${escapeHtml(txt)}“`;
+    if (lang === 'uk') return ` «${escapeHtml(txt)}»`;
+    return ` “${escapeHtml(txt)}”`;
+  }
+  function panelSuffixForScreeningHTML(film, entryDate, entryVenuePretty) {
     const pd = film.panel_discussion;
-    if (!pd) return [];
+    if (!pd) return '';
+
+    // Only show suffix if panel happens at THIS screening (same date+venue)
     const panelScreenings = resolvePanelScreenings(film);
-    const title = {
-      en:
-        (pd.title?.en || pd.title?.de || 'Panel discussion') +
-        ' – ' +
-        (film.title?.en || film.title?.de || ''),
-      de:
-        (pd.title?.de || pd.title?.en || 'Podiumsdiskussion') +
-        ' – ' +
-        (film.title?.de || film.title?.en || ''),
-      uk:
-        (pd.title?.uk || pd.title?.en || 'Панельна дискусія') +
-        ' – ' +
-        (film.title?.uk || film.title?.en || ''),
-    };
-    return panelScreenings.map((s, idx) => ({
-      id: `${pd.id}`,
-      title,
-      short_description: pd.description || {},
-      image: PANEL_IMG_URL,
-      category: {
-        key: 'panel_discussion',
-        en: 'Panel discussions',
-        de: 'Podiumsdiskussionen',
-        uk: 'Панельна дискусія',
-      },
-      screenings: [{ ...s }],
-      published: true,
-      panel_discussion: pd,
-    }));
+    const matchHere = panelScreenings.some((ps) => {
+      const psVenuePretty = normalizeVenue(getVenueName(ps));
+      return (
+        (ps.date || '') === entryDate && psVenuePretty === entryVenuePretty
+      );
+    });
+    if (!matchHere) return '';
+
+    const label = PANEL_LABEL[lang] || PANEL_LABEL.en;
+    const pTitle =
+      (pd.title &&
+        (pd.title[lang] || pd.title.de || pd.title.en || pd.title.uk)) ||
+      '';
+    const quoted = pTitle ? quoteByLang(pTitle) : '';
+
+    // NOTE: &amp; will render as “&” because we assign via innerHTML later
+    return ` <span class="panel-suffix">&amp; ${escapeHtml(label)}${quoted}</span>`;
   }
 
-  // --------- Build entries from films + panels ----------
+  // --------- Build entries from films (no separate panel items) ----------
   function collectEntries(data) {
     const out = [];
     data.forEach((f) => {
@@ -285,26 +289,6 @@
         });
       });
     });
-    const panels = data.flatMap(makePanelItemsFromFilm);
-    panels.forEach((p) => {
-      (p.screenings || []).forEach((s) => {
-        const venuePretty = normalizeVenue(getVenueName(s));
-        out.push({
-          kind: 'panel',
-          film: p, // treat like a film item with category key 'panel_discussion'
-          date: s.date,
-          time: s.time || '',
-          venuePretty,
-          links: {
-            tickets: s.tickets,
-            maps: s.maps?.google || '',
-            venue: s.website || '',
-          },
-          langNoteByDate: {}, // panels typically don’t carry language notes
-        });
-      });
-    });
-    // Restrict to festival week if desired; otherwise keep whatever dates exist
     return out.filter((e) => !!e.date && !!e.venuePretty);
   }
 
@@ -395,12 +379,10 @@
       border-radius: 8px;
       padding: 8px 10px;
       line-height: 1.2;
-    }
-
-    .uffb-cell .card {
       width: 100%;
+      max-width: 100%;
+      box-sizing: border-box;
     }
-
     .title {
       font-weight: 800;
       font-size: 13px;
@@ -428,6 +410,19 @@
       color: #bbb;
     }
 
+    .title-link {
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 16px;
+    }
+    .title-link:hover {
+      text-decoration: underline !important;
+    }
+    .panel-suffix {
+      font-weight: 700;
+      white-space: normal;
+    }
+
     /* mobile: per day stacks */
     @media (max-width: 900px) {
       .uffb-table {
@@ -453,91 +448,13 @@
         color: #bbb;
         margin-bottom: 6px;
       }
-    }
-    .uffb-sch-title a {
-      color: var(--paragraphLinkColor, #0bb);
-      text-decoration: none;
-      font-weight: 700;
-    }
-    .uffb-sch-title a:hover {
-      text-decoration: underline !important;
-    }
-    .title-link {
-      text-decoration: none;
-      font-weight: 700;
-      font-size: 16px;
-    }
-    .title-link:hover {
-      text-decoration: underline !important;
-    }
-    /* 1) Cards fill parent, never exceed it */
-    .uffb-card,
-    .schedule-card {
-      /* whichever class you use for the schedule cards */
-      width: 100%;
-      max-width: 100%;
-      box-sizing: border-box; /* padding/border won’t add width */
-    }
-
-    /* 2) Grid that keeps cards equal-width and responsive */
-    .schedule-grid {
-      /* your grid wrapper */
-      display: grid;
-      gap: 16px;
-      grid-template-columns: repeat(
-        auto-fill,
-        minmax(min(320px, 100%), 1fr)
-          /* equal widths; on mobile a single 100% column */
-      );
-    }
-
-    /* 3) Flex children can’t force overflow (classic culprit on mobile) */
-    .uffb-card,
-    .schedule-card {
-      display: flex;
-      flex-direction: column;
-      min-width: 0; /* important in flex layouts */
-    }
-    .uffb-card > *,
-    .schedule-card > * {
-      min-width: 0;
-    }
-
-    /* 4) Media never wider than card */
-    .uffb-media,
-    .uffb-media img,
-    .schedule-card img {
-      display: block;
-      width: 100%;
-      max-width: 100%;
-      height: auto;
-    }
-
-    /* 5) Avoid viewport-based widths that overflow parents on mobile */
-    [class*='container'],
-    [class*='section'] {
-      max-width: 100%;
-    }
-
-    /* 6) Tables or long strings won’t blow out the layout */
-    .schedule-card table {
-      width: 100%;
-      border-collapse: collapse;
-      table-layout: fixed; /* equal column widths */
-    }
-    .schedule-card td,
-    .schedule-card th {
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-    }
-
-    /* 7) Safety net: if something *still* overflows, clip it */
-    .schedule-grid {
-      overflow-x: hidden;
+      .card {
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+      }
     }
   `;
-
   function injectCSS() {
     if (document.getElementById('uffb-schedule-style')) return;
     const s = document.createElement('style');
@@ -548,12 +465,11 @@
 
   // --------- Rendering ----------
   function buildDesktop(container, entries) {
-    // days present in data
     const days = Array.from(new Set(entries.map((e) => e.date))).sort();
     const dayFmt = new Intl.DateTimeFormat(locale, { weekday: 'long' });
     const getNum = (iso) => new Date(iso + 'T00:00:00').getDate();
 
-    // venues: use poster order, then any extras alphabetically at end
+    // venues: poster order, then extras alpha
     const venueSet = new Set(entries.map((e) => e.venuePretty));
     const venues = [
       ...VENUE_ORDER.filter((v) => venueSet.has(v)),
@@ -562,7 +478,6 @@
         .sort(),
     ];
 
-    // index for quick lookup
     const byDayVenue = groupBy(entries, (e) => e.date + '||' + e.venuePretty);
 
     const root = document.createElement('div');
@@ -596,15 +511,17 @@
       days.forEach((d) => {
         const cell = document.createElement('div');
         cell.className = 'uffb-cell';
-        const list = byDayVenue.get(d + '||' + venue) || [];
+        const list = (byDayVenue.get(d + '||' + venue) || []).slice();
         list.sort((a, b) => (a.time || '').localeCompare(b.time || ''));
 
         list.forEach((it) => {
           const slot = document.createElement('div');
           slot.className = 'slot';
+
           const time = document.createElement('div');
           time.className = 'time';
           time.textContent = hm(it.time);
+
           const card = document.createElement('div');
           card.className = 'card';
           const c = colorFor(it.film);
@@ -612,17 +529,23 @@
           card.style.borderColor = c.stroke;
           card.style.color = c.text;
 
-          const title = document.createElement('div');
-          title.className = 'title';
-
+          // --- title (DESKTOP) with panel suffix (HTML)
+          const titleWrap = document.createElement('div');
+          titleWrap.className = 'title';
           const a = document.createElement('a');
           a.className = 'title-link';
-          a.href = filmHref(it.film.id || it.id); // use film id
-          const titleText = localized(it.film.title) || 'Untitled';
-          a.textContent = titleText;
-          a.setAttribute('aria-label', titleText);
+          a.href = filmHref(it.film.id || it.id);
 
-          title.appendChild(a);
+          const baseTitle = escapeHtml(localized(it.film.title) || 'Untitled');
+          const suffixHTML = panelSuffixForScreeningHTML(
+            it.film,
+            it.date,
+            it.venuePretty
+          );
+
+          a.innerHTML = baseTitle + suffixHTML; // parse HTML (span & quotes)
+          a.setAttribute('aria-label', localized(it.film.title) || 'Untitled');
+          titleWrap.replaceChildren(a);
 
           const meta = document.createElement('div');
           meta.className = 'meta';
@@ -665,19 +588,19 @@
             links.appendChild(a);
           }
 
-          card.appendChild(title);
+          card.appendChild(titleWrap);
           if (meta.textContent) card.appendChild(meta);
           if (links.children.length) card.appendChild(links);
 
-          // language note per date (from film.language “dd.mm.: …”)
-          const noteKey = dateToDM(it.date);
-          const lnote = it.langNoteByDate[noteKey] || '';
-          if (lnote) {
-            const n = document.createElement('div');
-            n.className = 'note';
-            n.textContent = lnote;
-            card.appendChild(n);
-          }
+          // language note per date
+          // const noteKey = dateToDM(it.date);
+          // const lnote = it.langNoteByDate[noteKey] || '';
+          // if (lnote) {
+          //   const n = document.createElement('div');
+          //   n.className = 'note';
+          //   n.textContent = lnote;
+          //   card.appendChild(n);
+          // }
 
           slot.appendChild(time);
           slot.appendChild(card);
@@ -720,9 +643,11 @@
       list.forEach((it) => {
         const row = document.createElement('div');
         row.className = 'mobile-item';
+
         const when = document.createElement('div');
         when.className = 'mobile-when';
         when.textContent = `${it.venuePretty} • ${hm(it.time)}`;
+
         const card = document.createElement('div');
         card.className = 'card';
         const c = colorFor(it.film);
@@ -730,12 +655,21 @@
         card.style.borderColor = c.stroke;
         card.style.color = c.text;
 
+        // --- title (MOBILE) with panel suffix (HTML)
         const title = document.createElement('a');
-        title.className = 'title title-link'; // keeps your existing link styles
-        title.href = filmHref(it.film.id || it.id); // uses the helper at the top
-        const titleText = localized(it.film.title) || 'Untitled';
-        title.textContent = titleText;
-        title.setAttribute('aria-label', titleText);
+        title.className = 'title title-link';
+        title.href = filmHref(it.film.id || it.id);
+        const baseTitle = escapeHtml(localized(it.film.title) || 'Untitled');
+        const suffixHTML = panelSuffixForScreeningHTML(
+          it.film,
+          it.date,
+          it.venuePretty
+        );
+        title.innerHTML = baseTitle + suffixHTML; // parse HTML (span & quotes)
+        title.setAttribute(
+          'aria-label',
+          localized(it.film.title) || 'Untitled'
+        );
 
         const meta = document.createElement('div');
         meta.className = 'meta';
@@ -808,9 +742,7 @@
       })
       .then((data) => {
         const films = data.slice().filter((f) => f.published === true);
-        // add panel items
-        const items = [...films, ...films.flatMap(makePanelItemsFromFilm)];
-        const entries = collectEntries(items);
+        const entries = collectEntries(films);
 
         const isMobile = matchMedia('(max-width: 900px)').matches;
         if (isMobile) buildMobile(outlet, entries);
