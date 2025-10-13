@@ -457,6 +457,14 @@
     .uffb-sch-title a:hover {
       text-decoration: underline !important;
     }
+    .title-link {
+      color: var(--paragraphLinkColor, #0bb);
+      text-decoration: none;
+      font-weight: 700;
+    }
+    .title-link:hover {
+      text-decoration: underline !important;
+    }
   `;
 
   function injectCSS() {
