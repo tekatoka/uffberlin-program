@@ -725,9 +725,13 @@
         card.style.borderColor = c.stroke;
         card.style.color = c.text;
 
-        const title = document.createElement('div');
-        title.className = 'title';
-        title.textContent = localized(it.film.title) || 'Untitled';
+        const title = document.createElement('a');
+        title.className = 'title title-link'; // keeps your existing link styles
+        title.href = filmHref(it.film.id || it.id); // uses the helper at the top
+        const titleText = localized(it.film.title) || 'Untitled';
+        title.textContent = titleText;
+        title.setAttribute('aria-label', titleText);
+
         const meta = document.createElement('div');
         meta.className = 'meta';
         const cat = it.film.category ? localized(it.film.category) || '' : '';
