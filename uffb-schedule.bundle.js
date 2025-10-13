@@ -422,15 +422,6 @@
       border-bottom: 1px solid #2a2a2a;
     }
 
-    .uffb-head .c {
-      padding: 14px 10px;
-      background: #0d0d0d;
-      position: sticky;
-      top: 0;
-      z-index: 3;
-      font-weight: 800;
-      letter-spacing: 0.02em;
-    }
     .uffb-head .month {
       font-size: 22px;
       letter-spacing: 0.12em;
@@ -448,9 +439,6 @@
 
     .uffb-venue {
       padding: 14px 12px;
-      position: sticky;
-      left: 0;
-      z-index: 2;
       background: #0a0a0a;
       font-weight: 700;
     }
@@ -654,17 +642,57 @@
       }
     }
 
-    /* Optional outer scroller (kept minimal; only appears if needed) */
+    /* ---------- SCROLL + STICKY (consolidated) ---------- */
+
+    /* Outer scroll container (wrap your .uffb-table inside this) */
     .uffb-schedule-outer {
-      overflow-x: auto;
+      position: relative;
+      overflow-x: auto; /* horizontal scroll if needed */
+      overflow-y: visible; /* grid grows with page */
       -webkit-overflow-scrolling: touch;
-      /* Subtle edge fade hint */
+      /* Subtle edge fade hint (optional) */
       --edge-fade: linear-gradient(90deg, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
       mask-image: linear-gradient(
         90deg,
         rgba(0, 0, 0, 1) 10px,
         rgba(0, 0, 0, 1) calc(100% - 10px)
       );
+    }
+
+    /* Header cells stick to the top */
+    .uffb-head .c {
+      position: sticky;
+      top: 0;
+      z-index: 6; /* above body cells */
+      background: #0d0d0d; /* opaque to cover content when stuck */
+      box-shadow: 0 1px 0 #2a2a2a; /* divider under header */
+    }
+
+    /* Left venue column sticks to the left */
+    .uffb-venue {
+      position: sticky;
+      left: 0;
+      z-index: 5; /* under the corner, above body */
+      background: #0a0a0a; /* opaque */
+      box-shadow: 1px 0 0 #2a2a2a; /* divider to the right */
+    }
+
+    /* Top-left corner cell sticks both top & left */
+    .uffb-head .c.corner {
+      position: sticky;
+      top: 0;
+      left: 0;
+      z-index: 7; /* highest at the intersection */
+      background: #0d0d0d;
+      box-shadow:
+        0 1px 0 #2a2a2a,
+        /* bottom divider like header */ 1px 0 0 #2a2a2a; /* right divider like venue */
+    }
+
+    /* Ensure body cells don't paint over the stickies */
+    .uffb-cell {
+      position: relative;
+      z-index: 1;
     }
   `;
   function injectCSS() {
@@ -692,32 +720,37 @@
 
     const byDayVenue = groupBy(entries, (e) => e.date + '||' + e.venuePretty);
 
+    // --- shell
     const root = document.createElement('div');
     root.className = 'uffb-schedule-wrap';
 
     const scroller = document.createElement('div');
-    scroller.className = 'uffb-schedule-outer'; // NEW outer
+    scroller.className = 'uffb-schedule-outer'; // outer scroller (needed for sticky)
 
     const table = document.createElement('div');
     table.className = 'uffb-table';
     table.style.setProperty('--days', String(days.length));
 
-    // header row
+    // --- header row (sticky via CSS)
     const headRow = document.createElement('div');
     headRow.className = 'uffb-head';
+
     const leftHead = document.createElement('div');
-    leftHead.className = 'c';
+    leftHead.className = 'c corner';
     leftHead.innerHTML = `<div class="month">${t('monthShort')}</div>`;
     headRow.appendChild(leftHead);
+
     days.forEach((d) => {
       const c = document.createElement('div');
       c.className = 'c';
-      c.innerHTML = `<div class="day">${dayFmt.format(new Date(d + 'T00:00:00'))}</div><div class="num">${getNum(d)}.</div>`;
+      c.innerHTML = `
+      <div class="day">${dayFmt.format(new Date(d + 'T00:00:00'))}</div>
+      <div class="num">${getNum(d)}.</div>`;
       headRow.appendChild(c);
     });
     table.appendChild(headRow);
 
-    // rows
+    // --- rows
     venues.forEach((venue) => {
       const vcell = document.createElement('div');
       vcell.className = 'uffb-venue';
@@ -727,12 +760,14 @@
       days.forEach((d) => {
         const cell = document.createElement('div');
         cell.className = 'uffb-cell';
+
         const list = (byDayVenue.get(d + '||' + venue) || []).slice();
         list.sort((a, b) => (a.time || '').localeCompare(b.time || ''));
 
         list.forEach((it) => {
           const slot = document.createElement('div');
           slot.className = 'slot';
+          slot.style.minWidth = '0'; // prevent flex overflow in narrow columns
 
           const time = document.createElement('div');
           time.className = 'time';
@@ -740,14 +775,17 @@
 
           const card = document.createElement('div');
           card.className = 'card';
+          card.style.minWidth = '0'; // critical for shrinking inside column
+
           const c = colorFor(it.film);
           card.style.background = c.bg;
           card.style.borderColor = c.stroke;
           card.style.color = c.text;
 
-          // --- title (DESKTOP) with panel suffix (HTML)
+          // --- title (DESKTOP) with special prefix + panel + Q&A suffix
           const titleWrap = document.createElement('div');
           titleWrap.className = 'title';
+          titleWrap.style.minWidth = '0';
 
           const a = document.createElement('a');
           a.className = 'title-link';
@@ -757,12 +795,15 @@
           const filmTitle = escapeHtml(localized(it.film.title) || 'Untitled');
           const baseTitle = [prefix, filmTitle].filter(Boolean).join(': ');
 
-          const suffixHTML = panelSuffixForScreeningHTML(
+          const panelHTML = panelSuffixForScreeningHTML(
             it.film,
             it.date,
             it.venuePretty
-          );
-          a.innerHTML = baseTitle + suffixHTML + qandaSuffixHTML(it); // keep HTML so <span class="panel-suffix"> renders
+          ); // returns `<span class="panel-suffix">…</span>` or ''
+          const qandaHTML = qandaSuffixHTML(it); // returns `<span class="qanda-suffix">…</span>` or ''
+
+          // keep HTML so suffix spans render; base text is already escaped
+          a.innerHTML = baseTitle + panelHTML + qandaHTML;
           a.setAttribute(
             'aria-label',
             (prefix ? prefix + ' ' : '') +
@@ -771,8 +812,11 @@
 
           titleWrap.replaceChildren(a);
 
+          // --- meta
           const meta = document.createElement('div');
           meta.className = 'meta';
+          meta.style.minWidth = '0';
+
           const cat = it.film.category ? localized(it.film.category) || '' : '';
           const dur =
             it.film.duration != null
@@ -782,50 +826,44 @@
               : '';
           meta.textContent = [cat, dur].filter(Boolean).join(' • ');
 
+          // --- links
           const links = document.createElement('div');
           links.className = 'links';
+
           if (it.links.tickets) {
-            const a = document.createElement('a');
-            a.href = it.links.tickets;
-            a.target = '_blank';
-            a.rel = 'noopener';
-            a.textContent = t('tickets');
-            a.className = 'chip';
-            links.appendChild(a);
+            const link = document.createElement('a');
+            link.href = it.links.tickets;
+            link.target = '_blank';
+            link.rel = 'noopener';
+            link.textContent = t('tickets');
+            link.className = 'chip';
+            links.appendChild(link);
           }
           if (it.links.maps) {
-            const a = document.createElement('a');
-            a.href = it.links.maps;
-            a.target = '_blank';
-            a.rel = 'noopener';
-            a.textContent = t('maps');
-            a.className = 'chip';
-            links.appendChild(a);
+            const link = document.createElement('a');
+            link.href = it.links.maps;
+            link.target = '_blank';
+            link.rel = 'noopener';
+            link.textContent = t('maps');
+            link.className = 'chip';
+            links.appendChild(link);
           }
           if (it.links.venue) {
-            const a = document.createElement('a');
-            a.href = it.links.venue;
-            a.target = '_blank';
-            a.rel = 'noopener';
-            a.textContent = t('cinema');
-            a.className = 'chip';
-            links.appendChild(a);
+            const link = document.createElement('a');
+            link.href = it.links.venue;
+            link.target = '_blank';
+            link.rel = 'noopener';
+            link.textContent = t('cinema');
+            link.className = 'chip';
+            links.appendChild(link);
           }
 
+          // assemble card
           card.appendChild(titleWrap);
           if (meta.textContent) card.appendChild(meta);
           if (links.children.length) card.appendChild(links);
 
-          // language note per date
-          // const noteKey = dateToDM(it.date);
-          // const lnote = it.langNoteByDate[noteKey] || '';
-          // if (lnote) {
-          //   const n = document.createElement('div');
-          //   n.className = 'note';
-          //   n.textContent = lnote;
-          //   card.appendChild(n);
-          // }
-
+          // assemble cell
           slot.appendChild(time);
           slot.appendChild(card);
           cell.appendChild(slot);
@@ -835,9 +873,11 @@
       });
     });
 
-    scroller.appendChild(table); // put table inside outer
-    root.appendChild(scroller); // then into wrap
-    root.appendChild(buildLegend(entries));
+    // mount
+    scroller.appendChild(table); // table inside the scroll container
+    root.appendChild(scroller); // scroller into the wrap
+    root.appendChild(buildLegend(entries)); // keep your legend
+
     container.innerHTML = '';
     container.appendChild(root);
   }
