@@ -422,6 +422,7 @@
     .panel-suffix {
       font-weight: 700;
       white-space: normal;
+      font-size: 15px;
     }
 
     /* mobile: per day stacks */
