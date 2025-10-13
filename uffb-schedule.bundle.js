@@ -733,6 +733,9 @@
       z-index: 9;
       background: #0d0d0d;
       box-shadow: 1px 0 0 #2a2a2a; /* divider to the right */
+      display: grid;
+      place-items: center; /* centers vertically + horizontally */
+      text-align: center;
     }
 
     /* keep your existing header typography */
