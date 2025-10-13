@@ -117,7 +117,6 @@
     special: { bg: '#1c1c1f', stroke: '#cfd3da', text: '#e7eaf0' },
     retrospective: { bg: '#1c1c1f', stroke: '#cfd3da', text: '#e7eaf0' },
     film_focus: { bg: '#1c1c1f', stroke: '#cfd3da', text: '#e7eaf0' },
-    special: { bg: '#1c1c1f', stroke: '#cfd3da', text: '#e7eaf0' },
     'ukraine-known-unknown': {
       bg: '#1c1c1f',
       stroke: '#cfd3da',
@@ -153,15 +152,6 @@
   }
   const getVenueName = (s) =>
     localized(s.venue || '') || localized((s.venue || {}).name || '');
-
-  function offsetFor() {
-    const m = new Date().getTimezoneOffset();
-    const sign = m <= 0 ? '+' : '-';
-    const abs = Math.abs(m);
-    const hh = String(Math.floor(abs / 60)).padStart(2, '0');
-    const mm = String(abs % 60).padStart(2, '0');
-    return `${sign}${hh}:${mm}`;
-  }
   const hm = (t) => (t ? String(t).slice(0, 5) : '');
 
   function groupBy(arr, keyFn) {
@@ -174,17 +164,61 @@
     return m;
   }
 
-  // Build a small legend under the table (localized)
-  function buildLegend(entries) {
-    // Show only these three categories, in poster order, if present:
-    const ORDER = ['main', 'uffb_shorts', 'special'];
+  function enableStickyHeader(headBar, scroller) {
+    // placeholder keeps layout height when header is fixed
+    const placeholder = document.createElement('div');
+    placeholder.style.height = headBar.offsetHeight + 'px';
+    placeholder.style.display = 'none';
+    headBar.parentNode.insertBefore(placeholder, headBar);
 
-    // Which categories are present in the schedule?
+    function update() {
+      const r = scroller.getBoundingClientRect();
+      const hbH = headBar.offsetHeight;
+
+      // header should be fixed while the scroller intersects viewport
+      const shouldFix = r.top <= 0 && r.bottom > hbH;
+
+      if (shouldFix) {
+        if (!headBar.classList.contains('is-fixed')) {
+          headBar.classList.add('is-fixed');
+          placeholder.style.display = 'block';
+          headBar.style.position = 'fixed';
+          headBar.style.top = '0px';
+          headBar.style.zIndex = '999';
+        }
+        // keep aligned with scroller box & width
+        headBar.style.left = r.left + 'px';
+        headBar.style.width = r.width + 'px';
+
+        // move with horizontal scroll of the grid
+        headBar.style.transform = `translateX(${-scroller.scrollLeft}px)`;
+      } else if (headBar.classList.contains('is-fixed')) {
+        headBar.classList.remove('is-fixed');
+        placeholder.style.display = 'none';
+        headBar.style.position = '';
+        headBar.style.top = '';
+        headBar.style.left = '';
+        headBar.style.width = '';
+        headBar.style.transform = '';
+        headBar.style.zIndex = '';
+      }
+    }
+
+    // keep in sync with page scroll, horizontal scroll, and resizes
+    window.addEventListener('scroll', update, { passive: true });
+    scroller.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+
+    // first paint
+    update();
+  }
+
+  // ------- Legend -------
+  function buildLegend(entries) {
+    const ORDER = ['main', 'uffb_shorts', 'special'];
     const present = new Set(
       entries.map((e) => (e.film?.category?.key || 'main').toString())
     );
-
-    // Prepare labels
     const L = (I18N[lang] && I18N[lang].legend) || I18N.en.legend;
 
     const root = document.createElement('div');
@@ -213,7 +247,6 @@
       list.appendChild(item);
     });
 
-    // Add Q&A note if any entry has qanda
     if (entries.some((e) => e.qanda)) {
       const qa = document.createElement('div');
       qa.className = 'legend-note';
@@ -225,7 +258,7 @@
     return root;
   }
 
-  // ------- Per-date language note parsing -------
+  // ------- Per-date language note parsing (kept; currently unused) -------
   function pad2(n) {
     return String(n).padStart(2, '0');
   }
@@ -254,7 +287,7 @@
     return map;
   }
 
-  // ------- Panel-screening resolution (match to film screening) -------
+  // ------- Panel-screening resolution -------
   function cloneScreeningForPanel(s) {
     return {
       date: s.date,
@@ -310,23 +343,19 @@
     return parent.map(cloneScreeningForPanel);
   }
 
-  // ------- Build the “ & Panel discussion … ” suffix as HTML -------
+  // ------- Title suffix builders -------
   function quoteByLang(txt) {
     if (!txt) return '';
     if (lang === 'de') return ` „${escapeHtml(txt)}“`;
     if (lang === 'uk') return ` «${escapeHtml(txt)}»`;
     return ` “${escapeHtml(txt)}”`;
   }
-
   function qandaSuffixHTML(entry) {
     return entry.qanda ? ' <span class="qanda-suffix">+ Q&amp;A</span>' : '';
   }
-
   function panelSuffixForScreeningHTML(film, entryDate, entryVenuePretty) {
     const pd = film.panel_discussion;
     if (!pd) return '';
-
-    // Only show suffix if panel happens at THIS screening (same date+venue)
     const panelScreenings = resolvePanelScreenings(film);
     const matchHere = panelScreenings.some((ps) => {
       const psVenuePretty = normalizeVenue(getVenueName(ps));
@@ -335,19 +364,16 @@
       );
     });
     if (!matchHere) return '';
-
     const label = PANEL_LABEL[lang] || PANEL_LABEL.en;
     const pTitle =
       (pd.title &&
         (pd.title[lang] || pd.title.de || pd.title.en || pd.title.uk)) ||
       '';
     const quoted = pTitle ? quoteByLang(pTitle) : '';
-
-    // NOTE: &amp; will render as “&” because we assign via innerHTML later
     return ` <span class="panel-suffix">&amp; ${escapeHtml(label)}${quoted}</span>`;
   }
 
-  // --------- Build entries from films (no separate panel items) ----------
+  // --------- Flatten entries ----------
   function collectEntries(data) {
     const out = [];
     data.forEach((f) => {
@@ -373,7 +399,7 @@
     return out.filter((e) => !!e.date && !!e.venuePretty);
   }
 
-  // --------- CSS ----------
+  // --------- CSS (sticky restored; iPad-safe) ----------
   const CSS = css`
     .uffb-schedule-wrap {
       font-family:
@@ -388,7 +414,6 @@
       color: #fff;
     }
 
-    /* Fit-first columns: venue shrinks on tablets, day columns divide remaining space */
     .uffb-table {
       display: grid;
       grid-template-columns: clamp(140px, 22vw, 260px) repeat(
@@ -401,7 +426,6 @@
       background: #000;
     }
 
-    /* Ensure grid/flex children can shrink */
     .uffb-venue,
     .uffb-cell,
     .slot,
@@ -410,6 +434,7 @@
       min-width: 0;
     }
 
+    /* critical: keep header children as grid items */
     .uffb-head,
     .uffb-row {
       display: contents;
@@ -442,7 +467,6 @@
       background: #0a0a0a;
       font-weight: 700;
     }
-
     .uffb-cell {
       min-height: 96px;
       padding: 10px;
@@ -454,9 +478,8 @@
       gap: 10px;
       align-items: flex-start;
       margin-bottom: 10px;
-      min-width: 0; /* important */
+      min-width: 0;
     }
-
     .time {
       width: 46px;
       flex: 0 0 auto;
@@ -474,8 +497,8 @@
       width: 100%;
       max-width: 100%;
       box-sizing: border-box;
-      flex: 1 1 0; /* allows the card to shrink within the slot */
-      overflow: hidden; /* safety */
+      flex: 1 1 0;
+      overflow: hidden;
     }
 
     .title {
@@ -487,7 +510,6 @@
       -webkit-box-orient: vertical;
       overflow: hidden;
     }
-
     .title-link {
       text-decoration: none;
       font-weight: 700;
@@ -502,12 +524,14 @@
     .title-link:hover {
       text-decoration: underline !important;
     }
-
     .panel-suffix {
       font-weight: 700;
       white-space: normal;
       font-size: clamp(12px, 1.1vw + 0.2rem, 15px);
       display: inline-block;
+    }
+    .qanda-suffix {
+      font-weight: 700;
     }
 
     .meta {
@@ -531,9 +555,6 @@
       margin-top: 6px;
       font-size: 11px;
       color: #bbb;
-    }
-    .qanda-suffix {
-      font-weight: 700;
     }
 
     /* Legend */
@@ -573,11 +594,8 @@
       text-transform: uppercase;
     }
 
-    /* Tablet: keep desktop layout, tighten spacing so nothing cuts off */
+    /* Tablet tighten */
     @media (min-width: 700px) and (max-width: 1024px) {
-      .uffb-head .c {
-        padding: 10px 8px;
-      }
       .uffb-venue {
         padding: 10px 10px;
       }
@@ -604,7 +622,7 @@
       }
     }
 
-    /* Mobile: stacked list view */
+    /* Mobile stack */
     @media (max-width: 900px) {
       .uffb-table {
         display: block;
@@ -642,65 +660,106 @@
       }
     }
 
-    /* ---------- SCROLL + STICKY (consolidated) ---------- */
+    /* ---------- Sticky header + sticky venue (works inside scroller) ---------- */
 
-    /* Outer scroll container (already in your buildDesktop as .uffb-schedule-outer) */
     .uffb-schedule-outer {
       position: relative;
       overflow-x: auto; /* horizontal scroll if needed */
       overflow-y: visible; /* vertical scroll is the page */
       -webkit-overflow-scrolling: touch;
-      /* Subtle edge fade hint (optional) */
-      --edge-fade: linear-gradient(90deg, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
-      mask-image: linear-gradient(
-        90deg,
-        rgba(0, 0, 0, 1) 10px,
-        rgba(0, 0, 0, 1) calc(100% - 10px)
-      );
     }
 
-    /* Header cells stick to the top */
+    /* Header cells stick to the top of the viewport/page */
     .uffb-head .c {
       position: sticky;
+      position: -webkit-sticky;
       top: 0;
-      z-index: 6; /* above body cells */
-      background: #0d0d0d; /* opaque to cover content when stuck */
-      box-shadow: 0 1px 0 #2a2a2a; /* divider under header */
+      z-index: 6;
+      background: #0d0d0d;
+      box-shadow: 0 1px 0 #2a2a2a;
     }
 
-    /* Left venue column sticks to the left */
+    /* Top-left header cell needs left stickiness too */
+    .uffb-head .c.corner {
+      left: 0;
+      z-index: 7;
+      box-shadow:
+        0 1px 0 #2a2a2a,
+        1px 0 0 #2a2a2a;
+    }
+
+    /* Sticky left venue column */
     .uffb-venue {
       position: sticky;
       left: 0;
-      z-index: 5; /* under the corner, above body */
+      z-index: 5;
       background: #0a0a0a;
-      box-shadow: 1px 0 0 #2a2a2a; /* divider to the right */
+      box-shadow: 1px 0 0 #2a2a2a;
     }
 
-    /* Top-left corner cell sticks both top & left */
-    .uffb-head .c.corner {
-      position: sticky;
-      top: 0;
-      left: 0;
-      z-index: 7; /* highest at the intersection */
-      background: #0d0d0d;
-      box-shadow:
-        0 1px 0 #2a2a2a,
-        /* bottom divider like header */ 1px 0 0 #2a2a2a; /* right divider like venue */
-    }
-
-    /* Ensure body cells don't paint over the stickies */
     .uffb-cell {
       position: relative;
       z-index: 1;
     }
+
+    /* Sticky header bar that scrolls horizontally with the table */
+    .uffb-headbar {
+      position: sticky;
+      top: 0;
+      z-index: 8; /* above venue cells */
+      display: grid;
+      grid-template-columns: clamp(140px, 22vw, 260px) repeat(
+          var(--days, 5),
+          minmax(0, 1fr)
+        );
+      background: #0d0d0d;
+      border: 1px solid #2a2a2a;
+      border-right: none;
+      border-bottom: 1px solid #2a2a2a;
+    }
+
+    /* header cells */
+    .uffb-headbar .c {
+      padding: 14px 10px;
+      font-weight: 800;
+      letter-spacing: 0.02em;
+      border-right: 1px solid #2a2a2a;
+    }
+
+    /* top-left corner: also sticky to the left so it aligns with sticky venues */
+    .uffb-headbar .corner {
+      position: sticky;
+      left: 0;
+      z-index: 9;
+      background: #0d0d0d;
+      box-shadow: 1px 0 0 #2a2a2a; /* divider to the right */
+    }
+
+    /* keep your existing header typography */
+    .uffb-headbar .month {
+      font-size: 22px;
+      letter-spacing: 0.12em;
+      color: #f0e53c;
+    }
+    .uffb-headbar .day {
+      text-transform: uppercase;
+      font-size: 12px;
+      color: #aaa;
+      letter-spacing: 0.1em;
+    }
+    .uffb-headbar .num {
+      font-size: 20px;
+    }
   `;
   function injectCSS() {
-    if (document.getElementById('uffb-schedule-style')) return;
-    const s = document.createElement('style');
-    s.id = 'uffb-schedule-style';
-    s.textContent = CSS;
-    document.head.appendChild(s);
+    const id = 'uffb-schedule-style';
+    let s = document.getElementById(id);
+    if (!s) {
+      s = document.createElement('style');
+      s.id = id;
+      s.textContent = CSS;
+      document.head.appendChild(s);
+    }
   }
 
   // --------- Rendering ----------
@@ -709,7 +768,6 @@
     const dayFmt = new Intl.DateTimeFormat(locale, { weekday: 'long' });
     const getNum = (iso) => new Date(iso + 'T00:00:00').getDate();
 
-    // venues: poster order, then extras alpha
     const venueSet = new Set(entries.map((e) => e.venuePretty));
     const venues = [
       ...VENUE_ORDER.filter((v) => venueSet.has(v)),
@@ -717,40 +775,39 @@
         .filter((v) => !VENUE_ORDER.includes(v))
         .sort(),
     ];
-
     const byDayVenue = groupBy(entries, (e) => e.date + '||' + e.venuePretty);
 
-    // --- shell
     const root = document.createElement('div');
     root.className = 'uffb-schedule-wrap';
 
     const scroller = document.createElement('div');
-    scroller.className = 'uffb-schedule-outer'; // outer scroller (needed for sticky)
+    scroller.className = 'uffb-schedule-outer';
 
     const table = document.createElement('div');
     table.className = 'uffb-table';
     table.style.setProperty('--days', String(days.length));
 
-    // --- header row (sticky via CSS)
-    const headRow = document.createElement('div');
-    headRow.className = 'uffb-head';
+    // header row
+    // --- sticky header bar (separate from the grid body)
+    const headBar = document.createElement('div');
+    headBar.className = 'uffb-headbar';
+    headBar.style.setProperty('--days', String(days.length)); // keep columns in sync
 
-    const leftHead = document.createElement('div');
-    leftHead.className = 'c corner';
-    leftHead.innerHTML = `<div class="month">${t('monthShort')}</div>`;
-    headRow.appendChild(leftHead);
+    const corner = document.createElement('div');
+    corner.className = 'c corner';
+    corner.innerHTML = `<div class="month">${t('monthShort')}</div>`;
+    headBar.appendChild(corner);
 
     days.forEach((d) => {
       const c = document.createElement('div');
       c.className = 'c';
-      c.innerHTML = `
-      <div class="day">${dayFmt.format(new Date(d + 'T00:00:00'))}</div>
-      <div class="num">${getNum(d)}.</div>`;
-      headRow.appendChild(c);
+      c.innerHTML =
+        `<div class="day">${dayFmt.format(new Date(d + 'T00:00:00'))}</div>` +
+        `<div class="num">${getNum(d)}.</div>`;
+      headBar.appendChild(c);
     });
-    table.appendChild(headRow);
 
-    // --- rows
+    // rows
     venues.forEach((venue) => {
       const vcell = document.createElement('div');
       vcell.className = 'uffb-venue';
@@ -761,13 +818,13 @@
         const cell = document.createElement('div');
         cell.className = 'uffb-cell';
 
-        const list = (byDayVenue.get(d + '||' + venue) || []).slice();
-        list.sort((a, b) => (a.time || '').localeCompare(b.time || ''));
+        const list = (byDayVenue.get(d + '||' + venue) || [])
+          .slice()
+          .sort((a, b) => (a.time || '').localeCompare(b.time || ''));
 
         list.forEach((it) => {
           const slot = document.createElement('div');
           slot.className = 'slot';
-          slot.style.minWidth = '0'; // prevent flex overflow in narrow columns
 
           const time = document.createElement('div');
           time.className = 'time';
@@ -775,17 +832,14 @@
 
           const card = document.createElement('div');
           card.className = 'card';
-          card.style.minWidth = '0'; // critical for shrinking inside column
-
           const c = colorFor(it.film);
           card.style.background = c.bg;
           card.style.borderColor = c.stroke;
           card.style.color = c.text;
 
-          // --- title (DESKTOP) with special prefix + panel + Q&A suffix
+          // title with prefix + panel + q&a
           const titleWrap = document.createElement('div');
           titleWrap.className = 'title';
-          titleWrap.style.minWidth = '0';
 
           const a = document.createElement('a');
           a.className = 'title-link';
@@ -799,10 +853,9 @@
             it.film,
             it.date,
             it.venuePretty
-          ); // returns `<span class="panel-suffix">…</span>` or ''
-          const qandaHTML = qandaSuffixHTML(it); // returns `<span class="qanda-suffix">…</span>` or ''
+          );
+          const qandaHTML = qandaSuffixHTML(it);
 
-          // keep HTML so suffix spans render; base text is already escaped
           a.innerHTML = baseTitle + panelHTML + qandaHTML;
           a.setAttribute(
             'aria-label',
@@ -812,11 +865,8 @@
 
           titleWrap.replaceChildren(a);
 
-          // --- meta
           const meta = document.createElement('div');
           meta.className = 'meta';
-          meta.style.minWidth = '0';
-
           const cat = it.film.category ? localized(it.film.category) || '' : '';
           const dur =
             it.film.duration != null
@@ -826,44 +876,40 @@
               : '';
           meta.textContent = [cat, dur].filter(Boolean).join(' • ');
 
-          // --- links
           const links = document.createElement('div');
           links.className = 'links';
-
           if (it.links.tickets) {
-            const link = document.createElement('a');
-            link.href = it.links.tickets;
-            link.target = '_blank';
-            link.rel = 'noopener';
-            link.textContent = t('tickets');
-            link.className = 'chip';
-            links.appendChild(link);
+            const x = document.createElement('a');
+            x.href = it.links.tickets;
+            x.target = '_blank';
+            x.rel = 'noopener';
+            x.textContent = t('tickets');
+            x.className = 'chip';
+            links.appendChild(x);
           }
           if (it.links.maps) {
-            const link = document.createElement('a');
-            link.href = it.links.maps;
-            link.target = '_blank';
-            link.rel = 'noopener';
-            link.textContent = t('maps');
-            link.className = 'chip';
-            links.appendChild(link);
+            const x = document.createElement('a');
+            x.href = it.links.maps;
+            x.target = '_blank';
+            x.rel = 'noopener';
+            x.textContent = t('maps');
+            x.className = 'chip';
+            links.appendChild(x);
           }
           if (it.links.venue) {
-            const link = document.createElement('a');
-            link.href = it.links.venue;
-            link.target = '_blank';
-            link.rel = 'noopener';
-            link.textContent = t('cinema');
-            link.className = 'chip';
-            links.appendChild(link);
+            const x = document.createElement('a');
+            x.href = it.links.venue;
+            x.target = '_blank';
+            x.rel = 'noopener';
+            x.textContent = t('cinema');
+            x.className = 'chip';
+            links.appendChild(x);
           }
 
-          // assemble card
           card.appendChild(titleWrap);
           if (meta.textContent) card.appendChild(meta);
           if (links.children.length) card.appendChild(links);
 
-          // assemble cell
           slot.appendChild(time);
           slot.appendChild(card);
           cell.appendChild(slot);
@@ -873,13 +919,17 @@
       });
     });
 
-    // mount
-    scroller.appendChild(table); // table inside the scroll container
-    root.appendChild(scroller); // scroller into the wrap
-    root.appendChild(buildLegend(entries)); // keep your legend
+    scroller.appendChild(headBar); // <- add this
+    scroller.appendChild(table); // table with only body rows
+    root.appendChild(scroller);
+    root.appendChild(buildLegend(entries));
 
     container.innerHTML = '';
     container.appendChild(root);
+
+    requestAnimationFrame(() => {
+      enableStickyHeader(headBar, scroller);
+    });
   }
 
   function buildMobile(container, entries) {
@@ -921,7 +971,6 @@
         card.style.borderColor = c.stroke;
         card.style.color = c.text;
 
-        // --- title (MOBILE) with panel suffix (HTML)
         const title = document.createElement('a');
         title.className = 'title title-link';
         title.href = filmHref(it.film.id || it.id);
@@ -997,7 +1046,7 @@
 
     container.innerHTML = '';
     container.appendChild(root);
-    root.appendChild(buildLegend(entries)); // ⬅️ add this line
+    root.appendChild(buildLegend(entries));
   }
 
   function render(el) {
@@ -1020,7 +1069,6 @@
         if (isMobile) buildMobile(outlet, entries);
         else buildDesktop(outlet, entries);
 
-        // re-render on resize threshold flips
         let lastIsMobile = isMobile;
         const mq = matchMedia('(max-width: 900px)');
         mq.addEventListener('change', (e) => {
