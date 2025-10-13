@@ -93,14 +93,14 @@
     uffb_shorts: { bg: '#27220a', stroke: '#ffe37a', text: '#fff3b5' },
     special: { bg: '#1c1c1f', stroke: '#cfd3da', text: '#e7eaf0' },
     retrospective: { bg: '#1c1c1f', stroke: '#cfd3da', text: '#e7eaf0' },
-    film_focus: { bg: '#0f2016', stroke: '#a7f3d0', text: '#c9ffe6' },
-    film_fokus: { bg: '#0f2016', stroke: '#a7f3d0', text: '#c9ffe6' },
+    film_focus: { bg: '#1c1c1f', stroke: '#cfd3da', text: '#e7eaf0' },
+    special: { bg: '#1c1c1f', stroke: '#cfd3da', text: '#e7eaf0' },
     'ukraine-known-unknown': {
-      bg: '#131735',
-      stroke: '#c7d2fe',
-      text: '#dfe4ff',
+      bg: '#1c1c1f',
+      stroke: '#cfd3da',
+      text: '#e7eaf0',
     },
-    panel_discussion: { bg: '#2a2308', stroke: '#fcd34d', text: '#ffe69b' },
+    panel_discussion: { bg: '#1c1c1f', stroke: '#cfd3da', text: '#e7eaf0' },
   };
   function categoryKey(item) {
     return (item.category && (item.category.key || '').toString()) || 'main';
@@ -286,6 +286,7 @@
             venue: s.website || '',
           },
           langNoteByDate: parsePerDateLanguageNotes(f),
+          specialPrefix: s.special_program_prefix,
         });
       });
     });
@@ -532,19 +533,27 @@
           // --- title (DESKTOP) with panel suffix (HTML)
           const titleWrap = document.createElement('div');
           titleWrap.className = 'title';
+
           const a = document.createElement('a');
           a.className = 'title-link';
           a.href = filmHref(it.film.id || it.id);
 
-          const baseTitle = escapeHtml(localized(it.film.title) || 'Untitled');
+          const prefix = escapeHtml(localized(it.specialPrefix) || '');
+          const filmTitle = escapeHtml(localized(it.film.title) || 'Untitled');
+          const baseTitle = [prefix, filmTitle].filter(Boolean).join(': ');
+
           const suffixHTML = panelSuffixForScreeningHTML(
             it.film,
             it.date,
             it.venuePretty
           );
+          a.innerHTML = baseTitle + suffixHTML; // keep HTML so <span class="panel-suffix"> renders
+          a.setAttribute(
+            'aria-label',
+            (prefix ? prefix + ' ' : '') +
+              (localized(it.film.title) || 'Untitled')
+          );
 
-          a.innerHTML = baseTitle + suffixHTML; // parse HTML (span & quotes)
-          a.setAttribute('aria-label', localized(it.film.title) || 'Untitled');
           titleWrap.replaceChildren(a);
 
           const meta = document.createElement('div');
@@ -659,16 +668,21 @@
         const title = document.createElement('a');
         title.className = 'title title-link';
         title.href = filmHref(it.film.id || it.id);
-        const baseTitle = escapeHtml(localized(it.film.title) || 'Untitled');
+
+        const prefix = escapeHtml(localized(it.specialPrefix) || '');
+        const filmTitle = escapeHtml(localized(it.film.title) || 'Untitled');
+        const baseTitle = [prefix, filmTitle].filter(Boolean).join(': ');
+
         const suffixHTML = panelSuffixForScreeningHTML(
           it.film,
           it.date,
           it.venuePretty
         );
-        title.innerHTML = baseTitle + suffixHTML; // parse HTML (span & quotes)
+        title.innerHTML = baseTitle + suffixHTML;
         title.setAttribute(
           'aria-label',
-          localized(it.film.title) || 'Untitled'
+          (prefix ? prefix + ' ' : '') +
+            (localized(it.film.title) || 'Untitled')
         );
 
         const meta = document.createElement('div');

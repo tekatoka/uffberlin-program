@@ -46,6 +46,10 @@
           "en": "silent green Kulturquartier",
           "de": "silent green Kulturquartier"
         },
+        "special_program_prefix": {
+          "en": "Festival Opening",
+          "de": "Festivaleröffnung"
+        },
         "address": "Gerichtstraße 35, 13347 Berlin",
         "website": "https://www.silent-green.net/",
         "maps": {
@@ -170,6 +174,10 @@
         "venue": {
           "en": "silent green Kulturquartier",
           "de": "silent green Kulturquartier"
+        },
+        "special_program_prefix": {
+          "en": "Closing & Award ceremony",
+          "de": "Abschlusszeremonie & Preisverleihung"
         },
         "address": "Gerichtstraße 35, 13347 Berlin",
         "website": "https://www.silent-green.net/",
