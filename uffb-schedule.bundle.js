@@ -395,7 +395,6 @@
       border-radius: 8px;
       padding: 8px 10px;
       line-height: 1.2;
-      width: 100%;
     }
     .title {
       font-weight: 800;
@@ -465,6 +464,72 @@
     }
     .title-link:hover {
       text-decoration: underline !important;
+    }
+    /* 1) Cards fill parent, never exceed it */
+    .uffb-card,
+    .schedule-card {
+      /* whichever class you use for the schedule cards */
+      width: 100%;
+      max-width: 100%;
+      box-sizing: border-box; /* padding/border won’t add width */
+    }
+
+    /* 2) Grid that keeps cards equal-width and responsive */
+    .schedule-grid {
+      /* your grid wrapper */
+      display: grid;
+      gap: 16px;
+      grid-template-columns: repeat(
+        auto-fill,
+        minmax(min(320px, 100%), 1fr)
+          /* equal widths; on mobile a single 100% column */
+      );
+    }
+
+    /* 3) Flex children can’t force overflow (classic culprit on mobile) */
+    .uffb-card,
+    .schedule-card {
+      display: flex;
+      flex-direction: column;
+      min-width: 0; /* important in flex layouts */
+    }
+    .uffb-card > *,
+    .schedule-card > * {
+      min-width: 0;
+    }
+
+    /* 4) Media never wider than card */
+    .uffb-media,
+    .uffb-media img,
+    .schedule-card img {
+      display: block;
+      width: 100%;
+      max-width: 100%;
+      height: auto;
+    }
+
+    /* 5) Avoid viewport-based widths that overflow parents on mobile */
+    [class*='container'],
+    [class*='section'] {
+      max-width: 100%;
+    }
+
+    /* 6) Tables or long strings won’t blow out the layout */
+    .schedule-card table {
+      width: 100%;
+      border-collapse: collapse;
+      table-layout: fixed; /* equal column widths */
+    }
+    .schedule-card td,
+    .schedule-card th {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    /* 7) Safety net: if something *still* overflows, clip it */
+    .schedule-grid {
+      overflow-x: hidden;
     }
   `;
 
