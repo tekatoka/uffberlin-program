@@ -387,16 +387,11 @@
         sans-serif;
       color: #fff;
     }
+
     /* Compressible columns via CSS variables */
     .uffb-table {
-      --venue-w: 260px; /* default desktop */
-      --day-min: 220px; /* minimum width per day column */
-
       display: grid;
-      grid-template-columns: var(--venue-w) repeat(
-          var(--days, 5),
-          minmax(var(--day-min), 1fr)
-        );
+      grid-template-columns: clamp(140px, 22vw, 260px) repeat(var(--days, 5), minmax(0, 1fr));
       gap: 0;
       border: 1px solid #2a2a2a;
       border-right: none;
@@ -588,54 +583,31 @@
       text-transform: uppercase;
     }
     /* Tablet: keep desktop layout but tighten spacing/fonts so it fits */
-    @media (min-width: 901px) and (max-width: 1180px) {
-      .uffb-table {
-        --venue-w: 200px;
-        --day-min: 160px;
-      }
-
-      .uffb-head .c {
-        padding: 10px 8px;
-      }
-      .uffb-venue {
-        padding: 10px 10px;
-        font-weight: 700;
-      }
-      .uffb-cell {
-        padding: 8px;
-      }
-
-      .slot {
-        gap: 8px;
-        min-width: 0;
-      } /* prevent overflow from flex children */
-      .time {
-        width: 40px;
-        font-size: 14px;
-      }
-
-      .card {
-        padding: 6px 8px;
-        border-radius: 6px;
-        min-width: 0;
-        max-width: 100%;
-      }
-      .title {
-        font-size: 12px;
-        line-height: 1.2;
-        white-space: normal;
-        overflow-wrap: anywhere;
-        hyphens: auto;
-      }
-      .meta,
-      .chip,
-      .note {
-        font-size: 10px;
-      }
-      .links {
-        gap: 8px;
-      }
-    }
+    @media (min-width: 700px) and (max-width: 1024px) {
+  .uffb-head .c {
+    padding: 10px 8px;
+  }
+  .uffb-venue {
+    padding: 10px 10px;
+  }
+  .uffb-cell {
+    padding: 8px;
+  }
+  .time {
+    width: 40px;      /* slimmer time column inside cell */
+    font-size: 14px;
+  }
+  .card {
+    padding: 6px 8px; /* tighter cards fit better */
+  }
+  .title-link {
+    font-size: clamp(13px, 1.7vw, 16px);
+  }
+  .meta,
+  .links .chip,
+  .note {
+    font-size: 10.5px;
+  }
     .slot,
     .card {
       min-width: 0;
@@ -683,6 +655,18 @@
       -webkit-box-orient: vertical;
       overflow: hidden;
     }
+
+    /* Outer scroller – kicks in only if content overflows */
+    .uffb-schedule-outer {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    /* Subtle edge fade hint so it’s clear there’s more to the right */
+    .uffb-schedule-outer {
+      --edge-fade: linear-gradient(90deg, rgba(0,0,0,1), rgba(0,0,0,0));
+      mask-image: linear-gradient(90deg, rgba(0,0,0,1) 10px, rgba(0,0,0,1) calc(100% - 10px));
+    }
   `;
   function injectCSS() {
     if (document.getElementById('uffb-schedule-style')) return;
@@ -711,6 +695,10 @@
 
     const root = document.createElement('div');
     root.className = 'uffb-schedule-wrap';
+
+    const scroller = document.createElement('div');
+    scroller.className = 'uffb-schedule-outer'; // NEW outer
+
     const table = document.createElement('div');
     table.className = 'uffb-table';
     table.style.setProperty('--days', String(days.length));
@@ -848,8 +836,9 @@
       });
     });
 
-    root.appendChild(table);
-    root.appendChild(buildLegend(entries)); // ⬅️ add this line
+    scroller.appendChild(table); // put table inside outer
+    root.appendChild(scroller); // then into wrap
+    root.appendChild(buildLegend(entries));
     container.innerHTML = '';
     container.appendChild(root);
   }
