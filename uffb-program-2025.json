@@ -543,7 +543,7 @@
         "de": "Podiumsdiskussion"
       },
       "moderation": "Inga Pylypchuk",
-      "guests": "Darya Bassel, Megumi Lim",
+      "guests": "Darya Bassel, Megumi Lim, Brigid O’Shea",
       "partners": "Bundeszentrale für politische Bildung",
       "participants": [
         {
@@ -584,6 +584,19 @@
             "de": "Filmregisseurin, Journalistin"
           },
           "photo": "https://images.squarespace-cdn.com/content/5f739670761e02764c54e1ca/6d14b2e2-c63e-49ac-bb90-2f5a59d69222/comp+1-3+Megumi+Lim.jpg"
+        },
+        {
+          "name": "Brigid O’Shea",
+          "bio": {
+            "de": "Brigid O’Shea ist gebürtige Australierin und arbeitet seit 2008 für europäische Filmfestivals und Dokumentarfilmorganisationen. Sie hat einen Bachelor of Fine Arts, den sie in Melbourne und Berlin erworben hat, und begann 2008 beim Berlinale Talent Campus. Bis 2014 arbeitete sie freiberuflich für verschiedene Berlinale-Abteilungen, darunter den EFM und den Co-Production Market, bevor sie sich stärker auf den künstlerischen Dokumentarfilm konzentrierte. Den Anstoß dazu gab ihre Tätigkeit als Koordinatorin des DOK Industry Programme von 2009 bis 2015; in dieser Zeit arbeitete sie zudem freiberuflich für das Institute of Documentary Film in Prag, die Documentary Campus Masterschool sowie für in Berlin ansässige Produktionsfirmen. Im Januar 2015 wurde sie zur Leiterin des DOK Industry Programme ernannt. Regelmäßig unterrichtet und coacht sie zu Themen wie europäische Kofinanzierung, Kulturmanagement und Festivalstrategien, unter anderem in Nordamerika und Osteuropa. Im Februar 2020 hat sie die Documentary Association of Europe mitgegründet.",
+            "en": "Brigid O’Shea is an Australian native who has worked for European film festivals and documentary organisations since 2008. Holding a Bachelor of Fine Arts obtained in Melbourne and Berlin, she started at the Berlinale Talent Campus in 2008. She worked for various Berlinale departments as a freelancer until 2014, including the EFM and Co-Production Market, until taking a more focused approach on creative documentary. This came from coordinating the DOK Industry Programme from 2009-2015, which allowed her to also freelance for the Institute of Documentary Film in Prague, for Documentary Campus Masterschool, and Berlin-based production companies. She was appointed Head of DOK Industry Programme in January 2015. She regularly tutors on topics like European co-financing, cultural management and festival strategies in places like North America and East Europe. In February 2020 she co-launched the Documentary Association of Europe."
+          },
+          "role": {
+            "en": "Director of the Documentary Association of Europe",
+            "de": "Direktorin der Documentary Association of Europe"
+          },
+          "photo": "https://images.squarespace-cdn.com/content/5f739670761e02764c54e1ca/56e0372e-fbef-416d-865a-4cb3b49839cd/BrigidOshea-6.png",
+          "photoCredit": "Briony Ridley"
         }
       ],
       "date": "2025-10-25",
