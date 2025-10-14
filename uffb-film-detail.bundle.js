@@ -315,6 +315,37 @@
     `;
   }
 
+  function buildModAndGuestsFromParticipants(pd) {
+    const list = Array.isArray(pd?.participants) ? pd.participants : [];
+
+    const fmt = (p) => {
+      const name = (p?.name || '').trim();
+      const roleTxt = p?.role
+        ? (typeof p.role === 'object'
+            ? localized(p.role)
+            : String(p.role)
+          ).trim()
+        : '';
+      if (!name) return '';
+      const nameHtml = `<strong>${escapeHtml(name)}</strong>`;
+      const roleHtml = roleTxt ? ` (${escapeHtml(roleTxt)})` : '';
+      return `${nameHtml}${roleHtml}`;
+    };
+
+    const moderators = list
+      .filter((p) => p.isModerator)
+      .map(fmt)
+      .filter(Boolean)
+      .join(', ');
+    const guests = list
+      .filter((p) => !p.isModerator)
+      .map(fmt)
+      .filter(Boolean)
+      .join(', ');
+
+    return { moderators, guests };
+  }
+
   function buildSynopsisBlock(film) {
     const shortDesc =
       (film.short_description && localized(film.short_description)) || '';
@@ -354,16 +385,19 @@
     const desc = pd.description ? localized(pd.description) : '';
 
     // Strings or localized objects for mod/guests
-    const mod = pd.moderation
-      ? typeof pd.moderation === 'object'
-        ? localized(pd.moderation)
-        : pd.moderation
-      : '';
-    const gs = pd.guests
-      ? typeof pd.guests === 'object'
-        ? localized(pd.guests)
-        : pd.guests
-      : '';
+    // const mod = pd.moderation
+    //   ? typeof pd.moderation === 'object'
+    //     ? localized(pd.moderation)
+    //     : pd.moderation
+    //   : '';
+    // const gs = pd.guests
+    //   ? typeof pd.guests === 'object'
+    //     ? localized(pd.guests)
+    //     : pd.guests
+    //   : '';
+
+    const { moderators: mod, guests: gs } =
+      buildModAndGuestsFromParticipants(pd);
 
     // Partners: use parent film partners when present (even in detail page for panel)
     let partnersBlock = '';
@@ -2862,8 +2896,11 @@
           parent.title?.en ||
           parent.title?.uk ||
           filmTitleEn;
-        const mod = pd.moderation || '';
-        const gs = pd.guests || '';
+        // const mod = pd.moderation || '';
+        // const gs = pd.guests || '';
+
+        const { moderators: mod, guests: gs } =
+          buildModAndGuestsFromParticipants(pd);
 
         const progHref = lang === 'de' ? '/de/uffb2025' : '/uffb2025';
         const parentId = parent.id;

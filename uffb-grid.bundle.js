@@ -1479,6 +1479,37 @@
     return parentList.map((s) => cloneScreeningForPanel(s));
   }
 
+  function buildModAndGuestsFromParticipants(pd) {
+    const list = Array.isArray(pd?.participants) ? pd.participants : [];
+
+    const fmt = (p) => {
+      const name = (p?.name || '').trim();
+      const roleTxt = p?.role
+        ? (typeof p.role === 'object'
+            ? localized(p.role)
+            : String(p.role)
+          ).trim()
+        : '';
+      if (!name) return '';
+      const nameHtml = `<strong>${escapeHtml(name)}</strong>`;
+      const roleHtml = roleTxt ? ` (${escapeHtml(roleTxt)})` : '';
+      return `${nameHtml}${roleHtml}`;
+    };
+
+    const moderators = list
+      .filter((p) => p.isModerator)
+      .map(fmt)
+      .filter(Boolean)
+      .join(', ');
+    const guests = list
+      .filter((p) => !p.isModerator)
+      .map(fmt)
+      .filter(Boolean)
+      .join(', ');
+
+    return { moderators, guests };
+  }
+
   /**
    * For every film with panel_discussion, create a separate “panel” item per screening.
    * - title: taken from description after "Nach dem Film:" / "After the screening:"
@@ -1499,12 +1530,14 @@
     const filmTitleDe =
       film.title?.de || film.title?.en || film.title?.uk || filmTitleEn;
 
-    const mod = pd.moderation || '';
-    const guests = pd.guests || '';
+    // const mod = pd.moderation || '';
+    // const guests = pd.guests || '';
     const txt = PANEL_TEXT[lang] || PANEL_TEXT.en;
 
     const panel_extra_html = buildPartnersHtml(film);
 
+    const { moderators: mod, guests: guests } =
+      buildModAndGuestsFromParticipants(pd);
     // Decide which screenings (and tickets) to use for this panel:
     const panelScreenings = resolvePanelScreenings(film);
 
@@ -1674,9 +1707,7 @@
         <div class="uffb-body">
           <h3 class="uffb-title"><a href="${href}">${escapeHtml(title)}</a></h3>
           ${metaBlock}
-          ${desc?.trim()
-            ? html`<div class="uffb-desc">${escapeHtml(desc)}</div>`
-            : ''}
+          ${desc?.trim() ? html`<div class="uffb-desc">${desc}</div>` : ''}
           ${it.category?.key === 'panel_discussion' && it.panel_extra_html
             ? it.panel_extra_html // trusted snippet we just built (includes link + bold)
             : ''}
