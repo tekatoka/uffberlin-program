@@ -513,7 +513,7 @@
     .title-link {
       text-decoration: none;
       font-weight: 700;
-      font-size: clamp(12px, 1.2vw + 0.25rem, 16px);
+      font-size: clamp(12px, 1.2vw + 0.25rem, 15px);
       line-height: 1.2;
       display: inline-block;
       max-width: 100%;
@@ -527,7 +527,7 @@
     .panel-suffix {
       font-weight: 700;
       white-space: normal;
-      font-size: clamp(12px, 1.1vw + 0.2rem, 15px);
+      font-size: clamp(12px, 1.1vw + 0.2rem, 13px);
       display: inline-block;
     }
     .qanda-suffix {
