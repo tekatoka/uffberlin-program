@@ -66,7 +66,7 @@
       groupBy: 'Gruppierung',
       none: 'Keine',
       clearFilters: 'Filter zurücksetzen',
-      searchPh: 'Suche nach Titel & Beschreibung…',
+      searchPh: 'Suche nach Titel, Beschreibung…',
       watchTrailer: 'Trailer ansehen',
       tickets: 'Tickets',
       bookTicketsSoon:
