@@ -1798,9 +1798,7 @@
                 <a href="${href}">${escapeHtml(title)}</a>
               </h3>
               ${metaBlock}
-              ${desc?.trim()
-                ? html`<div class="uffb-desc">${escapeHtml(desc)}</div>`
-                : ''}
+              ${desc?.trim() ? html`<div class="uffb-desc">${desc}</div>` : ''}
               ${it.category?.key === 'panel_discussion' && it.panel_extra_html
                 ? it.panel_extra_html // trusted snippet we just built (includes link + bold)
                 : ''}
