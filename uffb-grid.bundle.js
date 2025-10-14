@@ -30,7 +30,7 @@
       groupBy: 'Group by',
       none: 'None',
       clearFilters: 'Clear filters',
-      searchPh: 'Search title, description, venue…',
+      searchPh: 'Search title, description…',
       watchTrailer: 'Watch trailer',
       tickets: 'Tickets',
       bookTicketsSoon: 'Tickets will be available soon via the cinema website',
@@ -66,7 +66,7 @@
       groupBy: 'Gruppierung',
       none: 'Keine',
       clearFilters: 'Filter zurücksetzen',
-      searchPh: 'Suche in Titel, Beschreibung, Ort…',
+      searchPh: 'Suche nach Titel…',
       watchTrailer: 'Trailer ansehen',
       tickets: 'Tickets',
       bookTicketsSoon:
@@ -102,7 +102,7 @@
       groupBy: 'Групувати',
       none: 'Усі разом',
       clearFilters: 'Скинути фільтри',
-      searchPh: 'Пошук назви, опису, майданчика…',
+      searchPh: 'Пошук за назвою…',
       watchTrailer: 'Дивитися трейлер',
       tickets: 'Квитки',
       bookTicketsSoon: 'Квитки незабаром будуть доступні на сайті кінотеатру',
@@ -1918,7 +1918,7 @@
     const search = document.createElement('form');
     search.id = 'searchbar';
     search.className = 'uffb-search';
-    search.setAttribute('hidden', ''); //default: hidden!
+    //search.setAttribute('hidden', ''); //default: hidden!
     search.innerHTML = html`
       <input
         type="search"
@@ -2282,6 +2282,9 @@
             f.short_description?.de,
             f.short_description?.en,
             f.short_description?.uk,
+            f.description?.de,
+            f.description?.en,
+            f.description?.uk,
             f.category?.de,
             f.category?.en,
             f.category?.uk,
