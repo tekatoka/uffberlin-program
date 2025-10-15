@@ -177,6 +177,7 @@
           "en": "silent green Kulturquartier",
           "de": "silent green Kulturquartier"
         },
+        "qanda": true,
         "special_program_prefix": {
           "en": "Closing & Award ceremony",
           "de": "Abschlusszeremonie & Preisverleihung"
@@ -289,6 +290,7 @@
           "en": "ACUD Kino",
           "de": "ACUD Kino"
         },
+        "qanda": true,
         "address": "Veteranenstraße 21, 10119 Berlin",
         "website": "https://acudkino.de/",
         "maps": {
@@ -719,7 +721,6 @@
           "en": "Kino in der Königstadt",
           "de": "Kino in der Königstadt"
         },
-        "qanda": true,
         "address": "Straßburger Str. 55, 10405 Berlin",
         "website": "https://www.kino-bar.berlin/monats%C3%BCbersicht",
         "maps": {
@@ -781,6 +782,7 @@
           "en": "Sputnik Kino",
           "de": "Sputnik Kino"
         },
+        "qanda": true,
         "address": "Hasenheide 54/5th, 10967 Berlin",
         "website": "https://www.sputnik-kino.com/program/featured",
         "maps": {
@@ -871,7 +873,6 @@
           "en": "Kino in der Königstadt",
           "de": "Kino in der Königstadt"
         },
-        "qanda": true,
         "address": "Straßburger Str. 55, 10405 Berlin",
         "website": "https://www.kino-bar.berlin/monats%C3%BCbersicht",
         "maps": {
