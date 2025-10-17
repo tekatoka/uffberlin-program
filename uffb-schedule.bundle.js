@@ -28,6 +28,8 @@
       maps: 'Maps',
       cinema: 'Cinema',
       tickets: 'Tickets',
+      location: 'Location',
+      freeDonations: 'Free (donations)',
       legend: {
         main: 'MAIN PROGRAM',
         shorts: 'SHORT FILMS',
@@ -40,6 +42,8 @@
       maps: 'Karte',
       cinema: 'Kino',
       tickets: 'Tickets',
+      location: 'Location',
+      freeDonations: 'Frei (Donations)',
       legend: {
         main: 'HAUPTPROGRAMM',
         shorts: 'KURZFILME',
@@ -52,6 +56,8 @@
       maps: 'Карти',
       cinema: 'Кіно',
       tickets: 'Квитки',
+      location: 'Локація',
+      freeDonations: 'Вхід вільний (донати)',
       legend: {
         main: 'ГОЛОВНА ПРОГРАМА',
         shorts: 'КОРОТКИЙ МЕТР',
@@ -123,6 +129,7 @@
       text: '#e7eaf0',
     },
     panel_discussion: { bg: '#1c1c1f', stroke: '#cfd3da', text: '#e7eaf0' },
+    'festival-party': { bg: '#0d1024', stroke: '#8ab4ff', text: '#e6edff' },
   };
   function categoryKey(item) {
     return (item.category && (item.category.key || '').toString()) || 'main';
@@ -877,7 +884,9 @@
                 ? `${it.film.duration}′`
                 : localized(it.film.duration)
               : '';
-          meta.textContent = [cat, dur].filter(Boolean).join(' • ');
+          const entryInfo =
+            categoryKey(it.film) === 'festival-party' ? t('freeDonations') : '';
+          meta.textContent = [cat, dur, entryInfo].filter(Boolean).join(' • ');
 
           const links = document.createElement('div');
           links.className = 'links';
@@ -904,7 +913,10 @@
             x.href = it.links.venue;
             x.target = '_blank';
             x.rel = 'noopener';
-            x.textContent = t('cinema');
+            x.textContent =
+              categoryKey(it.film) === 'festival-party'
+                ? t('location')
+                : t('cinema');
             x.className = 'chip';
             links.appendChild(x);
           }
@@ -1003,7 +1015,11 @@
               ? `${it.film.duration}′`
               : localized(it.film.duration)
             : '';
-        meta.textContent = [cat, dur].filter(Boolean).join(' • ');
+        const entryInfo =
+          categoryKey(it.film) === 'festival-party'
+            ? localized(it.film.entry)
+            : '';
+        meta.textContent = [cat, dur, entryInfo].filter(Boolean).join(' • ');
 
         const links = document.createElement('div');
         links.className = 'links';
@@ -1030,7 +1046,10 @@
           a.href = it.links.venue;
           a.target = '_blank';
           a.rel = 'noopener';
-          a.textContent = t('cinema');
+          a.textContent =
+            categoryKey(it.film) === 'festival-party'
+              ? t('location')
+              : t('cinema');
           a.className = 'chip';
           links.appendChild(a);
         }

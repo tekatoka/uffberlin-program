@@ -64,6 +64,8 @@
       guests: 'Guests',
       inPartnershipWith: 'In partnership with',
       filmStills: 'Film stills',
+      eventDescription: 'Event description',
+      entryLabel: 'Entry',
     },
     de: {
       home: 'Start',
@@ -101,6 +103,8 @@
       guests: 'Gäste',
       inPartnershipWith: 'In Partnerschaft mit',
       filmStills: 'Filmstills',
+      eventDescription: 'Eventbeschreibung',
+      entryLabel: 'Einlass',
     },
     uk: {
       home: 'Головна',
@@ -137,6 +141,8 @@
       guests: 'Гості',
       inPartnershipWith: 'У співпраці з',
       filmStills: 'Кадри з фільму',
+      eventDescription: 'Опис події',
+      entryLabel: 'Вхід',
     },
   };
   const t = (key) => I18N[lang]?.[key] ?? key;
@@ -169,6 +175,12 @@
   function iso8601Duration(mins) {
     if (!mins || isNaN(mins)) return null;
     return `PT${Math.round(mins)}M`;
+  }
+
+  function isParty(film) {
+    return (
+      film?.category?.key === 'festival-party' || film?.id === 'festival-party'
+    );
   }
 
   function buildBreadcrumb(film) {
@@ -211,15 +223,17 @@
   }
 
   /* ---------- UI pieces ---------- */
-  function buildTopLine(film) {
+  function buildTopLine(film, opts = {}) {
     const title = localized(film.title) || film.original_title || '';
     const cat = film.category
       ? film.category[lang] || film.category.en || film.category.de || ''
       : '';
     const hasTrailer = Boolean(film.trailer);
     const hasScreenings = Boolean(film.screenings?.length > 0);
+    const suppressTickets = !!opts.hideTickets; // NEW
+
     return html`
-      <div class="uffb-topline">
+    <div class="uffb-topline">
         <div class="uffb-topline-left">
           <div class="uffb-cat">#${cat}</div>
           <div class="uffb-top-title">${title}</div>
@@ -228,12 +242,12 @@
           ${hasTrailer
             ? `<a class="uffb-btn uffb-trailer-btn eventlist-button sqs-editable-button sqs-button-element--primary" href="#" data-trailer="${film.trailer}">${t('watchTrailer')}</a>`
             : ''}
-          ${hasScreenings
+          ${hasScreenings && !suppressTickets
             ? `<a class="uffb-btn eventlist-button sqs-editable-button sqs-button-element--primary" href="#screenings">${t('tickets')}</a>`
             : ''}
         </div>
       </div>
-    `;
+  `;
   }
 
   function buildJsonLd(film) {
@@ -749,6 +763,102 @@
         <div class="uffb-screenings-grid">${cards}</div>
       </section>
   `;
+  }
+
+  function buildPartyWhenBlock(film) {
+    const list = Array.isArray(film.screenings) ? film.screenings : [];
+    if (!list.length) return '';
+
+    const cards = list
+      .map((s) => {
+        const when = `${fmtWhen(s.date, s.time)}`;
+        const venueName = localized(s.venue) || '';
+        const website = (s.website || '').trim();
+        const addr = (s.address || '').trim();
+        const mapsUrl =
+          s.maps?.google ||
+          (addr
+            ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(addr)}`
+            : '');
+
+        const venueHtml = venueName
+          ? website
+            ? `<div class="uffb-venue-title"><a href="${website}" target="_blank" rel="noopener">${escapeHtml(venueName)}</a></div>`
+            : `<div class="uffb-venue-title"><span>${escapeHtml(venueName)}</span></div>`
+          : '';
+
+        const addrHtml = addr
+          ? mapsUrl
+            ? `<a class="uffb-addr" href="${mapsUrl}" target="_blank" rel="noopener">${escapeHtml(addr)}</a>`
+            : `<span class="uffb-addr">${escapeHtml(addr)}</span>`
+          : '';
+
+        // No tickets button, no language note, no parent-film line
+        return `
+      <article class="uffb-screening-card">
+        <div class="uffb-whenline">${when}</div>
+        ${venueHtml}
+        ${addrHtml}
+      </article>
+    `;
+      })
+      .join('');
+
+    return `
+    <section class="uffb-screenings-block">
+      <div class="uffb-screenings-grid">${cards}</div>
+    </section>
+  `;
+  }
+
+  function renderPartyLineupUL(film) {
+    const arr = Array.isArray(film.lineup) ? film.lineup.filter(Boolean) : [];
+    if (!arr.length) return '';
+    const items = arr.map((li) => `<li>${escapeHtml(li)}</li>`).join('');
+    return `
+    <section class="uffb-panel">
+      <ul class="party-lineup">${items}</ul>
+    </section>
+  `;
+  }
+
+  function buildPartyDetailSection(film) {
+    const shortDesc =
+      (film.short_description && localized(film.short_description)) || '';
+    const longDesc =
+      (film.detailed_description && localized(film.detailed_description)) || '';
+
+    const title = 'Festival Party!';
+
+    const descHtml = html`
+    <section class="uffb-panel">
+        <h3 class="uffb-panel-title">${title}</h3>
+        <div class="uffb-synopsis2">
+          ${shortDesc
+            ? `<p class="uffb-lead"><strong>${shortDesc}</strong></p>`
+            : ''}
+          ${longDesc ? `<p class="uffb-bodytext">${longDesc}</p>` : ''}
+        </div>
+      </section>
+  `;
+
+    const lineupHtml = renderPartyLineupUL(film);
+
+    const entryTxt = film.entry ? localized(film.entry) : '';
+    const entryHtml = entryTxt
+      ? html`<section class="uffb-panel">
+            <h3 class="uffb-panel-title">${t('entryLabel')}</h3>
+            <div class="uffb-info">
+              <div class="uffb-info-value">
+                <strong>${escapeHtml(entryTxt)}</strong>
+              </div>
+            </div>
+          </section>`
+      : '';
+
+    const whenBlock = buildPartyWhenBlock(film);
+
+    return descHtml + lineupHtml + entryHtml + whenBlock;
   }
 
   function pad2(n) {
@@ -2826,6 +2936,13 @@
     #uffb-imgbox .uffb-lb-nav.next {
       right: 10px;
     }
+    .party-lineup {
+      margin: 8px 0 12px 22px;
+      line-height: 1.45;
+    }
+    .party-lineup li + li {
+      margin-top: 6px;
+    }
   `;
 
   function injectCSS() {
@@ -2939,6 +3056,44 @@
       wrap.innerHTML = `<p>${t('filmNotFound')}</p>`;
       return;
     }
+
+    /* ---------- NEW: early party branch (does not affect other flows) ---------- */
+    // --- inside the party branch of render(el) ---
+    if (typeof isParty === 'function' && isParty(film)) {
+      const title = localized(film.title) || film.original_title || '';
+      wrap.innerHTML = html`
+    <article class="uffb-film">
+          ${buildBreadcrumb(film)}
+          <header class="uffb-film-header">
+            ${buildTopLine(film, { hideTickets: true })}
+            <h1 class="uffb-title visually-hidden">${title}</h1>
+            ${buildMediaCarousel(film)}
+            <!-- ✅ keep the image/trailer hero as before -->
+          </header>
+
+          <section class="uffb-two-col">
+            <div class="uffb-col-left"><!-- no Info/Credits --></div>
+            <div class="uffb-col-right">
+              ${typeof buildPartyDetailSection === 'function'
+                ? buildPartyDetailSection(film)
+                : ''}
+            </div>
+          </section>
+        </article>
+  `;
+
+      // trailer lightbox (if any)
+      wrap.querySelectorAll('.uffb-trailer-btn').forEach((btn) => {
+        btn.addEventListener('click', (e) => {
+          e.preventDefault();
+          const url = btn.getAttribute('data-trailer');
+          if (url) openLightbox(url);
+        });
+      });
+
+      return; // stop here; leave the classic film flow untouched
+    }
+    /* ---------- END party branch ---------- */
 
     const isShortsProgram = Array.isArray(film.films);
     const isPanel = film.category?.key === 'panel_discussion';

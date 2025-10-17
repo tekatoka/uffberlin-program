@@ -2529,5 +2529,48 @@
         "tickets": "https://www.kinoheld.de/kino-berlin/il-kino/vorstellung/3323465411?target=self&mode=widget"
       }
     ]
+  },
+  {
+    "id": "festival-party",
+    "title": {
+      "en": "UFFB 2025 festival party",
+      "de": "UFFB 2025 Festival Party"
+    },
+    "published": true,
+    "category": {
+      "key": "festival-party",
+      "en": "Festival Party",
+      "de": "Festival Party"
+    },
+    "short_description": {
+      "en": "<strong>Where film meets house music, united by love for art and Ukraine.</strong><br /><br />The annual Ukrainian Film Festival Berlin 2025 reaches its midpoint with the main night event at ACUD Club. Days filled with cinema deserve to be matched with a memorable get-together. Everyone is welcome: festival guests, the crew, and anyone curious to peek behind the festival scenes or simply looking for a fun Friday night of dancing. The sound comes from the Ukrainian Berlin-based DJ collective Hauswerks (Rina Katen, justcallmesergio, Loves_Kills), followed later by a selection of beloved Ukrainian hits for a tipsy singalong into the night.",
+      "de": "<strong>Wo Film auf House Music trifft – vereint durch die Liebe zur Kunst und zur Ukraine.</strong><br /><br />Das jährliche Ukrainian Film Festival Berlin 2025 erreicht mit der Hauptabendveranstaltung im ACUD Club seine Halbzeit. Tage voller Kino verdienen ein unvergessliches Beisammensein. Willkommen sind alle: Festivalgäste, das Team sowie alle, die neugierig sind, einen Blick hinter die Kulissen des Festivals zu werfen – oder einfach einen ausgelassenen Freitagabend mit Tanz suchen. Für den Sound sorgt das ukrainische, in Berlin ansässige DJ-Kollektiv Hauswerks (Rina Katen, justcallmesergio, Loves_Kills), gefolgt später von einer Auswahl beliebter ukrainischer Hits für ein angeheitertes Mitsingen bis in die Nacht."
+    },
+    "lineup": [
+      "Rina Katen",
+      "justcallmesergio",
+      "Loves_Kills",
+      "+ Best of: UA Hits :)"
+    ],
+    "entry": {
+      "en": "donation based",
+      "de": "Spenden"
+    },
+    "image": "https://images.squarespace-cdn.com/content/5f739670761e02764c54e1ca/9794746c-7c41-47bf-bf09-38f9b123dcba/uffb2025-party.jpg?content-type=image%2Fjpeg",
+    "screenings": [
+      {
+        "date": "2025-10-24",
+        "time": "22:00",
+        "venue": {
+          "en": "ACUD Club",
+          "de": "ACUD Club"
+        },
+        "address": "Veteranenstraße 21, 10119 Berlin",
+        "website": "https://acudmachtneu.de/",
+        "maps": {
+          "google": "https://maps.app.goo.gl/PidHP8ps6ppKUsr26"
+        }
+      }
+    ]
   }
 ]

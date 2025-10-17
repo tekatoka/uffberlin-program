@@ -40,6 +40,7 @@
       noResultsHint: 'Try changing or clearing the filters.',
       resetFiltersBtn: 'Reset filters',
       loading: 'Loading program',
+      entry: 'Entry',
       by: 'by',
       // date labels
       weekdayDayMonthYear: {
@@ -77,6 +78,7 @@
       noResultsHint: 'Versuchen Sie, die Filter zu ändern oder zurückzusetzen.',
       resetFiltersBtn: 'Filter zurücksetzen',
       loading: 'Programm wird geladen',
+      entry: 'Eintritt',
       by: 'von',
       weekdayDayMonthYear: {
         weekday: 'short',
@@ -112,6 +114,7 @@
       noResultsHint: 'Спробуйте змінити або скинути фільтри.',
       resetFiltersBtn: 'Скинути фільтри',
       loading: 'Завантажуємо програму',
+      entry: 'Вхід',
       by: 'реж.',
       weekdayDayMonthYear: {
         weekday: 'short',
@@ -982,6 +985,10 @@
     .uffb-panel-extra a:hover {
       text-decoration: underline !important;
     }
+    .party-entry {
+      font-weight: 600;
+      margin-top: 6px;
+    }
   `;
 
   function injectCSS() {
@@ -1226,6 +1233,23 @@
     return map;
   }
 
+  function renderLineupList(item) {
+    if (!Array.isArray(item.lineup) || item.lineup.length === 0) return '';
+    const li = item.lineup
+      .map((x) => `<li>${escapeHtml(String(x))}</li>`)
+      .join('');
+    // Reuse your existing .uffb-shorts styling (same look as shorts list)
+    return html`<ol class="uffb-shorts">
+        ${li}
+      </ol>`;
+  }
+
+  function renderEntry(item) {
+    return isParty(item) && item.entry
+      ? `<div class="party-entry"><strong>${t('entry')}: ${escapeHtml(localized(item.entry))}</strong></div>`
+      : '';
+  }
+
   function toShortDirectorList(director, localizedFn) {
     if (!director) return [];
     const val = typeof director === 'object' ? localizedFn(director) : director;
@@ -1270,6 +1294,9 @@
   `;
   }
 
+  const isParty = (it) =>
+    it?.category?.key === 'festival-party' || it?.id === 'festival-party';
+
   function screeningLine(s, film) {
     const dtISO = `${s.date}T${s.time || '00:00'}:00${offsetFor()}`;
     const d = new Date(dtISO);
@@ -1307,21 +1334,21 @@
       : '';
 
     const ticketHtml = s.tickets
-      ? `<span class="uffb-tickets"><a href="${
-          s.tickets
-        }" target="_blank" rel="noopener">${t('tickets')}</a></span>`
+      ? `<span class="uffb-tickets"><a href="${s.tickets}" target="_blank" rel="noopener">${t('tickets')}</a></span>`
       : ``;
+
+    const rightSideHtml = isParty(film) ? '' : ticketHtml;
 
     return html`
       <li class="uffb-screening">
         <div class="uffb-left">
           <div class="uffb-when"><strong>${when}</strong></div>
           ${venueLine} ${addressLine} ${noteHtml}
-          ${!ticketHtml
+          ${!ticketHtml && !isParty(film)
             ? `<div class="uffb-no-tickets">${t('bookTicketsSoon')}</div>`
             : ''}
         </div>
-        ${ticketHtml}
+        ${rightSideHtml}
       </li>
     `;
   }
@@ -1708,6 +1735,7 @@
           <h3 class="uffb-title"><a href="${href}">${escapeHtml(title)}</a></h3>
           ${metaBlock}
           ${desc?.trim() ? html`<div class="uffb-desc">${desc}</div>` : ''}
+          ${renderLineupList(it)} ${renderEntry(it)}
           ${it.category?.key === 'panel_discussion' && it.panel_extra_html
             ? it.panel_extra_html // trusted snippet we just built (includes link + bold)
             : ''}
@@ -1799,6 +1827,7 @@
               </h3>
               ${metaBlock}
               ${desc?.trim() ? html`<div class="uffb-desc">${desc}</div>` : ''}
+              ${renderLineupList(it)} ${renderEntry(it)}
               ${it.category?.key === 'panel_discussion' && it.panel_extra_html
                 ? it.panel_extra_html // trusted snippet we just built (includes link + bold)
                 : ''}
