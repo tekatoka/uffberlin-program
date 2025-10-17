@@ -2948,6 +2948,69 @@
     .party-lineup li + li {
       margin-top: 6px;
     }
+    .uffb-party {
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
+    }
+
+    /* faint starfield overlay */
+    .uffb-party::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: 1; /* above black background, below most content */
+      pointer-events: none;
+      background:
+        radial-gradient(
+          1.5px 1.5px at 8% 14%,
+          rgba(255, 255, 255, 0.85) 45%,
+          transparent 47%
+        ),
+        radial-gradient(
+          1.5px 1.5px at 22% 68%,
+          rgba(255, 255, 255, 0.75) 45%,
+          transparent 47%
+        ),
+        radial-gradient(
+          1.5px 1.5px at 44% 28%,
+          rgba(255, 255, 255, 0.8) 45%,
+          transparent 47%
+        ),
+        radial-gradient(
+          1.5px 1.5px at 66% 62%,
+          rgba(255, 255, 255, 0.85) 45%,
+          transparent 47%
+        ),
+        radial-gradient(
+          1.5px 1.5px at 78% 34%,
+          rgba(255, 255, 255, 0.8) 45%,
+          transparent 47%
+        ),
+        radial-gradient(
+          1.5px 1.5px at 90% 76%,
+          rgba(255, 255, 255, 0.85) 45%,
+          transparent 47%
+        );
+      opacity: 0.16; /* tuned for black bg */
+      animation: party-breathe 9s ease-in-out infinite;
+    }
+
+    @keyframes party-breathe {
+      0%,
+      100% {
+        opacity: 0.12;
+      }
+      50% {
+        opacity: 0.22;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .uffb-party::after {
+        animation: none !important;
+      }
+    }
   `;
 
   function injectCSS() {
@@ -3070,6 +3133,9 @@
         <article
           class="uffb-film ${isParty(film) ? 'uffb-party' : ''}"
         >
+          ${isParty(film)
+            ? '<div class="disco-ball" aria-hidden="true"></div>'
+            : ''}
           ${buildBreadcrumb(film)}
           <header class="uffb-film-header">
             ${buildTopLine(film, { hideTickets: true })}
