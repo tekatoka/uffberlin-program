@@ -2164,6 +2164,11 @@
       gap: 105px;
       margin-top: 32px;
     }
+    .uffb-party .uffb-two-col {
+      display: flex;
+      gap: 0;
+      margin: 0 15px;
+    }
     @media (min-width: 960px) {
       .uffb-two-col {
         grid-template-columns: 1fr 2fr;
@@ -3062,7 +3067,9 @@
     if (typeof isParty === 'function' && isParty(film)) {
       const title = localized(film.title) || film.original_title || '';
       wrap.innerHTML = html`
-    <article class="uffb-film">
+        <article
+          class="uffb-film ${isParty(film) ? 'uffb-party' : ''}"
+        >
           ${buildBreadcrumb(film)}
           <header class="uffb-film-header">
             ${buildTopLine(film, { hideTickets: true })}
