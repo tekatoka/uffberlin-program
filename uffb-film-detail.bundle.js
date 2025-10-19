@@ -755,6 +755,7 @@
                      role="button"
                      aria-disabled="true"
                      tabindex="-1"
+                     title="${t('soldOut')}"
                    >
                      ${t('soldOut')}</a
                    >`
@@ -763,6 +764,7 @@
                      href="${tixUrl}"
                      target="_blank"
                      rel="noopener"
+                     title="${t('bookTickets')}"
                      >${t('bookTickets')}</a
                    >`
            }
@@ -2107,7 +2109,7 @@
       transform: translateY(1px);
     }
 
-    .uffb-tickets.is-disabled {
+    .uffb-btn.is-disabled {
       pointer-events: none;
       opacity: 0.6;
       cursor: not-allowed;
