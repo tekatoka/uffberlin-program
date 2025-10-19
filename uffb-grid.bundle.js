@@ -42,6 +42,7 @@
       loading: 'Loading program',
       entry: 'Entry',
       by: 'by',
+      soldOut: 'Sold out!',
       // date labels
       weekdayDayMonthYear: {
         weekday: 'short',
@@ -80,6 +81,7 @@
       loading: 'Programm wird geladen',
       entry: 'Eintritt',
       by: 'von',
+      soldOut: 'Ausverkauft',
       weekdayDayMonthYear: {
         weekday: 'short',
         day: '2-digit',
@@ -116,6 +118,7 @@
       loading: 'Завантажуємо програму',
       entry: 'Вхід',
       by: 'реж.',
+      soldOut: 'Розпродано',
       weekdayDayMonthYear: {
         weekday: 'short',
         day: '2-digit',
@@ -269,6 +272,10 @@
       font-size: 1rem;
       white-space: pre-line;
     }
+    .uffb-warning {
+      margin: 15px 0 0;
+      font-style: italic;
+    }
     .uffb-actions {
       display: flex;
       gap: 10px;
@@ -336,6 +343,12 @@
     .uffb-no-tickets {
       margin-top: 10px;
       font-style: italic;
+    }
+
+    .uffb-tickets.is-disabled {
+      pointer-events: none;
+      opacity: 0.6;
+      cursor: not-allowed;
     }
 
     /* Icon buttons */
@@ -1315,6 +1328,7 @@
         ? s.address
         : s.address?.[lang] || s.address?.de || s.address?.en || '';
     const website = s.website || '';
+    const isSoldOut = s.isSoldOut;
 
     let mapsUrl = s.maps?.google || '';
     if (!mapsUrl && (venueName || addressTxt)) {
@@ -1333,9 +1347,11 @@
         )}</a></div>`
       : '';
 
-    const ticketHtml = s.tickets
-      ? `<span class="uffb-tickets"><a href="${s.tickets}" target="_blank" rel="noopener">${t('tickets')}</a></span>`
-      : ``;
+    const ticketHtml = s.isSoldOut
+      ? `<span class="uffb-tickets is-disabled"><a href='#'>${t('soldOut')}</a></span>`
+      : s.tickets
+        ? `<span class="uffb-tickets"><a href="${s.tickets}" target="_blank" rel="noopener">${t('tickets')}</a></span>`
+        : ``;
 
     const rightSideHtml = isParty(film) ? '' : ticketHtml;
 
@@ -1675,6 +1691,10 @@
     const onlyDate = opts.onlyDate || null;
     const onlyVenue = opts.onlyVenue || null;
 
+    const additional_info = it.additional_info
+      ? localized(it.additional_info)
+      : '';
+
     const specificTag =
       (it.category &&
         (it.category[lang] ||
@@ -1735,6 +1755,9 @@
           <h3 class="uffb-title"><a href="${href}">${escapeHtml(title)}</a></h3>
           ${metaBlock}
           ${desc?.trim() ? html`<div class="uffb-desc">${desc}</div>` : ''}
+          ${additional_info
+            ? `<div class="uffb-warning">${additional_info}</div>`
+            : ''}
           ${renderLineupList(it)} ${renderEntry(it)}
           ${it.category?.key === 'panel_discussion' && it.panel_extra_html
             ? it.panel_extra_html // trusted snippet we just built (includes link + bold)

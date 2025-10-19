@@ -56,7 +56,8 @@
         "maps": {
           "google": "https://www.google.com/maps/search/?api=1&query=silent%20green%20Kulturquartier%2C%20Gerichtstrasse%2035%2C%2013347%20Berlin"
         },
-        "tickets": "https://uffb2025-opening.eventbrite.de/"
+        "tickets": "https://uffb2025-opening.eventbrite.de/",
+        "isSoldOut": true
       },
       {
         "date": "2025-10-23",
@@ -360,9 +361,9 @@
       "en": "Main program",
       "de": "Hauptprogramm"
     },
-    "warning": {
-      "en": "Contains scenes of violence, war, and death.",
-      "de": "Enthält Darstellungen von Gewalt, Krieg und Tod."
+    "additional_info": {
+      "en": "<strong>Warning:</strong> Contains scenes of violence, war, and death.",
+      "de": "<strong>Warnung:</strong> Enthält Darstellungen von Gewalt, Krieg und Tod."
     },
     "trailer": "https://www.youtube.com/watch?v=xRSPxuptLd8",
     "image": "https://images.squarespace-cdn.com/content/5f739670761e02764c54e1ca/7536a7f0-aeb9-48a8-ba81-5b349139b4c6/main-program-2000-meters-to-andriivka.jpeg",
@@ -380,7 +381,8 @@
         "maps": {
           "google": "https://maps.app.goo.gl/pfeW6Uaa5jAY6fdP6"
         },
-        "tickets": "https://2000-meters-to-andriivka.eventbrite.de/"
+        "tickets": "https://2000-meters-to-andriivka.eventbrite.de/",
+        "isSoldOut": true
       },
       {
         "date": "2025-10-26",
@@ -726,7 +728,8 @@
         "maps": {
           "google": "https://maps.app.goo.gl/TD4MXHJESpDMg32q8"
         },
-        "tickets": "https://sanatorium-uffb2025.eventbrite.de"
+        "tickets": "https://sanatorium-uffb2025.eventbrite.de",
+        "isSoldOut": true
       }
     ]
   },
@@ -878,7 +881,8 @@
         "maps": {
           "google": "https://maps.app.goo.gl/TD4MXHJESpDMg32q8"
         },
-        "tickets": "https://u-are-the-universe-uffb2025.eventbrite.de"
+        "tickets": "https://u-are-the-universe-uffb2025.eventbrite.de",
+        "isSoldOut": true
       }
     ]
   },
@@ -2068,6 +2072,10 @@
       "en": "Based on Svetlana Vasilenko’s 1990 novella, the film follows Zina Shamarina, a rebellious woman living in a factory dormitory whose obsessive love for her husband—who married her to avoid prosecution for a past rape—pushes her between noble gestures and reckless acts. Set against quarantines and fear, Shamara fights for dignity and a sense of self as betrayal and jealousy upend her fragile world.",
       "de": "Nach der Novelle von Swetlana Wassilenko (1990) erzählt der Film von Zina Shamarina, einer rebellischen Frau im Fabrikwohnheim, deren obsessive Liebe zu ihrem Mann – er heiratete sie einst, um einer Strafverfolgung wegen Vergewaltigung zu entgehen – sie zwischen edlen Taten und unbedachten Ausbrüchen schwanken lässt. Vor dem Hintergrund von Quarantänen und Angst kämpft Shamara um Würde und Selbstbehauptung, während Verrat und Eifersucht ihre fragile Welt erschüttern."
     },
+    "additional_info": {
+      "de": "Die Vorführung umfasst einen 20-minütigen Einführungsvortrag des Experten <strong>Oleksii Isakov</strong> sowie eine offene Diskussion im Anschluss an den Film, moderiert von unserem Team.",
+      "en": "The screening includes a 20-minute intro lecture by expert <strong>Oleksii Isakov</strong> and an open discussion after the film, moderated by our team."
+    },
     "category": {
       "key": "retrospective",
       "en": "Retrospective",
@@ -2129,6 +2137,10 @@
     "detailed_description": {
       "en": "Set across 24 hours in mid-1990s Kyiv, Illienko’s film blends city portraiture, memory and playful meta-fiction. Guide Danylo Prytulyak spins an impromptu ‘seventh route’ dedicated to a little-known poet — gradually revealing that the myths, verses and detours are autobiographical confessions about unrealized talent and choices made.",
       "de": "Über 24 Stunden im Kyjiw der 1990er verwebt Illjenko Stadtporträt, Erinnerung und verspielte Meta-Fiktion. Der Guide Danylo Prytuljak ersinnt einen improvisierten „siebten Marschroute“ über einen kaum bekannten Dichter – und legt nach und nach offen, dass Mythen, Verse und Umwege autobiografische Geständnisse über ungenutztes Talent und getroffene Entscheidungen sind."
+    },
+    "additional_info": {
+      "de": "Die Vorführung umfasst einen 20-minütigen Einführungsvortrag des Experten <strong>Oleksii Isakov</strong> sowie eine offene Diskussion im Anschluss an den Film, moderiert von unserem Team.",
+      "en": "The screening includes a 20-minute intro lecture by expert <strong>Oleksii Isakov</strong> and an open discussion after the film, moderated by our team."
     },
     "category": {
       "key": "retrospective",

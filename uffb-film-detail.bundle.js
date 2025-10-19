@@ -37,6 +37,7 @@
       screenings: 'Screenings',
       bookTickets: 'Book tickets',
       bookTicketsSoon: 'Tickets will be available soon via the cinema website',
+      soldOut: 'Sold out!',
       info: 'Info',
       credits: 'Credits',
       synopsis: 'Synopsis',
@@ -76,6 +77,7 @@
       bookTickets: 'Tickets kaufen',
       bookTicketsSoon:
         'Tickets sind in Kürze über die Website des Kinos erhältlich',
+      soldOut: 'Ausverkauft!',
       info: 'Info',
       credits: 'Credits',
       synopsis: 'Über den Film',
@@ -114,6 +116,7 @@
       screenings: 'Покази',
       bookTickets: 'Купити квитки',
       bookTicketsSoon: 'Квитки незабаром будуть доступні на сайті кінотеатру',
+      soldOut: 'Розпродано!',
       info: 'Інфо',
       credits: 'Знімальна група',
       synopsis: 'Синопсис',
@@ -365,7 +368,9 @@
       (film.short_description && localized(film.short_description)) || '';
     const longDesc =
       (film.detailed_description && localized(film.detailed_description)) || '';
-    const warning = film.warning ? localized(film.warning) : '';
+    const additional_info = film.additional_info
+      ? localized(film.additional_info)
+      : '';
 
     if (!shortDesc && !longDesc) return '';
     return html`
@@ -376,8 +381,8 @@
             ? `<p class="uffb-lead"><strong>${shortDesc}</strong></p>`
             : ''}
           ${longDesc ? `<p class="uffb-bodytext">${longDesc}</p>` : ''}
-          ${warning
-            ? `<div class="uffb-warning"><strong>${t('warning')}</strong>: ${warning}</div>`
+          ${additional_info
+            ? `<div class="uffb-warning">${additional_info}</div>`
             : ''}
         </div>
       </section>
@@ -709,6 +714,7 @@
         const addr = s.address || '';
         const mapsUrl = s.maps?.google || null;
         const website = s.website || '';
+        const isSoldOut = s.isSoldOut;
 
         // venue links to parent film (panel pages only)
         const venueHtml = venueName
@@ -742,9 +748,24 @@
         const tixBtn = hasTix
           ? `<div class="uffb-card-actions">
            ${noteHtml}
-           <a class="uffb-btn uffb-book-btn" href="${tixUrl}" target="_blank" rel="noopener">
-             ${t('bookTickets')}
-           </a>
+           ${
+             isSoldOut
+               ? html`<a
+                     class="uffb-btn uffb-book-btn is-disabled"
+                     role="button"
+                     aria-disabled="true"
+                     tabindex="-1"
+                   >
+                     ${t('soldOut')}</a
+                   >`
+               : html`<a
+                     class="uffb-btn uffb-book-btn"
+                     href="${tixUrl}"
+                     target="_blank"
+                     rel="noopener"
+                     >${t('bookTickets')}</a
+                   >`
+           }
          </div>`
           : `<div class="uffb-card-actions">${noteHtml}<br /><i>${t('bookTicketsSoon')}</i></div>`;
 
@@ -2085,6 +2106,13 @@
     .uffb-tickets a:active {
       transform: translateY(1px);
     }
+
+    .uffb-tickets.is-disabled {
+      pointer-events: none;
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
     @media (max-width: 640px) {
       .uffb-topline {
         flex-direction: column;
@@ -2157,6 +2185,7 @@
     .uffb-warning {
       margin: 15px 0 0;
       font-size: 1.15rem;
+      font-style: italic;
     }
 
     .uffb-two-col {
