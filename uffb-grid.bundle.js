@@ -273,7 +273,7 @@
       white-space: pre-line;
     }
     .uffb-warning {
-      margin: 15px 0 0;
+      margin: -15px 0 15px;
       font-style: italic;
     }
     .uffb-actions {
