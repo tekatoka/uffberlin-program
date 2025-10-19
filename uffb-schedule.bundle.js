@@ -171,6 +171,15 @@
     return m;
   }
 
+  function timeToMinutes(t) {
+    if (!t) return 24 * 60 + 59; // push missing times to the end
+    const [h, m = '0'] = String(t).split(':');
+    const hi = parseInt(h, 10);
+    const mi = parseInt(m, 10);
+    if (Number.isNaN(hi)) return 24 * 60 + 59;
+    return hi * 60 + (Number.isNaN(mi) ? 0 : mi);
+  }
+
   function enableStickyHeader(headBar, scroller) {
     // placeholder keeps layout height when header is fixed
     const placeholder = document.createElement('div');
@@ -966,9 +975,18 @@
       sec.appendChild(h);
 
       const list = (byDay.get(d) || []).slice().sort((a, b) => {
+        const ta = timeToMinutes(a.time);
+        const tb = timeToMinutes(b.time);
+        if (ta !== tb) return ta - tb; // primary: time
+
         const v = a.venuePretty.localeCompare(b.venuePretty);
-        if (v !== 0) return v;
-        return (a.time || '').localeCompare(b.time || '');
+        if (v !== 0) return v; // secondary: venue
+
+        // final tiebreaker: localized title
+        const at = (localized(a.film.title) || '').localeCompare(
+          localized(b.film.title) || ''
+        );
+        return at;
       });
 
       list.forEach((it) => {
