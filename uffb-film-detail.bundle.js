@@ -2187,7 +2187,9 @@
     .uffb-warning {
       margin: 15px 0 0;
       font-size: 1.15rem;
-      font-style: italic;
+      padding: 20px;
+      background-color: #222;
+      border-radius: 5px;
     }
 
     .uffb-warning a {
