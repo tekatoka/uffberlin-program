@@ -57,7 +57,7 @@
           "google": "https://www.google.com/maps/search/?api=1&query=silent%20green%20Kulturquartier%2C%20Gerichtstrasse%2035%2C%2013347%20Berlin"
         },
         "tickets": "https://uffb2025-opening.eventbrite.de/",
-        "isSoldOut": false
+        "isSoldOut":true
       },
       {
         "date": "2025-10-23",
