@@ -547,7 +547,7 @@
         "de": "Podiumsdiskussion"
       },
       "moderation": "Inga Pylypchuk",
-      "guests": "Darya Bassel, Megumi Lim, Brigid O’Shea",
+      "guests": "Darya Bassel, Megumi Lim, Brigid O’Shea, Maksym Nakonechnyi",
       "partners": "Bundeszentrale für politische Bildung",
       "participants": [
         {
@@ -602,6 +602,19 @@
           },
           "photo": "https://images.squarespace-cdn.com/content/5f739670761e02764c54e1ca/56e0372e-fbef-416d-865a-4cb3b49839cd/BrigidOshea-6.png",
           "photoCredit": "Briony Ridley"
+        },
+        {
+          "name": "Maksym Nakonechnyi",
+          "bio": {
+            "de": "Maksym Nakonechnyi ist ein ukrainischer Regisseur, Drehbuchautor und Produzent. Er schloss 2012 sein Regiestudium an der Nationalen Karpenko-Kary-Universität für Theater, Film und Fernsehen in Kiew ab. Er wirkte an verschiedenen Fernsehprojekten mit und war Mitbegründer der unabhängigen Produktionsfirma Tabor, die Dokumentar- und Spielfilme, Theaterproduktionen und Werbespots produziert. Zuvor führte er Regie bei den Kurzspielfilmen „Invisible“ (2017) und „Silvester mit der Familie“ (2018). Sein Spielfilmdebüt „Butterfly Vision“ feierte 2022 in Cannes in der Sektion „Un Certain Regard“ Premiere. Er wurde auch beim Internationalen Filmfestival Karlovy Vary und beim Internationalen Filmfestival Warschau präsentiert. Der Film hat bisher 5 Preise und 26 Nominierungen bei renommierten Filmfestivals gewonnen (2022 – Golden Duke beim Odesa International Film Festival, 2023 – Cineuropa-Preis beim Trieste Film Festival und andere).",
+            "en": "Maksym Nakonechnyi is a Ukrainian director, screenwriter, and producer. He completed his directing studies at the National Karpenko-Kary University of Theatre, Film and Television in Kyiv in 2012. He worked on various television projects and co-founded the independent production company Tabor, which produces documentaries and feature films, theatre productions, and commercials. He previously directed the short fiction films “Invisible” (2017) and “New Year’s Eve with the Family” (2018). His feature debut “Butterfly Vision” premiered in 2022 at Cannes in the “Un Certain Regard” section. It was also presented at the Karlovy Vary International Film Festival and the Warsaw International Film Festival. To date, the film has won 5 awards and received 26 nominations at renowned film festivals (2022 – Golden Duke at the Odesa International Film Festival; 2023 – Cineuropa Award at the Trieste Film Festival, among others)."
+          },
+          "role": {
+            "en": "Film director, producer, screenwriter",
+            "de": "Filmregisseur, Produzent, Drehbuchautor"
+          },
+          "photo": "https://images.squarespace-cdn.com/content/5f739670761e02764c54e1ca/15b4bf8a-69c7-47d7-9c70-77e2bf8aa09d/maksym-nakonechny.png",
+          "photoCredit": "Lesha Berezovskiy for Le Monde"
         }
       ],
       "date": "2025-10-25",
