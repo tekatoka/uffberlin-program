@@ -2190,6 +2190,15 @@
       font-style: italic;
     }
 
+    .uffb-warning a {
+      color: var(--paragraphLinkColor);
+      text-decoration: none;
+      font-weight: 700;
+    }
+    .uffb-warning a:hover {
+      text-decoration: underline !important;
+    }
+
     .uffb-two-col {
       display: grid;
       gap: 105px;
