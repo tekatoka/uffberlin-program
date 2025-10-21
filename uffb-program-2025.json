@@ -57,7 +57,7 @@
           "google": "https://www.google.com/maps/search/?api=1&query=silent%20green%20Kulturquartier%2C%20Gerichtstrasse%2035%2C%2013347%20Berlin"
         },
         "tickets": "https://uffb2025-opening.eventbrite.de/",
-        "isSoldOut":true
+        "isSoldOut": true
       },
       {
         "date": "2025-10-23",
@@ -382,7 +382,7 @@
           "google": "https://maps.app.goo.gl/pfeW6Uaa5jAY6fdP6"
         },
         "tickets": "https://2000-meters-to-andriivka.eventbrite.de/",
-        "isSoldOut": true
+        "isSoldOut": false
       },
       {
         "date": "2025-10-26",
