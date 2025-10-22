@@ -382,7 +382,7 @@
           "google": "https://maps.app.goo.gl/pfeW6Uaa5jAY6fdP6"
         },
         "tickets": "https://2000-meters-to-andriivka.eventbrite.de/",
-        "isSoldOut": false
+        "isSoldOut": true
       },
       {
         "date": "2025-10-26",
