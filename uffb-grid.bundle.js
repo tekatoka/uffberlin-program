@@ -187,26 +187,25 @@
   }
 
   function timeToMinutes(t) {
-    if (!t) return Number.POSITIVE_INFINITY; // push undated/empty times to the end
-
+    if (!t) return Number.POSITIVE_INFINITY;
     const s = String(t).trim().toLowerCase();
 
-    // detect am/pm
-    const isPM = /\bpm\b/.test(s) && !/\bam\b/.test(s);
-    const isAM = /\bam\b/.test(s);
+    // normalize separators and strip words like "uhr"
+    const cleaned = s.replace(/[^\d:.apm\s]/g, '');
 
-    // extract "H", "H:MM", "H.MM", "HH:MM", "HH.MM"
-    const m = s.match(/(\d{1,2})([:.\-](\d{2}))?/);
+    const isPM = /\bpm\b/.test(cleaned) && !/\bam\b/.test(cleaned);
+    const isAM = /\bam\b/.test(cleaned);
+
+    // match H, H:MM, H.MM, HH:MM, HH.MM
+    const m = cleaned.match(/(\d{1,2})(?:[:.](\d{2}))?/);
     if (!m) return Number.POSITIVE_INFINITY;
 
     let hh = parseInt(m[1], 10);
-    let mm = m[3] ? parseInt(m[3], 10) : 0;
+    let mm = m[2] ? parseInt(m[2], 10) : 0;
 
-    // handle 12h clock
     if (isPM && hh < 12) hh += 12;
     if (isAM && hh === 12) hh = 0;
 
-    // clamp to sane ranges just in case
     if (hh < 0 || hh > 23) return Number.POSITIVE_INFINITY;
     if (mm < 0 || mm > 59) mm = 0;
 
@@ -1284,20 +1283,23 @@
     list.forEach((f) => {
       (f.screenings || []).forEach((s) => {
         if (!s.date) return;
-        if (onlyDate && s.date !== onlyDate) return; // ⬅️ NEW: keep only selected date
+        if (onlyDate && s.date !== onlyDate) return;
         if (!map.has(s.date)) map.set(s.date, []);
-        map.get(s.date).push({ film: f, date: s.date });
+        map.get(s.date).push({
+          film: f,
+          date: s.date,
+          time: s.time || '', // keep raw time
+        });
       });
     });
-    // sort each list by earliest film date, then title
+
     map.forEach((arr) =>
       arr.sort((a, b) => {
-        const ta = timeToMinutes(a.time || a.s?.time || '');
-        const tb = timeToMinutes(b.time || b.s?.time || '');
-        if (ta !== tb) return ta - tb;
+        const ta = timeToMinutes(a.time);
+        const tb = timeToMinutes(b.time);
+        if (ta !== tb) return ta - tb; // primary: time asc
 
-        // secondary tie-breakers (keep as you had)
-        const ca = getCategoryKeyAndLabel(a.film);
+        const ca = getCategoryKeyAndLabel(a.film); // tie-breakers
         const cb = getCategoryKeyAndLabel(b.film);
         const ra = categoryRank(ca.key, ca.label);
         const rb = categoryRank(cb.key, cb.label);
@@ -1308,7 +1310,6 @@
         return at.localeCompare(bt);
       })
     );
-
     return map;
   }
 
@@ -2340,6 +2341,8 @@
       dates.forEach((d) => {
         const nice = isoToLabel(d);
         const entries = dateMap.get(d) || [];
+        entries.sort((a, b) => timeToMinutes(a.time) - timeToMinutes(b.time));
+
         htmlStr += `
       <section class="uffb-group" data-date="${escapeHtml(d)}">
         <h4 class="uffb-group-title">${escapeHtml(nice)}</h4>
@@ -2518,7 +2521,7 @@
 
       if (state.groupBy === 'category') {
         renderGroupedByCategory(filtered, layoutVariant, effectiveDate);
-      } else if (state.groupBy === 'date') {
+      } else if (state.groupBy === 'date' || state.groupBy === 'today') {
         renderGroupedByDate(filtered, layoutVariant, effectiveDate);
       } else {
         renderUngrouped(filtered, layoutVariant, effectiveDate);
