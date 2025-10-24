@@ -43,6 +43,7 @@
       entry: 'Entry',
       by: 'by',
       soldOut: 'Sold out!',
+      today: 'Today',
       // date labels
       weekdayDayMonthYear: {
         weekday: 'short',
@@ -82,6 +83,7 @@
       entry: 'Eintritt',
       by: 'von',
       soldOut: 'Ausverkauft',
+      today: 'Heute',
       weekdayDayMonthYear: {
         weekday: 'short',
         day: '2-digit',
@@ -119,6 +121,7 @@
       entry: 'Вхід',
       by: 'реж.',
       soldOut: 'Розпродано',
+      today: 'Сьогодні',
       weekdayDayMonthYear: {
         weekday: 'short',
         day: '2-digit',
@@ -166,6 +169,49 @@
       inPartnershipWith: 'У співпраці з',
     },
   };
+
+  // --- Festival window (this year) ---
+  const FESTIVAL_START = '2025-10-22';
+  const FESTIVAL_END = '2025-10-26';
+
+  function isoLocalToday() {
+    // Europe/Berlin local "YYYY-MM-DD"
+    const now = new Date();
+    const y = now.getFullYear();
+    const m = String(now.getMonth() + 1).padStart(2, '0');
+    const d = String(now.getDate()).padStart(2, '0');
+    return `${y}-${m}-${d}`;
+  }
+  function isWithinFestival(iso) {
+    return iso >= FESTIVAL_START && iso <= FESTIVAL_END;
+  }
+
+  function timeToMinutes(t) {
+    if (!t) return Number.POSITIVE_INFINITY; // push undated/empty times to the end
+
+    const s = String(t).trim().toLowerCase();
+
+    // detect am/pm
+    const isPM = /\bpm\b/.test(s) && !/\bam\b/.test(s);
+    const isAM = /\bam\b/.test(s);
+
+    // extract "H", "H:MM", "H.MM", "HH:MM", "HH.MM"
+    const m = s.match(/(\d{1,2})([:.\-](\d{2}))?/);
+    if (!m) return Number.POSITIVE_INFINITY;
+
+    let hh = parseInt(m[1], 10);
+    let mm = m[3] ? parseInt(m[3], 10) : 0;
+
+    // handle 12h clock
+    if (isPM && hh < 12) hh += 12;
+    if (isAM && hh === 12) hh = 0;
+
+    // clamp to sane ranges just in case
+    if (hh < 0 || hh > 23) return Number.POSITIVE_INFINITY;
+    if (mm < 0 || mm > 59) mm = 0;
+
+    return hh * 60 + mm;
+  }
 
   // --- Existing CSS (unchanged) ---
   const CSS = css`
@@ -435,6 +481,16 @@
     .uffb-chip:has(input:focus-visible) {
       outline: 2px solid #fff;
       outline-offset: 2px;
+    }
+
+    .uffb-chip#groupTodayChip {
+      border-color: var(--paragraphLinkColor);
+      color: var(--paragraphLinkColor);
+    }
+
+    .uffb-chip#groupTodayChip[data-checked='true'] {
+      background: var(--paragraphLinkColor);
+      color: #000;
     }
 
     /* On small screens: wrap under, left-aligned */
@@ -1236,13 +1292,23 @@
     // sort each list by earliest film date, then title
     map.forEach((arr) =>
       arr.sort((a, b) => {
-        const d = earliestDate(a.film).localeCompare(earliestDate(b.film));
-        if (d !== 0) return d;
+        const ta = timeToMinutes(a.time || a.s?.time || '');
+        const tb = timeToMinutes(b.time || b.s?.time || '');
+        if (ta !== tb) return ta - tb;
+
+        // secondary tie-breakers (keep as you had)
+        const ca = getCategoryKeyAndLabel(a.film);
+        const cb = getCategoryKeyAndLabel(b.film);
+        const ra = categoryRank(ca.key, ca.label);
+        const rb = categoryRank(cb.key, cb.label);
+        if (ra !== rb) return ra - rb;
+
         const at = localized(a.film.title) || '';
         const bt = localized(b.film.title) || '';
         return at.localeCompare(bt);
       })
     );
+
     return map;
   }
 
@@ -1708,6 +1774,13 @@
       if (onlyVenue && safeTxt(getVenueName(s)) !== onlyVenue) return false;
       return true;
     });
+
+    if (onlyDate) {
+      screeningsList.sort(
+        (a, b) => timeToMinutes(a.time) - timeToMinutes(b.time)
+      );
+    }
+
     const screenings = screeningsList.map((s) => screeningLine(s, it)).join('');
 
     // --- NEW: meta values ---
@@ -1830,6 +1903,13 @@
       if (onlyVenue && safeTxt(getVenueName(s)) !== onlyVenue) return false;
       return true;
     });
+
+    if (onlyDate) {
+      screeningsList.sort(
+        (a, b) => timeToMinutes(a.time) - timeToMinutes(b.time)
+      );
+    }
+
     const screenings = screeningsList.map((s) => screeningLine(s, it)).join('');
 
     if (variant === 'row') {
@@ -2035,6 +2115,10 @@
           <input type="radio" name="groupby" value="date" />
           <span>${t('date')}</span>
         </label>
+        <label class="uffb-chip" data-value="today" id="groupTodayChip" hidden>
+          <input type="radio" name="groupby" value="today" />
+          <span>${t('today')}</span>
+        </label>
       </div>
   `;
     controls.appendChild(groupWrap);
@@ -2060,6 +2144,7 @@
       group: {
         root: groupWrap,
         radios: groupWrap.querySelectorAll('input[name="groupby"]'),
+        todayChip: groupWrap.querySelector('#groupTodayChip'),
       },
     };
   }
@@ -2072,6 +2157,11 @@
     el.appendChild(wrap);
 
     const ui = buildControls(wrap);
+
+    const todayISO = isoLocalToday();
+    if (isWithinFestival(todayISO)) {
+      ui.group.todayChip?.removeAttribute('hidden');
+    }
 
     // Neutral outlet: NO grid class here
     const outlet = document.createElement('div');
@@ -2127,13 +2217,13 @@
     );
     syncChips();
 
-    function renderUngrouped(list, variant) {
+    function renderUngrouped(list, variant, onlyDate) {
       if (variant === 'row') {
         outlet.innerHTML = `<div class="uffb-list">${list
           .map((f) =>
             filmCard(f, {
               variant,
-              onlyDate: state.date || null,
+              onlyDate: onlyDate || null,
               onlyVenue: state.venue || null,
             })
           )
@@ -2143,7 +2233,7 @@
           .map((f) =>
             filmCard(f, {
               variant,
-              onlyDate: state.date || null,
+              onlyDate: onlyDate || null,
               onlyVenue: state.venue || null,
             })
           )
@@ -2160,7 +2250,7 @@
       });
     }
 
-    function renderGroupedByCategory(list, variant) {
+    function renderGroupedByCategory(list, variant, onlyDate) {
       // grouping key -> {label, films[]}
       const catMap = new Map();
       list.forEach((f) => {
@@ -2197,7 +2287,7 @@
                 .map((f) =>
                   filmCard(f, {
                     variant,
-                    onlyDate: state.date || null,
+                    onlyDate: onlyDate || null,
                     onlyVenue: state.venue || null,
                   })
                 )
@@ -2206,7 +2296,7 @@
                 .map((f) =>
                   filmCard(f, {
                     variant,
-                    onlyDate: state.date || null,
+                    onlyDate: onlyDate || null,
                     onlyVenue: state.venue || null,
                   })
                 )
@@ -2228,8 +2318,8 @@
       });
     }
 
-    function renderGroupedByDate(list, variant) {
-      const only = state.date || null;
+    function renderGroupedByDate(list, variant, onlyDate) {
+      const only = onlyDate || null;
       const dateMap = explodeByDate(list, only); // ⬅️ pass selected date
       const dates = Array.from(dateMap.keys()).sort();
 
@@ -2315,6 +2405,9 @@
 
     // --- filtering + apply ---
     function applyAll() {
+      const effectiveDate =
+        state.groupBy === 'today' ? isoLocalToday() : state.date;
+
       filtered = items.filter((f) => {
         if (state.title) {
           if (f.id !== state.title) return false;
@@ -2332,11 +2425,12 @@
           const catNorm = safeTxt(state.category);
           if (keyNorm !== state.category && keyNorm !== catNorm) return false;
         }
-        if (state.venue && state.date) {
+        if (state.venue && effectiveDate) {
           // require a single screening that matches BOTH
           const hasBoth = (f.screenings || []).some(
             (s) =>
-              safeTxt(getVenueName(s)) === state.venue && s.date === state.date
+              safeTxt(getVenueName(s)) === state.venue &&
+              s.date === effectiveDate
           );
           if (!hasBoth) return false;
         } else {
@@ -2346,9 +2440,9 @@
             );
             if (!hasVenue) return false;
           }
-          if (state.date) {
+          if (effectiveDate) {
             const hasDate = (f.screenings || []).some(
-              (s) => s.date === state.date
+              (s) => s.date === effectiveDate
             );
             if (!hasDate) return false;
           }
@@ -2423,11 +2517,11 @@
       });
 
       if (state.groupBy === 'category') {
-        renderGroupedByCategory(filtered, layoutVariant);
+        renderGroupedByCategory(filtered, layoutVariant, effectiveDate);
       } else if (state.groupBy === 'date') {
-        renderGroupedByDate(filtered, layoutVariant);
+        renderGroupedByDate(filtered, layoutVariant, effectiveDate);
       } else {
-        renderUngrouped(filtered, layoutVariant);
+        renderUngrouped(filtered, layoutVariant, effectiveDate);
       }
 
       // --- empty state ---
