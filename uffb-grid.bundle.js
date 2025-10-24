@@ -212,6 +212,12 @@
     return hh * 60 + mm;
   }
 
+  function isPastScreeningDate(isoDate) {
+    // Treat any date strictly before today as "past"
+    const today = isoLocalToday(); // you already have this helper
+    return typeof isoDate === 'string' && isoDate < today;
+  }
+
   // --- Existing CSS (unchanged) ---
   const CSS = css`
     .uffb-grid {
@@ -1396,6 +1402,7 @@
         : s.address?.[lang] || s.address?.de || s.address?.en || '';
     const website = s.website || '';
     const isSoldOut = s.isSoldOut;
+    const isPast = isPastScreeningDate(s.date);
 
     let mapsUrl = s.maps?.google || '';
     if (!mapsUrl && (venueName || addressTxt)) {
@@ -1414,11 +1421,12 @@
         )}</a></div>`
       : '';
 
-    const ticketHtml = s.isSoldOut
-      ? `<span class="uffb-tickets is-disabled"><a href='#'>${t('soldOut')}</a></span>`
-      : s.tickets
-        ? `<span class="uffb-tickets"><a href="${s.tickets}" target="_blank" rel="noopener">${t('tickets')}</a></span>`
-        : ``;
+    const ticketHtml =
+      isSoldOut || isPast
+        ? `<span class="uffb-tickets is-disabled"><a href='#'>${isSoldOut ? t('soldOut') : t('tickets')}</a></span>`
+        : s.tickets
+          ? `<span class="uffb-tickets"><a href="${s.tickets}" target="_blank" rel="noopener">${t('tickets')}</a></span>`
+          : ``;
 
     const rightSideHtml = isParty(film) ? '' : ticketHtml;
 
