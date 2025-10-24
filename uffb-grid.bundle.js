@@ -2168,6 +2168,36 @@
     const ui = buildControls(wrap);
 
     const todayISO = isoLocalToday();
+    const todayRadio = ui.group.root.querySelector(
+      'input[name="groupby"][value="today"]'
+    );
+    const dateRadio = ui.group.root.querySelector(
+      'input[name="groupby"][value="date"]'
+    );
+
+    function setGroupBy(val) {
+      ui.group.radios.forEach((r) => (r.checked = r.value === val));
+      state.groupBy = val;
+      syncChips();
+    }
+
+    function setDateFilter(iso) {
+      // ensure option exists, so the select visibly shows the date
+      if (iso) {
+        const has = Array.from(ui.filters.date.options).some(
+          (o) => o.value === iso
+        );
+        if (!has) {
+          const opt = document.createElement('option');
+          opt.value = iso;
+          opt.textContent = isoToLabel(iso);
+          ui.filters.date.appendChild(opt);
+        }
+      }
+      ui.filters.date.value = iso || '';
+      state.date = iso || '';
+    }
+
     if (isWithinFestival(todayISO)) {
       ui.group.todayChip?.removeAttribute('hidden');
     }
@@ -2219,11 +2249,17 @@
     };
     ui.group.radios.forEach((r) =>
       r.addEventListener('change', () => {
-        if (r.checked) state.groupBy = r.value;
+        if (!r.checked) return;
+        setGroupBy(r.value);
+
+        if (r.value === 'today') {
+          // select today's date in the Date filter, then render
+          setDateFilter(todayISO);
+        }
         applyAll();
-        syncChips();
       })
     );
+
     syncChips();
 
     function renderUngrouped(list, variant, onlyDate) {
@@ -2697,6 +2733,9 @@
     });
     ui.filters.date.addEventListener('change', () => {
       state.date = ui.filters.date.value;
+      if (todayRadio?.checked && state.date !== todayISO) {
+        setGroupBy('date');
+      }
       applyAll();
     });
     ui.filters.clear.addEventListener('click', () => {
@@ -2707,6 +2746,9 @@
       state.title = '';
       state.venue = '';
       state.date = '';
+
+      setGroupBy(defaultGroup);
+
       applyAll();
     });
 
