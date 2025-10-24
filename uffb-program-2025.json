@@ -398,7 +398,7 @@
           "google": "https://maps.app.goo.gl/2ad8dcwoMaciPWuX8"
         },
         "tickets": "https://www.kinoheld.de/kino/berlin/city-kino-wedding-berlin-ab/vorstellung/3322890611?mode=widget&cid=NDAwNTY2MA,MjI4NTgzMg&layout=shows&layouts=shows&rb=1&sessid=7qqolbueojn48ic4jve7o5u5s4#panel-seats",
-"isSoldOut": true
+        "isSoldOut": true
       }
     ],
     "partners": [
@@ -743,7 +743,7 @@
           "google": "https://maps.app.goo.gl/TD4MXHJESpDMg32q8"
         },
         "tickets": "https://sanatorium-uffb2025.eventbrite.de",
-        "isSoldOut": true
+        "isSoldOut": false
       }
     ]
   },
@@ -820,7 +820,8 @@
         "maps": {
           "google": "https://maps.app.goo.gl/TD4MXHJESpDMg32q8"
         },
-        "tickets": "https://under-the-volcano-uffb2025.eventbrite.de"
+        "tickets": "https://under-the-volcano-uffb2025.eventbrite.de",
+        "isSoldOut": true
       }
     ]
   },
@@ -882,7 +883,7 @@
           "google": "https://maps.app.goo.gl/3cHayGJf6htU6hfz7"
         },
         "tickets": "https://www.kinoheld.de/kino/berlin/filmkunst-66-berlin/vorstellung/6AA21000023CSQDKDC?mode=widget&layout=movies&rb=0&showName=UNIVERSE#panel-seats",
-"isSoldOut": true
+        "isSoldOut": true
       },
       {
         "date": "2025-10-25",
@@ -1183,7 +1184,8 @@
         "maps": {
           "google": "https://maps.app.goo.gl/9QQ3Z9zBAukkdi648"
         },
-        "tickets": "https://www.kinoheld.de/kino-berlin/il-kino/vorstellung/3323466055?target=self&mode=widget"
+        "tickets": "https://www.kinoheld.de/kino-berlin/il-kino/vorstellung/3323466055?target=self&mode=widget",
+        "isSoldOut": true
       }
     ]
   },
