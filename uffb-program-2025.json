@@ -1689,7 +1689,8 @@
         "maps": {
           "google": "https://maps.app.goo.gl/9QQ3Z9zBAukkdi648"
         },
-        "tickets": "https://www.kinoheld.de/kino-berlin/il-kino/vorstellung/3323468416?target=self&mode=widget"
+        "tickets": "https://www.kinoheld.de/kino-berlin/il-kino/vorstellung/3323468416?target=self&mode=widget",
+        "isSoldOut": true
       }
     ]
   },
