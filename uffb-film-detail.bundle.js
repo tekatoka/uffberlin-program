@@ -201,6 +201,30 @@
     `;
   }
 
+  // --- short anchors helpers ---
+  function slug(s = '') {
+    return String(s)
+      .normalize('NFKD')
+      .replace(/[\u0300-\u036f]/g, '') // strip accents
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, '-') // non-alnum -> hyphen
+      .replace(/^-+|-+$/g, '') // trim hyphens
+      .slice(0, 80);
+  }
+
+  /**
+   * Stable anchor id for a short film item
+   * Prefers sf.id when available, else uses index + title
+   */
+  function shortAnchorId(parentFilm, sf, index) {
+    const base =
+      (sf && sf.id) ||
+      `${index + 1}-${slug(typeof sf.title === 'object' ? localized(sf.title) : sf.title || 'short')}`;
+    // prefix with parent id to avoid collisions across pages
+    const parent = parentFilm?.id ? slug(parentFilm.id) : 'film';
+    return `short-${parent}-${slug(base)}`;
+  }
+
   /* --- trailer helpers (no autoplay) --- */
   function toEmbedUrl(url) {
     if (!url) return null;
@@ -1803,7 +1827,9 @@
     if (!shorts.length && !shortDesc && !longDesc) return '';
 
     const items = shorts
-      ?.map((sf) => {
+      ?.map((sf, idx) => {
+        const anchorId = shortAnchorId(film, sf, idx);
+
         const title =
           (typeof sf.title === 'object' ? localized(sf.title) : sf.title) || '';
         const director =
@@ -1883,7 +1909,7 @@
           : '';
 
         return html`
-        <li class="uffb-short-item">
+        <li class="uffb-short-item" id="${anchorId}">
             ${imgHtml}
             <div class="right">
               <h2>${title}</h2>
