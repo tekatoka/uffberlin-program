@@ -188,7 +188,8 @@
         "maps": {
           "google": "https://www.google.com/maps/search/?api=1&query=silent%20green%20Kulturquartier%2C%20Gerichtstrasse%2035%2C%2013347%20Berlin"
         },
-        "tickets": "https://uffb2025-closing.eventbrite.de/"
+        "tickets": "https://uffb2025-closing.eventbrite.de/",
+        "isSoldOut": true
       },
       {
         "date": "2025-10-26",
@@ -728,7 +729,8 @@
         "maps": {
           "google": "https://maps.app.goo.gl/2ad8dcwoMaciPWuX8"
         },
-        "tickets": "https://www.kinoheld.de/kino/berlin/city-kino-wedding-berlin-ab/vorstellung/3322890594?mode=widget&cid=NDAwNTY2MA,MjI4NTgzMg&layout=shows&layouts=shows&rb=1&sessid=7qqolbueojn48ic4jve7o5u5s4#panel-seats"
+        "tickets": "https://www.kinoheld.de/kino/berlin/city-kino-wedding-berlin-ab/vorstellung/3322890594?mode=widget&cid=NDAwNTY2MA,MjI4NTgzMg&layout=shows&layouts=shows&rb=1&sessid=7qqolbueojn48ic4jve7o5u5s4#panel-seats",
+        "isSoldOut": true
       },
       {
         "date": "2025-10-26",
@@ -743,7 +745,7 @@
           "google": "https://maps.app.goo.gl/TD4MXHJESpDMg32q8"
         },
         "tickets": "https://sanatorium-uffb2025.eventbrite.de",
-        "isSoldOut": false
+        "isSoldOut": true
       }
     ]
   },
@@ -975,7 +977,8 @@
         "maps": {
           "google": "https://maps.app.goo.gl/TD4MXHJESpDMg32q8"
         },
-        "tickets": "https://honeymoon-uffb2025.eventbrite.de"
+        "tickets": "https://honeymoon-uffb2025.eventbrite.de",
+        "isSoldOut": true
       }
     ]
   },
