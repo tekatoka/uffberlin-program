@@ -2426,6 +2426,7 @@
       grid-template-columns: 240px 1fr;
       gap: 16px;
       align-items: start;
+      scroll-margin-top: 15px;
     }
 
     .uffb-short-item {
@@ -3307,6 +3308,43 @@
         <section class="uffb-actions"></section>
       </article>
     `;
+
+    // Robust: scroll to #hash once the target exists (first-load friendly)
+    (function jumpToHashWhenReady() {
+      const raw = (location.hash || '').slice(1);
+      if (!raw) return;
+      const targetId = decodeURIComponent(raw);
+
+      let done = false;
+      const tryScroll = () => {
+        if (done || !targetId) return;
+        const el = document.getElementById(targetId); // faster & no CSS.escape issues
+        if (el) {
+          done = true;
+          // small rAF to ensure layout is ready (images/fonts can shift)
+          requestAnimationFrame(() => {
+            el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          });
+          observer.disconnect();
+          clearTimeout(timeout);
+        }
+      };
+
+      // Observe DOM until the element appears (up to 5s)
+      const observer = new MutationObserver(tryScroll);
+      observer.observe(document.documentElement, {
+        childList: true,
+        subtree: true,
+      });
+
+      // Try now, after full load, and on next frame
+      tryScroll();
+      window.addEventListener('load', tryScroll, { once: true });
+      requestAnimationFrame(tryScroll);
+
+      // Safety timeout to stop observing
+      const timeout = setTimeout(() => observer.disconnect(), 5000);
+    })();
 
     attachDirPhotoTooltips(wrap);
     preloadDirectorPhotosFrom(wrap);
