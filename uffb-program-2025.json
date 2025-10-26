@@ -189,7 +189,7 @@
           "google": "https://www.google.com/maps/search/?api=1&query=silent%20green%20Kulturquartier%2C%20Gerichtstrasse%2035%2C%2013347%20Berlin"
         },
         "tickets": "https://uffb2025-closing.eventbrite.de/",
-        "isSoldOut": true
+        "isSoldOut": false
       },
       {
         "date": "2025-10-26",
@@ -203,7 +203,8 @@
         "maps": {
           "google": "https://maps.app.goo.gl/xceHasJXgB6xREb7A"
         },
-        "tickets": "https://www.sputnik-kino.com/program/tickets/3322890311"
+        "tickets": "https://www.sputnik-kino.com/program/tickets/3322890311",
+        "isSoldOut": true
       }
     ],
     "partners": [],
