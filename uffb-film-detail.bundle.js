@@ -9,6 +9,26 @@
   const SUPPORTED_LANGS = ['en', 'de', 'uk'];
   const DEFAULT_LANG = 'en';
 
+  //TODO: ADJUST FESTIVAL DATES IN 2026!!!
+  // --- Festival window (this year) ---
+  const FESTIVAL_START = '2025-10-22';
+  const FESTIVAL_END = '2025-10-26';
+
+  function isoLocalToday() {
+    // Europe/Berlin local "YYYY-MM-DD"
+    const now = new Date();
+    const y = now.getFullYear();
+    const m = String(now.getMonth() + 1).padStart(2, '0');
+    const d = String(now.getDate()).padStart(2, '0');
+    return `${y}-${m}-${d}`;
+  }
+  function isWithinFestival(iso) {
+    return iso >= FESTIVAL_START && iso <= FESTIVAL_END;
+  }
+  function isAfterFestival(iso) {
+    return iso > FESTIVAL_END;
+  }
+
   function detectLang() {
     const htmlLang = (document.documentElement.lang || '')
       .toLowerCase()
@@ -730,6 +750,8 @@
 
     const perDateNotes = parsePerDateLanguageNotes(film);
 
+    const today = isoLocalToday();
+
     const cards = list
       .map((s) => {
         const when = `${fmtWhen(s.date, s.time)}`;
@@ -798,7 +820,8 @@
         return html`
       <article class="uffb-screening-card">
             <div class="uffb-whenline">${when}</div>
-            ${parentLinkHtml} ${venueHtml} ${addrHtml} ${tixBtn}
+            ${parentLinkHtml} ${venueHtml} ${addrHtml}
+            ${!isAfterFestival(today) ? tixBtn : ''}
           </article>
     `;
       })
@@ -3108,6 +3131,8 @@
       console.error('[UFFB] Missing data-json on', el);
       return;
     }
+
+    const todayISO = isoLocalToday();
 
     let films = [];
     try {
