@@ -170,6 +170,7 @@
     },
   };
 
+  //TODO: ADJUST FESTIVAL DATES IN 2026!!!
   // --- Festival window (this year) ---
   const FESTIVAL_START = '2025-10-22';
   const FESTIVAL_END = '2025-10-26';
@@ -184,6 +185,9 @@
   }
   function isWithinFestival(iso) {
     return iso >= FESTIVAL_START && iso <= FESTIVAL_END;
+  }
+  function isAfterFestival(iso) {
+    return iso > FESTIVAL_END;
   }
 
   function timeToMinutes(t) {
@@ -496,6 +500,9 @@
     .uffb-chip#groupTodayChip[data-checked='true'] {
       background: var(--paragraphLinkColor);
       color: #000;
+    }
+    .uffb-chip[hidden] {
+      display: none;
     }
 
     /* On small screens: wrap under, left-aligned */
@@ -1421,6 +1428,7 @@
         )}</a></div>`
       : '';
 
+    const today = isoLocalToday();
     const ticketHtml =
       isSoldOut || isPast
         ? `<span class="uffb-tickets is-disabled"><a href='#'>${isSoldOut ? t('soldOut') : t('tickets')}</a></span>`
@@ -1439,7 +1447,7 @@
             ? `<div class="uffb-no-tickets">${t('bookTicketsSoon')}</div>`
             : ''}
         </div>
-        ${rightSideHtml}
+        ${!isAfterFestival(today) ? rightSideHtml : ''}
       </li>
     `;
   }
@@ -2056,7 +2064,7 @@
     const filters = document.createElement('form');
     filters.id = 'filters';
     filters.className = 'uffb-filters';
-    //filters.setAttribute('hidden', ''); //default: hidden! TODO: change to visible
+    filters.setAttribute('hidden', ''); //default: hidden! TODO: change to visible before the festival!
     filters.innerHTML = html`
       <label
         ><span>${t('category')}</span>
@@ -2088,7 +2096,7 @@
     const search = document.createElement('form');
     search.id = 'searchbar';
     search.className = 'uffb-search';
-    //search.setAttribute('hidden', ''); //default: hidden!
+    search.setAttribute('hidden', ''); //default: hidden! TODO: change to visible before the festival!
     search.innerHTML = html`
       <input
         type="search"
