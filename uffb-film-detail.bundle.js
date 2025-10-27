@@ -287,7 +287,8 @@
         </div>
         <div class="uffb-topline-right">
           ${hasTrailer
-            ? `<a class="uffb-btn uffb-trailer-btn eventlist-button sqs-editable-button sqs-button-element--primary" href="#" data-trailer="${film.trailer}">${t('watchTrailer')}</a>`
+            ? `
+            <button type="button" class="uffb-btn uffb-trailer-btn eventlist-button sqs-editable-button sqs-button-element--primary" data-trailer="${film.trailer}">${t('watchTrailer')}</button>`
             : ''}
           ${hasScreenings && !suppressTickets
             ? `<a class="uffb-btn eventlist-button sqs-editable-button sqs-button-element--primary" href="#screenings">${t('tickets')}</a>`
@@ -1300,6 +1301,20 @@
     document.documentElement.classList.remove('uffb-noscroll');
   }
 
+  // Trailer click delegation (bind once, global)
+  document.addEventListener(
+    'click',
+    (e) => {
+      const btn = e.target.closest('.uffb-trailer-btn');
+      if (!btn) return;
+      e.preventDefault();
+      e.stopPropagation();
+      const url = btn.getAttribute('data-trailer');
+      if (url) openLightbox(url);
+    },
+    { capture: true }
+  );
+
   function ensureImgLightbox() {
     if (document.getElementById('uffb-imgbox')) return;
     const box = document.createElement('div');
@@ -1926,7 +1941,9 @@
       `;
 
         const trailerBtn = trailer
-          ? `<div class="uffb-short-actions"><a class="uffb-btn uffb-trailer-btn" href="#" data-trailer="${trailer}">${t('watchTrailer')}</a></div>`
+          ? `<div class="uffb-short-actions">
+          <button type="button" class="uffb-btn uffb-trailer-btn eventlist-button sqs-editable-button sqs-button-element--primary" data-trailer="${trailer}">${t('watchTrailer')}</button>
+          </div>`
           : '';
 
         const descBlock = desc
