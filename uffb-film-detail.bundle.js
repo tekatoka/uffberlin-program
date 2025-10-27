@@ -806,8 +806,11 @@
                      ${t('soldOut')}</a
                    >`
                : html`<a
-                     class="uffb-btn uffb-book-btn"
+                     class="uffb-btn uffb-book-btn ${isAfterFestival(today)
+                       ? 'is-disabled'
+                       : ''}"
                      href="${tixUrl}"
+                     aria-disabled="${isAfterFestival(today) ? true : false}"
                      target="_blank"
                      rel="noopener"
                      title="${t('bookTickets')}"
@@ -820,8 +823,7 @@
         return html`
       <article class="uffb-screening-card">
             <div class="uffb-whenline">${when}</div>
-            ${parentLinkHtml} ${venueHtml} ${addrHtml}
-            ${!isAfterFestival(today) ? tixBtn : ''}
+            ${parentLinkHtml} ${venueHtml} ${addrHtml} ${tixBtn}
           </article>
     `;
       })
