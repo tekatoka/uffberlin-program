@@ -1,0 +1,3440 @@
+/* uffb-film.bundle.js — program-detail with shorts layout */
+(function () {
+  const MOUNT = '#film-detail';
+
+  const html = String.raw;
+  const css = String.raw;
+
+  // --- language/i18n (keep current logic to avoid breaking) ---
+  const SUPPORTED_LANGS = ['en', 'de', 'uk'];
+  const DEFAULT_LANG = 'en';
+
+  //TODO: ADJUST FESTIVAL DATES IN 2026!!!
+  // --- Festival window (this year) ---
+  const FESTIVAL_START = '2025-10-22';
+  const FESTIVAL_END = '2025-10-26';
+
+  function isoLocalToday() {
+    // Europe/Berlin local "YYYY-MM-DD"
+    const now = new Date();
+    const y = now.getFullYear();
+    const m = String(now.getMonth() + 1).padStart(2, '0');
+    const d = String(now.getDate()).padStart(2, '0');
+    return `${y}-${m}-${d}`;
+  }
+  function isWithinFestival(iso) {
+    return iso >= FESTIVAL_START && iso <= FESTIVAL_END;
+  }
+  function isAfterFestival(iso) {
+    return iso > FESTIVAL_END;
+  }
+
+  function detectLang() {
+    const htmlLang = (document.documentElement.lang || '')
+      .toLowerCase()
+      .slice(0, 2);
+    const path = location.pathname || '';
+
+    if (path.startsWith('/de/')) return 'de';
+    if (path.startsWith('/uk/')) return 'uk';
+    if (SUPPORTED_LANGS.includes(htmlLang)) return htmlLang;
+    return DEFAULT_LANG;
+  }
+
+  const lang = location.pathname.startsWith('/de/')
+    ? 'de'
+    : location.pathname.startsWith('/uk/')
+      ? 'uk'
+      : 'en';
+  const locale = lang === 'de' ? 'de-DE' : lang === 'uk' ? 'uk-UA' : 'en-GB';
+
+  const I18N = {
+    en: {
+      home: 'Home',
+      programLabel: 'UFFB Program 2025',
+      watchTrailer: 'Watch trailer',
+      tickets: 'TICKETS',
+      screenings: 'Screenings',
+      bookTickets: 'Book tickets',
+      bookTicketsSoon: 'Tickets will be available soon via the cinema website',
+      soldOut: 'Sold out!',
+      info: 'Info',
+      credits: 'Credits',
+      synopsis: 'Synopsis',
+      category: 'Category',
+      originalTitle: 'Original title',
+      countries: 'Countries',
+      year: 'Year',
+      language: 'Language',
+      duration: 'Duration',
+      director: 'Director',
+      directors: 'Directors',
+      cast: 'Cast',
+      shortDescLabel: 'Short description:',
+      loadError: 'Film data could not be loaded.',
+      filmNotFound: 'Film not found.',
+      collaboration: 'In collaboration with',
+      partners: 'Partners',
+      partner: 'Partner',
+      warning: 'Warning',
+      aboutDirector: 'About the director(s)',
+      panelDiscussion: 'Panel discussion',
+      english: 'English',
+      postScreeningTalk: 'Post-screening conversation',
+      moderator: 'Moderator',
+      guests: 'Guests',
+      inPartnershipWith: 'In partnership with',
+      filmStills: 'Film stills',
+      eventDescription: 'Event description',
+      entryLabel: 'Entry',
+    },
+    de: {
+      home: 'Start',
+      programLabel: 'UFFB Programm 2025',
+      watchTrailer: 'Trailer ansehen',
+      tickets: 'TICKETS',
+      screenings: 'Vorführungen',
+      bookTickets: 'Tickets kaufen',
+      bookTicketsSoon:
+        'Tickets sind in Kürze über die Website des Kinos erhältlich',
+      soldOut: 'Ausverkauft!',
+      info: 'Info',
+      credits: 'Credits',
+      synopsis: 'Über den Film',
+      category: 'Kategorie',
+      originalTitle: 'Originaltitel',
+      countries: 'Länder',
+      year: 'Jahr',
+      language: 'Sprache',
+      duration: 'Filmlänge',
+      director: 'Regie',
+      directors: 'Regie',
+      cast: 'Cast',
+      shortDescLabel: 'Kurzbeschreibung:',
+      loadError: 'Filmdaten konnten nicht geladen werden.',
+      filmNotFound: 'Film nicht gefunden.',
+      collaboration: 'In Kooperation mit',
+      partners: 'Partner',
+      partner: 'Partner',
+      warning: 'Warnung',
+      aboutDirector: 'Über die Filmemacher',
+      panelDiscussion: 'Podiumsdiskussion',
+      english: 'Englisch',
+      postScreeningTalk: 'Filmgespräch',
+      moderator: 'Moderation',
+      guests: 'Gäste',
+      inPartnershipWith: 'In Partnerschaft mit',
+      filmStills: 'Filmstills',
+      eventDescription: 'Eventbeschreibung',
+      entryLabel: 'Einlass',
+    },
+    uk: {
+      home: 'Головна',
+      programLabel: 'Програма UFFB 2025',
+      watchTrailer: 'Дивитися трейлер',
+      tickets: 'КВИТКИ',
+      screenings: 'Покази',
+      bookTickets: 'Купити квитки',
+      bookTicketsSoon: 'Квитки незабаром будуть доступні на сайті кінотеатру',
+      soldOut: 'Розпродано!',
+      info: 'Інфо',
+      credits: 'Знімальна група',
+      synopsis: 'Синопсис',
+      category: 'Категорія',
+      originalTitle: 'Оригінальна назва',
+      countries: 'Країни',
+      year: 'Рік',
+      language: 'Мова',
+      duration: 'Тривалість',
+      director: 'Режисер',
+      directors: 'Режисери',
+      cast: 'Акторський склад',
+      shortDescLabel: 'Короткий опис:',
+      loadError: 'Не вдалося завантажити дані про фільм.',
+      filmNotFound: 'Фільм не знайдено.',
+      collaboration: 'У співпраці з',
+      partners: 'Партнери',
+      partner: 'Партнер',
+      warning: 'Попередження',
+      aboutDirector: 'Про режисера(-ів)',
+      panelDiscussion: 'Панельна дискусія',
+      english: 'англійська',
+      postScreeningTalk: 'Післяфільмове обговорення',
+      moderator: 'Модератор',
+      guests: 'Гості',
+      inPartnershipWith: 'У співпраці з',
+      filmStills: 'Кадри з фільму',
+      eventDescription: 'Опис події',
+      entryLabel: 'Вхід',
+    },
+  };
+  const t = (key) => I18N[lang]?.[key] ?? key;
+
+  /* ---------- utils ---------- */
+  function getFilmId() {
+    const params = new URLSearchParams(location.search);
+    if (params.get('id')) return params.get('id');
+    const parts = location.pathname.split('/').filter(Boolean);
+    return parts[parts.length - 1];
+  }
+  function joinLocalized(val) {
+    if (!val) return '';
+    if (Array.isArray(val)) {
+      return val
+        .map((v) => (typeof v === 'object' ? localized(v) : String(v)))
+        .join(', ');
+    }
+    return typeof val === 'object' ? localized(val) : String(val);
+  }
+  function localized(obj) {
+    if (!obj) return '';
+    if (typeof obj === 'string') return obj;
+    return obj[lang] ?? obj['en'] ?? obj['de'] ?? Object.values(obj)[0] ?? '';
+  }
+  function fmtDuration(mins) {
+    if (!mins || isNaN(mins)) return '';
+    return `${mins} min`;
+  }
+  function iso8601Duration(mins) {
+    if (!mins || isNaN(mins)) return null;
+    return `PT${Math.round(mins)}M`;
+  }
+
+  function isParty(film) {
+    return (
+      film?.category?.key === 'festival-party' || film?.id === 'festival-party'
+    );
+  }
+
+  function buildBreadcrumb(film) {
+    const title = localized(film.title) || film.original_title || '';
+    const homeHref = lang === 'de' ? '/de/' : '/';
+    const progHref = lang === 'de' ? '/de/uffb2025' : '/uffb2025';
+    return html`
+      <nav class="uffb-breadcrumb" aria-label="Breadcrumb">
+        <ol>
+          <li><a href="${homeHref}">${t('home')}</a></li>
+          <li><a href="${progHref}">${t('programLabel')}</a></li>
+          <li aria-current="page">${title}</li>
+        </ol>
+      </nav>
+    `;
+  }
+
+  // --- short anchors helpers ---
+  function slug(s = '') {
+    return String(s)
+      .normalize('NFKD')
+      .replace(/[\u0300-\u036f]/g, '') // strip accents
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, '-') // non-alnum -> hyphen
+      .replace(/^-+|-+$/g, '') // trim hyphens
+      .slice(0, 80);
+  }
+
+  /**
+   * Stable anchor id for a short film item
+   * Prefers sf.id when available, else uses index + title
+   */
+  function shortAnchorId(parentFilm, sf, index) {
+    const base =
+      (sf && sf.id) ||
+      `${index + 1}-${slug(typeof sf.title === 'object' ? localized(sf.title) : sf.title || 'short')}`;
+    // prefix with parent id to avoid collisions across pages
+    const parent = parentFilm?.id ? slug(parentFilm.id) : 'film';
+    return `short-${parent}-${slug(base)}`;
+  }
+
+  /* --- trailer helpers (no autoplay) --- */
+  function toEmbedUrl(url) {
+    if (!url) return null;
+    try {
+      const u = new URL(url);
+      if (u.hostname.includes('youtube.com')) {
+        const id = u.searchParams.get('v');
+        if (id) return `https://www.youtube.com/embed/${id}?rel=0`;
+      }
+      if (u.hostname === 'youtu.be') {
+        const id = u.pathname.slice(1);
+        if (id) return `https://www.youtube.com/embed/${id}?rel=0`;
+      }
+      if (u.hostname.includes('vimeo.com')) {
+        const parts = u.pathname.split('/').filter(Boolean);
+        const id = parts.pop();
+        if (id) return `https://player.vimeo.com/video/${id}`;
+      }
+      return url;
+    } catch {
+      return null;
+    }
+  }
+
+  /* ---------- UI pieces ---------- */
+  function buildTopLine(film, opts = {}) {
+    const title = localized(film.title) || film.original_title || '';
+    const cat = film.category
+      ? film.category[lang] || film.category.en || film.category.de || ''
+      : '';
+    const hasTrailer = Boolean(film.trailer);
+    const hasScreenings = Boolean(film.screenings?.length > 0);
+    const suppressTickets = !!opts.hideTickets; // NEW
+
+    return html`
+    <div class="uffb-topline">
+        <div class="uffb-topline-left">
+          <div class="uffb-cat">#${cat}</div>
+          <div class="uffb-top-title">${title}</div>
+        </div>
+        <div class="uffb-topline-right">
+          ${hasTrailer
+            ? `
+            <button type="button" class="uffb-btn uffb-trailer-btn eventlist-button sqs-editable-button sqs-button-element--primary" data-trailer="${film.trailer}">${t('watchTrailer')}</button>`
+            : ''}
+          ${hasScreenings && !suppressTickets
+            ? `<a class="uffb-btn eventlist-button sqs-editable-button sqs-button-element--primary" href="#screenings">${t('tickets')}</a>`
+            : ''}
+        </div>
+      </div>
+  `;
+  }
+
+  function buildJsonLd(film) {
+    const ld = {
+      '@context': 'https://schema.org',
+      '@type': 'Movie',
+      name: localized(film.title) || film.original_title || '',
+      alternateName: film.original_title || undefined,
+      description:
+        localized(film.detailed_description) ||
+        localized(film.short_description) ||
+        '',
+      image: film.image,
+      url: location.href,
+      countryOfOrigin:
+        (film.countries &&
+          (film.countries[lang] || film.countries.en || film.countries.de)) ||
+        undefined,
+      genre:
+        (film.genre && (film.genre[lang] || film.genre.en || film.genre.de)) ||
+        undefined,
+      director: film.director
+        ? [{ '@type': 'Person', name: film.director }]
+        : undefined,
+      actor: film.cast
+        ? Array.isArray(film.cast)
+          ? film.cast.map((a) => ({ '@type': 'Person', name: a }))
+          : String(film.cast)
+              .split(',')
+              .map((a) => ({ '@type': 'Person', name: a.trim() }))
+        : undefined,
+      duration: iso8601Duration(film.duration) || undefined,
+      trailer: film.trailer
+        ? { '@type': 'VideoObject', name: 'Trailer', url: film.trailer }
+        : undefined,
+    };
+    Object.keys(ld).forEach((k) => ld[k] === undefined && delete ld[k]);
+    return ld;
+  }
+
+  function infoRow(label, valueHtml, additionalClass = '') {
+    if (!valueHtml) return '';
+    return `
+      <div class="uffb-info-row">
+        <div class="uffb-info-label">${label}</div>
+        <div class="uffb-info-value ${additionalClass}">${valueHtml}</div>
+      </div>
+    `;
+  }
+
+  function buildInfoBlock(film) {
+    const cat = film.category
+      ? film.category[lang] || film.category.en || film.category.de || ''
+      : '';
+    const original = film.original_title || '';
+    const countries = film.countries
+      ? film.countries[lang] || film.countries.en || film.countries.de || []
+      : [];
+    const countriesTxt = Array.isArray(countries)
+      ? countries.join(', ')
+      : countries;
+    const year = film.year;
+    const languageTxt = film.language
+      ? film.language[lang] || film.language.en || film.language.de || ''
+      : '';
+    const duration = film.duration ? film.duration + "'" : '';
+    return `
+      <section class="uffb-panel">
+        <h3 class="uffb-panel-title">${t('info')}</h3>
+        <div class="uffb-info">
+          ${infoRow(t('category'), cat)}
+          ${infoRow(t('originalTitle'), original, 'original-title')}
+          ${infoRow(t('countries'), countriesTxt)}
+          ${year ? infoRow(t('year'), year) : ''}
+          ${languageTxt ? infoRow(t('language'), languageTxt) : ''}
+          ${languageTxt ? infoRow(t('duration'), duration) : ''}
+        </div>
+      </section>
+    `;
+  }
+
+  function buildModAndGuestsFromParticipants(pd) {
+    const list = Array.isArray(pd?.participants) ? pd.participants : [];
+
+    const fmt = (p) => {
+      const name = (p?.name || '').trim();
+      const roleTxt = p?.role
+        ? (typeof p.role === 'object'
+            ? localized(p.role)
+            : String(p.role)
+          ).trim()
+        : '';
+      if (!name) return '';
+      const nameHtml = `<strong>${escapeHtml(name)}</strong>`;
+      const roleHtml = roleTxt ? ` (${escapeHtml(roleTxt)})` : '';
+      return `${nameHtml}${roleHtml}`;
+    };
+
+    const moderators = list
+      .filter((p) => p.isModerator)
+      .map(fmt)
+      .filter(Boolean)
+      .join(', ');
+    const guests = list
+      .filter((p) => !p.isModerator)
+      .map(fmt)
+      .filter(Boolean)
+      .join(', ');
+
+    return { moderators, guests };
+  }
+
+  function buildSynopsisBlock(film) {
+    const shortDesc =
+      (film.short_description && localized(film.short_description)) || '';
+    const longDesc =
+      (film.detailed_description && localized(film.detailed_description)) || '';
+    const additional_info = film.additional_info
+      ? localized(film.additional_info)
+      : '';
+
+    if (!shortDesc && !longDesc) return '';
+    return html`
+      <section class="uffb-panel">
+        <h3 class="uffb-panel-title">${t('synopsis')}</h3>
+        <div class="uffb-synopsis2">
+          ${shortDesc
+            ? `<p class="uffb-lead"><strong>${shortDesc}</strong></p>`
+            : ''}
+          ${longDesc ? `<p class="uffb-bodytext">${longDesc}</p>` : ''}
+          ${additional_info
+            ? `<div class="uffb-warning">${additional_info}</div>`
+            : ''}
+        </div>
+      </section>
+    `;
+  }
+
+  function buildPanelDiscussionBlock(film) {
+    const pd = film && (film.panel_discussion || film.film_talk);
+    if (!pd) return '';
+
+    const discussionTitle =
+      film.category?.key === 'panel_discussion'
+        ? 'panelDiscussion'
+        : film.panel_discussion
+          ? 'panelDiscussion'
+          : 'postScreeningTalk';
+
+    // Primary text (allow simple line breaks)
+    const desc = pd.description ? localized(pd.description) : '';
+
+    // Strings or localized objects for mod/guests
+    // const mod = pd.moderation
+    //   ? typeof pd.moderation === 'object'
+    //     ? localized(pd.moderation)
+    //     : pd.moderation
+    //   : '';
+    // const gs = pd.guests
+    //   ? typeof pd.guests === 'object'
+    //     ? localized(pd.guests)
+    //     : pd.guests
+    //   : '';
+
+    const { moderators: mod, guests: gs } =
+      buildModAndGuestsFromParticipants(pd);
+
+    // Partners: use parent film partners when present (even in detail page for panel)
+    let partnersBlock = '';
+    if (film._panelParent) {
+      partnersBlock = buildPartnersInlineHtmlFromParent(
+        film._panelParent,
+        t('inPartnershipWith')
+      );
+    }
+
+    // Nothing? Skip
+    if (!desc && !mod && !gs && !partnersBlock) return '';
+
+    // Lines: desc (with pre-line), then labels; partners under guests with spacing
+    const lines = [
+      desc ? `<p class="uffb-pd-desc">${desc}</p>` : '',
+      mod ? `<p><strong>${t('moderator')}:</strong> ${mod}</p>` : '',
+      gs ? `<p><strong>${t('guests')}:</strong> ${gs}</p>` : '',
+      partnersBlock || '',
+    ]
+      .filter(Boolean)
+      .join('\n');
+
+    return html`
+    <section class="uffb-panel uffb-panel-discussion">
+        <h3 class="uffb-panel-title">${t(discussionTitle)}</h3>
+        <div class="uffb-panel-discussion-body">${lines}</div>
+      </section>
+  `;
+  }
+
+  function buildPanelDescriptionBlock(panelFilm, partnersInlineHtml = '') {
+    const shortDesc =
+      (panelFilm.short_description && localized(panelFilm.short_description)) ||
+      '';
+    const longDesc =
+      (panelFilm.detailed_description &&
+        localized(panelFilm.detailed_description)) ||
+      '';
+    if (!shortDesc && !partnersInlineHtml) return '';
+    return `
+    <section class="uffb-panel">
+      <div class="uffb-synopsis2">
+        ${shortDesc ? `<p class="uffb-lead" style="white-space:pre-line">${shortDesc}</p>` : ''}
+        <p>${longDesc ? `<p class="uffb-lead" style="white-space:pre-line">${longDesc}</p>` : ''}</p>
+        ${partnersInlineHtml || ''}
+      </div>
+    </section>
+  `;
+  }
+
+  function buildCreditsBlock(film) {
+    const director = localized(film.director) || '';
+    const cast = Array.isArray(localized(film.cast))
+      ? localized(film.cast).join(', ')
+      : localized(film.cast) || '';
+    return html`
+      <section class="uffb-panel">
+        <h3 class="uffb-panel-title">${t('credits')}</h3>
+        <div class="uffb-credits">
+          ${infoRow(t('director'), director)}
+          ${cast ? infoRow(t('cast'), cast) : ''}
+        </div>
+      </section>
+    `;
+  }
+
+  function buildGallerySection(film) {
+    const imgs = Array.isArray(film.gallery)
+      ? film.gallery.filter(Boolean)
+      : [];
+    if (!imgs.length) return '';
+
+    const tiles = imgs
+      .map(
+        (src, i) => html`
+    <button
+            class="uffb-gal-tile"
+            data-gal-idx="${i}"
+            aria-label="Open still ${i + 1}"
+          >
+            <img loading="lazy" src="${src}" alt="" />
+          </button>
+  `
+      )
+      .join('');
+
+    // Store full list as json on container for easy access in JS
+    const data = encodeURIComponent(JSON.stringify(imgs));
+
+    return html`
+    <section
+        class="uffb-panel uffb-gallery"
+        data-gallery="${data}"
+      >
+        <h3 class="uffb-panel-title">${t('filmStills')}</h3>
+        <div class="uffb-gallery-grid">${tiles}</div>
+      </section>
+  `;
+  }
+
+  function collectPartners(film) {
+    const out = [];
+    const add = (p) => {
+      if (!p || !p.name) return;
+      // de-dupe by name+url
+      const key = (p.name || '') + '|' + (p.url || '');
+      if (out.some((x) => (x.name || '') + '|' + (x.url || '') === key)) return;
+      out.push({ name: p.name, url: p.url || '', logo: p.logo || '' });
+    };
+
+    // film-level
+    if (Array.isArray(film.partners)) film.partners.forEach(add);
+    // screening-level
+    if (Array.isArray(film.screenings)) {
+      film.screenings.forEach((s) => {
+        if (Array.isArray(s.partners)) s.partners.forEach(add);
+      });
+    }
+    return out;
+  }
+
+  function buildPartnersSection(film) {
+    const partners = collectPartners(film);
+    if (!partners.length) return '';
+    const items = partners
+      .map((p) => {
+        const img = p.logo
+          ? html`<img
+                loading="lazy"
+                src="${p.logo}"
+                alt="${p.name}"
+                title="${p.name}"
+              />`
+          : '';
+        const logo = html`<div class="uffb-partner-logo">${img}</div>`;
+        return p.url
+          ? html`<a
+                class="uffb-partner"
+                href="${p.url}"
+                target="_blank"
+                rel="noopener"
+                aria-label="${p.name}"
+                >${logo}</a
+              >`
+          : html`<div class="uffb-partner" aria-label="${p.name}">
+                ${logo}
+              </div>`;
+      })
+      .join('');
+    return html`
+    <section class="uffb-panel uffb-partner">
+        <h3 class="uffb-panel-title">
+          ${partners?.length > 1 ? t('partners') : t('partner')}
+        </h3>
+        <div class="uffb-partner-grid">${items}</div>
+      </section>
+  `;
+  }
+
+  // Inline logos row (under description), using parent film partners
+  function buildPartnersInlineLogosFromParent(parentFilm, labelText) {
+    const partners = collectPartners(parentFilm);
+    if (!partners.length) return '';
+
+    const logos = partners
+      .map((p) => {
+        const name = (p?.name || '').trim();
+        const logo = p?.logo
+          ? `<img src="${p.logo}" alt="${escapeHtml(name)}" title="${escapeHtml(name)}" loading="lazy">`
+          : '';
+        if (!logo) return '';
+        return p.url
+          ? `<a href="${p.url}" target="_blank" rel="noopener" aria-label="${escapeHtml(name)}">${logo}</a>`
+          : `<span class="uffb-inline-logo" aria-label="${escapeHtml(name)}" title="${escapeHtml(name)}">${logo}</span>`;
+      })
+      .filter(Boolean)
+      .join('');
+
+    if (!logos) return '';
+    return `
+    <div class="uffb-panel uffb-partners">
+    <h3 class='uffb-panel-title'>${t('partner')}</h3>
+    <div class="uffb-partner-grid">
+      <div class="uffb-partner-logo">${logos}</div>
+    </div>
+    </div>
+  `;
+  }
+
+  function buildSpecialProgramSection(film) {
+    const tag =
+      film?.special_program_tag &&
+      (film.special_program_tag[lang] ||
+        film.special_program_tag.en ||
+        film.special_program_tag.de);
+
+    // ---- location right under the tag
+    const loc = film?.special_program_location || null;
+    let locationBlock = '';
+    if (loc) {
+      const venueName =
+        (typeof loc.venue === 'object'
+          ? loc.venue[lang] || loc.venue.en || loc.venue.de
+          : loc.venue) || '';
+
+      const website = (loc.website || '').trim();
+      const mapsUrl = loc.maps?.google || '';
+      const address = (loc.address || '').trim();
+
+      const venueHtml = venueName
+        ? website
+          ? `<a href="${website}" target="_blank" rel="noopener">${venueName}</a>`
+          : `<span>${venueName}</span>`
+        : '';
+
+      const addrHtml = address
+        ? mapsUrl
+          ? `<a href="${mapsUrl}" target="_blank" rel="noopener">${address}</a>`
+          : `<span>${address}</span>`
+        : '';
+
+      if (venueHtml || addrHtml) {
+        locationBlock = `
+        <div class="uffb-sp-location">
+          ${venueHtml}${venueHtml && addrHtml ? ' · ' : ''}${addrHtml}
+        </div>`;
+      }
+    }
+
+    // ---- items list (time + text)
+    const items = Array.isArray(film?.special_program)
+      ? film.special_program
+          .map((sp) => {
+            const time = (sp.time || '').trim();
+            const txt =
+              sp.text &&
+              (typeof sp.text === 'object'
+                ? sp.text[lang] || sp.text.en || sp.text.de || ''
+                : sp.text);
+            if (!time && !txt) return '';
+            return `
+            <li class="uffb-sp-item">
+              <span class="time">${time}</span>
+              ${txt ? `<span class="txt">${txt}</span>` : ''}
+            </li>`;
+          })
+          .filter(Boolean)
+          .join('')
+      : '';
+
+    if (!tag && !items && !locationBlock) return '';
+    return html`
+    <section class="uffb-panel uffb-special">
+        ${tag ? `<h3 class="uffb-panel-title">${tag}</h3>` : ''}
+        ${locationBlock}
+        ${items ? `<ul class="uffb-sp-list">${items}</ul>` : ''}
+      </section>
+  `;
+  }
+
+  function fmtWhen(isoDate, timeHHMM) {
+    const d = new Date(`${isoDate}T00:00:00`);
+    const fmt = new Intl.DateTimeFormat(locale, {
+      weekday: 'short',
+      day: '2-digit',
+      month: 'short',
+      year: 'numeric',
+    });
+    return `${fmt.format(d)} · ${timeHHMM}`;
+  }
+
+  function buildScreeningsSection(film) {
+    const list = Array.isArray(film.screenings) ? film.screenings : [];
+    if (!list.length) return '';
+
+    const isPanel = film.category?.key === 'panel_discussion';
+    const parent = isPanel ? film._panelParent : null;
+    const parentId = parent?.id || '';
+    const parentTitle =
+      (parent &&
+        (parent.title?.[lang] ||
+          parent.title?.en ||
+          parent.title?.de ||
+          parent.original_title)) ||
+      '';
+
+    const perDateNotes = parsePerDateLanguageNotes(film);
+
+    const today = isoLocalToday();
+
+    const cards = list
+      .map((s) => {
+        const when = `${fmtWhen(s.date, s.time)}`;
+
+        const venueName = localized(s.venue) || '';
+        const addr = s.address || '';
+        const mapsUrl = s.maps?.google || null;
+        const website = s.website || '';
+        const isSoldOut = s.isSoldOut;
+
+        // venue links to parent film (panel pages only)
+        const venueHtml = venueName
+          ? isPanel && parentId
+            ? `<a class="uffb-venue-title" href="/${parentId}">${venueName}</a>`
+            : website
+              ? `<div class="uffb-venue-title"><a href="${website}" target="_blank" rel="noopener">${venueName}</a></div>`
+              : `<div class="uffb-venue-title"><span>${venueName}</span></div>`
+          : '';
+
+        const progHref = lang === 'de' ? '/de/uffb2025' : '/uffb2025';
+        // parent film link under the date (panel pages only)
+        const parentLinkHtml =
+          isPanel && parentId
+            ? `<div class="uffb-parent-film"><a href="${progHref}/${parentId}">${escapeHtml(parentTitle)}</a></div>`
+            : '';
+
+        const noteKey = dateToDM(s.date);
+        const langNote = perDateNotes[noteKey] || '';
+        const noteHtml = `<div class="uffb-lang-note"><em>${isPanel ? '<strong>Film: </strong>' : ''}${langNote ? langNote : localized(film.language)}${isPanel ? '<br /><strong>' + t('panelDiscussion') + ': </strong>' + t('english') : ''}</em></div>`;
+
+        const tixUrl = (s.tickets || '').trim();
+        const hasTix = !!tixUrl;
+
+        const addrHtml = addr
+          ? mapsUrl
+            ? `<a class="uffb-addr" href="${mapsUrl}" target="_blank" rel="noopener">${addr}</a>`
+            : `<span class="uffb-addr">${addr}</span>`
+          : '';
+
+        const tixBtn = hasTix
+          ? `<div class="uffb-card-actions">
+           ${noteHtml}
+           ${
+             isSoldOut
+               ? html`<a
+                     class="uffb-btn uffb-book-btn is-disabled"
+                     role="button"
+                     aria-disabled="true"
+                     tabindex="-1"
+                     title="${t('soldOut')}"
+                   >
+                     ${t('soldOut')}</a
+                   >`
+               : html`<a
+                     class="uffb-btn uffb-book-btn ${isAfterFestival(today)
+                       ? 'is-disabled'
+                       : ''}"
+                     href="${tixUrl}"
+                     aria-disabled="${isAfterFestival(today) ? true : false}"
+                     target="_blank"
+                     rel="noopener"
+                     title="${t('bookTickets')}"
+                     >${t('bookTickets')}</a
+                   >`
+           }
+         </div>`
+          : `<div class="uffb-card-actions">${noteHtml}<br /><i>${t('bookTicketsSoon')}</i></div>`;
+
+        return html`
+      <article class="uffb-screening-card">
+            <div class="uffb-whenline">${when}</div>
+            ${parentLinkHtml} ${venueHtml} ${addrHtml} ${tixBtn}
+          </article>
+    `;
+      })
+      .join('');
+
+    return html`
+    <section class="uffb-screenings-block" id="screenings">
+        <h2 class="uffb-section-title">${t('screenings')}</h2>
+        <div class="uffb-screenings-grid">${cards}</div>
+      </section>
+  `;
+  }
+
+  function buildPartyWhenBlock(film) {
+    const list = Array.isArray(film.screenings) ? film.screenings : [];
+    if (!list.length) return '';
+
+    const cards = list
+      .map((s) => {
+        const when = `${fmtWhen(s.date, s.time)}`;
+        const venueName = localized(s.venue) || '';
+        const website = (s.website || '').trim();
+        const addr = (s.address || '').trim();
+        const mapsUrl =
+          s.maps?.google ||
+          (addr
+            ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(addr)}`
+            : '');
+
+        const venueHtml = venueName
+          ? website
+            ? `<div class="uffb-venue-title"><a href="${website}" target="_blank" rel="noopener">${escapeHtml(venueName)}</a></div>`
+            : `<div class="uffb-venue-title"><span>${escapeHtml(venueName)}</span></div>`
+          : '';
+
+        const addrHtml = addr
+          ? mapsUrl
+            ? `<a class="uffb-addr" href="${mapsUrl}" target="_blank" rel="noopener">${escapeHtml(addr)}</a>`
+            : `<span class="uffb-addr">${escapeHtml(addr)}</span>`
+          : '';
+
+        // No tickets button, no language note, no parent-film line
+        return `
+      <article class="uffb-screening-card">
+        <div class="uffb-whenline">${when}</div>
+        ${venueHtml}
+        ${addrHtml}
+      </article>
+    `;
+      })
+      .join('');
+
+    return `
+    <section class="uffb-screenings-block">
+      <div class="uffb-screenings-grid">${cards}</div>
+    </section>
+  `;
+  }
+
+  function renderPartyLineupUL(film) {
+    const arr = Array.isArray(film.lineup) ? film.lineup.filter(Boolean) : [];
+    if (!arr.length) return '';
+    const items = arr.map((li) => `<li>${escapeHtml(li)}</li>`).join('');
+    return `
+    <section class="uffb-panel">
+      <ul class="party-lineup">${items}</ul>
+    </section>
+  `;
+  }
+
+  function buildPartyDetailSection(film) {
+    const shortDesc =
+      (film.short_description && localized(film.short_description)) || '';
+    const longDesc =
+      (film.detailed_description && localized(film.detailed_description)) || '';
+
+    const title = 'Festival Party!';
+
+    const descHtml = html`
+    <section class="uffb-panel">
+        <h3 class="uffb-panel-title">${title}</h3>
+        <div class="uffb-synopsis2">
+          ${shortDesc
+            ? `<p class="uffb-lead"><strong>${shortDesc}</strong></p>`
+            : ''}
+          ${longDesc ? `<p class="uffb-bodytext">${longDesc}</p>` : ''}
+        </div>
+      </section>
+  `;
+
+    const lineupHtml = renderPartyLineupUL(film);
+
+    const entryTxt = film.entry ? localized(film.entry) : '';
+    const entryHtml = entryTxt
+      ? html`<section class="uffb-panel">
+            <h3 class="uffb-panel-title">${t('entryLabel')}</h3>
+            <div class="uffb-info">
+              <div class="uffb-info-value">
+                <strong>${escapeHtml(entryTxt)}</strong>
+              </div>
+            </div>
+          </section>`
+      : '';
+
+    const whenBlock = buildPartyWhenBlock(film);
+
+    return descHtml + lineupHtml + entryHtml + whenBlock;
+  }
+
+  function pad2(n) {
+    return String(n).padStart(2, '0');
+  }
+  function dateToDM(iso) {
+    const d = new Date(iso + 'T00:00:00');
+    return pad2(d.getMonth() + 1) + '-' + pad2(d.getDate());
+  }
+
+  /** Build map like { "10-24": "German dubbed version with English subtitles", ... } */
+  function parsePerDateLanguageNotes(film) {
+    const raw =
+      (film.language &&
+        (film.language[lang] || film.language.en || film.language.de)) ||
+      film.language;
+    if (!raw || typeof raw !== 'string') return {};
+
+    // Split by pipes and newlines; trim pieces
+    const parts = raw
+      .split('|')
+      .flatMap((p) => String(p).split('\n'))
+      .map((s) => s.trim())
+      .filter(Boolean);
+    const map = {};
+    const re = /^\s*(\d{1,2})\.(\d{1,2})\.?\s*:?\s*(.+?)\s*$/; // dd.mm.: note
+    for (const p of parts) {
+      const m = p.match(re);
+      if (!m) continue;
+      const dd = pad2(m[1]),
+        mm = pad2(m[2]);
+      const note = m[3]; // already without date/colon
+      map[mm + '-' + dd] = note;
+    }
+    return map;
+  }
+
+  // --- PANEL HELPERS (do not replace existing film helpers) ---
+
+  // Grab quoted title after "Panel discussion" / "Podiumsdiskussion" (no quotes)
+  function extractPanelTitle(descByLang) {
+    // Return title text that follows "Panel discussion" / "Podiumsdiskussion",
+    // without surrounding quotation marks.
+    const OPEN_CLOSE_PAIRS = [
+      { open: '“', close: '”' },
+      { open: '„', close: '“' },
+      { open: '«', close: '»' },
+      { open: '‚', close: '’' },
+      { open: '‘', close: '’' },
+      { open: '"', close: '"' }, // ASCII fallback
+    ];
+
+    // for extra safety: strip any quotes that might remain at the ends
+    const STRIP_EDGE_QUOTES_RE = /^[“”„«»‚‘’"]+|[“”„«»‚‘’"]+$/g;
+
+    function findAfterKeyword(text) {
+      if (!text) return '';
+      const m = text.match(/(panel\s*discussion|podiumsdiskussion)/i);
+      if (!m) return '';
+
+      // Start searching quotes *after* the keyword
+      const startIdx = m.index + m[0].length;
+      const tail = text.slice(startIdx);
+
+      // Look for first matching quote pair in the tail
+      for (const { open, close } of OPEN_CLOSE_PAIRS) {
+        const o = tail.indexOf(open);
+        if (o === -1) continue;
+        const c = tail.indexOf(close, o + open.length);
+        if (c === -1) continue;
+
+        // Return the INNER content (no quotes)
+        const inner = tail.slice(o + open.length, c).trim();
+        return inner.replace(STRIP_EDGE_QUOTES_RE, '').trim();
+      }
+
+      // No quote pair found → nothing to extract
+      return '';
+    }
+
+    const enSrc = (descByLang?.en || descByLang?.de || '').trim();
+    const deSrc = (descByLang?.de || descByLang?.en || '').trim();
+
+    return {
+      en: findAfterKeyword(enSrc),
+      de: findAfterKeyword(deSrc),
+    };
+  }
+
+  function hasAny(obj, keys) {
+    return !!obj && keys.some((k) => obj[k] != null && obj[k] !== '');
+  }
+
+  // Panel screenings: prefer panel-specific; else inherit each parent screening (incl. tickets)
+  function resolvePanelScreenings(parentFilm) {
+    const pd = parentFilm.panel_discussion || {};
+    const parent = Array.isArray(parentFilm.screenings)
+      ? parentFilm.screenings
+      : [];
+    const first = parent[0] || {};
+
+    if (Array.isArray(pd.screenings) && pd.screenings.length) {
+      return pd.screenings.map((ps) => ({
+        date: ps.date || first.date || '',
+        time: (ps.time ?? first.time) || '',
+        venue: ps.venue || first.venue,
+        address: ps.address || first.address,
+        website: ps.website || first.website,
+        maps: ps.maps || first.maps,
+        tickets: ps.tickets || first.tickets || '',
+      }));
+    }
+
+    if (
+      hasAny(pd, [
+        'date',
+        'time',
+        'venue',
+        'address',
+        'website',
+        'maps',
+        'tickets',
+      ])
+    ) {
+      return [
+        {
+          date: pd.date || first.date || '',
+          time: (pd.time ?? first.time) || '',
+          venue: pd.venue || first.venue,
+          address: pd.address || first.address,
+          website: pd.website || first.website,
+          maps: pd.maps || first.maps,
+          tickets: pd.tickets || first.tickets || '',
+        },
+      ];
+    }
+
+    return parent.map((s) => ({
+      date: s.date,
+      time: s.time || '',
+      venue: s.venue,
+      address: s.address,
+      website: s.website,
+      maps: s.maps,
+      tickets: s.tickets || '',
+    }));
+  }
+
+  // Inline partners (bold + link) from the *parent film* partners
+  function buildPartnersInlineHtmlFromParent(parentFilm, labelText) {
+    const partners = collectPartners(parentFilm);
+    if (!partners.length) return '';
+    const items = partners
+      .map((p) => {
+        const name = p && p.name ? String(p.name).trim() : '';
+        if (!name) return '';
+        return p.url
+          ? `<strong><a href="${p.url}" target="_blank" rel="noopener">${name}</a></strong>`
+          : `<strong>${name}</strong>`;
+      })
+      .filter(Boolean)
+      .join(', ');
+    if (!items) return '';
+    return `
+    <div class="uffb-partner-grid">
+      <div class="uffb-partner-head">${labelText}:</div>
+      <div class="uffb-partners">${items}</div>
+    </div>
+  `;
+  }
+
+  // Participants block (photo left, bio right, credit with &copy;)
+  // Replace previous buildParticipantsSection with this split version
+  function buildParticipantsSplitSections(pd) {
+    const list = Array.isArray(pd?.participants) ? pd.participants : [];
+    if (!list.length) return '';
+
+    const moderators = list.filter((p) => p.isModerator);
+    const guests = list.filter((p) => !p.isModerator);
+
+    const renderList = (arr) => {
+      if (!arr.length) return '';
+      const items = arr
+        .map((p) => {
+          const name = p.name || '';
+          const bioHtml = sanitizeBio(localized(p.bio || ''));
+          const roleHtml = localized(p.role || '');
+          const photo = p.photo || '';
+          const credit = p.photoCredit ? `photo &copy; ${p.photoCredit}` : '';
+
+          return html`
+            <li class="uffb-participant">
+              ${photo
+                ? `<div class="ph">
+               <img
+                 loading="lazy"
+                 src="${photo}"
+                 alt="${name}"
+                 class="uffb-participant-thumb"
+                 data-photo="${photo}"
+                 role="button"
+                 tabindex="0"
+                 aria-label="${escAttr(name)}"
+               >
+             </div>`
+                : `<div class="ph ph-empty"></div>`}
+              <div class="txt">
+                <div class="name">${name}</div>
+                ${roleHtml
+                  ? `<div class="role"><em>${roleHtml}</em></div>`
+                  : ''}
+                ${bioHtml ? `<div class="bio">${bioHtml}</div>` : ''}
+                ${credit ? `<div class="credit text-sm">${credit}</div>` : ''}
+              </div>
+            </li>
+          `;
+        })
+        .join('');
+      return html`<ul class="uffb-participants">
+          ${items}
+        </ul>`;
+    };
+
+    const modSection = moderators.length
+      ? `
+      <section class="uffb-panel uffb-participants-block">
+        <h3 class="uffb-panel-title">${t('moderator')}</h3>
+        ${renderList(moderators)}
+      </section>
+    `
+      : '';
+
+    const guestSection = guests.length
+      ? `
+      <section class="uffb-panel uffb-participants-block">
+        <h3 class="uffb-panel-title">${t('guests')}</h3>
+        ${renderList(guests)}
+      </section>
+    `
+      : '';
+
+    return modSection + guestSection;
+  }
+
+  /* --- hero carousel (kept for regular films only) --- */
+  function buildMediaCarousel(film) {
+    const title = localized(film.title) || film.original_title || '';
+    const embed = film.trailer ? toEmbedUrl(film.trailer) : null;
+
+    const slides = [
+      `<div class="uffb-slide is-image"><img src="${film.image}" alt="${title}"></div>`,
+    ];
+    if (embed) {
+      slides.push(`
+        <div class="uffb-slide is-trailer" data-embed="${embed}">
+          <div class="uffb-video-ph">
+            <img src="${film.image}" alt="${title}">
+            <button class="uffb-play-badge" aria-label="${lang === 'de' ? 'Trailer ansehen' : 'Watch trailer'}">▶</button>
+            <div class="uffb-slide-tag">${lang === 'de' ? 'Trailer' : 'Trailer'}</div>
+          </div>
+        </div>
+      `);
+    }
+
+    return `
+      <div class="uffb-media">
+        <div class="uffb-slides" data-index="0" style="transform:translateX(0%)">${slides.join('')}</div>
+        ${
+          slides.length > 1
+            ? `<button class="uffb-nav uffb-prev" aria-label="Previous">‹</button>
+             <button class="uffb-nav uffb-next" aria-label="Next">›</button>`
+            : ''
+        }
+      </div>
+    `;
+  }
+
+  function buildParticipantsSection(pd) {
+    const list = Array.isArray(pd?.participants) ? pd.participants : [];
+    if (!list.length) return '';
+
+    const items = list
+      .map((p) => {
+        const name = p.name || '';
+        const bioHtml = sanitizeBio(localized(p.bio || ''));
+        const photo = p.photo || '';
+        const credit = p.photoCredit ? `&copy; ${p.photoCredit}` : '';
+        const roleBadge = p.isModerator
+          ? `<span class="role-badge">${t('moderator')}</span>`
+          : '';
+
+        return `
+      <li class="uffb-participant">
+        ${photo ? `<div class="ph"><img loading="lazy" src="${photo}" alt="${name}"></div>` : `<div class="ph ph-empty"></div>`}
+        <div class="txt">
+          <div class="name">${name} ${roleBadge}</div>
+          ${bioHtml ? `<div class="bio">${bioHtml}</div>` : ''}
+          ${credit ? `<div class="credit">${credit}</div>` : ''}
+        </div>
+      </li>
+    `;
+      })
+      .join('');
+
+    return `
+    <section class="uffb-panel uffb-participants-block">
+      <h3 class="uffb-panel-title">${t('aboutDirector')}</h3>
+      <ul class="uffb-participants">${items}</ul>
+    </section>
+  `;
+  }
+
+  /* --- lightbox --- */
+  function ensureLightbox() {
+    if (document.getElementById('uffb-lightbox')) return;
+    const box = document.createElement('div');
+    box.id = 'uffb-lightbox';
+    box.innerHTML = html`
+      <div
+        class="uffb-lb-backdrop"
+        data-close="1"
+      ></div>
+      <div
+        class="uffb-lb-dialog"
+        role="dialog"
+        aria-modal="true"
+        aria-label="Trailer"
+      >
+        <button class="uffb-lb-close" aria-label="Close">×</button>
+        <div class="uffb-lb-viewport">
+          <iframe
+            id="uffb-lb-iframe"
+            src=""
+            allow="autoplay; encrypted-media"
+            allowfullscreen
+          ></iframe>
+        </div>
+      </div>
+    `;
+    document.body.appendChild(box);
+    box.addEventListener('click', (e) => {
+      if (
+        e.target.dataset.close === '1' ||
+        e.target.classList.contains('uffb-lb-close')
+      )
+        closeLightbox();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeLightbox();
+    });
+  }
+  function openLightbox(trailerUrl) {
+    ensureLightbox();
+    const embed = toEmbedUrl(trailerUrl);
+    const lb = document.getElementById('uffb-lightbox');
+    const iframe = document.getElementById('uffb-lb-iframe');
+    iframe.src = embed || trailerUrl;
+    lb.classList.add('open');
+    document.documentElement.classList.add('uffb-noscroll');
+  }
+  function closeLightbox() {
+    const lb = document.getElementById('uffb-lightbox');
+    if (!lb) return;
+    const iframe = document.getElementById('uffb-lb-iframe');
+    iframe.src = '';
+    lb.classList.remove('open');
+    document.documentElement.classList.remove('uffb-noscroll');
+  }
+
+  // Trailer click delegation (bind once, global)
+  document.addEventListener(
+    'click',
+    (e) => {
+      const btn = e.target.closest('.uffb-trailer-btn');
+      if (!btn) return;
+      e.preventDefault();
+      e.stopPropagation();
+      const url = btn.getAttribute('data-trailer');
+      if (url) openLightbox(url);
+    },
+    { capture: true }
+  );
+
+  function ensureImgLightbox() {
+    if (document.getElementById('uffb-imgbox')) return;
+    const box = document.createElement('div');
+    box.id = 'uffb-imgbox';
+    box.innerHTML = html`
+    <div class="uffb-lb-backdrop" data-close="1"></div>
+      <div
+        class="uffb-lb-dialog uffb-img-dialog"
+        role="dialog"
+        aria-modal="true"
+        aria-label="Gallery"
+      >
+        <button class="uffb-lb-close" aria-label="Close">×</button>
+        <button class="uffb-lb-nav prev" aria-label="Previous">‹</button>
+        <button class="uffb-lb-nav next" aria-label="Next">›</button>
+        <div class="uffb-lb-viewport">
+          <img id="uffb-imgbox-img" alt="" />
+        </div>
+      </div>
+  `;
+    document.body.appendChild(box);
+
+    box.addEventListener('click', (e) => {
+      if (
+        e.target.dataset.close === '1' ||
+        e.target.classList.contains('uffb-lb-close')
+      )
+        closeImgLightbox();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (!box.classList.contains('open')) return;
+      if (e.key === 'Escape') closeImgLightbox();
+      if (e.key === 'ArrowLeft') navImgLightbox(-1);
+      if (e.key === 'ArrowRight') navImgLightbox(1);
+    });
+  }
+
+  let _imgGal = { list: [], index: 0 };
+  function openImgLightbox(list, startIndex = 0) {
+    ensureImgLightbox();
+    _imgGal.list = list;
+    _imgGal.index = Math.max(0, Math.min(startIndex, list.length - 1));
+    updateImgLightbox();
+
+    const lb = document.getElementById('uffb-imgbox');
+    lb.classList.add('open');
+    document.documentElement.classList.add('uffb-noscroll');
+
+    // wire nav buttons
+    lb.querySelector('.uffb-lb-nav.prev').onclick = () => navImgLightbox(-1);
+    lb.querySelector('.uffb-lb-nav.next').onclick = () => navImgLightbox(1);
+  }
+  function updateImgLightbox() {
+    const img = document.getElementById('uffb-imgbox-img');
+    const src = _imgGal.list[_imgGal.index];
+    img.src = src;
+  }
+  function navImgLightbox(step) {
+    if (!_imgGal.list.length) return;
+    _imgGal.index =
+      (_imgGal.index + step + _imgGal.list.length) % _imgGal.list.length;
+    updateImgLightbox();
+  }
+  function closeImgLightbox() {
+    const lb = document.getElementById('uffb-imgbox');
+    if (!lb) return;
+    lb.classList.remove('open');
+    document.documentElement.classList.remove('uffb-noscroll');
+    const img = document.getElementById('uffb-imgbox-img');
+    if (img) img.src = '';
+  }
+
+  // Hook tiles
+  function initGallery(root) {
+    root.querySelectorAll('.uffb-gallery').forEach((block) => {
+      let list = [];
+      try {
+        list = JSON.parse(
+          decodeURIComponent(block.getAttribute('data-gallery') || '[]')
+        );
+      } catch {}
+      if (!Array.isArray(list) || !list.length) return;
+
+      block.querySelectorAll('.uffb-gal-tile').forEach((btn) => {
+        btn.addEventListener(
+          'click',
+          () => {
+            const idx = parseInt(btn.getAttribute('data-gal-idx') || '0', 10);
+            openImgLightbox(list, idx);
+          },
+          { passive: true }
+        );
+      });
+    });
+  }
+
+  /* --- carousel wiring --- */
+  function initCarousel($root) {
+    const $media = $root.querySelector('.uffb-media');
+    if (!$media) return;
+
+    const $slides = $media.querySelector('.uffb-slides');
+    const slides = Array.from($media.querySelectorAll('.uffb-slide'));
+    let index = 0;
+    const count = slides.length;
+
+    function injectIfVideo(i) {
+      const s = slides[i];
+      const embed = s && s.getAttribute('data-embed');
+      if (embed && !s.querySelector('iframe')) {
+        s.innerHTML = `<iframe src="${embed}" allow="autoplay; fullscreen" allowfullscreen loading="lazy"></iframe>`;
+      }
+    }
+    function cleanupIfLeaving(i) {
+      const s = slides[i];
+      if (!s) return;
+      const iframe = s.querySelector('iframe');
+      if (iframe) iframe.remove();
+    }
+    function update() {
+      $slides.style.transform = `translateX(${-index * 100}%)`;
+      $slides.dataset.index = index;
+    }
+    function go(to) {
+      const prevIndex = index;
+      index = ((to % count) + count) % count;
+      cleanupIfLeaving(prevIndex);
+      injectIfVideo(index);
+      update();
+    }
+
+    const prev = () => go(index - 1);
+    const next = () => go(index + 1);
+    const $prev = $media.querySelector('.uffb-prev');
+    const $next = $media.querySelector('.uffb-next');
+    if ($prev) $prev.addEventListener('click', prev);
+    if ($next) $next.addEventListener('click', next);
+
+    // swipe
+    let startX = null,
+      dx = 0;
+    $media.addEventListener(
+      'touchstart',
+      (e) => {
+        startX = e.touches[0].clientX;
+        dx = 0;
+      },
+      { passive: true }
+    );
+    $media.addEventListener(
+      'touchmove',
+      (e) => {
+        if (startX != null) dx = e.touches[0].clientX - startX;
+      },
+      { passive: true }
+    );
+    $media.addEventListener('touchend', () => {
+      if (Math.abs(dx) > 40) {
+        if (dx < 0) next();
+        else prev();
+      }
+      startX = null;
+      dx = 0;
+    });
+
+    $media.addEventListener('click', (e) => {
+      const btn = e.target.closest('.uffb-play-badge');
+      if (btn) {
+        const trailerIndex = slides.findIndex((s) =>
+          s.classList.contains('is-trailer')
+        );
+        if (trailerIndex >= 0) go(trailerIndex);
+      }
+    });
+  }
+
+  // Always scroll to #screenings even if hash is already there
+  function enableTicketsJump() {
+    document.addEventListener('click', (e) => {
+      const a = e.target.closest('a[href="#screenings"]');
+      if (!a) return;
+      const target = document.getElementById('screenings');
+      if (!target) return;
+      e.preventDefault();
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      history.replaceState(
+        null,
+        '',
+        location.pathname + location.search + '#screenings'
+      );
+    });
+  }
+
+  /* --- SHORTS: centered list with bigger thumbs; screenings on right --- */
+
+  // allows minimal markup in bios; strips everything else
+  function sanitizeBio(htmlStr = '') {
+    const div = document.createElement('div');
+    div.innerHTML = htmlStr;
+
+    const allowed = new Set(['B', 'STRONG', 'EM', 'I', 'BR', 'P', 'A']);
+    const walker = document.createTreeWalker(
+      div,
+      NodeFilter.SHOW_ELEMENT,
+      null,
+      false
+    );
+
+    const toRemove = [];
+    let node;
+    while ((node = walker.nextNode())) {
+      if (!allowed.has(node.tagName)) {
+        // unwrap disallowed tags (keep text content)
+        const parent = node.parentNode;
+        while (node.firstChild) parent.insertBefore(node.firstChild, node);
+        toRemove.push(node);
+        continue;
+      }
+      if (node.tagName === 'A') {
+        // keep only safe href
+        const href = node.getAttribute('href') || '';
+        if (!/^https?:\/\//i.test(href)) {
+          node.removeAttribute('href');
+        }
+        node.removeAttribute('onclick');
+        node.removeAttribute('onmouseover');
+        node.removeAttribute('style');
+      }
+    }
+    toRemove.forEach((n) => n.remove());
+    return div.innerHTML;
+  }
+
+  // ensure director(s) is array of strings in current lang
+  function toDirectorList(director, localizedFn) {
+    if (!director) return [];
+    const val = typeof director === 'object' ? localizedFn(director) : director;
+    return Array.isArray(val) ? val.filter(Boolean) : val ? [val] : [];
+  }
+
+  function escAttr(s = '') {
+    return String(s).replace(/"/g, '&quot;');
+  }
+
+  // Bold director names inside bio (even if user didn’t add <b> in JSON)
+  /**
+   * Bold director names and (if available) attach data-photo="URL" for tooltip
+   * @param {string} bioHtml - sanitized bio (use sanitizeBio before this)
+   * @param {string[]} directors - array of names in current language
+   * @param {(name:string)=>string|undefined} photoFor - callback returning photo URL for a name
+   */
+  function boldDirectorNamesIn(bioHtml, directors, photoFor) {
+    if (!bioHtml || !directors.length) return bioHtml;
+    let out = bioHtml;
+    directors.forEach((name) => {
+      if (!name) return;
+      const escaped = name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
+      // don’t re-bold already bold text; unicode + global
+      const reAll = new RegExp(
+        `\\b(${escaped})\\b(?![^<]*</(?:b|strong)>)`,
+        'igu'
+      );
+
+      const url = photoFor ? photoFor(name) : '';
+      const attr = url ? ` data-photo="${escAttr(url)}"` : '';
+
+      out = out.replace(
+        reAll,
+        `<strong class="uffb-dir-name"${attr}>$1</strong>`
+      );
+    });
+    return out;
+  }
+
+  function ensureDirTooltip() {
+    if (document.getElementById('uffb-dir-tooltip')) return;
+    const box = document.createElement('div');
+    box.id = 'uffb-dir-tooltip';
+    box.innerHTML = `<img alt="" loading="lazy">`;
+    document.body.appendChild(box);
+  }
+
+  function attachDirPhotoTooltips(root) {
+    ensureDirTooltip();
+    const tip = document.getElementById('uffb-dir-tooltip');
+    const img = tip.querySelector('img');
+
+    function show(e) {
+      const url = e.currentTarget.getAttribute('data-photo');
+      if (!url) return;
+      img.src = url;
+      tip.style.display = 'block';
+      move(e);
+    }
+    function move(e) {
+      // position near cursor but keep on-screen
+      const pad = 14;
+      const vw = window.innerWidth,
+        vh = window.innerHeight;
+      const tw = tip.offsetWidth || 220,
+        th = tip.offsetHeight || 140;
+      let x = e.clientX + pad,
+        y = e.clientY + pad;
+      if (x + tw + pad > vw) x = e.clientX - tw - pad;
+      if (y + th + pad > vh) y = e.clientY - th - pad;
+      tip.style.left = `${Math.max(0, x)}px`;
+      tip.style.top = `${Math.max(0, y)}px`;
+    }
+    function hide() {
+      tip.style.display = 'none';
+      img.src = '';
+    }
+
+    root.querySelectorAll('.uffb-dir-name[data-photo]').forEach((el) => {
+      el.addEventListener('mouseenter', show);
+      el.addEventListener('mousemove', move);
+      el.addEventListener('mouseleave', hide);
+      el.addEventListener(
+        'touchstart',
+        (e) => {
+          show(e.touches[0]);
+        },
+        { passive: true }
+      );
+      el.addEventListener('touchend', hide, { passive: true });
+    });
+  }
+
+  function attachGenericPhotoTooltips(root, selector) {
+    ensureDirTooltip();
+    const tip = document.getElementById('uffb-dir-tooltip');
+    const img = tip.querySelector('img');
+
+    function showLike(e, node) {
+      const url = node.getAttribute('data-photo');
+      if (!url) return;
+      img.src = url;
+      tip.style.display = 'block';
+      moveLike(e);
+    }
+    function moveLike(e) {
+      const pad = 14;
+      const vw = window.innerWidth,
+        vh = window.innerHeight;
+      const tw = tip.offsetWidth || 260,
+        th = tip.offsetHeight || 160;
+      let x = (e.clientX ?? (e.touches && e.touches[0]?.clientX) ?? 0) + pad;
+      let y = (e.clientY ?? (e.touches && e.touches[0]?.clientY) ?? 0) + pad;
+      if (x + tw + pad > vw) x = x - tw - pad * 2;
+      if (y + th + pad > vh) y = y - th - pad * 2;
+      tip.style.left = `${Math.max(0, x)}px`;
+      tip.style.top = `${Math.max(0, y)}px`;
+    }
+    function hideLike() {
+      tip.style.display = 'none';
+      img.src = '';
+    }
+
+    root.querySelectorAll(selector).forEach((el) => {
+      // hover
+      el.addEventListener('mouseenter', (e) => showLike(e, el));
+      el.addEventListener('mousemove', moveLike);
+      el.addEventListener('mouseleave', hideLike);
+      // click toggles (desktop)
+      el.addEventListener('click', (e) => {
+        if (tip.style.display === 'block') hideLike();
+        else showLike(e, el);
+      });
+      // keyboard accessibility
+      el.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          if (tip.style.display === 'block') hideLike();
+          else showLike(e, el);
+        } else if (e.key === 'Escape') {
+          hideLike();
+        }
+      });
+      // touch
+      el.addEventListener('touchstart', (e) => showLike(e, el), {
+        passive: true,
+      });
+      el.addEventListener('touchend', hideLike, { passive: true });
+    });
+
+    // click anywhere else closes
+    document.addEventListener('click', (e) => {
+      if (!e.target.closest(selector)) hideLike();
+    });
+  }
+
+  // Flexible resolver: tries several places to find a photo for a given director name
+  function resolveDirectorPhoto(name, idx, shortFilm, fullFilm) {
+    const n = (name || '').trim().toLowerCase();
+    const tryUrl = (u) => (typeof u === 'string' && u.trim() ? u.trim() : null);
+
+    // 1) Per-short: director_photo can be string (single dir) or array aligned with directors
+    if (shortFilm && shortFilm.director_photo) {
+      if (Array.isArray(shortFilm.director_photo)) {
+        const u = shortFilm.director_photo[idx];
+        if (tryUrl(u)) return u;
+      } else if (!Array.isArray(shortFilm.director)) {
+        const u = shortFilm.director_photo;
+        if (tryUrl(u)) return u;
+      }
+    }
+    // 2) Per-short: map by name: director_photos: { "Name": "url", ... }
+    if (
+      shortFilm &&
+      shortFilm.director_photos &&
+      typeof shortFilm.director_photos === 'object'
+    ) {
+      for (const [k, v] of Object.entries(shortFilm.director_photos)) {
+        if (k.trim().toLowerCase() === n && tryUrl(v)) return v;
+      }
+    }
+    // 3) Film-level map: director_photos: { "Name": "url", ... }
+    if (
+      fullFilm &&
+      fullFilm.director_photos &&
+      typeof fullFilm.director_photos === 'object'
+    ) {
+      for (const [k, v] of Object.entries(fullFilm.director_photos)) {
+        if (k.trim().toLowerCase() === n && tryUrl(v)) return v;
+      }
+    }
+    // 4) Per-short: people: [{name, photo}]
+    if (shortFilm && Array.isArray(shortFilm.people)) {
+      const hit = shortFilm.people.find(
+        (p) => (p.name || '').trim().toLowerCase() === n && tryUrl(p.photo)
+      );
+      if (hit) return hit.photo;
+    }
+    return null;
+  }
+
+  // Wrap director names with a clickable/hoverable span carrying the photo
+  function wrapDirectorNamesWithPhoto(
+    aboutHtml,
+    directors,
+    shortFilm,
+    fullFilm
+  ) {
+    if (!aboutHtml || !directors?.length) return aboutHtml;
+
+    let out = aboutHtml;
+    directors.forEach((name, idx) => {
+      if (!name) return;
+      const photo = resolveDirectorPhoto(name, idx, shortFilm, fullFilm);
+      const escaped = name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      const re = new RegExp(
+        `(?!<(?:b|strong)[^>]*>)\\b(${escaped})\\b(?![^<]*</(?:b|strong)>)`,
+        'gi'
+      );
+
+      // If we have a photo, include the tooltip markup and make it interactive
+      if (photo) {
+        out = out.replace(
+          re,
+          `<span class="uffb-dir" role="button" tabindex="0" aria-haspopup="true" aria-expanded="false" data-photo="${photo}" data-name="${name}">
+           <strong><u>$1</u></strong>
+           <span class="dir-tooltip" aria-hidden="true">
+             <img src="${photo}" alt="${name}">
+           </span>
+         </span>`
+        );
+      } else {
+        // No photo: still make it bold, keep simple wrapper for consistent styling
+        out = out.replace(
+          re,
+          `<span class="uffb-dir no-photo"><strong>$1</strong></span>`
+        );
+      }
+    });
+
+    return out;
+  }
+
+  // Preload all director photos found in DOM (tooltip <img> won't wait)
+  function preloadDirectorPhotosFrom(root) {
+    const urls = new Set();
+    root.querySelectorAll('.uffb-dir[data-photo]').forEach((el) => {
+      const u = el.getAttribute('data-photo');
+      if (u) urls.add(u);
+    });
+    urls.forEach((u) => {
+      // 1) Hint browser
+      const link = document.createElement('link');
+      link.rel = 'preload';
+      link.as = 'image';
+      link.href = u;
+      document.head.appendChild(link);
+      // 2) Force into memory cache
+      const img = new Image();
+      img.src = u;
+    });
+  }
+
+  // Hover & click behavior for tooltips; one open at a time; ESC/outside closes.
+  function initDirectorPopups(root) {
+    const closeAll = () => {
+      root.querySelectorAll('.uffb-dir.is-open').forEach((el) => {
+        el.classList.remove('is-open');
+        el.setAttribute('aria-expanded', 'false');
+      });
+    };
+
+    // Toggle on click/keyboard
+    root.addEventListener('click', (e) => {
+      const t = e.target.closest('.uffb-dir[data-photo]');
+      if (!t) {
+        // click outside
+        closeAll();
+        return;
+      }
+      // toggle
+      const isOpen = t.classList.contains('is-open');
+      closeAll();
+      if (!isOpen) {
+        t.classList.add('is-open');
+        t.setAttribute('aria-expanded', 'true');
+      }
+    });
+
+    root.addEventListener('keydown', (e) => {
+      const t = e.target.closest('.uffb-dir[data-photo]');
+      if (e.key === 'Escape') {
+        closeAll();
+      } else if (t && (e.key === 'Enter' || e.key === ' ')) {
+        e.preventDefault();
+        const isOpen = t.classList.contains('is-open');
+        closeAll();
+        if (!isOpen) {
+          t.classList.add('is-open');
+          t.setAttribute('aria-expanded', 'true');
+        }
+      }
+    });
+
+    // Optional: close when scrolling a lot (mobile safety)
+    window.addEventListener('scroll', () => closeAll(), { passive: true });
+  }
+
+  function buildShortsItemsSection(film) {
+    const shortDesc = localized(film.short_description);
+    const longDesc = localized(film.description);
+    const shorts = Array.isArray(film.films) ? film.films : [];
+    const image = film.display_image ? film.image : '';
+    if (!shorts.length && !shortDesc && !longDesc) return '';
+
+    const items = shorts
+      ?.map((sf, idx) => {
+        const anchorId = shortAnchorId(film, sf, idx);
+
+        const title =
+          (typeof sf.title === 'object' ? localized(sf.title) : sf.title) || '';
+        const director =
+          (typeof sf.director === 'object'
+            ? localized(sf.director)
+            : sf.director) || '';
+        const countriesRaw =
+          (sf.countries &&
+            (sf.countries[lang] || sf.countries.en || sf.countries.de)) ??
+          '';
+        const countries = Array.isArray(countriesRaw)
+          ? countriesRaw.join(', ')
+          : countriesRaw || '';
+        const year = sf.year ?? '';
+        const desc =
+          (sf.description &&
+            (typeof sf.description === 'object'
+              ? localized(sf.description)
+              : sf.description)) ||
+          '';
+
+        const aboutRaw =
+          (sf.about &&
+            (typeof sf.about === 'object' ? localized(sf.about) : sf.about)) ||
+          '';
+
+        const aboutSanitized = sanitizeBio(aboutRaw);
+        const directorList = toDirectorList(sf.director, localized);
+
+        const directorLine = directorList.join(', ');
+
+        const photoMapShort = sf.director_photos || {};
+        const photoMapFilm = (film && film.director_photos) || {};
+        const photoFor = (name) =>
+          photoMapShort[name] || photoMapFilm[name] || '';
+
+        const aboutEnhanced = wrapDirectorNamesWithPhoto(
+          aboutSanitized,
+          directorList,
+          sf,
+          film
+        );
+
+        const aboutBlock = aboutEnhanced
+          ? `<div class="uffb-short-about">
+           <!--div class="ttl">${t('aboutDirector')}</div-->
+           <div class="txt">${aboutEnhanced}</div>
+         </div>`
+          : '';
+
+        const img = sf.image || '';
+        const trailer = sf.trailer || '';
+        //const genreTxt = joinLocalized(sf.genre);
+        let durationTxt = sf.duration != null ? sf.duration : '';
+        if (typeof durationTxt === 'number') durationTxt = `${durationTxt}'`;
+        else if (typeof durationTxt === 'object')
+          durationTxt = localized(durationTxt);
+
+        const imgHtml = img
+          ? `<div class="uffb-short-img"><img loading="lazy" src="${img}" alt="${title}"></div>`
+          : ``;
+
+        const metaBlock = `
+        <div class="uffb-short-metas">
+          ${[countries, year].filter(Boolean).length ? `<div class="uffb-short-meta1"><em>${[countries, year].filter(Boolean).join(' | ')}</em></div>` : ''}
+          ${directorList && directorLine ? `<div class="uffb-short-meta2"><strong>${directorList.length > 1 ? t('directors') : t('director')}:</strong> ${directorLine}</div>` : ''}
+          ${durationTxt ? `<div class="uffb-short-meta3">${durationTxt}</div>` : ''}
+        </div>
+      `;
+
+        const trailerBtn = trailer
+          ? `<div class="uffb-short-actions">
+          <button type="button" class="uffb-btn uffb-trailer-btn eventlist-button sqs-editable-button sqs-button-element--primary" data-trailer="${trailer}">${t('watchTrailer')}</button>
+          </div>`
+          : '';
+
+        const descBlock = desc
+          ? `<div class="uffb-short-desc">${desc}</div>`
+          : '';
+
+        return html`
+        <li class="uffb-short-item" id="${anchorId}">
+            ${imgHtml}
+            <div class="right">
+              <h2>${title}</h2>
+              ${metaBlock}${trailerBtn} ${descBlock} ${aboutBlock}
+            </div>
+            <!--div class="full-row">${descBlock}</div-->
+          </li>
+      `;
+      })
+      .join('');
+
+    return html`
+      <section class="uffb-panel uffb-shorts-block">
+        <div class="uffb-synopsis2">
+          ${image ? `<img src="${image}"` : ''}
+          ${shortDesc
+            ? `<p class="uffb-lead"><strong>${shortDesc}</strong></p>`
+            : ''}
+          ${longDesc ? `<p class="uffb-bodytext">${longDesc}</p>` : ''}
+        </div>
+      </section>
+      <section class="uffb-panel uffb-shorts-block">
+        <ol class="uffb-shorts-list">
+          ${items}
+        </ol>
+      </section>
+    `;
+  }
+
+  /* ---------- CSS ---------- */
+  const CSS = css`
+    p {
+      margin: 2rem 0;
+    }
+    .uffb-film {
+      display: grid;
+      gap: 24px;
+    }
+    .uffb-film-header {
+      display: grid;
+      gap: 16px;
+    }
+    .uffb-title {
+      font-size: clamp(28px, 4vw, 44px);
+      line-height: 1.1;
+      margin: 0;
+    }
+
+    .uffb-breadcrumb {
+      margin-bottom: 6px;
+      font-size: 13px;
+      display: block;
+      opacity: 1;
+    }
+    .uffb-breadcrumb ol {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .uffb-breadcrumb li {
+      display: flex;
+      align-items: center;
+    }
+    .uffb-breadcrumb li + li::before {
+      content: '›';
+      margin: 0 8px;
+      opacity: 0.6;
+    }
+    .uffb-breadcrumb a {
+      text-decoration: underline;
+    }
+
+    .uffb-media {
+      position: relative;
+      overflow: hidden;
+      border-radius: 0px;
+      background: #000;
+      aspect-ratio: 16/9;
+    }
+    .uffb-slides {
+      display: flex;
+      transition: transform 0.35s ease;
+      width: 100%;
+    }
+    .uffb-slide {
+      min-width: 100%;
+      position: relative;
+    }
+    .uffb-slide img,
+    .uffb-slide iframe {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+    }
+    .uffb-video-ph {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+    .uffb-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      border: none;
+      background: rgba(0, 0, 0, 0.45);
+      color: #fff;
+      width: 44px;
+      height: 44px;
+      border-radius: 999px;
+      font-size: 22px;
+      line-height: 1;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+    }
+    .uffb-prev {
+      left: 10px;
+    }
+    .uffb-next {
+      right: 10px;
+    }
+    .uffb-play-badge {
+      position: absolute;
+      inset: auto auto 16px 16px;
+      border: 1.5px solid #fff;
+      color: #fff;
+      background: transparent;
+      border-radius: 999px;
+      padding: 8px 12px;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      cursor: pointer;
+    }
+    .uffb-slide-tag {
+      position: absolute;
+      left: 16px;
+      top: 16px;
+      background: rgba(0, 0, 0, 0.6);
+      color: #fff;
+      padding: 4px 8px;
+      border-radius: 0px;
+      font-size: 12px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .uffb-topline {
+      display: flex;
+      gap: 50px;
+      align-items: flex-end;
+      justify-content: space-between;
+      background: #000;
+      color: #fff;
+      border-radius: 0px;
+    }
+    .uffb-topline-left {
+      display: grid;
+      gap: 4px;
+    }
+    .uffb-cat {
+      font-size: 1rem;
+      letter-spacing: 0.06em;
+      opacity: 0.85;
+      text-transform: uppercase;
+    }
+    .uffb-top-title {
+      font-size: clamp(22px, 4.5vw, 42px);
+      font-weight: 800;
+      line-height: 1;
+      text-transform: uppercase;
+    }
+    .uffb-topline-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .uffb-btn {
+      --btn-fg: #111; /* the color to invert to */
+      color: var(--btn-fg);
+      display: inline-block;
+      padding: 18px;
+      border: 1px solid var(--paragraphLinkColor);
+      border-radius: 0px;
+      font-weight: 800;
+      text-decoration: none;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      background: var(--paragraphLinkColor);
+      transition:
+        background-color var(--btn-anim) ease,
+        color var(--btn-anim) ease,
+        border-color var(--btn-anim) ease,
+        transform 0.06s ease;
+    }
+
+    .uffb-btn,
+    .uffb-tickets a,
+    .uffb-icon-btn,
+    .uffb-chip {
+      transition:
+        background-color 0.18s ease,
+        color 0.18s ease,
+        border-color 0.18s ease,
+        box-shadow 0.18s ease,
+        transform 0.06s ease;
+    }
+
+    .uffb-btn:hover {
+      background: var(--btn-fg); /* uses stored color, not currentColor */
+      color: #fff;
+      border-color: #fff;
+    }
+
+    .uffb-btn:active,
+    .uffb-tickets a:active {
+      transform: translateY(1px);
+    }
+
+    .uffb-btn.is-disabled {
+      pointer-events: none;
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    @media (max-width: 640px) {
+      .uffb-topline {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .uffb-topline-right {
+        margin-top: 8px;
+      }
+    }
+
+    .visually-hidden {
+      position: absolute !important;
+      width: 1px !important;
+      height: 1px !important;
+      padding: 0 !important;
+      margin: -1px !important;
+      overflow: hidden !important;
+      clip: rect(0 0 0 0) !important;
+      white-space: nowrap !important;
+      border: 0 !important;
+    }
+
+    .uffb-panel {
+      padding: 0;
+    }
+    .uffb-panel + .uffb-panel {
+      margin-top: 22px;
+    }
+    .uffb-panel-title {
+      font-size: 1.25rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      opacity: 0.6;
+      margin: 15px 0 10px 0;
+    }
+
+    .uffb-info,
+    .uffb-credits {
+      display: grid;
+      gap: 6px;
+    }
+    .uffb-info-row {
+      display: grid;
+      grid-template-columns: minmax(110px, 150px) 1fr;
+      gap: 8px;
+    }
+    .uffb-info-label {
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      opacity: 0.85;
+      font-size: 0.85rem;
+    }
+    .uffb-info-value {
+      font-size: 1.15rem;
+    }
+
+    .uffb-synopsis2 .uffb-lead {
+      margin: 0 0 10px 0;
+      font-size: 18px;
+    }
+    .uffb-synopsis2 .uffb-bodytext {
+      white-space: pre-wrap;
+      font-size: 1.15rem;
+    }
+    .uffb-synopsis2 > img {
+      max-width: 100%;
+    }
+
+    .uffb-warning {
+      margin: 15px 0 0;
+      font-size: 1.15rem;
+      padding: 20px;
+      background-color: #222;
+      border-radius: 5px;
+    }
+
+    .uffb-warning a {
+      color: var(--paragraphLinkColor);
+      text-decoration: none;
+      font-weight: 700;
+    }
+    .uffb-warning a:hover {
+      text-decoration: underline !important;
+    }
+
+    .uffb-two-col {
+      display: grid;
+      gap: 105px;
+      margin-top: 32px;
+    }
+    .uffb-party .uffb-two-col {
+      display: flex;
+      gap: 0;
+      margin: 0 15px;
+    }
+    @media (min-width: 960px) {
+      .uffb-two-col {
+        grid-template-columns: 1fr 2fr;
+        align-items: start;
+      }
+    }
+    .uffb-col-left,
+    .uffb-col-right {
+      position: relative;
+    }
+    @media (min-width: 960px) {
+      .uffb-col-left {
+        padding-right: 20px;
+        border-right: 1px solid rgba(0, 0, 0, 0.08);
+      }
+      .uffb-col-right {
+        padding-left: 20px;
+      }
+    }
+
+    .uffb-section-title {
+      font-size: clamp(22px, 4.5vw, 42px);
+      font-weight: 800;
+      line-height: 1.05;
+      margin: 25px 0;
+      text-transform: none;
+    }
+    .uffb-screenings-block {
+      margin-top: 25px;
+      scroll-margin-top: 80px;
+    }
+
+    .uffb-shorts-layout .uffb-screenings-block,
+    .uffb-shorts-layout .uffb-screenings-block .uffb-section-title {
+      margin-top: 0;
+    }
+
+    .uffb-screenings-grid {
+      display: grid;
+      gap: 16px;
+    }
+    @media (min-width: 720px) {
+      .uffb-screenings-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+    @media (min-width: 1100px) {
+      .uffb-screenings-grid {
+        grid-template-columns: 1fr 1fr 1fr;
+      }
+    }
+
+    .uffb-shorts-right .uffb-screenings-grid {
+      grid-template-columns: 1fr !important; /* force single column */
+    }
+
+    .uffb-screening-card {
+      display: grid;
+      gap: 8px;
+      padding: 16px;
+      border: 1px solid rgba(0, 0, 0, 0.12);
+      border-radius: 0px;
+      background: #fff;
+    }
+    .uffb-screening-card .uffb-whenline,
+    .uffb-screening-card .uffb-venue-title {
+      color: #333;
+      font-weight: 600;
+    }
+    .uffb-whenline {
+      font-weight: 700;
+    }
+    .uffb-venue-title {
+      font-size: 17px;
+      font-weight: 700;
+    }
+    .uffb-addr {
+      text-decoration: underline;
+      opacity: 1;
+      color: #000;
+    }
+    .uffb-book-btn {
+      display: inline-block;
+      padding: 10px 18px;
+      border: 1.5px solid var(--paragraphLinkColor);
+      border-radius: 0px;
+      font-weight: 800;
+      text-decoration: none;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #333;
+    }
+    .uffb-card-actions {
+      margin-top: 6px;
+      color: #333;
+    }
+
+    .uffb-noscroll {
+      overflow: hidden;
+    }
+    #uffb-lightbox {
+      position: fixed;
+      inset: 0;
+      display: none;
+      z-index: 9999;
+    }
+    #uffb-lightbox.open {
+      display: block;
+    }
+    .uffb-lb-backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.7);
+    }
+    .uffb-lb-dialog {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: min(92vw, 960px);
+      aspect-ratio: 16/9;
+      background: #000;
+      border-radius: 0px;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+    }
+    .uffb-lb-close {
+      position: absolute;
+      top: 8px;
+      right: 10px;
+      z-index: 2;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: none;
+      cursor: pointer;
+      background: rgba(255, 255, 255, 0.9);
+      font-size: 22px;
+      line-height: 1;
+    }
+    .uffb-lb-viewport,
+    #uffb-lb-iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+      display: block;
+    }
+
+    /* --- Shorts + Screenings two-column layout (desktop) --- */
+    .uffb-shorts-layout {
+      display: grid;
+      gap: 28px;
+      margin-top: 32px;
+    }
+    @media (min-width: 1100px) {
+      .uffb-shorts-layout {
+        grid-template-columns: 2fr 1fr;
+        align-items: start;
+      }
+    }
+    .uffb-shorts-left {
+      margin: 0 auto;
+    }
+    .uffb-shorts-right {
+      position: relative;
+    }
+    @media (min-width: 1100px) {
+      .uffb-shorts-right {
+        padding-left: 20px;
+      }
+    }
+
+    /* --- Shorts list tweaks --- */
+    .uffb-shorts-block {
+      margin-top: 8px;
+    }
+    .uffb-shorts-list {
+      list-style: decimal;
+      padding-left: 0;
+      margin: 0;
+      display: grid;
+      gap: 75px;
+    }
+
+    .uffb-short-item {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      gap: 16px;
+      align-items: start;
+      scroll-margin-top: 15px;
+    }
+
+    .uffb-short-item {
+      display: grid;
+      grid-template-columns: 2fr 1fr; /* 2 columns */
+      gap: 8px 28px;
+    }
+    .uffb-short-item h2 {
+      margin-top: 0;
+      font-size: 1.25rem;
+    }
+
+    /* Any child with .full-row will span both columns */
+    .uffb-short-item > .full-row {
+      grid-column: 1 / -1;
+    }
+
+    /* (optional) mobile: collapse to 1 column, the span is harmless */
+    @media (max-width: 700px) {
+      .uffb-short-item {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 800px) {
+      .uffb-short-item {
+        grid-template-columns: 200px 1fr;
+      }
+    }
+    @media (max-width: 640px) {
+      .uffb-short-item {
+        grid-template-columns: 1fr;
+      }
+      .uffb-short-item h2 {
+        margin: 10px 0 15px;
+      }
+    }
+
+    .uffb-short-img {
+      width: 100%;
+      aspect-ratio: 16/9;
+      background: #f3f3f3;
+      border-radius: 0px;
+      overflow: hidden;
+    }
+
+    .uffb-short-img img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      transition: transform 0.35s ease;
+    }
+
+    .uffb-short-item:hover .uffb-short-img img {
+      transform: scale(1.03);
+    }
+
+    .uffb-short-body {
+      display: grid;
+      gap: 8px;
+    }
+    .uffb-short-title {
+      font-weight: 800;
+      font-size: 1.1rem;
+      margin: 0;
+    }
+    .uffb-short-metas {
+      display: grid;
+      gap: 4px;
+    }
+    .uffb-short-meta1 {
+      color: #ddd;
+    }
+    .uffb-short-meta1 em {
+      font-style: normal;
+      opacity: 0.9;
+    }
+    .uffb-short-meta2,
+    .uffb-short-meta3 {
+      color: #fff;
+    }
+    .uffb-short-meta2 {
+      line-height: 1.5rem;
+    }
+    .uffb-short-desc {
+      font-size: 1.03rem;
+      line-height: 1.45;
+      margin-top: 20px;
+    }
+    .uffb-short-actions {
+      margin-top: 6px;
+    }
+
+    /* about directors section */
+    .uffb-short-about {
+      margin-top: 0.75rem;
+      padding-top: 0.75rem;
+      border-top: 1px dotted var(--hairline, #ddd);
+      font-size: 0.95em;
+      color: lightgray;
+      line-height: 1.5rem;
+    }
+    .uffb-short-about .ttl {
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+    .uffb-short-about p {
+      margin: 0.4rem 0;
+    }
+    .uffb-dir-name {
+      font-weight: 700;
+      text-decoration: underline;
+    }
+
+    #uffb-dir-tooltip {
+      position: fixed;
+      z-index: 99999;
+      display: none;
+      pointer-events: none;
+      background: #fff;
+      color: #fff;
+      border-radius: 0px;
+      padding: 5px;
+      max-width: 260px;
+    }
+    #uffb-dir-tooltip img {
+      display: block;
+      max-width: 240px;
+      height: auto;
+      object-fit: cover;
+    }
+    .uffb-dir-name {
+      font-weight: 700; /* already bolded; keep class for targeting */
+      text-decoration: underline dotted rgba(255, 255, 255, 0.4);
+      text-underline-offset: 2px;
+      cursor: help;
+    }
+
+    /* Director name wrapper */
+    .uffb-short-about .txt .uffb-dir {
+      position: relative;
+      cursor: pointer;
+      font-weight: 700; /* keeps names bold */
+      outline: none;
+      color: inherit;
+      text-decoration: none;
+      border-radius: 4px;
+    }
+    .uffb-short-about .txt .uffb-dir:focus-visible {
+      box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.9);
+    }
+
+    /* Tooltip panel */
+    .uffb-short-about .txt .uffb-dir .dir-tooltip {
+      position: absolute;
+      left: 0;
+      top: calc(100% + 8px);
+      z-index: 3000;
+      display: none; /* hidden by default */
+      background: #000;
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      border-radius: 6px;
+      padding: 6px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+      width: 220px;
+      max-width: min(64vw, 280px);
+    }
+    .uffb-short-about .txt .uffb-dir .dir-tooltip::before {
+      content: '';
+      position: absolute;
+      left: 12px;
+      top: -6px;
+      width: 10px;
+      height: 10px;
+      background: #000;
+      border-left: 1px solid rgba(255, 255, 255, 0.25);
+      border-top: 1px solid rgba(255, 255, 255, 0.25);
+      transform: rotate(45deg);
+    }
+
+    .uffb-short-about .txt .uffb-dir .dir-tooltip img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    /* Show on hover OR when toggled open */
+    .uffb-short-about .txt .uffb-dir:hover .dir-tooltip,
+    .uffb-short-about .txt .uffb-dir.is-open .dir-tooltip {
+      display: block;
+    }
+
+    /* If no photo: disable pointer affordance and tooltip */
+    .uffb-short-about .txt .uffb-dir.no-photo {
+      cursor: default;
+    }
+    .uffb-short-about .txt .uffb-dir.no-photo .dir-tooltip {
+      display: none !important;
+    }
+
+    /* Partners */
+    .uffb-partners {
+      margin: 45px 0 35px !important;
+    }
+
+    .uffb-partner-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px 24px;
+      align-items: center;
+    }
+    .uffb-partner {
+      align-items: center;
+      justify-content: center;
+      text-decoration: none; /* logo is the link */
+    }
+    .uffb-partner-logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      /* keep logos visually consistent */
+      max-width: 350px; /* desktop max width */
+      background: white;
+    }
+    .uffb-partner-logo img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      object-fit: contain;
+      /* optional: cap height to keep row tidy; tweak if needed */
+      max-height: 120px;
+    }
+    @media (max-width: 640px) {
+      .uffb-partner-logo {
+        max-width: 150px;
+      } /* phone max width */
+      .uffb-partner-logo img {
+        max-height: 95px;
+      }
+    }
+
+    /* Special program */
+    .uffb-special {
+      margin-top: 18px;
+    }
+    .uffb-sp-list {
+      list-style: none;
+      padding: 0;
+      margin: 8px 0 0 0;
+      display: grid;
+      gap: 8px;
+    }
+    .uffb-sp-item {
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      gap: 10px;
+      align-items: baseline;
+    }
+    .uffb-sp-item .time {
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+    .uffb-sp-item .txt {
+      line-height: 1.45;
+    }
+    @media (max-width: 520px) {
+      .uffb-sp-item {
+        grid-template-columns: 70px 1fr;
+      }
+    }
+    /* Special program location under the title */
+    .uffb-sp-location {
+      margin: 4px 0 8px 0;
+      font-size: 0.95rem;
+      opacity: 0.95;
+    }
+    .uffb-sp-location a {
+      text-decoration: underline;
+    }
+    /* show line breaks in panel description */
+    .uffb-panel-discussion-body .uffb-pd-desc {
+      white-space: pre-line;
+    }
+
+    /* inline partners block under Guests (spacing & links) */
+    .uffb-panel-discussion .uffb-panel-extra {
+      margin: 14px 0 12px;
+    }
+    .uffb-panel-discussion .uffb-partner-head {
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+    .uffb-panel-discussion .uffb-panel-extra a {
+      color: var(--paragraphLinkColor);
+      text-decoration: none;
+      font-weight: 700;
+    }
+    .uffb-panel-discussion .uffb-panel-extra a:hover {
+      text-decoration: underline !important;
+    }
+
+    /* Participants list */
+    .uffb-participants {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      gap: 22px;
+    }
+    .uffb-participant {
+      display: grid;
+      grid-template-columns: 140px 1fr;
+      gap: 16px;
+      align-items: start;
+    }
+    .uffb-participant .ph {
+      width: 100%;
+      aspect-ratio: 1/1;
+      background: #f3f3f3;
+      overflow: hidden;
+    }
+    .uffb-participant .ph img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .uffb-participant .ph.ph-empty {
+      background: #eee;
+    }
+    .uffb-participant .txt .name {
+      font-weight: 800;
+      font-size: 1.1rem;
+    }
+    .uffb-participant .txt .role-badge {
+      display: inline-block;
+      font-weight: 700;
+      font-size: 0.8rem;
+      margin-left: 8px;
+      padding: 2px 6px;
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      border-radius: 0px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .uffb-participant .txt .bio {
+      margin-top: 8px;
+      line-height: 1.5;
+    }
+    .uffb-participant .txt .credit {
+      margin-top: 6px;
+      font-style: italic;
+      opacity: 0.85;
+      font-size: 0.85rem;
+    }
+    @media (max-width: 640px) {
+      .uffb-participant {
+        grid-template-columns: 100px 1fr;
+      }
+    }
+    /* keep description line breaks */
+    .uffb-synopsis2 .uffb-lead {
+      white-space: pre-line;
+    }
+
+    /* participants layout */
+    .uffb-participants {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      gap: 22px;
+    }
+    .uffb-participant {
+      display: grid;
+      grid-template-columns: 140px 1fr;
+      gap: 16px;
+      align-items: start;
+    }
+    .uffb-participant .ph {
+      width: 100%;
+      aspect-ratio: 1/1;
+      background: #f3f3f3;
+      overflow: hidden;
+    }
+    .uffb-participant .ph img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .uffb-participant .ph.ph-empty {
+      background: #eee;
+    }
+    .uffb-participant .txt .name {
+      font-weight: 800;
+      font-size: 1.1rem;
+    }
+    .uffb-participant .txt .role-badge {
+      display: inline-block;
+      font-weight: 700;
+      font-size: 0.8rem;
+      margin-left: 8px;
+      padding: 2px 6px;
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      border-radius: 0;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .uffb-participant .txt .bio {
+      margin-top: 8px;
+      line-height: 1.5;
+    }
+    .uffb-participant .txt .credit {
+      margin-top: 6px;
+      font-style: italic;
+      opacity: 0.85;
+    }
+    @media (max-width: 640px) {
+      .uffb-participant {
+        grid-template-columns: 100px 1fr;
+      }
+    }
+    /* parent film line (under date) */
+    .uffb-parent-film {
+      margin: 2px 0 6px;
+      font-weight: 600;
+      color: black;
+      font-size: 2rem;
+    }
+    .uffb-parent-film a {
+      color: inherit;
+      text-decoration: underline;
+    }
+    .uffb-lang-note {
+      margin-bottom: 1rem;
+    }
+
+    /* partner logos inside screening cards */
+    .uffb-partner-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px 14px;
+      align-items: center;
+      margin-top: 8px;
+    }
+    .uffb-partner-row a,
+    .uffb-partner-logo-only {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .uffb-partner-row img {
+      height: 32px;
+      width: auto;
+      object-fit: contain;
+      background: #fff; /* keeps logos crisp on white card */
+    }
+    @media (min-width: 1100px) {
+      .uffb-partner-row img {
+        height: 36px;
+      }
+    }
+    /* inline partners (under description) */
+    .uffb-panel-extra {
+      margin: 14px 0 12px;
+    }
+    .uffb-partner-head {
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+    .ufp-inline-logos {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px 14px;
+      align-items: center;
+    }
+    .ufp-inline-logos a,
+    .ufp-inline-logos .uffb-inline-logo {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .ufp-inline-logos img {
+      height: 36px;
+      width: auto;
+      object-fit: contain;
+      background: #fff;
+    }
+    @media (max-width: 640px) {
+      .ufp-inline-logos img {
+        height: 30px;
+      }
+    }
+    /* --- Film stills gallery --- */
+    .uffb-gallery {
+      margin-top: 12px;
+    }
+    .uffb-gallery-grid {
+      display: grid;
+      gap: 8px;
+      grid-template-columns: repeat(2, 1fr);
+    }
+    @media (min-width: 700px) {
+      .uffb-gallery-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+    @media (min-width: 1100px) {
+      .uffb-gallery-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+    .uffb-gal-tile {
+      display: block;
+      padding: 0;
+      border: 0;
+      background: none;
+      cursor: pointer;
+      width: 100%;
+      aspect-ratio: 16/9;
+      overflow: hidden;
+    }
+    .uffb-gal-tile img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.25s ease;
+    }
+    .uffb-gal-tile:hover img {
+      transform: scale(1.03);
+    }
+
+    /* Image lightbox */
+    #uffb-imgbox {
+      position: fixed;
+      inset: 0;
+      display: none;
+      z-index: 9999;
+    }
+    #uffb-imgbox.open {
+      display: block;
+    }
+    .uffb-img-dialog {
+      width: min(92vw, 1200px);
+      aspect-ratio: 16/10;
+      background: #000;
+    }
+    #uffb-imgbox .uffb-lb-viewport {
+      width: 100%;
+      height: 100%;
+      display: grid;
+      place-items: center;
+      background: #000;
+    }
+    #uffb-imgbox-img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+    #uffb-imgbox .uffb-lb-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 44px;
+      height: 44px;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      background: rgba(255, 255, 255, 0.9);
+      font-size: 24px;
+      line-height: 1;
+    }
+    #uffb-imgbox .uffb-lb-nav.prev {
+      left: 10px;
+    }
+    #uffb-imgbox .uffb-lb-nav.next {
+      right: 10px;
+    }
+    .party-lineup {
+      margin: 8px 0 12px 22px;
+      line-height: 1.45;
+    }
+    .party-lineup li + li {
+      margin-top: 6px;
+    }
+    .uffb-party {
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
+    }
+
+    /* faint starfield overlay */
+    .uffb-party::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: 1; /* above black background, below most content */
+      pointer-events: none;
+      background:
+        radial-gradient(
+          1.5px 1.5px at 8% 14%,
+          rgba(255, 255, 255, 0.85) 45%,
+          transparent 47%
+        ),
+        radial-gradient(
+          1.5px 1.5px at 22% 68%,
+          rgba(255, 255, 255, 0.75) 45%,
+          transparent 47%
+        ),
+        radial-gradient(
+          1.5px 1.5px at 44% 28%,
+          rgba(255, 255, 255, 0.8) 45%,
+          transparent 47%
+        ),
+        radial-gradient(
+          1.5px 1.5px at 66% 62%,
+          rgba(255, 255, 255, 0.85) 45%,
+          transparent 47%
+        ),
+        radial-gradient(
+          1.5px 1.5px at 78% 34%,
+          rgba(255, 255, 255, 0.8) 45%,
+          transparent 47%
+        ),
+        radial-gradient(
+          1.5px 1.5px at 90% 76%,
+          rgba(255, 255, 255, 0.85) 45%,
+          transparent 47%
+        );
+      opacity: 0.16; /* tuned for black bg */
+      animation: party-breathe 9s ease-in-out infinite;
+    }
+
+    @keyframes party-breathe {
+      0%,
+      100% {
+        opacity: 0.12;
+      }
+      50% {
+        opacity: 0.22;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .uffb-party::after {
+        animation: none !important;
+      }
+    }
+  `;
+
+  function injectCSS() {
+    if (document.getElementById('uffb-film-style')) return;
+    const s = document.createElement('style');
+    s.id = 'uffb-film-style';
+    s.textContent = CSS;
+    document.head.appendChild(s);
+  }
+  function escapeHtml(s) {
+    return String(s)
+      .replaceAll('&', '&amp;')
+      .replaceAll('<', '&lt;')
+      .replaceAll('>', '&gt;');
+  }
+
+  /* ---------- render(el) ---------- */
+  async function render(el) {
+    injectCSS();
+
+    const wrap = document.createElement('div');
+    el.appendChild(wrap);
+
+    const jsonUrl = el.dataset.json;
+    if (!jsonUrl) {
+      console.error('[UFFB] Missing data-json on', el);
+      return;
+    }
+
+    const todayISO = isoLocalToday();
+
+    let films = [];
+    try {
+      const res = await fetch(jsonUrl, { cache: 'no-cache' });
+      if (!res.ok) throw new Error('load fail');
+      films = await res.json();
+    } catch (err) {
+      wrap.innerHTML = `<p>${t('loadError')}</p>`;
+      console.error('[UFFB] JSON fetch error', err);
+      return;
+    }
+
+    const filmId = getFilmId();
+    if (!filmId) return;
+    let film = films.find((f) => f.id === filmId);
+
+    // If not a film id, try panel id (exact match to panel_discussion.id)
+    if (!film) {
+      const parent = films.find((f) => f.panel_discussion?.id === filmId);
+      if (parent) {
+        const pd = parent.panel_discussion;
+
+        // Title: quoted after keyword; fallback to "Panel discussion – {FilmTitle}"
+        const { en: qEn, de: qDe } = extractPanelTitle(pd.description || {});
+        const title = {
+          en:
+            qEn ||
+            `Panel discussion – ${parent.title?.en || parent.title?.de || ''}`,
+          de:
+            qDe ||
+            `Podiumsdiskussion – ${parent.title?.de || parent.title?.en || ''}`,
+          uk: `Панельна дискусія – ${parent.title?.uk || parent.title?.en || ''}`,
+        };
+
+        // Short description with line breaks
+        const filmTitleEn =
+          parent.title?.en || parent.title?.de || parent.title?.uk || '';
+        const filmTitleDe =
+          parent.title?.de ||
+          parent.title?.en ||
+          parent.title?.uk ||
+          filmTitleEn;
+        // const mod = pd.moderation || '';
+        // const gs = pd.guests || '';
+
+        const { moderators: mod, guests: gs } =
+          buildModAndGuestsFromParticipants(pd);
+
+        const progHref = lang === 'de' ? '/de/uffb2025' : '/uffb2025';
+        const parentId = parent.id;
+        const short_description = {
+          en: `<strong>Panel discussion after the screening <a href="${progHref}/${parentId}">“${filmTitleEn}”</strong></a>\n<strong>${t('moderator')}:</strong> ${mod || 'tba'}\n<strong>${t('guests')}:</strong> ${gs || 'tba'}.`,
+          de: `<strong>Podiumsdiskussion im Anschluss an die Vorführung <a href="${progHref}/${parentId}">“${filmTitleDe}”</strong></a>.\n<strong>${t('moderator')}:</strong> ${mod || 'tba'}.\n<strong>${t('guests')}:</strong> ${gs || 'tba'}.`,
+          uk: `<strong>Дискусія після показу <a href="${progHref}/${parentId}">“${parent.title?.uk || filmTitleEn}”</strong></a>.\n<strong>${t('moderator')}:</strong> ${mod || 'tba'}.\n<strong>${t('guests')}:</strong> ${gs || 'tba'}.`,
+        };
+
+        const detailed_description = localized(pd.long_description);
+
+        // Build the synthetic “panel film”
+        film = {
+          id: pd.id, // EXACTLY the panel id
+          title,
+          short_description,
+          detailed_description,
+          category: {
+            key: 'panel_discussion',
+            en: t('panelDiscussion'),
+            de: t('panelDiscussion'),
+            uk: t('panelDiscussion'),
+          },
+          // Reuse the parent’s language to show per-date notes (if any)
+          language: parent.language,
+          screenings: resolvePanelScreenings(parent),
+          // Store pointers we need for detail rendering
+          panel_discussion: pd,
+          _panelParent: parent,
+          published: true,
+        };
+      }
+    }
+
+    if (!film) {
+      wrap.innerHTML = `<p>${t('filmNotFound')}</p>`;
+      return;
+    }
+
+    /* ---------- NEW: early party branch (does not affect other flows) ---------- */
+    // --- inside the party branch of render(el) ---
+    if (typeof isParty === 'function' && isParty(film)) {
+      const title = localized(film.title) || film.original_title || '';
+      wrap.innerHTML = html`
+        <article
+          class="uffb-film ${isParty(film) ? 'uffb-party' : ''}"
+        >
+          ${isParty(film)
+            ? '<div class="disco-ball" aria-hidden="true"></div>'
+            : ''}
+          ${buildBreadcrumb(film)}
+          <header class="uffb-film-header">
+            ${buildTopLine(film, { hideTickets: true })}
+            <h1 class="uffb-title visually-hidden">${title}</h1>
+            ${buildMediaCarousel(film)}
+            <!-- ✅ keep the image/trailer hero as before -->
+          </header>
+
+          <section class="uffb-two-col">
+            <div class="uffb-col-left"><!-- no Info/Credits --></div>
+            <div class="uffb-col-right">
+              ${typeof buildPartyDetailSection === 'function'
+                ? buildPartyDetailSection(film)
+                : ''}
+            </div>
+          </section>
+        </article>
+  `;
+
+      // trailer lightbox (if any)
+      wrap.querySelectorAll('.uffb-trailer-btn').forEach((btn) => {
+        btn.addEventListener('click', (e) => {
+          e.preventDefault();
+          const url = btn.getAttribute('data-trailer');
+          if (url) openLightbox(url);
+        });
+      });
+
+      return; // stop here; leave the classic film flow untouched
+    }
+    /* ---------- END party branch ---------- */
+
+    const isShortsProgram = Array.isArray(film.films);
+    const isPanel = film.category?.key === 'panel_discussion';
+    const title = localized(film.title) || film.original_title || '';
+    const screeningsBlock = buildScreeningsSection(film);
+
+    // Optional: inline “In partnership with …” under description (from parent partners)
+    const partnersInline =
+      isPanel && film._panelParent
+        ? buildPartnersInlineLogosFromParent(
+            film._panelParent,
+            t('inPartnershipWith')
+          )
+        : '';
+
+    // Build panel-only blocks
+    const participantsBlock = isPanel
+      ? buildParticipantsSplitSections(film.panel_discussion)
+      : '';
+    const panelDescBlock = isPanel
+      ? buildPanelDescriptionBlock(film, partnersInline)
+      : '';
+
+    wrap.innerHTML = html`
+      <article class="uffb-film">
+        ${buildBreadcrumb(film)}
+        <header class="uffb-film-header">
+          ${buildTopLine(film)}
+          <h1 class="uffb-title visually-hidden">${title}</h1>
+          ${!isShortsProgram && !isPanel ? buildMediaCarousel(film) : ''}
+          <!-- no hero for panels -->
+        </header>
+
+        ${isPanel
+          ? html`
+          <!-- PANEL DETAIL: mirror shorts layout -->
+              <section class="uffb-shorts-layout">
+                <div class="uffb-shorts-left">
+                  ${panelDescBlock} ${participantsBlock}
+                </div>
+                <aside class="uffb-shorts-right">${screeningsBlock}</aside>
+              </section>
+        `
+          : isShortsProgram
+            ? html`
+                <section class="uffb-shorts-layout">
+                  <div class="uffb-shorts-left">
+                    ${buildShortsItemsSection(film)}
+                    ${buildPanelDiscussionBlock(film)}
+                    ${buildPartnersSection(film)}
+                  </div>
+                  <aside class="uffb-shorts-right">${screeningsBlock}</aside>
+                </section>
+              `
+            : html`
+                <section class="uffb-two-col">
+                  <div class="uffb-col-left">
+                    ${buildInfoBlock(film)} ${buildCreditsBlock(film)}
+                  </div>
+                  <div class="uffb-col-right">
+                    ${buildSynopsisBlock(film)} ${buildGallerySection(film)}
+                    ${buildPanelDiscussionBlock(film)}
+                    ${buildPartnersSection(film)}
+                    ${buildSpecialProgramSection(film)}
+                  </div>
+                </section>
+                ${screeningsBlock}
+              `}
+
+        <section class="uffb-actions"></section>
+      </article>
+    `;
+
+    // Robust: scroll to #hash once the target exists (first-load friendly)
+    (function jumpToHashWhenReady() {
+      const raw = (location.hash || '').slice(1);
+      if (!raw) return;
+      const targetId = decodeURIComponent(raw);
+
+      let done = false;
+      const tryScroll = () => {
+        if (done || !targetId) return;
+        const el = document.getElementById(targetId); // faster & no CSS.escape issues
+        if (el) {
+          done = true;
+          // small rAF to ensure layout is ready (images/fonts can shift)
+          requestAnimationFrame(() => {
+            el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          });
+          observer.disconnect();
+          clearTimeout(timeout);
+        }
+      };
+
+      // Observe DOM until the element appears (up to 5s)
+      const observer = new MutationObserver(tryScroll);
+      observer.observe(document.documentElement, {
+        childList: true,
+        subtree: true,
+      });
+
+      // Try now, after full load, and on next frame
+      tryScroll();
+      window.addEventListener('load', tryScroll, { once: true });
+      requestAnimationFrame(tryScroll);
+
+      // Safety timeout to stop observing
+      const timeout = setTimeout(() => observer.disconnect(), 5000);
+    })();
+
+    attachDirPhotoTooltips(wrap);
+    preloadDirectorPhotosFrom(wrap);
+    initDirectorPopups(wrap);
+    attachGenericPhotoTooltips(wrap, '.uffb-participant .ph img[data-photo]');
+    initGallery(wrap);
+
+    // trailer buttons → lightbox (topline + per-short)
+    wrap.querySelectorAll('.uffb-trailer-btn').forEach((btn) => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const url = btn.getAttribute('data-trailer');
+        if (url) openLightbox(url);
+      });
+    });
+
+    // carousel (no-op if hero omitted for shorts)
+    initCarousel(wrap);
+
+    // tickets anchor behavior
+    enableTicketsJump();
+
+    // JSON-LD
+    const ld = document.createElement('script');
+    ld.type = 'application/ld+json';
+    ld.textContent = JSON.stringify(buildJsonLd(film));
+    document.head.appendChild(ld);
+  }
+
+  /* ---------- robust init ---------- */
+  let started = false;
+  const tryStart = () => {
+    const nodes = document.querySelectorAll(MOUNT);
+    if (!nodes.length) return;
+    if (started) return;
+    started = true;
+    nodes.forEach(render);
+  };
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', tryStart);
+  } else {
+    tryStart();
+  }
+  new MutationObserver(tryStart).observe(document.documentElement, {
+    childList: true,
+    subtree: true,
+  });
+})();
