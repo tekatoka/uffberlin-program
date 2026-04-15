@@ -1,4 +1,9 @@
-/uffb-program-2025.json
+/uffb2025/uffb-program-2025.json
+  Access-Control-Allow-Origin: *
+  Access-Control-Allow-Methods: GET, HEAD, OPTIONS
+  Access-Control-Allow-Headers: *
+
+/uffb2026/uffb-program-2026.json
   Access-Control-Allow-Origin: *
   Access-Control-Allow-Methods: GET, HEAD, OPTIONS
   Access-Control-Allow-Headers: *
