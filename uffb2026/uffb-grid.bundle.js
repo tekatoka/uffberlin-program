@@ -13,7 +13,17 @@
     : location.pathname.startsWith('/uk/')
       ? 'uk'
       : 'en';
-  const basePath = lang === 'de' ? '/de/uffb2025' : '/uffb2025';
+
+  const festivalSegment =
+    (location.pathname.match(/uffb20\d{2}/) || [])[0] || 'uffb2026';
+
+  const basePath =
+    lang === 'de'
+      ? `/de/${festivalSegment}`
+      : lang === 'uk'
+        ? `/uk/${festivalSegment}`
+        : `/${festivalSegment}`;
+
   const locale = lang === 'de' ? 'de-DE' : lang === 'uk' ? 'uk-UA' : 'en-GB';
 
   const I18N = {
@@ -55,6 +65,27 @@
         const [y, m, d] = iso.split('-');
         return `${d}.${m}.${y}`;
       }, // “DD.MM.YYYY” for dropdown
+      program: 'Programme',
+      myFavourites: 'My Favourites',
+      festivalPlanner: 'My Festival Planner',
+      view: 'View',
+      detailsView: 'Details',
+      compactView: 'Compact',
+      tilesView: 'Tiles',
+      resultsCount: (n) => `${n} ${n === 1 ? 'Result' : 'Results'}`,
+      plannerCount: (n) =>
+        `${n} ${n === 1 ? 'Saved screening' : 'Saved screenings'}`,
+      addToPlanner: 'Add to planner',
+      removeFromPlanner: 'Remove from planner',
+      saveToFavourites: 'Save to favourites',
+      removeFromFavourites: 'Remove from favourites',
+      favouritesEmptyTitle: 'No favourites yet.',
+      favouritesEmptyHint: 'Use the star icon on a film to save it here.',
+      plannerEmptyTitle: 'No screenings in your festival planner yet.',
+      plannerEmptyHint:
+        'Use “Add to planner” next to a screening to save it here.',
+      remove: 'Remove',
+      datePassed: 'Date passed',
     },
     de: {
       filterBtn: 'Filter',
@@ -94,6 +125,27 @@
         const [y, m, d] = iso.split('-');
         return `${d}.${m}.${y}`;
       },
+      program: 'Programm',
+      myFavourites: 'Meine Favoriten',
+      festivalPlanner: 'Mein Festivalplaner',
+      view: 'Ansicht',
+      detailsView: 'Details',
+      compactView: 'Kompakt',
+      tilesView: 'Kacheln',
+      resultsCount: (n) => `${n} ${n === 1 ? 'Ergebnis' : 'Ergebnisse'}`,
+      plannerCount: (n) =>
+        `${n} ${n === 1 ? 'Gespeicherter Termin' : 'Gespeicherte Termine'}`,
+      addToPlanner: 'Zum Planer',
+      removeFromPlanner: 'Aus Planer entfernen',
+      saveToFavourites: 'Zu Favoriten hinzufügen',
+      removeFromFavourites: 'Aus Favoriten entfernen',
+      favouritesEmptyTitle: 'Noch keine Favoriten.',
+      favouritesEmptyHint: 'Speichern Sie Filme hier mit dem Sternsymbol.',
+      plannerEmptyTitle: 'Noch keine Termine im Festivalplaner.',
+      plannerEmptyHint:
+        'Verwenden Sie „Zum Planer“ neben einem Termin, um ihn hier zu speichern.',
+      remove: 'Entfernen',
+      datePassed: 'Termin vorbei',
     },
     uk: {
       filterBtn: 'Фільтр',
@@ -132,9 +184,36 @@
         const [y, m, d] = iso.split('-');
         return `${d}.${m}.${y}`;
       },
+      program: 'Програма',
+      myFavourites: 'Мої улюблені',
+      festivalPlanner: 'Мій фестивальний планер',
+      view: 'Вигляд',
+      detailsView: 'Детально',
+      compactView: 'Компактно',
+      tilesView: 'Плитка',
+      resultsCount: (n) => `${n} ${n === 1 ? 'результат' : 'результатів'}`,
+      plannerCount: (n) =>
+        `${n} ${n === 1 ? 'збережений показ' : 'збережених показів'}`,
+      addToPlanner: 'Додати до планера',
+      removeFromPlanner: 'Прибрати з планера',
+      saveToFavourites: 'Додати в улюблені',
+      removeFromFavourites: 'Прибрати з улюблених',
+      favouritesEmptyTitle: 'Улюблених ще немає.',
+      favouritesEmptyHint:
+        'Використайте іконку зірки, щоб зберегти фільми тут.',
+      plannerEmptyTitle: 'У фестивальному планері ще немає показів.',
+      plannerEmptyHint:
+        'Натисніть «Додати до планера» біля показу, щоб зберегти його тут.',
+      remove: 'Прибрати',
+      datePassed: 'Дата минула',
     },
   };
   const t = (key) => I18N[lang][key];
+
+  const tf = (key, ...args) => {
+    const value = I18N[lang][key];
+    return typeof value === 'function' ? value(...args) : value;
+  };
 
   // Put this right after I18N (or near your other constants)
   const PANEL_IMG_URL =
@@ -170,10 +249,10 @@
     },
   };
 
-  //TODO: ADJUST FESTIVAL DATES IN 2026!!!
+  //TODO: ADJUST FESTIVAL DATES IN 2027!!!
   // --- Festival window (this year) ---
-  const FESTIVAL_START = '2025-10-22';
-  const FESTIVAL_END = '2025-10-26';
+  const FESTIVAL_START = '2026-10-14';
+  const FESTIVAL_END = '2026-10-18';
 
   function isoLocalToday() {
     // Europe/Berlin local "YYYY-MM-DD"
@@ -1070,6 +1149,352 @@
       font-weight: 600;
       margin-top: 6px;
     }
+
+    .uffb-hidden-force {
+      display: none !important;
+    }
+
+    .uffb-section-tabs {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin: 0 0 20px;
+    }
+
+    .uffb-section-btn {
+      appearance: none;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      background: rgba(255, 255, 255, 0.06);
+      color: #fff;
+      min-height: 58px;
+      padding: 0 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      font: inherit;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .uffb-section-btn svg {
+      width: 22px;
+      height: 22px;
+      display: block;
+    }
+
+    .uffb-section-btn.is-active {
+      background: #2d357a;
+      border-color: #2d357a;
+    }
+
+    .uffb-section-count {
+      opacity: 0.8;
+      font-weight: 600;
+    }
+
+    .uffb-viewbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      margin: 24px 0 20px;
+    }
+
+    .uffb-viewswitch {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .uffb-view-label {
+      font-weight: 700;
+    }
+
+    .uffb-view-segment {
+      display: inline-flex;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 999px;
+      overflow: hidden;
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .uffb-view-btn {
+      appearance: none;
+      border: 0;
+      background: transparent;
+      color: #fff;
+      min-height: 42px;
+      padding: 0 16px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      font: inherit;
+      font-weight: 700;
+    }
+
+    .uffb-view-btn.is-active {
+      background: #fff;
+      color: #111;
+    }
+
+    .uffb-view-btn svg {
+      width: 18px;
+      height: 18px;
+      display: block;
+    }
+
+    .uffb-results-count {
+      font-weight: 700;
+      opacity: 0.9;
+    }
+
+    .uffb-program-list {
+      display: flex;
+      flex-direction: column;
+      gap: 26px;
+    }
+
+    .uffb-program-item {
+      border-top: 1px solid rgba(255, 255, 255, 0.14);
+      padding-top: 28px;
+    }
+
+    .uffb-program-item__top {
+      display: grid;
+      grid-template-columns: minmax(280px, 40%) 1fr;
+      gap: 28px;
+      align-items: start;
+    }
+
+    .uffb-program-item--compact .uffb-program-item__top {
+      grid-template-columns: minmax(180px, 26%) 1fr;
+      gap: 22px;
+    }
+
+    .uffb-program-item__bottom {
+      margin-top: 22px;
+      padding-top: 18px;
+      border-top: 1px dashed rgba(255, 255, 255, 0.16);
+    }
+
+    .uffb-program-item__content {
+      min-width: 0;
+    }
+
+    .uffb-item-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 16px;
+    }
+
+    .uffb-item-header-main {
+      min-width: 0;
+      flex: 1;
+    }
+
+    .uffb-item-tools {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      flex-shrink: 0;
+    }
+
+    .uffb-tool-btn {
+      appearance: none;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      background: transparent;
+      color: #fff;
+      min-height: 44px;
+      padding: 0 14px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      font: inherit;
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .uffb-tool-btn svg {
+      width: 16px;
+      height: 16px;
+      display: block;
+    }
+
+    .uffb-tool-btn:hover {
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .uffb-icon-tool {
+      width: 44px;
+      min-width: 44px;
+      padding: 0;
+      justify-content: center;
+    }
+
+    .uffb-icon-tool.is-active {
+      background: #fff;
+      color: #111;
+      border-color: #fff;
+    }
+
+    .uffb-compact-meta {
+      margin-top: 10px;
+      line-height: 1.5;
+      opacity: 0.92;
+    }
+
+    .uffb-program-item--compact .uffb-desc,
+    .uffb-program-item--compact .uffb-warning,
+    .uffb-program-item--compact .uffb-meta1,
+    .uffb-program-item--compact .uffb-meta3 {
+      display: none;
+    }
+
+    .uffb-program-item--compact .uffb-meta2 {
+      margin-top: 6px !important;
+    }
+
+    .uffb-screenings--always {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .uffb-screenings--always .uffb-screening {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: end;
+      gap: 12px 18px;
+      padding-bottom: 14px;
+      border-bottom: 1px dashed rgba(255, 255, 255, 0.12);
+    }
+
+    .uffb-screenings--always .uffb-screening:last-child {
+      padding-bottom: 0;
+      border-bottom: 0;
+    }
+
+    .uffb-screening-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .uffb-planner-btn {
+      appearance: none;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      background: transparent;
+      color: #fff;
+      min-height: 42px;
+      padding: 0 12px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      font: inherit;
+      font-weight: 700;
+    }
+
+    .uffb-planner-btn svg {
+      width: 18px;
+      height: 18px;
+      display: block;
+    }
+
+    .uffb-planner-btn.is-active {
+      background: #fff;
+      color: #111;
+      border-color: #fff;
+    }
+
+    .uffb-planner-btn[disabled] {
+      opacity: 0.55;
+      pointer-events: none;
+    }
+
+    .uffb-card-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .uffb-card-head .uffb-item-tools {
+      margin-left: auto;
+    }
+
+    .uffb-planner-list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .uffb-planner-entry {
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      padding: 16px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 12px 18px;
+      align-items: center;
+    }
+
+    .uffb-planner-entry-title {
+      margin: 0 0 6px;
+      font-size: 1.25rem;
+    }
+
+    .uffb-planner-entry-title a {
+      color: var(--paragraphLinkColor, #0bb);
+      text-decoration: none;
+    }
+
+    .uffb-planner-entry-title a:hover {
+      text-decoration: underline !important;
+    }
+
+    .uffb-planner-entry-meta {
+      opacity: 0.9;
+      line-height: 1.5;
+    }
+
+    @media (max-width: 900px) {
+      .uffb-section-tabs {
+        grid-template-columns: 1fr;
+      }
+
+      .uffb-viewbar {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .uffb-program-item__top,
+      .uffb-program-item--compact .uffb-program-item__top,
+      .uffb-screenings--always .uffb-screening,
+      .uffb-planner-entry {
+        grid-template-columns: 1fr;
+      }
+
+      .uffb-item-header {
+        flex-direction: column;
+      }
+
+      .uffb-item-tools,
+      .uffb-screening-actions {
+        justify-content: flex-start;
+      }
+    }
   `;
 
   function injectCSS() {
@@ -1173,6 +1598,48 @@
     <svg viewBox="0 0 24 24" aria-hidden="true" stroke="currentColor" fill="none" stroke-width="2">
       <path d="M4 5h16M4 12h10M4 19h6" stroke-linecap="round"/>
     </svg>`,
+    program: `
+      <svg viewBox="0 0 24 24" aria-hidden="true" stroke="currentColor" fill="none" stroke-width="2">
+        <rect x="4" y="5" width="16" height="4" rx="1"></rect>
+        <rect x="4" y="11" width="16" height="8" rx="1"></rect>
+      </svg>`,
+    planner: (active = false) => `
+      <svg viewBox="0 0 24 24" aria-hidden="true" stroke="currentColor" fill="${active ? 'currentColor' : 'none'}" stroke-width="2">
+        <rect x="3" y="5" width="18" height="16" rx="2"></rect>
+        <path d="M8 3v4M16 3v4M3 10h18"></path>
+        <path d="M8 14l2 2 5-5" ${active ? 'stroke="#111"' : ''}></path>
+      </svg>`,
+    viewDetails: `
+      <svg viewBox="0 0 24 24" aria-hidden="true" stroke="currentColor" fill="none" stroke-width="2">
+        <rect x="3" y="5" width="7" height="14"></rect>
+        <path d="M13 7h8M13 12h8M13 17h6"></path>
+      </svg>`,
+    viewCompact: `
+      <svg viewBox="0 0 24 24" aria-hidden="true" stroke="currentColor" fill="none" stroke-width="2">
+        <rect x="3" y="7" width="5" height="10"></rect>
+        <path d="M11 9h10M11 15h8"></path>
+      </svg>`,
+    viewTiles: `
+      <svg viewBox="0 0 24 24" aria-hidden="true" stroke="currentColor" fill="none" stroke-width="2">
+        <rect x="3" y="3" width="8" height="8"></rect>
+        <rect x="13" y="3" width="8" height="8"></rect>
+        <rect x="3" y="13" width="8" height="8"></rect>
+        <rect x="13" y="13" width="8" height="8"></rect>
+      </svg>`,
+    star: (active = false) => `
+      <svg viewBox="0 0 24 24" aria-hidden="true" stroke="currentColor" fill="${active ? 'currentColor' : 'none'}" stroke-width="2">
+        <path d="M12 3.7l2.7 5.47 6.03.88-4.36 4.24 1.03 5.98L12 17.44 6.6 20.27l1.03-5.98L3.27 10.05l6.03-.88L12 3.7z"></path>
+      </svg>`,
+    play: `
+      <svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor">
+        <path d="M8 5v14l11-7z"></path>
+      </svg>`,
+    calendar: (active = false) => `
+      <svg viewBox="0 0 24 24" aria-hidden="true" stroke="currentColor" fill="${active ? 'currentColor' : 'none'}" stroke-width="2">
+        <rect x="3" y="5" width="18" height="16" rx="2"></rect>
+        <path d="M8 3v4M16 3v4M3 10h18"></path>
+        ${active ? `<path d="M8 14l2 2 5-5" stroke="#111"></path>` : `<path d="M12 13v5M9.5 15.5h5"></path>`}
+      </svg>`,
   };
 
   // --- Film Focus merge helpers ---
@@ -1712,6 +2179,8 @@
         ],
         panel_extra_html,
         published: true,
+
+        storageId: `${pd.id}::${s.date || ''}::${s.time || idx}`,
       };
     });
   }
@@ -2045,17 +2514,33 @@
 
   // --- Build controls (localized labels) ---
   function buildControls(container) {
+    const sectionTabs = document.createElement('div');
+    sectionTabs.className = 'uffb-section-tabs';
+    sectionTabs.innerHTML = `
+      <button type="button" class="uffb-section-btn" data-section="program">
+        ${ICONS.program}
+        <span>${t('program')}</span>
+      </button>
+      <button type="button" class="uffb-section-btn" data-section="favourites">
+        ${ICONS.star(false)}
+        <span>${t('myFavourites')}</span>
+        <span class="uffb-section-count" data-count-for="favourites"></span>
+      </button>
+      <button type="button" class="uffb-section-btn" data-section="planner">
+        ${ICONS.planner(false)}
+        <span>${t('festivalPlanner')}</span>
+        <span class="uffb-section-count" data-count-for="planner"></span>
+      </button>
+    `;
+    container.appendChild(sectionTabs);
+
     const controls = document.createElement('div');
     controls.className = 'uffb-controls';
     controls.innerHTML = `
-      <button class="uffb-icon-btn" id="filterToggle" aria-expanded="false" aria-controls="filters" title="${t(
-        'filterBtn'
-      )}">
+      <button class="uffb-icon-btn" id="filterToggle" aria-expanded="false" aria-controls="filters" title="${t('filterBtn')}">
         ${ICONS.filter}<span class="lbl">${t('filterBtn').toUpperCase()}</span>
       </button>
-      <button class="uffb-icon-btn" id="searchToggle" aria-expanded="false" aria-controls="searchbar" title="${t(
-        'searchBtn'
-      )}">
+      <button class="uffb-icon-btn" id="searchToggle" aria-expanded="false" aria-controls="searchbar" title="${t('searchBtn')}">
         ${ICONS.search}<span class="lbl">${t('searchBtn').toUpperCase()}</span>
       </button>
     `;
@@ -2064,22 +2549,22 @@
     const filters = document.createElement('form');
     filters.id = 'filters';
     filters.className = 'uffb-filters';
-    filters.setAttribute('hidden', ''); //default: hidden! TODO: change to visible before the festival!
+    filters.setAttribute('hidden', '');
     filters.innerHTML = html`
-      <label
-        ><span>${t('category')}</span>
+      <label>
+        <span>${t('category')}</span>
         <select id="filterCategory" class="uffb-field">
           <option value="">${t('all')}</option>
         </select>
       </label>
-      <label
-        ><span>${t('venue')}</span>
+      <label>
+        <span>${t('venue')}</span>
         <select id="filterVenue" class="uffb-field">
           <option value="">${t('all')}</option>
         </select>
       </label>
-      <label
-        ><span>${t('date')}</span>
+      <label>
+        <span>${t('date')}</span>
         <select id="filterDate" class="uffb-field">
           <option value="">${t('all')}</option>
         </select>
@@ -2096,7 +2581,7 @@
     const search = document.createElement('form');
     search.id = 'searchbar';
     search.className = 'uffb-search';
-    search.setAttribute('hidden', ''); //default: hidden! TODO: change to visible before the festival!
+    search.setAttribute('hidden', '');
     search.innerHTML = html`
       <input
         type="search"
@@ -2107,22 +2592,17 @@
     `;
     container.appendChild(search);
 
-    // --- GROUP BY (right side) ---
     const groupWrap = document.createElement('div');
     groupWrap.className = 'uffb-groupby';
     groupWrap.innerHTML = html`
-    <div class="uffb-groupby-head">
+      <div class="uffb-groupby-head">
         ${ICONS.group}
-        <span>${I18N[lang].groupBy || 'Group by'}</span>
+        <span>${I18N[lang].groupBy}</span>
       </div>
-      <div
-        class="chips"
-        role="radiogroup"
-        aria-label="${I18N[lang].groupBy || 'Group by'}"
-      >
+      <div class="chips" role="radiogroup" aria-label="${I18N[lang].groupBy}">
         <label class="uffb-chip" data-value="">
           <input type="radio" name="groupby" value="" checked />
-          <span>${I18N[lang].none || 'None'}</span>
+          <span>${I18N[lang].none}</span>
         </label>
         <label class="uffb-chip" data-value="category">
           <input type="radio" name="groupby" value="category" />
@@ -2137,15 +2617,37 @@
           <span>${t('today')}</span>
         </label>
       </div>
-  `;
+    `;
     controls.appendChild(groupWrap);
 
+    const viewBar = document.createElement('div');
+    viewBar.className = 'uffb-viewbar';
+    viewBar.innerHTML = `
+      <div class="uffb-viewswitch">
+        <span class="uffb-view-label">${t('view')}</span>
+        <div class="uffb-view-segment" role="tablist" aria-label="${t('view')}">
+          <button type="button" class="uffb-view-btn" data-view="details">${ICONS.viewDetails}<span>${t('detailsView')}</span></button>
+          <button type="button" class="uffb-view-btn" data-view="compact">${ICONS.viewCompact}<span>${t('compactView')}</span></button>
+          <button type="button" class="uffb-view-btn" data-view="tiles">${ICONS.viewTiles}<span>${t('tilesView')}</span></button>
+        </div>
+      </div>
+      <div class="uffb-results-count"></div>
+    `;
+    container.appendChild(viewBar);
+
     return {
+      section: {
+        root: sectionTabs,
+        buttons: sectionTabs.querySelectorAll('[data-section]'),
+        favouritesCount: sectionTabs.querySelector(
+          '[data-count-for="favourites"]'
+        ),
+        plannerCount: sectionTabs.querySelector('[data-count-for="planner"]'),
+      },
       controls,
       filters: {
         root: filters,
         cat: filters.querySelector('#filterCategory'),
-        // title: filters.querySelector('#filterTitle'),
         venue: filters.querySelector('#filterVenue'),
         date: filters.querySelector('#filterDate'),
         clear: filters.querySelector('#clearFilters'),
@@ -2163,7 +2665,55 @@
         radios: groupWrap.querySelectorAll('input[name="groupby"]'),
         todayChip: groupWrap.querySelector('#groupTodayChip'),
       },
+      view: {
+        root: viewBar,
+        buttons: viewBar.querySelectorAll('[data-view]'),
+        resultsCount: viewBar.querySelector('.uffb-results-count'),
+      },
     };
+  }
+
+  function createStore(scope) {
+    const prefix = `uffb:${scope}:`;
+
+    const read = (key, fallback) => {
+      try {
+        const raw = localStorage.getItem(prefix + key);
+        return raw == null ? fallback : JSON.parse(raw);
+      } catch {
+        return fallback;
+      }
+    };
+
+    const write = (key, value) => {
+      try {
+        localStorage.setItem(prefix + key, JSON.stringify(value));
+      } catch {}
+    };
+
+    return {
+      read,
+      write,
+      keys: {
+        favourites: 'favourites',
+        planner: 'planner',
+        view: 'view',
+        section: 'section',
+      },
+    };
+  }
+
+  function itemStorageId(item) {
+    return item.storageId || item.id;
+  }
+
+  function screeningStorageKey(item, screening) {
+    return [
+      itemStorageId(item),
+      screening.date || '',
+      screening.time || '',
+      safeTxt(getVenueName(screening)),
+    ].join('||');
   }
 
   // --- Main render ---
@@ -2235,8 +2785,31 @@
 
     const jsonUrl = el.dataset.json;
 
+    const scope = (jsonUrl.match(/20\d{2}/) || [])[0] || 'festival';
+    const store = createStore(scope);
+
+    const favourites = new Set(store.read(store.keys.favourites, []));
+    const planner = new Set(store.read(store.keys.planner, []));
+
+    const defaultView =
+      (el.dataset.layout || el.dataset.view || '').toLowerCase() === 'row'
+        ? 'details'
+        : 'tiles';
+
+    const saveFavourites = () =>
+      store.write(store.keys.favourites, Array.from(favourites));
+    const savePlanner = () =>
+      store.write(store.keys.planner, Array.from(planner));
+    const saveView = () => store.write(store.keys.view, state.view);
+    const saveSection = () => store.write(store.keys.section, state.section);
+
+    const isFavourite = (item) => favourites.has(itemStorageId(item));
+    const isPlanned = (item, screening) =>
+      planner.has(screeningStorageKey(item, screening));
+
     let items = [];
     let filtered = [];
+
     const state = {
       category: '',
       venue: '',
@@ -2244,6 +2817,8 @@
       date: '',
       q: '',
       groupBy: defaultGroup,
+      section: store.read(store.keys.section, 'program'),
+      view: store.read(store.keys.view, defaultView),
     };
 
     ui.group.radios.forEach((r) => {
@@ -2268,31 +2843,90 @@
       })
     );
 
+    ui.section.buttons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        state.section = btn.dataset.section;
+        saveSection();
+        syncTopUi();
+        applyAll();
+      });
+    });
+
+    ui.view.buttons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        state.view = btn.dataset.view;
+        saveView();
+        syncTopUi();
+        applyAll();
+      });
+    });
+
     syncChips();
 
-    function renderUngrouped(list, variant, onlyDate) {
-      if (variant === 'row') {
-        outlet.innerHTML = `<div class="uffb-list">${list
-          .map((f) =>
-            filmCard(f, {
-              variant,
-              onlyDate: onlyDate || null,
-              onlyVenue: state.venue || null,
-            })
-          )
-          .join('')}</div>`;
-      } else {
-        outlet.innerHTML = `<div class="uffb-grid">${list
-          .map((f) =>
-            filmCard(f, {
-              variant,
-              onlyDate: onlyDate || null,
-              onlyVenue: state.venue || null,
-            })
-          )
-          .join('')}</div>`;
-      }
+    function syncTopUi() {
+      ui.section.buttons.forEach((btn) => {
+        btn.classList.toggle(
+          'is-active',
+          btn.dataset.section === state.section
+        );
+      });
+
+      ui.view.buttons.forEach((btn) => {
+        btn.classList.toggle('is-active', btn.dataset.view === state.view);
+      });
+
+      const plannerMode = state.section === 'planner';
+      ui.controls.classList.toggle('uffb-hidden-force', plannerMode);
+      ui.filters.root.classList.toggle('uffb-hidden-force', plannerMode);
+      ui.search.root.classList.toggle('uffb-hidden-force', plannerMode);
+      ui.view.root.classList.toggle('uffb-hidden-force', plannerMode);
+    }
+
+    function getPlannerEntries() {
+      return items
+        .flatMap((item) =>
+          (item.screenings || [])
+            .filter((s) => planner.has(screeningStorageKey(item, s)))
+            .map((screening) => ({
+              item,
+              screening,
+              key: screeningStorageKey(item, screening),
+            }))
+        )
+        .sort((a, b) => {
+          const da = a.screening.date || '';
+          const db = b.screening.date || '';
+          if (da !== db) return da.localeCompare(db);
+          const ta = timeToMinutes(a.screening.time);
+          const tb = timeToMinutes(b.screening.time);
+          if (ta !== tb) return ta - tb;
+          return (localized(a.item.title) || '').localeCompare(
+            localized(b.item.title) || '',
+            locale
+          );
+        });
+    }
+
+    function refreshCounters() {
+      const favCount = items.filter((item) =>
+        favourites.has(itemStorageId(item))
+      ).length;
+      const plannerCount = getPlannerEntries().length;
+
+      ui.section.favouritesCount.textContent = `(${favCount})`;
+      ui.section.plannerCount.textContent = `(${plannerCount})`;
+    }
+
+    function setResultsCount(n) {
+      ui.view.resultsCount.textContent =
+        state.section === 'planner'
+          ? tf('plannerCount', n)
+          : tf('resultsCount', n);
+    }
+
+    function bindInteractiveButtons() {
       const modal = mountModal();
+
       outlet.querySelectorAll('[data-trailer]').forEach((btn) => {
         btn.addEventListener('click', (e) => {
           const u = decodeURIComponent(
@@ -2301,18 +2935,370 @@
           modal.open(u);
         });
       });
+
+      outlet.querySelectorAll('[data-favourite-key]').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const key = decodeURIComponent(btn.dataset.favouriteKey);
+          if (favourites.has(key)) favourites.delete(key);
+          else favourites.add(key);
+          saveFavourites();
+          refreshCounters();
+          applyAll();
+        });
+      });
+
+      outlet.querySelectorAll('[data-planner-key]').forEach((btn) => {
+        if (btn.disabled) return;
+
+        btn.addEventListener('click', () => {
+          const key = decodeURIComponent(btn.dataset.plannerKey);
+          if (planner.has(key)) planner.delete(key);
+          else planner.add(key);
+          savePlanner();
+          refreshCounters();
+          applyAll();
+        });
+      });
     }
 
-    function renderGroupedByCategory(list, variant, onlyDate) {
-      // grouping key -> {label, films[]}
+    function screeningsFor(item, opts = {}) {
+      const onlyDate = opts.onlyDate || null;
+      const onlyVenue = opts.onlyVenue || null;
+
+      return (item.screenings || []).filter((s) => {
+        if (onlyDate && s.date !== onlyDate) return false;
+        if (onlyVenue && safeTxt(getVenueName(s)) !== onlyVenue) return false;
+        return true;
+      });
+    }
+
+    function renderTopTools(item) {
+      const favActive = isFavourite(item);
+      return `
+        <div class="uffb-item-tools">
+          ${
+            item.trailer
+              ? `<button type="button" class="uffb-tool-btn" data-trailer="${encodeURIComponent(item.trailer)}">
+                  ${ICONS.play}
+                  <span>${t('watchTrailer')}</span>
+                </button>`
+              : ''
+          }
+          <button
+            type="button"
+            class="uffb-tool-btn uffb-icon-tool ${favActive ? 'is-active' : ''}"
+            data-favourite-key="${encodeURIComponent(itemStorageId(item))}"
+            aria-pressed="${favActive ? 'true' : 'false'}"
+            aria-label="${favActive ? t('removeFromFavourites') : t('saveToFavourites')}"
+            title="${favActive ? t('removeFromFavourites') : t('saveToFavourites')}"
+          >
+            ${ICONS.star(favActive)}
+          </button>
+        </div>
+      `;
+    }
+
+    function renderScreeningLine(item, s) {
+      const dtISO = `${s.date}T${s.time || '00:00'}:00${offsetFor()}`;
+      const d = new Date(dtISO);
+      const when = `${fmt.format(d)}${s.time ? `, ${s.time}` : ''}`;
+
+      const perDateNotes = parsePerDateLanguageNotes(item);
+      const noteKey = dateToDM(s.date);
+      const langNote = perDateNotes[noteKey] || '';
+
+      const venueName = getVenueName(s);
+      const addressTxt =
+        typeof s.address === 'string'
+          ? s.address
+          : s.address?.[lang] || s.address?.de || s.address?.en || '';
+
+      const website = s.website || '';
+      const isSoldOut = s.isSoldOut;
+      const isPast = isPastScreeningDate(s.date);
+
+      let mapsUrl = s.maps?.google || '';
+      if (!mapsUrl && (venueName || addressTxt)) {
+        const q = [venueName, addressTxt].filter(Boolean).join(', ');
+        mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(q)}`;
+      }
+
+      const key = screeningStorageKey(item, s);
+      const planned = planner.has(key);
+
+      const plannerBtn = isPast
+        ? `<button type="button" class="uffb-planner-btn" disabled>${t('datePassed')}</button>`
+        : `<button
+            type="button"
+            class="uffb-planner-btn ${planned ? 'is-active' : ''}"
+            data-planner-key="${encodeURIComponent(key)}"
+            aria-pressed="${planned ? 'true' : 'false'}"
+          >
+            ${ICONS.calendar(planned)}
+            <span>${planned ? t('removeFromPlanner') : t('addToPlanner')}</span>
+          </button>`;
+
+      const ticketHtml =
+        isSoldOut || isPast
+          ? `<span class="uffb-tickets is-disabled"><a href="#">${isSoldOut ? t('soldOut') : t('tickets')}</a></span>`
+          : s.tickets
+            ? `<span class="uffb-tickets"><a href="${s.tickets}" target="_blank" rel="noopener">${t('tickets')}</a></span>`
+            : '';
+
+      return `
+        <li class="uffb-screening">
+          <div class="uffb-left">
+            <div class="uffb-when"><strong>${when}</strong></div>
+            ${venueName ? `<div class="uffb-venue"><a href="${website}" target="_blank">${escapeHtml(venueName)}</a></div>` : ''}
+            ${addressTxt ? `<div class="uffb-address"><a href="${mapsUrl}" target="_blank" rel="noopener">${escapeHtml(addressTxt)}</a></div>` : ''}
+            ${langNote ? `<div class="uffb-lang-note"><em>${escapeHtml(langNote)}</em></div>` : ''}
+            ${!ticketHtml && !isParty(item) ? `<div class="uffb-no-tickets">${t('bookTicketsSoon')}</div>` : ''}
+          </div>
+          <div class="uffb-screening-actions">
+            ${plannerBtn}
+            ${!isAfterFestival(isoLocalToday()) ? ticketHtml : ''}
+          </div>
+        </li>
+      `;
+    }
+
+    function renderMeta(item, compact = false) {
+      const genreTxt = joinVals(item.genre);
+      const countriesTxt = joinVals(item.countries);
+      const yearTxt = item.year ? String(item.year) : '';
+      const directorTxt = joinVals(item.director);
+      const curatorTxt = joinVals(item.curator);
+      let durationTxt = item.duration != null ? item.duration : '';
+      if (typeof durationTxt === 'number') durationTxt = `${durationTxt}'`;
+      else durationTxt = localized(durationTxt);
+
+      if (compact) {
+        return `
+          <div class="uffb-compact-meta">
+            ${[countriesTxt, yearTxt].filter(Boolean).join(' • ')}
+            ${directorTxt ? `<div>${t('director')}: ${escapeHtml(directorTxt)}</div>` : ''}
+          </div>
+        `;
+      }
+
+      return `
+        <div class="uffb-meta">
+          ${genreTxt ? `<div class="uffb-meta1"><em>${escapeHtml(genreTxt)}</em></div>` : ''}
+          ${
+            [countriesTxt, yearTxt].filter(Boolean).length
+              ? `<div class="uffb-meta1"><em>${escapeHtml([countriesTxt, yearTxt].filter(Boolean).join(' | '))}</em></div>`
+              : ''
+          }
+          ${directorTxt ? `<div class="uffb-meta2" style="margin-top:10px">${t('director')}: ${escapeHtml(directorTxt)}</div>` : ''}
+          ${curatorTxt ? `<div class="uffb-meta2" style="margin-top:10px">${t('curator')}: ${escapeHtml(curatorTxt)}</div>` : ''}
+          ${durationTxt ? `<div class="uffb-meta3">${escapeHtml(durationTxt)}</div>` : ''}
+        </div>
+      `;
+    }
+
+    function renderProgramCard(item, opts = {}) {
+      const onlyDate = opts.onlyDate || null;
+      const onlyVenue = opts.onlyVenue || null;
+      const view = state.view;
+
+      const href = `${basePath}/${encodeURIComponent(item.id)}`;
+      const title =
+        item.title?.[lang] ||
+        item.title?.de ||
+        item.title?.en ||
+        item.title?.uk ||
+        'Untitled';
+      const category =
+        item.category?.[lang] ||
+        item.category?.de ||
+        item.category?.en ||
+        item.category?.uk ||
+        '—';
+      const desc =
+        item.short_description?.[lang] ||
+        item.short_description?.de ||
+        item.short_description?.en ||
+        item.short_description?.uk ||
+        '';
+      const img = item.image || '';
+      const additionalInfo = item.additional_info
+        ? localized(item.additional_info)
+        : '';
+
+      const screenings = screeningsFor(item, { onlyDate, onlyVenue })
+        .sort((a, b) => timeToMinutes(a.time) - timeToMinutes(b.time))
+        .map((s) => renderScreeningLine(item, s))
+        .join('');
+
+      if (view === 'tiles') {
+        return `
+          <article class="uffb-card" data-id="${item.id}">
+            <a class="uffb-media" href="${href}" aria-label="${escapeHtml(title)}">
+              <img src="${img}" alt="${escapeHtml(title)}" />
+            </a>
+            <div class="uffb-body">
+              <div class="uffb-card-head">
+                <div>
+                  <div class="uffb-category">${escapeHtml(category)}</div>
+                  <h3 class="uffb-title"><a href="${href}">${escapeHtml(title)}</a></h3>
+                </div>
+                ${renderTopTools(item)}
+              </div>
+              ${renderMeta(item, false)}
+              ${desc?.trim() ? `<div class="uffb-desc">${desc}</div>` : ''}
+              ${additionalInfo ? `<div class="uffb-warning">${additionalInfo}</div>` : ''}
+              ${renderLineupList(item)}
+              ${renderEntry(item)}
+              ${item.category?.key === 'panel_discussion' && item.panel_extra_html ? item.panel_extra_html : ''}
+              ${renderShortsList(item)}
+              <div class="uffb-program-item__bottom">
+                <ul class="uffb-screenings uffb-screenings--always">${screenings}</ul>
+              </div>
+            </div>
+          </article>
+        `;
+      }
+
+      const compact = view === 'compact';
+
+      return `
+        <article class="uffb-program-item uffb-program-item--${compact ? 'compact' : 'details'}" data-id="${item.id}">
+          <div class="uffb-program-item__top">
+            <a class="uffb-media" href="${href}" aria-label="${escapeHtml(title)}">
+              <img src="${img}" alt="${escapeHtml(title)}" />
+            </a>
+
+            <div class="uffb-program-item__content">
+              <div class="uffb-item-header">
+                <div class="uffb-item-header-main">
+                  <div class="uffb-category">${escapeHtml(category)}</div>
+                  <h3 class="uffb-title"><a href="${href}">${escapeHtml(title)}</a></h3>
+                  ${renderMeta(item, compact)}
+                  ${!compact && desc?.trim() ? `<div class="uffb-desc">${desc}</div>` : ''}
+                  ${!compact && additionalInfo ? `<div class="uffb-warning">${additionalInfo}</div>` : ''}
+                  ${!compact ? renderLineupList(item) : ''}
+                  ${!compact ? renderEntry(item) : ''}
+                  ${!compact && item.category?.key === 'panel_discussion' && item.panel_extra_html ? item.panel_extra_html : ''}
+                  ${!compact ? renderShortsList(item) : ''}
+                </div>
+                ${renderTopTools(item)}
+              </div>
+            </div>
+          </div>
+
+          <div class="uffb-program-item__bottom">
+            <ul class="uffb-screenings uffb-screenings--always">
+              ${screenings || `<li class="uffb-screening"><div class="uffb-left">${t('noDates')}</div></li>`}
+            </ul>
+          </div>
+        </article>
+      `;
+    }
+
+    function renderPlannerEntry(entry) {
+      const item = entry.item;
+      const screening = entry.screening;
+      const href = `${basePath}/${encodeURIComponent(item.id)}`;
+      const title =
+        item.title?.[lang] ||
+        item.title?.de ||
+        item.title?.en ||
+        item.title?.uk ||
+        'Untitled';
+
+      const dtISO = `${screening.date}T${screening.time || '00:00'}:00${offsetFor()}`;
+      const d = new Date(dtISO);
+      const when = `${fmt.format(d)}${screening.time ? `, ${screening.time}` : ''}`;
+
+      return `
+        <article class="uffb-planner-entry">
+          <div>
+            <h4 class="uffb-planner-entry-title">
+              <a href="${href}">${escapeHtml(title)}</a>
+            </h4>
+            <div class="uffb-planner-entry-meta">${escapeHtml(when)}</div>
+            <div class="uffb-planner-entry-meta">${escapeHtml(getVenueName(screening))}</div>
+          </div>
+          <div>
+            <button
+              type="button"
+              class="uffb-planner-btn is-active"
+              data-planner-key="${encodeURIComponent(entry.key)}"
+            >
+              ${ICONS.calendar(true)}
+              <span>${t('remove')}</span>
+            </button>
+          </div>
+        </article>
+      `;
+    }
+
+    function renderPlannerView() {
+      const entries = getPlannerEntries();
+      setResultsCount(entries.length);
+
+      if (!entries.length) {
+        outlet.innerHTML = `
+          <div class="uffb-empty">
+            <h4>${t('plannerEmptyTitle')}</h4>
+            <p>${t('plannerEmptyHint')}</p>
+          </div>
+        `;
+        return;
+      }
+
+      const grouped = new Map();
+      entries.forEach((entry) => {
+        const date = entry.screening.date || 'undated';
+        if (!grouped.has(date)) grouped.set(date, []);
+        grouped.get(date).push(entry);
+      });
+
+      const sections = Array.from(grouped.entries())
+        .sort((a, b) => a[0].localeCompare(b[0]))
+        .map(
+          ([date, entriesForDate]) => `
+            <section class="uffb-group">
+              <h4 class="uffb-group-title">${date === 'undated' ? t('noDates') : escapeHtml(isoToLabel(date))}</h4>
+              <div class="uffb-planner-list">
+                ${entriesForDate.map(renderPlannerEntry).join('')}
+              </div>
+            </section>
+          `
+        )
+        .join('');
+
+      outlet.innerHTML = `<div class="uffb-groups">${sections}</div>`;
+      bindInteractiveButtons();
+    }
+
+    function renderUngrouped(list, onlyDate) {
+      const cls = state.view === 'tiles' ? 'uffb-grid' : 'uffb-program-list';
+      outlet.innerHTML = `
+        <div class="${cls}">
+          ${list
+            .map((item) =>
+              renderProgramCard(item, {
+                onlyDate: onlyDate || null,
+                onlyVenue: state.venue || null,
+              })
+            )
+            .join('')}
+        </div>
+      `;
+      setResultsCount(list.length);
+      bindInteractiveButtons();
+    }
+
+    function renderGroupedByCategory(list, onlyDate) {
       const catMap = new Map();
-      list.forEach((f) => {
-        // merged Film Focus group for grouping only
-        const { key, label } = getGroupingKeyAndLabel(f);
+
+      list.forEach((item) => {
+        const { key, label } = getGroupingKeyAndLabel(item);
         const k = key || '_uncat';
         const lbl = label || t('category');
         if (!catMap.has(k)) catMap.set(k, { label: lbl, films: [] });
-        catMap.get(k).films.push(f);
+        catMap.get(k).films.push(item);
       });
 
       const groups = Array.from(catMap.entries())
@@ -2329,126 +3315,68 @@
           return a.label.localeCompare(b.label);
         });
 
-      let htmlStr = `<div class="uffb-groups">`;
-      groups.forEach((g) => {
-        htmlStr += `
-      <section class="uffb-group" data-group="${escapeHtml(g.key)}">
-        <h4 class="uffb-group-title">#${escapeHtml(g.label)}</h4>
-        ${
-          variant === 'row'
-            ? `<div class="uffb-list">${g.films
-                .map((f) =>
-                  filmCard(f, {
-                    variant,
-                    onlyDate: onlyDate || null,
-                    onlyVenue: state.venue || null,
-                  })
-                )
-                .join('')}</div>`
-            : `<div class="uffb-grid two-cols">${g.films
-                .map((f) =>
-                  filmCard(f, {
-                    variant,
-                    onlyDate: onlyDate || null,
-                    onlyVenue: state.venue || null,
-                  })
-                )
-                .join('')}</div>`
-        }
-      </section>`;
-      });
-      htmlStr += `</div>`;
-      outlet.innerHTML = htmlStr;
+      const htmlStr = groups
+        .map((g) => {
+          const cls =
+            state.view === 'tiles' ? 'uffb-grid two-cols' : 'uffb-program-list';
+          return `
+            <section class="uffb-group" data-group="${escapeHtml(g.key)}">
+              <h4 class="uffb-group-title">${escapeHtml(g.label)}</h4>
+              <div class="${cls}">
+                ${g.films
+                  .map((item) =>
+                    renderProgramCard(item, {
+                      onlyDate: onlyDate || null,
+                      onlyVenue: state.venue || null,
+                    })
+                  )
+                  .join('')}
+              </div>
+            </section>
+          `;
+        })
+        .join('');
 
-      const modal = mountModal();
-      outlet.querySelectorAll('[data-trailer]').forEach((btn) => {
-        btn.addEventListener('click', (e) => {
-          const u = decodeURIComponent(
-            e.currentTarget.getAttribute('data-trailer')
-          );
-          modal.open(u);
-        });
-      });
+      outlet.innerHTML = `<div class="uffb-groups">${htmlStr}</div>`;
+      setResultsCount(list.length);
+      bindInteractiveButtons();
     }
 
-    function renderGroupedByDate(list, variant, onlyDate) {
+    function renderGroupedByDate(list, onlyDate) {
       const only = onlyDate || null;
-      const dateMap = explodeByDate(list, only); // ⬅️ pass selected date
+      const dateMap = explodeByDate(list, only);
       const dates = Array.from(dateMap.keys()).sort();
 
-      // Undated group: only show when NO date filter is active
-      const undated = !only
-        ? list
-            .filter((f) => !(f.screenings || []).some((s) => s.date))
-            .sort((a, b) => {
-              const at = localized(a.title) || '';
-              const bt = localized(b.title) || '';
-              return at.localeCompare(bt);
-            })
-        : [];
-
       let htmlStr = `<div class="uffb-groups">`;
 
-      // Dated groups (now only the selected date when set)
-      dates.forEach((d) => {
-        const nice = isoToLabel(d);
-        const entries = dateMap.get(d) || [];
-        entries.sort((a, b) => timeToMinutes(a.time) - timeToMinutes(b.time));
+      dates.forEach((date) => {
+        const nice = isoToLabel(date);
+        const entries = dateMap.get(date) || [];
+
+        const cls = state.view === 'tiles' ? 'uffb-grid' : 'uffb-program-list';
 
         htmlStr += `
-      <section class="uffb-group" data-date="${escapeHtml(d)}">
-        <h4 class="uffb-group-title">${escapeHtml(nice)}</h4>
-        ${
-          variant === 'row'
-            ? `<div class="uffb-list">${entries
-                .map(({ film, date }) =>
-                  filmCard(film, {
-                    variant,
+          <section class="uffb-group" data-date="${escapeHtml(date)}">
+            <h4 class="uffb-group-title">${escapeHtml(nice)}</h4>
+            <div class="${cls}">
+              ${entries
+                .map(({ film }) =>
+                  renderProgramCard(film, {
                     onlyDate: date,
                     onlyVenue: state.venue || null,
                   })
                 )
-                .join('')}</div>`
-            : `<div class="uffb-grid">${entries
-                .map(({ film, date }) =>
-                  filmCard(film, {
-                    variant,
-                    onlyDate: date,
-                    onlyVenue: state.venue || null,
-                  })
-                )
-                .join('')}</div>`
-        }
-      </section>`;
+                .join('')}
+            </div>
+          </section>
+        `;
       });
-
-      if (undated.length) {
-        const undatedLabel = '…' + t('noDates');
-        htmlStr += `
-      <section class="uffb-group" data-date="undated">
-        <h4 class="uffb-group-title">${undatedLabel}</h4>
-        ${
-          variant === 'row'
-            ? `<div class="uffb-list">${undated.map((film) => filmCard(film, { variant })).join('')}</div>`
-            : `<div class="uffb-grid">${undated.map((film) => filmCard(film, { variant })).join('')}</div>`
-        }
-      </section>`;
-      }
 
       htmlStr += `</div>`;
       outlet.innerHTML = htmlStr;
-
-      const modal = mountModal();
-      outlet.querySelectorAll('[data-trailer]').forEach((btn) => {
-        btn.addEventListener('click', (e) => {
-          const u = decodeURIComponent(
-            e.currentTarget.getAttribute('data-trailer')
-          );
-          modal.open(u);
-        });
-      });
+      setResultsCount(list.length);
+      bindInteractiveButtons();
     }
-
     // normalize i18n/arrays/strings → single lowercase-ready string
     const langTxt = (v) => {
       if (!v) return '';
@@ -2463,7 +3391,19 @@
       const effectiveDate =
         state.groupBy === 'today' ? isoLocalToday() : state.date;
 
-      filtered = items.filter((f) => {
+      syncTopUi();
+
+      if (state.section === 'planner') {
+        renderPlannerView();
+        return;
+      }
+
+      let sourceItems =
+        state.section === 'favourites'
+          ? items.filter((item) => favourites.has(itemStorageId(item)))
+          : items;
+
+      filtered = sourceItems.filter((f) => {
         if (state.title) {
           if (f.id !== state.title) return false;
         }
@@ -2572,19 +3512,29 @@
       });
 
       if (state.groupBy === 'category') {
-        renderGroupedByCategory(filtered, layoutVariant, effectiveDate);
+        renderGroupedByCategory(filtered, effectiveDate);
       } else if (state.groupBy === 'date' || state.groupBy === 'today') {
-        renderGroupedByDate(filtered, layoutVariant, effectiveDate);
+        renderGroupedByDate(filtered, effectiveDate);
       } else {
-        renderUngrouped(filtered, layoutVariant, effectiveDate);
+        renderUngrouped(filtered, effectiveDate);
       }
 
       // --- empty state ---
       if (filtered.length === 0) {
+        const isFavEmpty =
+          state.section === 'favourites' &&
+          !favourites.size &&
+          !state.category &&
+          !state.venue &&
+          !state.date &&
+          !state.q;
+
         outlet.innerHTML = html`
           <div class="uffb-empty">
-            <h4>${t('noResultsTitle')}</h4>
-            <p>${t('noResultsHint')}</p>
+            <h4>
+              ${isFavEmpty ? t('favouritesEmptyTitle') : t('noResultsTitle')}
+            </h4>
+            <p>${isFavEmpty ? t('favouritesEmptyHint') : t('noResultsHint')}</p>
             <div class="uffb-empty-actions">
               <button
                 type="button"
@@ -2597,15 +3547,16 @@
             </div>
           </div>
         `;
-        // wire the reset to your existing Clear Filters logic
+
+        setResultsCount(0);
+
         const resetBtn = outlet.querySelector('#resetAllFilters');
         if (resetBtn) {
           resetBtn.addEventListener('click', () => {
-            // triggers your UI reset + state reset + applyAll()
             ui.filters.clear.click();
           });
         }
-        return; // stop here; don’t render lists/groups
+        return;
       }
     }
 
@@ -2794,6 +3745,9 @@
         items = [...baseFilms, ...panelItems].sort((a, b) =>
           earliestDate(a).localeCompare(earliestDate(b))
         );
+
+        refreshCounters();
+        syncTopUi();
 
         initFilterOptions(items);
         applyAll();
